@@ -1,0 +1,61 @@
+{hara/base 
+ {:description  "base namespaces for hara"
+  :include      [[hara.core          :complete]
+                 [hara.data          :base]
+                 [hara.data.deque    :complete]
+                 [hara.data.table    :complete]
+                 [hara.function      :base]
+                 [hara.io            :base]
+                 [hara.io.file       :complete]
+                 [hara.io.project    :complete]
+                 [hara.module        :base]
+                 [hara.module.artifact        :complete]
+                 [hara.module.classloader     :complete]
+                 [hara.object        :complete]
+                 [hara.protocol      :complete]
+                 [hara.print         :base]
+                 [hara.string        :base]
+                 [hara.state         :base]
+                 [hara.state.group   :complete]
+                 [hara.test          :complete]]
+  :files         {:path "target/classes" :include ["hara/io"]}
+  :dependencies  [org.clojure/core.rrb-vector
+                  org.ow2.asm/asm]}
+ 
+ hara/deploy
+ {:description  "code packaging and distribution"
+  :include      [[hara.deploy        :complete]]}
+ 
+ hara/lib.aether
+ {:description  "wrapper for org.eclipse.aether"
+  :include      [[hara.lib.aether    :complete]]
+  :dependencies [org.eclipse.aether/aether-api
+                 org.eclipse.aether/aether-spi
+                 org.eclipse.aether/aether-util
+                 org.eclipse.aether/aether-impl
+                 org.eclipse.aether/aether-connector-basic
+                 org.eclipse.aether/aether-transport-wagon
+                 org.eclipse.aether/aether-transport-http
+                 org.eclipse.aether/aether-transport-file
+                 org.eclipse.aether/aether-transport-classpath
+                 org.apache.maven/maven-aether-provider]}
+ 
+ hara/lib.jgit 
+ {:description  "wrapper for org.eclipse.jgit"
+  :include      [[hara.lib.jgit       :complete]]
+  :dependencies [org.eclipse.jgit/org.eclipse.jgit]}
+  
+ hara/lib.jsoup
+ {:description  "wrapper for org.jsoup"
+  :include      [[hara.lib.jsoup     :complete]]
+  :dependencies [org.jsoup/jsoup]}
+
+ hara/security
+ {:description  "cryptography that makes sense"
+  :include      [[hara.security       :base]]}
+
+ hara/security.pgp
+ {:description  "openpgp that makes sense"
+  :include      [[hara.security.pgp   :complete]]
+  :dependencies [org.bouncycastle/bcprov-jdk15on
+                 org.bouncycastle/bcpg-jdk15on]}}
