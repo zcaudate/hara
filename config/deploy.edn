@@ -18,6 +18,10 @@
  {:description  "versioning, environment and configuration"
   :include      [[hara.core.environment  :complete]
                  [hara.core.version      :complete]]}
+
+ hara/core.encode
+ {:description  "base64 encoding"
+  :include      [[hara.core.encode  :complete]]}
                  
  hara/core.event
  {:description  "conditional restarts"
