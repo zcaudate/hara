@@ -8,7 +8,7 @@
 (fact "grabs the symbol of the class in the java file"
   (get-class
    (io/file "code/java/test/Cat.java"))
-  => 'hara.io.binary.ByteBufferInputStream)
+  => 'test.Cat)
 
 ^{:refer hara.deploy.analyser.java/get-imports :added "3.0"}
 (fact "grabs the symbol of the class in the java file"

@@ -63,10 +63,10 @@
   (link? "project.clj")
   => false
 
-  (link? (create-symlink "dev/scratch/project.lnk"
+  (link? (create-symlink "project.lnk"
                          "project.clj"))
   => true
-  (delete "dev/scratch/project.lnk"))
+  (delete "project.lnk"))
 
 ^{:refer hara.io.file/readable? :added "3.0"}
 (fact "checks whether a file is readable"
@@ -278,5 +278,4 @@
 
 (comment
   (require 'hara.code)
-  (hara.code/import {:write true}
-                    ))
+  (hara.code/import {:write true}))

@@ -30,7 +30,8 @@
 (defn- ucp-remove-url
   [ucp ^URL entry]
   (let [paths (ucp-access-path ucp)      ;; util.ArrayList
-        urls (ucp-access-urls ucp)       ;; util.Stack
+        urls  (if ucp-access-urls        ;; util.Stack (removed in openjdk.11)
+                (ucp-access-urls ucp))       
         loaders (ucp-access-loaders ucp) ;; util.ArrayList 
         lmap (ucp-access-lmap ucp)       ;; util.HashMap
 
