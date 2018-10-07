@@ -1,4 +1,4 @@
-(ns hara.core.event.util
+(ns hara.event.util
   (:require [hara.core.base.check :as check]
             [hara.core.base.util :as primitive]))
 

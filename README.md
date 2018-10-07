@@ -20,6 +20,12 @@
 - [hara.state]()
 - [hara.test]()
 
+#### hara.core.encode
+
+#### hara.core.event
+
+#### hara.deploy
+#### hara.deploy
 #### hara.deploy
 
 #### hara.lib.aether

@@ -1,5 +1,5 @@
-(ns hara.core.event.condition.data
-  (:require [hara.core.event.handler :as handler]))
+(ns hara.event.condition.data
+  (:require [hara.event.handler :as handler]))
 
 (defn issue
   "creates a new issue
@@ -54,7 +54,7 @@
        (.setStackTrace (->> (seq (.getStackTrace error))
                             (filter (fn [^StackTraceElement name]
                                       (-> (.getClassName name)
-                                          (.startsWith "hara.core.event")
+                                          (.startsWith "hara.event")
                                           (not))))
                             (into-array StackTraceElement))))))
   ([issue data]

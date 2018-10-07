@@ -7,11 +7,11 @@
 ^{:refer hara.deploy.analyser.java/get-class :added "3.0"}
 (fact "grabs the symbol of the class in the java file"
   (get-class
-   (io/file "code/java/hara/io/ByteBufferInputStream.java"))
+   (io/file "code/java/test/Cat.java"))
   => 'hara.io.binary.ByteBufferInputStream)
 
 ^{:refer hara.deploy.analyser.java/get-imports :added "3.0"}
 (fact "grabs the symbol of the class in the java file"
   (get-imports
-   (io/file "code/java/hara/io/ByteBufferInputStream.java"))
-  => '(java.nio.ByteBuffer java.io.InputStream java.io.IOException))
+   (io/file "code/java/test/Cat.java"))
+  => '())

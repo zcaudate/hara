@@ -1,4 +1,4 @@
-(ns hara.core.event.condition.manage)
+(ns hara.event.condition.manage)
 
 (defn manage-apply
   "helper function to manage-condition"

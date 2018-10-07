@@ -1,8 +1,8 @@
-(ns hara.core.event.condition.raise
+(ns hara.event.condition.raise
   (:require [hara.data.base.map :as map]
-            [hara.core.event.handler :as handler]
-            [hara.core.event.condition.data :as data]
-            [hara.core.event.condition.manage :as manage]))
+            [hara.event.handler :as handler]
+            [hara.event.condition.data :as data]
+            [hara.event.condition.manage :as manage]))
 
 (defn default-unhandled-fn
   "raises an unhandled exception"

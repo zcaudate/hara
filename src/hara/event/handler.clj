@@ -1,4 +1,4 @@
-(ns hara.core.event.handler
+(ns hara.event.handler
   (:require [hara.core.base.check :as check]
             [hara.core.base.util :as primitive]
             [hara.data.base.seq :as seq]))
@@ -70,7 +70,7 @@
 (defn manager
   "creates a new manager
    (manager)
-   ;; => #hara.core.event.handler.Manager{:id :b56eb2c9-8d21-4680-b3e1-0023ae685d2b,
+   ;; => #hara.event.handler.Manager{:id :b56eb2c9-8d21-4680-b3e1-0023ae685d2b,
    ;;                               :store [], :options {}}
  "
   {:added "3.0"}

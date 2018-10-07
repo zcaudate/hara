@@ -2,7 +2,7 @@
   (:use hara.test)
   (:require [hara.test.form.process :refer :all]
             [hara.test.common :as common]
-            [hara.core.event :as event]))
+            [hara.event :as event]))
 
 ^{:refer hara.test.form.process/process :added "3.0"}
 (fact "processes a form or a check"

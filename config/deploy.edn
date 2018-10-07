@@ -7,6 +7,7 @@
                  [hara.protocol.watch          :complete]
                  [hara.core          :base]
                  [hara.data          :base]
+                 [hara.event         :complete]
                  [hara.function      :base]
                  [hara.module        :base]
                  [hara.print         :base]
@@ -22,10 +23,6 @@
  hara/core.encode
  {:description  "base64 encoding"
   :include      [[hara.core.encode  :complete]]}
-                 
- hara/core.event
- {:description  "conditional restarts"
-  :include      [[hara.core.event  :complete]]}
 
  hara/core.sort
  {:description  "hierarchical and top sort"
@@ -83,6 +80,10 @@
                  [hara.module.classloader     :complete]
                  [hara.module.deps            :complete]]
   :dependencies  [org.ow2.asm/asm]}
+  
+ hara/module.namespace
+ {:description  "take control of your namespace"
+  :include      [[hara.module.namespace :complete]]}
  
  hara/object
  {:description  "objects as data"

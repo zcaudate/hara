@@ -1,9 +1,9 @@
-(ns hara.core.event
-  (:require [hara.core.event.handler :as handler]
-            [hara.core.event.condition.data :as data]
-            [hara.core.event.condition.manage :as manage]
-            [hara.core.event.condition.raise :as raise]
-            [hara.core.event.util :as util])
+(ns hara.event
+  (:require [hara.event.handler :as handler]
+            [hara.event.condition.data :as data]
+            [hara.event.condition.manage :as manage]
+            [hara.event.condition.raise :as raise]
+            [hara.event.util :as util])
   (:import (clojure.lang Namespace Symbol)))
 
 (defonce ^:dynamic *signal-manager* (atom (handler/manager)))
@@ -30,7 +30,7 @@
      (str \"recieved \" msg))
  
    (list-listeners)
-   => (contains-in [{:id 'hara.core.event-test/-hello-listener-,
+   => (contains-in [{:id 'hara.event-test/-hello-listener-,
                      :checker :msg}])"
   {:added "3.0"}
   ([]
@@ -58,7 +58,7 @@
 (defn uninstall-listener
   "uninstalls a global signal listener
  
-   (uninstall-listener 'hara.core.event-test/-hello-)"
+   (uninstall-listener 'hara.event-test/-hello-)"
   {:added "3.0"}
   [id]
   (do (swap! *signal-manager* handler/remove-handler id)
@@ -102,7 +102,7 @@
      e)
    
    (signal :anything)
-   => '({:id hara.core.event-test/-hello- :result {:anything true}})"
+   => '({:id hara.event-test/-hello- :result {:anything true}})"
   {:added "3.0"}
   ([data]
    (signal data @*signal-manager*))

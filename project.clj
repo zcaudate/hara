@@ -1,4 +1,4 @@
-(defproject hara "3.0.1"
+(defproject hara/base "3.0.1"
   :description "clojure code patterns"
   :url "https://www.github.com/zcaudate/hara"
   :profiles {:dev {:plugins [[cider/cider-nrepl "0.18.0"]]}}

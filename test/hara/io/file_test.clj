@@ -93,8 +93,11 @@
       "io/file/common.clj"
       "io/file/filter.clj"
       "io/file/option.clj"
-      "io/file/path.clj"
-      "io/file/walk.clj"])
+      "io/file/path.clj" 
+      "io/file/reader.clj"
+      "io/file/walk.clj"
+      "io/file/watch.clj" 
+      "io/file/writer.clj"])
 
 ^{:refer hara.io.file/permissions :added "3.0"}
 (comment "returns the permissions for a given file"
