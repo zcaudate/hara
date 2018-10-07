@@ -1,7 +1,7 @@
 (ns hara.module.artifact
   (:require [hara.string :as string]
             [hara.function :refer [definvoke]]
-            [hara.protocol.loader :as protocol.loader]
+            [hara.protocol.classloader :as protocol.classloader]
             [hara.module.artifact.common :as base]))
 
 (defn rep->coord
@@ -135,7 +135,7 @@
    => \"hara:hara:jar:2.4.0\""
   {:added "3.0"}
   [obj]
-  (protocol.loader/-rep obj))
+  (protocol.classloader/-rep obj))
 
 (definvoke rep-default
   "creates the default representation of a artifact
@@ -151,7 +151,7 @@
       :artifact \"hara\",
        :version \"2.4.0\"}"
   {:added "3.0"}
-  [:method {:multi protocol.loader/-rep
+  [:method {:multi protocol.classloader/-rep
             :val :default}]
   ([x]
    (cond (instance? Rep x) x
@@ -184,7 +184,7 @@
   ([x]
    (artifact :default x))
   ([type x]
-   (protocol.loader/-artifact type x)))
+   (protocol.classloader/-artifact type x)))
 
 (definvoke artifact-default
   "converts an artifact in any format to the default representation
@@ -192,7 +192,7 @@
    (artifact-default '[hara/hara \"2.4.0\"])
    => rep?"
   {:added "3.0"}
-  [:method {:multi protocol.loader/-artifact
+  [:method {:multi protocol.classloader/-artifact
             :val   :default}]
   ([x]
    (artifact-default nil x))
@@ -205,7 +205,7 @@
    (artifact-string '[hara/hara \"2.4.0\"])
    => \"hara:hara:jar:2.4.0\""
   {:added "3.0"}
-  [:method {:multi protocol.loader/-artifact
+  [:method {:multi protocol.classloader/-artifact
             :val   :string}]
   ([x]
    (artifact-string nil x))
@@ -218,7 +218,7 @@
    (artifact-symbol '[hara/hara \"2.4.0\"])
    => 'hara/hara"
   {:added "3.0"}
-  [:method {:multi protocol.loader/-artifact
+  [:method {:multi protocol.classloader/-artifact
             :val   :symbol}]
   ([x]
    (artifact-symbol nil x))
@@ -231,7 +231,7 @@
    (artifact-path '[hara/hara \"2.4.0\"])
    => \"<.m2>/hara/hara/2.4.0/hara-2.4.0.jar\""
   {:added "3.0"}
-  [:method {:multi protocol.loader/-artifact
+  [:method {:multi protocol.classloader/-artifact
             :val   :path}]
   ([x]
    (artifact-path nil x))
@@ -248,7 +248,7 @@
    (artifact-coord \"hara:hara:jar:2.4.0\")
    => '[hara/hara \"2.4.0\"]"
   {:added "3.0"}
-  [:method {:multi protocol.loader/-artifact
+  [:method {:multi protocol.classloader/-artifact
             :val   :coord}]
   ([x]
    (artifact-coord nil x))

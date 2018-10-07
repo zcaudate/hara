@@ -1,5 +1,5 @@
 (ns hara.module.artifact.search
-  (:require [hara.io.base.archive :as archive]
+  (:require [hara.io.archive :as archive]
             [hara.module.artifact :as artifact]))
 
 (defn match-jars

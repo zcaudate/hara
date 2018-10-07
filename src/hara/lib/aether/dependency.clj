@@ -1,5 +1,5 @@
 (ns hara.lib.aether.dependency
-  (:require [hara.protocol.loader :as protocol.loader]
+  (:require [hara.protocol.classloader :as protocol.classloader]
             [hara.function :refer [definvoke]]
             [hara.module.artifact :as jvm.artifact]
             [hara.lib.aether.artifact :as artifact]
@@ -12,7 +12,7 @@
    (str (rep-exclusion (artifact-exclusion \"hara:hara\")))
    => \"hara:hara:jar:\""
   {:added "3.0"}
-  [:method {:multi protocol.loader/-rep
+  [:method {:multi protocol.classloader/-rep
             :val   Exclusion}]
   ([exclusion]
    (jvm.artifact/->Rep (.getGroupId exclusion)
@@ -31,7 +31,7 @@
    (artifact-exclusion \"hara:hara:jar:2.8.4\")
    => Exclusion"
   {:added "3.0"}
-  [:method {:multi protocol.loader/-artifact
+  [:method {:multi protocol.classloader/-artifact
             :val   :eclipse.exclusion}]
   ([x]
    (artifact-exclusion nil x))

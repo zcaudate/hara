@@ -1,30 +1,52 @@
 {hara/base 
  {:description  "base namespaces for hara"
-  :include      [[hara.core          :complete]
+  :include      [[hara.protocol.function       :complete]
+                 [hara.protocol.match          :complete]
+                 [hara.protocol.state          :complete]
+                 [hara.protocol.string         :complete]
+                 [hara.protocol.watch          :complete]
+                 [hara.core          :base]
                  [hara.data          :base]
-                 [hara.data.deque    :complete]
-                 [hara.data.table    :complete]
                  [hara.function      :base]
-                 [hara.io            :base]
-                 [hara.io.file       :complete]
-                 [hara.io.project    :complete]
                  [hara.module        :base]
-                 [hara.module.artifact        :complete]
-                 [hara.module.classloader     :complete]
-                 [hara.object        :complete]
-                 [hara.protocol      :complete]
                  [hara.print         :base]
                  [hara.string        :base]
                  [hara.state         :base]
-                 [hara.state.group   :complete]
-                 [hara.test          :complete]]
-  :files         {:path "target/classes" :include ["hara/io"]}
-  :dependencies  [org.clojure/core.rrb-vector
-                  org.ow2.asm/asm]}
+                 [hara.state.group   :complete]]}
+
+ hara/core.config
+ {:description  "versioning, environment and configuration"
+  :include      [[hara.core.environment  :complete]
+                 [hara.core.version      :complete]]}
+                 
+ hara/core.event
+ {:description  "conditional restarts"
+  :include      [[hara.core.event  :complete]]}
+
+ hara/core.sort
+ {:description  "hierarchical and top sort"
+  :include      [[hara.core.sort   :complete]]}
  
  hara/deploy
  {:description  "code packaging and distribution"
   :include      [[hara.deploy        :complete]]}
+   
+ hara/function.task
+ {:description  "bulk execution"
+  :include      [[hara.function.task :complete]]}  
+ 
+ hara/io.archive
+ {:description  "working with zip and jar files"
+  :include      [[hara.protocol.archive       :complete]
+                 [hara.io.archive  :complete]]}
+ 
+ hara/io.file
+ {:description  "working with files"
+  :include      [[hara.io.file  :complete]]}
+ 
+ hara/io.project
+ {:description  "working with projects"
+  :include      [[hara.io.project  :complete]]}
  
  hara/lib.aether
  {:description  "wrapper for org.eclipse.aether"
@@ -42,20 +64,37 @@
  
  hara/lib.jgit 
  {:description  "wrapper for org.eclipse.jgit"
-  :include      [[hara.lib.jgit       :complete]]
+  :include      [[hara.lib.jgit      :complete]]
   :dependencies [org.eclipse.jgit/org.eclipse.jgit]}
   
  hara/lib.jsoup
  {:description  "wrapper for org.jsoup"
   :include      [[hara.lib.jsoup     :complete]]
   :dependencies [org.jsoup/jsoup]}
-
+ 
+ hara/module.deps
+ {:description  "take control of your dependencies"
+  :include      [[hara.protocol.classloader   :complete]
+                 [hara.module.artifact        :complete]
+                 [hara.module.classloader     :complete]
+                 [hara.module.deps            :complete]]
+  :dependencies  [org.ow2.asm/asm]}
+ 
+ hara/object
+ {:description  "objects as data"
+  :include      [[hara.protocol.object       :complete]
+                 [hara.object           :complete]]}
+ 
  hara/security
  {:description  "cryptography that makes sense"
-  :include      [[hara.security       :base]]}
+  :include      [[hara.security   :base]]}
 
  hara/security.pgp
  {:description  "openpgp that makes sense"
   :include      [[hara.security.pgp   :complete]]
   :dependencies [org.bouncycastle/bcprov-jdk15on
-                 org.bouncycastle/bcpg-jdk15on]}}
+                 org.bouncycastle/bcpg-jdk15on]}
+
+ hara/test
+ {:description  "easy test framework"
+  :include      [[hara.test      :all]]}}

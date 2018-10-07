@@ -1,8 +1,8 @@
 (ns hara.module.classloader
   (:require [clojure.java.io :as io]
-            [hara.core.base.environment :as env]
+            [hara.core.environment :as env]
             [hara.function :refer [definvoke]]
-            [hara.protocol.loader :as protocol.loader]
+            [hara.protocol.classloader :as protocol.classloader]
             [hara.module.classloader.url-classloader :deps true]
             [hara.module.classloader.common :as common]
             [hara.module.artifact :as artifact]
@@ -25,7 +25,7 @@
   ([path]
    (has-url? +base+ path))
   ([loader path]
-   (protocol.loader/-has-url? loader path)))
+   (protocol.classloader/-has-url? loader path)))
 
 (defn get-url
   "returns the required url
@@ -37,7 +37,7 @@
   ([path]
    (get-url +base+ path))
   ([loader path]
-   (protocol.loader/-get-url loader path)))
+   (protocol.classloader/-get-url loader path)))
 
 (defn all-urls
   "returns all urls contained by the loader
@@ -47,7 +47,7 @@
   ([]
    (all-urls +base+))
   ([loader]
-   (protocol.loader/-all-urls loader)))
+   (protocol.classloader/-all-urls loader)))
 
 (defn add-url
   "adds a classpath to the loader
@@ -57,7 +57,7 @@
   ([path]
    (add-url +base+ path))
   ([loader path]
-   (protocol.loader/-add-url loader path)))
+   (protocol.classloader/-add-url loader path)))
 
 (defn remove-url
   "removes url from classloader
@@ -73,7 +73,7 @@
   ([path]
    (remove-url +base+ path))
   ([loader path]
-   (protocol.loader/-remove-url loader path)))
+   (protocol.classloader/-remove-url loader path)))
 
 (defn delegation
   "returns a list of classloaders in order of top to bottom
@@ -86,7 +86,7 @@
   [cl]
   (->> cl
        (iterate (fn [^ClassLoader cl] (.getParent cl)))
-       (take-while #(satisfies? protocol.loader/ILoader %))
+       (take-while #(satisfies? protocol.classloader/ILoader %))
        (reverse)))
 
 (defn classpath
@@ -184,7 +184,7 @@
   ([x opts]
    (load-class x opts (dynamic-classloader)))
   ([x opts loader]
-   (protocol.loader/-load-class x loader opts)))
+   (protocol.classloader/-load-class x loader opts)))
 
 (defn unload-class
   "unloads a class from the current namespace
@@ -219,7 +219,7 @@
    (any-load-class test.Cat nil nil)
    => test.Cat"
   {:added "3.0"}
-  [:method {:multi protocol.loader/-load-class
+  [:method {:multi protocol.classloader/-load-class
             :val [Class ClassLoader]}]
   ([cls _ _]
    (let [ref (java.lang.ref.SoftReference. cls +rq+)]
@@ -234,7 +234,7 @@
                        {:name \"test.Cat\"})
    => test.Cat"
   {:added "3.0"}
-  [:method {:multi protocol.loader/-load-class
+  [:method {:multi protocol.classloader/-load-class
             :val [(Class/forName "[B") DynamicClassLoader]}]
   ([bytes loader {:keys [name source] :as opts}]
    (let [_   (clojure.lang.Util/clearCache +rq+ +class-cache+)
@@ -250,7 +250,7 @@
                          :entry-path \"org/yaml/snakeyaml/Dumper.class\"})
    => org.yaml.snakeyaml.Dumper"
   {:added "3.0"}
-  [:method {:multi protocol.loader/-load-class
+  [:method {:multi protocol.classloader/-load-class
             :val [String DynamicClassLoader]}]
   ([path loader {:keys [entry-path] :as opts}]
    (cond (.endsWith path ".class")
@@ -276,7 +276,7 @@
                                    :entry-path \"org/yaml/snakeyaml/Dumper.class\"}))
    => \"org.yaml.snakeyaml.Dumper\""
   {:added "3.0"}
-  [:method {:multi protocol.loader/-load-class
+  [:method {:multi protocol.classloader/-load-class
             :val [clojure.lang.PersistentVector DynamicClassLoader]}]
   ([coordinates loader {:keys [entry-path] :as opts}]
    (dynamic-load-string (artifact/artifact :path coordinates)

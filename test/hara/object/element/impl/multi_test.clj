@@ -1,6 +1,6 @@
 (ns hara.object.element.impl.multi-test
   (:use hara.test)
-  (:require [hara.core.base.environment :as env]
+  (:require [hara.core.environment :as env]
             [hara.object.element.impl.multi :as multi]
             [hara.object.query :as query])
   (:refer-clojure :exclude [chars]))

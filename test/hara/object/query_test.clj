@@ -1,7 +1,7 @@
 (ns hara.object.query-test
   (:use hara.test)
   (:require [hara.object.query :refer :all]
-            [hara.core.base.environment :as env]))
+            [hara.core.environment :as env]))
 
 (env/run [[:java :not-older {:major 1 :minor 9}]]
   (def -world-array- (byte-array (map byte "world"))))

@@ -36,6 +36,4 @@
 
 Apache License 2.0 (Apache-2.0) 
 
----
-
 ###### Copyright © 2018 Chris Zheng.

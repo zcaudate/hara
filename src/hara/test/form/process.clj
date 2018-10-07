@@ -1,5 +1,5 @@
 (ns hara.test.form.process
-  (:require [hara.core.base.event :as event]
+  (:require [hara.core.event :as event]
             [hara.test.checker.base :as checker]
             [hara.test.common :as common]))
 

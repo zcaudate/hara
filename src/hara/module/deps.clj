@@ -3,7 +3,7 @@
             [hara.module :as module]
             [hara.print :as print]
             [hara.io.file :as fs]
-            [hara.io.base.archive :as archive]
+            [hara.io.archive :as archive]
             [hara.module.artifact.common :as base]
             [hara.module.artifact :as artifact]
             [hara.module.classloader :as loader]

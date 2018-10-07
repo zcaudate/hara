@@ -4,7 +4,7 @@
             [hara.deploy.package.meta :as meta]
             [hara.security.pgp :as privacy]
             [hara.security.pgp.local :as user]
-            [hara.io.base.archive :as archive]
+            [hara.io.archive :as archive]
             [hara.io.file :as fs]
             [hara.security :as security]
             [hara.lib.aether :as aether]))

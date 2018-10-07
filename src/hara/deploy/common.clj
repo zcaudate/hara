@@ -49,7 +49,7 @@
                    [:clj hara.deploy.analyser.clj]
                    [:clj hara.deploy.analyser.cljs]
                   [:clj hara.deploy.analyser.java]
-                   [:clj hara.core.base.sort]}}"
+                   [:clj hara.core.sort]}}"
   {:added "3.0"}
   ([path]
    (file-info-fn path

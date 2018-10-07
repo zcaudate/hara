@@ -40,7 +40,7 @@
                 "clojure/core.clj"])
 
   (resolve 'wrong.namespace
-           ["org.clojure:clojure:1.3.0"]
+           ["org.clojure:clojure:1.9.0"]
            {:tag :coord})
   => nil)
 
@@ -82,7 +82,7 @@
 ^{:refer hara.module.deps/clean :added "3.0"}
 (fact "cleans the maven entries for the artifact, `:full` deletes all the versions"
   
-  (clean '[org.clojure/clore "2.4.8"]
+  (clean '[org.clojure/clojure "2.4.8"]
          {:full true
           :simulate true})
   => set?)

@@ -5,7 +5,6 @@
   :dependencies [[org.clojure/clojure "1.9.0"]
   
                  ;; hara/base
-                 [org.clojure/core.rrb-vector "0.0.11"]
                  [org.ow2.asm/asm "6.2"]
                  
                  ;; hara/lib.aether

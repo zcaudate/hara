@@ -3,7 +3,7 @@
   (:require [hara.test.checker.collection :refer :all]
             [hara.test.checker.base :as base]
             [hara.test.common :as common]
-            [hara.core.base.event :as event]))
+            [hara.core.event :as event]))
 
 ^{:refer hara.test.checker.collection/verify-map :added "3.0"}
 (fact "takes two maps and determines if they fit"

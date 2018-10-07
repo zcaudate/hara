@@ -32,6 +32,7 @@
 
   (has-url? (fs/path "path/to/somewhere"))
   => true
+  
   (remove-url (fs/path "path/to/somewhere")))
 
 ^{:refer hara.module.classloader/remove-url :added "3.0"}

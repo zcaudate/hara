@@ -2,7 +2,7 @@
   (:require [hara.string :as string]
             [hara.string.base.ansi :as ansi]
             [hara.print :as print]
-            [hara.core.base.version :as version]
+            [hara.core.version :as version]
             [hara.module.artifact :as jvm.artifact]
             [hara.object :as object]
             [hara.lib.aether.artifact])

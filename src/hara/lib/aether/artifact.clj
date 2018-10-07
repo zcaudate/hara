@@ -1,7 +1,7 @@
 (ns hara.lib.aether.artifact
   (:require [hara.module.artifact :as artifact]
             [hara.function :refer [definvoke]]
-            [hara.protocol.loader :as protocol.loader]
+            [hara.protocol.classloader :as protocol.classloader]
             [hara.object :as object])
   (:import (org.eclipse.aether.artifact Artifact DefaultArtifact)
            (org.eclipse.aether.metadata Metadata Metadata$Nature DefaultMetadata)
@@ -13,7 +13,7 @@
    (str (rep-eclipse (object/from-data \"hara:hara:2.8.4\" DefaultArtifact)))
    => \"hara:hara:jar:2.8.4\""
   {:added "3.0"}
-  [:method {:multi protocol.loader/-rep
+  [:method {:multi protocol.classloader/-rep
             :val   Artifact}]
   ([artifact]
    (artifact/->Rep (.getGroupId artifact)
@@ -32,7 +32,7 @@
    (artifact-eclipse \"hara:hara:jar:2.8.4\")
    => DefaultArtifact"
   {:added "3.0"}
-  [:method {:multi protocol.loader/-artifact
+  [:method {:multi protocol.classloader/-artifact
             :val   :eclipse}]
   ([x]
    (artifact-eclipse nil x))
@@ -67,7 +67,7 @@
    (str (rep-eclipse-metadata (object/from-data \"hara:hara:2.8.4\" DefaultMetadata)))
    => \"hara:hara:2.8.4\""
   {:added "3.0"}
-  [:method {:multi protocol.loader/-rep
+  [:method {:multi protocol.classloader/-rep
             :val   Metadata}]
   ([metadata]
    (artifact/->Rep (.getGroupId metadata)
@@ -86,7 +86,7 @@
    (artifact-eclipse-metadata \"hara:hara:jar:2.8.4\")
    => DefaultMetadata"
   {:added "3.0"}
-  [:method {:multi protocol.loader/-artifact
+  [:method {:multi protocol.classloader/-artifact
             :val   :eclipse.metadata}]
   ([x]
    (artifact-eclipse-metadata nil x))

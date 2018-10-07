@@ -2,7 +2,7 @@
   (:require [hara.string :as string]
             [hara.data.base.seq :as seq]
             [hara.module.classloader.common :as common]
-            [hara.protocol.loader :as protocol.loader]
+            [hara.protocol.classloader :as protocol.classloader]
             [hara.object.query :as reflect])
   (:import (clojure.lang RT)
            (java.net URL)))
@@ -59,42 +59,42 @@
   [v w]
   (.write w (str "#loader@"
                  (.hashCode v)
-                 (->> (protocol.loader/-all-urls v)
+                 (->> (protocol.classloader/-all-urls v)
                       (mapv #(-> (str %)
                                  (string/split #"/")
                                  last))))))
 
 (extend-type (type +ucp+)
-  protocol.loader/ILoader
+  protocol.classloader/ILoader
   (-has-url?    [ucp path]
-    (boolean (protocol.loader/-get-url ucp path)))
+    (boolean (protocol.classloader/-get-url ucp path)))
   (-get-url     [ucp path]
     (seq/element-of #(= (str %) (str (common/to-url path)))
                     (ucp-access-path ucp)))
   (-all-urls    [ucp]
     (seq (ucp-get-urls ucp)))
   (-add-url     [ucp path]
-    (if (not (protocol.loader/-has-url? ucp path))
+    (if (not (protocol.classloader/-has-url? ucp path))
       (ucp-add-url ucp  (common/to-url path))))
   (-remove-url  [ucp path]
-    (if (protocol.loader/-has-url? ucp path)
+    (if (protocol.classloader/-has-url? ucp path)
       (ucp-remove-url ucp (common/to-url path)))))
 
 (extend-type (type +base+)
-  protocol.loader/ILoader
+  protocol.classloader/ILoader
   (-has-url?    [loader path]
-    (protocol.loader/-has-url?   (loader-access-ucp loader) path))
+    (protocol.classloader/-has-url?   (loader-access-ucp loader) path))
   (-get-url     [loader path]
-    (protocol.loader/-get-url    (loader-access-ucp loader) path))
+    (protocol.classloader/-get-url    (loader-access-ucp loader) path))
   (-all-urls    [loader]
-    (protocol.loader/-all-urls   (loader-access-ucp loader)))
+    (protocol.classloader/-all-urls   (loader-access-ucp loader)))
   (-add-url     [loader path]
-    (protocol.loader/-add-url    (loader-access-ucp loader) path))
+    (protocol.classloader/-add-url    (loader-access-ucp loader) path))
   (-remove-url  [loader path]
-    (protocol.loader/-remove-url (loader-access-ucp loader) path)))
+    (protocol.classloader/-remove-url (loader-access-ucp loader) path)))
 
 (comment (extend-type jdk.internal.loader.ClassLoaders$PlatformClassLoader
-           protocol.loader/ILoader
+           protocol.classloader/ILoader
            (-has-url?    [loader path] false)
            (-get-url     [loader path] nil)
            (-all-urls    [loader] [])

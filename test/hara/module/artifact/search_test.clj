@@ -2,7 +2,7 @@
   (:use hara.test)
   (:require [hara.module.artifact.search :refer :all]
             [hara.module.classloader :as cls]
-            [hara.io.base.archive :as archive]))
+            [hara.io.archive :as archive]))
 
 ^{:refer hara.module.artifact.search/match-jars :added "3.0"}
 (comment "matches jars from any representation"

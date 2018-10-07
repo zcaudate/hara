@@ -17,19 +17,19 @@
   
   (-> (init-groups (common/all-packages {:root "."})
                    (project/all-files ["src"]))
-      (select-keys '[hara.function.task hara.io.base.watch]))
+      (select-keys '[hara.function.task hara.io.file.watch]))
   => '{hara.function.task [hara.function.task
                            hara.function.task.process
                            hara.function.task.bulk],
-       hara.io.base.watch [hara.io.base.watch]})
+       hara.io.file.watch [hara.io.file.watch]})
 
 ^{:refer hara.deploy.analyser/collect-groups :added "3.0"}
 (comment "collect and merge all `file-info` of namespaces for each group"
 
-  (collect-groups '{hara.io.base.watch [hara.io.base.watch]}
+  (collect-groups '{hara.io.file.watch [hara.io.file.watch]}
                   (project/all-files ["src"]))
-  => '{hara.io.base.watch {:exports #{[:clj hara.io.base.watch]
-                                      [:class hara.io.base.watch.Watcher]},
+  => '{hara.io.file.watch {:exports #{[:clj hara.io.file.watch]
+                                      [:class hara.io.file.watch.Watcher]},
                            :imports #{[:clj clojure.string]
                                       [:clj clojure.java.io]
                                       [:clj hara.protocol.watch]
@@ -76,9 +76,9 @@
 
   (-> (internal-deps (collect-types (common/all-packages {:root "."})
                                     (create-lookups (project/project))))
-      (select-keys '[hara.function.task hara.io.base.watch]))
+      (select-keys '[hara.function.task hara.io.file.watch]))
   => '{hara.function.task #{hara.data hara.core},
-       hara.io.base.watch #{hara.data hara.protocol}})
+       hara.io.file.watch #{hara.data hara.protocol}})
 
 ^{:refer hara.deploy.analyser/process-additions :added "3.0"}
 (comment "allows additional files to be included for packaging"
