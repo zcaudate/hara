@@ -1,4 +1,4 @@
-(ns hara.core.sort
+(ns hara.core.base.sort
   (:require [clojure.set :as set]))
 
 (defn hierarchical-top

@@ -1,6 +1,6 @@
 (ns hara.security.pgp
   (:require [hara.string :as string]
-            [hara.core.encode :as encode]
+            [hara.core.base.encode :as encode]
             [hara.io.file :as fs]
             [hara.object.query :as reflect])
   (:import (java.security Security)

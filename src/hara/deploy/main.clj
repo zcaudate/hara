@@ -1,5 +1,5 @@
 (ns hara.deploy.main
-  (:require [hara.core.encode :as encode]
+  (:require [hara.core.base.encode :as encode]
             [hara.deploy.common :as common]
             [hara.deploy.package.meta :as meta]
             [hara.security.pgp :as privacy]

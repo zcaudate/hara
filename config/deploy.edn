@@ -19,14 +19,6 @@
  {:description  "versioning, environment and configuration"
   :include      [[hara.core.environment  :complete]
                  [hara.core.version      :complete]]}
-
- hara/core.encode
- {:description  "base64 encoding"
-  :include      [[hara.core.encode  :complete]]}
-
- hara/core.sort
- {:description  "hierarchical and top sort"
-  :include      [[hara.core.sort   :complete]]}
  
  hara/deploy
  {:description  "code packaging and distribution"

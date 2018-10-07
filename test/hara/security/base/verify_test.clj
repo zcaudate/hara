@@ -2,7 +2,7 @@
   (:use hara.test)
   (:require [hara.security.base.verify :refer :all]
             [hara.security.base.key :as key]
-            [hara.core.encode :as encode]
+            [hara.core.base.encode :as encode]
             [clojure.string :as string]))
 
 ^{:refer hara.security.base.verify/digest :added "3.0"}

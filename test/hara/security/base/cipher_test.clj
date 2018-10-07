@@ -1,7 +1,7 @@
 (ns hara.security.base.cipher-test
   (:use hara.test)
   (:require [hara.security.base.cipher :refer :all]
-            [hara.core.encode :as encode]))
+            [hara.core.base.encode :as encode]))
 
 ^{:refer hara.security.base.cipher/init-cipher :added "3.0"}
 (comment "initializes cipher according to options")

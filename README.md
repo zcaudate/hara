@@ -8,25 +8,25 @@
 
 #### hara.base
 
-- [hara.core]()
-- [hara.data]()
-- [hara.function]()
-- [hara.io]()
-- [hara.module]()
-- [hara.object]()
-- [hara.protocol]()
-- [hara.print]()
-- [hara.string]()
-- [hara.state]()
-- [hara.test]()
+- hara.core
+- hara.data
+- hara.function
+- hara.module
+- hara.print
+- hara.string
+- hara.state
 
-#### hara.core.encode
-
-#### hara.core.event
+#### hara.core.config
 
 #### hara.deploy
-#### hara.deploy
-#### hara.deploy
+
+#### hara.function.task
+
+#### hara.io.archive
+
+#### hara.io.file
+
+#### hara.io.project
 
 #### hara.lib.aether
 
@@ -34,9 +34,17 @@
 
 #### hara.lib.jsoup
 
+#### hara.module.deps
+
+#### hara.module.namespace
+
+#### hara.object
+
 #### hara.security
 
 #### hara.security.pgp
+
+#### hara.test
 
 # License
 

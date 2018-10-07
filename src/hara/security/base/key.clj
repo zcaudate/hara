@@ -1,5 +1,5 @@
 (ns hara.security.base.key
-  (:require [hara.core.encode :as encode]
+  (:require [hara.core.base.encode :as encode]
             [hara.security.base.provider :as provider])
   (:import (java.io Writer)
            (java.security Key KeyFactory KeyPair KeyPairGenerator PrivateKey PublicKey SecureRandom)

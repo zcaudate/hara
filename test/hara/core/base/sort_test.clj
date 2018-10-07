@@ -1,8 +1,8 @@
-(ns hara.core.sort-test
+(ns hara.core.base.sort-test
   (:use hara.test)
-  (:require [hara.core.sort :refer :all]))
+  (:require [hara.core.base.sort :refer :all]))
 
-^{:refer hara.core.sort/hierarchical-top :added "3.0"}
+^{:refer hara.core.base.sort/hierarchical-top :added "3.0"}
 (fact "find the top node for the hierarchy of descendants"
   
   (hierarchical-top 
@@ -13,7 +13,7 @@
      5 #{6}
      6 #{}}) => 1)
 
-^{:refer hara.core.sort/hierarchical-sort :added "3.0"}
+^{:refer hara.core.base.sort/hierarchical-sort :added "3.0"}
 (fact "prunes a hierarchy of descendants into a directed graph"
   
   (hierarchical-sort {1 #{2 3 4 5 6}
@@ -29,12 +29,12 @@
       5 #{6}
       6 #{}})
 
-^{:refer hara.core.sort/topological-top :added "3.0"}
+^{:refer hara.core.base.sort/topological-top :added "3.0"}
 (fact "nodes that have no other nodes that are dependent on them"
   (topological-top {:a #{} :b #{:a}})
   => #{:b})
 
-^{:refer hara.core.sort/topological-sort :added "3.0"}
+^{:refer hara.core.base.sort/topological-sort :added "3.0"}
 (fact "sorts a directed graph into its dependency order"
 
   (topological-sort {:a #{:b :c},

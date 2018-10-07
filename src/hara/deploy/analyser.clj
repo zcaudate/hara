@@ -9,7 +9,7 @@
             [hara.module.artifact :as artifact]
             [hara.module.deps :as deps]
             [hara.data.base.map :as map]
-            [hara.core.sort :as sort]))
+            [hara.core.base.sort :as sort]))
 
 (defn create-lookups
   "creates a series of code lookup maps
