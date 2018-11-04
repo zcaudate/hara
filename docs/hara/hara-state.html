@@ -1,0 +1,401 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <link rel="shortcut icon" href="favicon.ico">
+  <title>hara.state - unified state</title>
+  <script src="js/highlight.min.js"></script>
+  <script src="js/gumshoe.min.js"></script>
+  <script src="js/smooth-scroll.min.js"></script>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/poole.css">
+  <link rel="stylesheet" href="css/syntax.css">
+  <link rel="stylesheet" href="css/lanyon.css">
+  <link rel="stylesheet" href="css/bolton.css">
+  <link rel="stylesheet" href="css/bolton-api.css">
+  <link rel="stylesheet" href="css/bolton-highlight.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  
+</head>
+
+  <body class="theme-base-0b">
+    <span id="page-top"></span>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <nav class="sidebar-nav">
+    <span>&nbsp;</span>
+    <a class="sidebar-nav-item header" href="index.html" style="padding-bottom:5px"><b>HOME</b></a>
+    <a class="sidebar-nav-item" href="hara-config.html">config</a><a class="sidebar-nav-item" href="hara-core.html">core</a><a class="sidebar-nav-item" href="hara-data.html">data</a><a class="sidebar-nav-item" href="hara-deploy.html">deploy</a><a class="sidebar-nav-item" href="hara-event.html">event</a><a class="sidebar-nav-item" href="hara-function.html">function</a><a class="sidebar-nav-item" href="hara-function-procedure.html">function.procedure</a><a class="sidebar-nav-item" href="hara-function-task.html">function.task</a><a class="sidebar-nav-item" href="hara-io-archive.html">io.archive</a><a class="sidebar-nav-item" href="hara-io-file.html">io.file</a><a class="sidebar-nav-item" href="hara-io-project.html">io.project</a><a class="sidebar-nav-item" href="hara-io-scheduler.html">io.scheduler</a><a class="sidebar-nav-item" href="hara-lib-aether.html">lib.aether</a><a class="sidebar-nav-item" href="hara-lib-jgit.html">lib.jgit</a><a class="sidebar-nav-item" href="hara-math.html">math</a><a class="sidebar-nav-item" href="hara-module.html">module</a><a class="sidebar-nav-item" href="hara-object.html">object</a><a class="sidebar-nav-item" href="hara-print.html">print</a><a class="sidebar-nav-item" href="hara-security.html">security</a><a class="sidebar-nav-item" href="hara-security-openpgp.html">security.openpgp</a><a class="sidebar-nav-item" href="hara-state.html">state</a><a class="sidebar-nav-item" href="hara-state-ova.html">state.ova</a><a class="sidebar-nav-item" href="hara-string.html">string</a><a class="sidebar-nav-item" href="hara-test.html">test</a><a class="sidebar-nav-item" href="hara-time.html">time</a><a class="sidebar-nav-item" href="hara-watch.html">watch</a>
+    <span class="sidebar-nav-item">&nbsp;</span>
+    <span class="sidebar-nav-item">&nbsp;</span>
+  </nav>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <span>state</span>
+            <small>unified state</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="page">
+          <div class="heading">
+            <div>
+              <h5>Author: Chris Zheng&nbsp;&nbsp;<a href="mailto:z@caudate.me">(z@caudate.me)</a></h5>
+              <h5>Date: 04 November 2018</h5>
+              <h5>Repository: <a href="https://github.com/zcaudate/hara">https://github.com/zcaudate/hara</a></h5>
+              <h5>Version: 3.0.1</h5></div></div>
+          <hr/>
+
+          <div class="toc">
+              <nav>
+                <ul>
+                  <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#api"><h4>2 &nbsp; API</h4></a><a class="section" data-scroll="" href="#entry__hara_state__cache"><h5><i>cache</i></h5></a><a class="section" data-scroll="" href="#entry__hara_state__clone"><h5><i>clone</i></h5></a><a class="section" data-scroll="" href="#entry__hara_state__copy"><h5><i>copy</i></h5></a><a class="section" data-scroll="" href="#entry__hara_state__create"><h5><i>create</i></h5></a><a class="section" data-scroll="" href="#entry__hara_state__defcache"><h5><i>defcache</i></h5></a><a class="section" data-scroll="" href="#entry__hara_state__empty"><h5><i>empty</i></h5></a><a class="section" data-scroll="" href="#entry__hara_state__get"><h5><i>get</i></h5></a><a class="section" data-scroll="" href="#entry__hara_state__set"><h5><i>set</i></h5></a><a class="section" data-scroll="" href="#entry__hara_state__update"><h5><i>update</i></h5></a><a class="section" data-scroll="" href="#entry__hara_state__update_apply"><h5><i>update-apply</i></h5></a></li>
+                </ul>
+              </nav>
+          </div>
+          <div>
+    <span id="introduction"></span>
+    <h2><b>1 &nbsp;&nbsp; Introduction</b></h2>
+</div><div><p><a href='https://github.com/caudata/hara/blob/master/src/hara/state.clj'>hara.state</a> provides baseline stateful datastructures.</p>
+</div><div>
+    <span id="installation"></span>
+    <h3>1.1 &nbsp;&nbsp; Installation</h3>
+</div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;hara/base &quot;3.0.1&quot;&#93;</code></pre>
+</div><div><p>All functions are in the <code>hara.state</code> namespace.      </p><pre><code> &#40;use &#40;quote hara.state&#41;&#41;</code></pre>
+</div><div>
+    <span id="api"></span>
+    <h2><b>2 &nbsp;&nbsp; API</b></h2>
+</div><div class="api">
+    <span id="entry__hara_state__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_state__cache">cache</a></li>
+            <li><a data-scroll="" href="#entry__hara_state__clone">clone</a></li>
+            <li><a data-scroll="" href="#entry__hara_state__copy">copy</a></li>
+            <li><a data-scroll="" href="#entry__hara_state__create">create</a></li>
+            <li><a data-scroll="" href="#entry__hara_state__defcache">defcache</a></li>
+            <li><a data-scroll="" href="#entry__hara_state__empty">empty</a></li>
+            <li><a data-scroll="" href="#entry__hara_state__get">get</a></li>
+            <li><a data-scroll="" href="#entry__hara_state__set">set</a></li>
+            <li><a data-scroll="" href="#entry__hara_state__update">update</a></li>
+            <li><a data-scroll="" href="#entry__hara_state__update_apply">update-apply</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_state__cache"></span>
+                <div class="entry-description">
+                    <h4><b>cache&nbsp<a data-scroll="" href="#entry__hara_state__">^</a></b></h4>
+                    <p><i>creates a cache with the following properties</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/state/base/cache.clj#L72-L94" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_state__cache">
+                        <label class="source-toggle" for="entry__pre_hara_state__cache"></label>
+                        <pre class="source"><code class="clojure">(defn cache
+  ([data]
+   (cache data {}))
+  ([data {:keys [tag display type] :as metadata
+          :or {type :atom}}]
+   (try
+     (let [cls   (common/container type)
+           state (common/create cls data nil)]
+       (Cache. state (assoc metadata :type type)))
+     (catch java.lang.IllegalArgumentException e
+       (throw (ex-info "Invalid cache type:"
+                       {:type type
+                        :options (set (keys (.getMethodTable protocol.state/-container-state)))}))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/state/base/cache_test.clj#L21-L29" target="_blank">link</a></i></h6><code class="clojure">(-> (cache {} {:tag "stuff"
+               :type :ref})
+    (.state))
+=> clojure.lang.Ref
+  
+(str (cache {:a 1 :b 2} {:type :agent}))
+=> "#cache:agent{:a 1, :b 2}"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_state__clone"></span>
+                <div class="entry-description">
+                    <h4><b>clone&nbsp<a data-scroll="" href="#entry__hara_state__">^</a></b></h4>
+                    <p><i>clones the state object</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/state/base/common.clj#L40-L53" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_state__clone">
+                        <label class="source-toggle" for="entry__pre_hara_state__clone"></label>
+                        <pre class="source"><code class="clojure">(defn clone
+  ([obj]
+   (clone obj nil))
+  ([obj opts]
+   (or (error/suppress (protocol.state/-clone-state (atom {}) {}))
+       (let [data (protocol.state/-get-state obj opts)]
+         (create (clojure.core/type obj) data opts)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/state/base/common_test.clj#L29-L34" target="_blank">link</a></i></h6><code class="clojure">(-> (state/container :volatile)
+    (state/create 2)
+    (state/clone))
+=> volatile?</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_state__copy"></span>
+                <div class="entry-description">
+                    <h4><b>copy&nbsp<a data-scroll="" href="#entry__hara_state__">^</a></b></h4>
+                    <p><i>copies the value of one state to another</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/state/base/common.clj#L55-L68" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_state__copy">
+                        <label class="source-toggle" for="entry__pre_hara_state__copy"></label>
+                        <pre class="source"><code class="clojure">(defn copy
+  ([source sink]
+   (copy source sink nil))
+  ([source sink opts]
+   (let [data (protocol.state/-get-state source opts)]
+     (protocol.state/-set-state sink data opts)
+     source)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/state/base/common_test.clj#L37-L42" target="_blank">link</a></i></h6><code class="clojure">(def -a- (ref nil))
+(state/copy (atom 1)
+            -a-)
+@-a- => 1</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_state__create"></span>
+                <div class="entry-description">
+                    <h4><b>create&nbsp<a data-scroll="" href="#entry__hara_state__">^</a></b></h4>
+                    <p><i>creates a state of a particular type</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/state/base/common.clj#L7-L16" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_state__create">
+                        <label class="source-toggle" for="entry__pre_hara_state__create"></label>
+                        <pre class="source"><code class="clojure">(defn create
+  ([class data]
+   (create class data nil))
+  ([class data opts]
+   (protocol.state/-create-state class data opts)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/state/base/common_test.clj#L7-L10" target="_blank">link</a></i></h6><code class="clojure">((juxt deref type) (state/create clojure.lang.Atom 1))
+=> [1 clojure.lang.Atom]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_state__defcache"></span>
+                <div class="entry-description">
+                    <h4><b>defcache&nbsp<a data-scroll="" href="#entry__hara_state__">^</a></b></h4>
+                    <p><i>defines a cache</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/state/base/cache.clj#L96-L123" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_state__defcache">
+                        <label class="source-toggle" for="entry__pre_hara_state__defcache"></label>
+                        <pre class="source"><code class="clojure">(defmacro defcache
+  [name & [doc? attrs? [type metadata :as opts?]]]
+  (let [[doc attrs {:keys [refresh] :as opts}]
+        (macro/create-args [doc? attrs? opts?])
+
+        [type metadata]
+        (cond (nil? opts)
+              [:atom {}]
+              
+              (vector? opts) opts
+              
+              :else
+              (throw (ex-info "Cannot recognise option." {:opts opts})))
+        body `(cache {} (assoc ~metadata :type ~type))]
+    (if (or refresh
+            (not (resolve name)))
+      (macro/create-def-form name doc attrs () body))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/state/base/cache_test.clj#L32-L41" target="_blank">link</a></i></h6><code class="clojure">(defcache -a-)
+(.state -a-)
+=> clojure.lang.Atom
+  
+(defcache -b-
+  [:volatile {:tag "hello"}])
+(.state -b-)
+=> volatile?</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_state__empty"></span>
+                <div class="entry-description">
+                    <h4><b>empty&nbsp<a data-scroll="" href="#entry__hara_state__">^</a></b></h4>
+                    <p><i>empties the state, extensible through the IStateSet protocol</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/state/base/common.clj#L93-L102" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_state__empty">
+                        <label class="source-toggle" for="entry__pre_hara_state__empty"></label>
+                        <pre class="source"><code class="clojure">(defn empty
+  ([obj] (empty obj nil))
+  ([obj opts]
+   (protocol.state/-empty-state obj opts)
+   obj))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/state/base/common_test.clj#L59-L62" target="_blank">link</a></i></h6><code class="clojure">(let [a (atom 1)]
+  (state/empty a)
+  @a) => nil</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_state__get"></span>
+                <div class="entry-description">
+                    <h4><b>get&nbsp<a data-scroll="" href="#entry__hara_state__">^</a></b></h4>
+                    <p><i>like deref but is extensible through the IStateGet protocol</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/state/base/common.clj#L70-L79" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_state__get">
+                        <label class="source-toggle" for="entry__pre_hara_state__get"></label>
+                        <pre class="source"><code class="clojure">(defn get
+  ([obj] (get obj nil))
+  ([obj opts]
+   (protocol.state/-get-state obj opts)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/state/base/common_test.clj#L45-L49" target="_blank">link</a></i></h6><code class="clojure">(state/get (atom 1)) => 1
+
+(state/get (ref 1)) => 1</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_state__set"></span>
+                <div class="entry-description">
+                    <h4><b>set&nbsp<a data-scroll="" href="#entry__hara_state__">^</a></b></h4>
+                    <p><i>like reset! but is extensible through the IStateSet protocol</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/state/base/common.clj#L81-L91" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_state__set">
+                        <label class="source-toggle" for="entry__pre_hara_state__set"></label>
+                        <pre class="source"><code class="clojure">(defn set
+  ([obj v] (set obj v nil))
+  ([obj v opts]
+   (protocol.state/-set-state obj v opts)
+   obj))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/state/base/common_test.clj#L52-L56" target="_blank">link</a></i></h6><code class="clojure">(let [a (atom nil)]
+  (state/set a 1)
+  @a) => 1</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_state__update"></span>
+                <div class="entry-description">
+                    <h4><b>update&nbsp<a data-scroll="" href="#entry__hara_state__">^</a></b></h4>
+                    <p><i>like swap! but is extensible through the IStateSet protocol</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/state/base/common.clj#L104-L118" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_state__update">
+                        <label class="source-toggle" for="entry__pre_hara_state__update"></label>
+                        <pre class="source"><code class="clojure">(defn update
+  ([obj f]
+   (protocol.state/-update-state obj f [] nil)
+   obj)
+  ([obj f & args]
+   (protocol.state/-update-state obj f args nil)
+   obj))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/state/base/common_test.clj#L65-L74" target="_blank">link</a></i></h6><code class="clojure">(let [a (atom 0)]
+  (state/update a + 1)
+  @a) => 1</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_state__update_apply"></span>
+                <div class="entry-description">
+                    <h4><b>update-apply&nbsp<a data-scroll="" href="#entry__hara_state__">^</a></b></h4>
+                    <p><i>like swap! but is extensible through the IStateSet protocol</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/state/base/common.clj#L120-L134" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_state__update_apply">
+                        <label class="source-toggle" for="entry__pre_hara_state__update_apply"></label>
+                        <pre class="source"><code class="clojure">(defn update-apply
+  ([obj f args]
+   (update-apply obj f args nil)
+   obj)
+  ([obj f args opts]
+   (protocol.state/-update-state obj f args opts)
+   obj))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/state/base/common_test.clj#L77-L86" target="_blank">link</a></i></h6><code class="clojure">(let [a (atom 0)]
+  (state/update-apply a + [1 2 3])
+  @a) => 6</code></pre>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outline">
+      <div class="toc">
+        <nav data-gumshoe-header>
+          <ul data-gumshoe>
+            <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#api"><h4>2 &nbsp; API</h4></a><a class="section" data-scroll="" href="#entry__hara_state__cache"><h5><i>cache</i></h5></a><a class="section" data-scroll="" href="#entry__hara_state__clone"><h5><i>clone</i></h5></a><a class="section" data-scroll="" href="#entry__hara_state__copy"><h5><i>copy</i></h5></a><a class="section" data-scroll="" href="#entry__hara_state__create"><h5><i>create</i></h5></a><a class="section" data-scroll="" href="#entry__hara_state__defcache"><h5><i>defcache</i></h5></a><a class="section" data-scroll="" href="#entry__hara_state__empty"><h5><i>empty</i></h5></a><a class="section" data-scroll="" href="#entry__hara_state__get"><h5><i>get</i></h5></a><a class="section" data-scroll="" href="#entry__hara_state__set"><h5><i>set</i></h5></a><a class="section" data-scroll="" href="#entry__hara_state__update"><h5><i>update</i></h5></a><a class="section" data-scroll="" href="#entry__hara_state__update_apply"><h5><i>update-apply</i></h5></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    
+    <!--label for="sidebar-checkbox" class="sidebar-toggle"></label-->
+
+  </body>
+
+  <script>
+  if (true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-31320512-2', 'caudate.me');
+    ga('send', 'pageview');
+  }
+  </script>
+  
+  <script type="text/javascript">
+    smoothScroll.init();
+    gumshoe.init({});
+  
+    hljs.registerLanguage("clojure",function(e){var t={"builtin-name":"def defonce cond apply if-not if-let if not not= = < > <= >= == + / * - rem quot neg? pos? delay? symbol? keyword? true? false? integer? empty? coll? list? set? ifn? fn? associative? sequential? sorted? counted? reversible? number? decimal? class? distinct? isa? float? rational? reduced? ratio? odd? even? char? seq? vector? string? map? nil? contains? zero? instance? not-every? not-any? libspec? -> ->> .. . inc compare do dotimes mapcat take remove take-while drop letfn drop-last take-last drop-while while intern condp case reduced cycle split-at split-with repeat replicate iterate range merge zipmap declare line-seq sort comparator sort-by dorun doall nthnext nthrest partition eval doseq await await-for let agent atom send send-off release-pending-sends add-watch mapv filterv remove-watch agent-error restart-agent set-error-handler error-handler set-error-mode! error-mode shutdown-agents quote var fn loop recur throw try monitor-enter monitor-exit defmacro defn defn- macroexpand macroexpand-1 for dosync and or when when-not when-let comp juxt partial sequence memoize constantly complement identity assert peek pop doto proxy defstruct first rest cons defprotocol cast coll deftype defrecord last butlast sigs reify second ffirst fnext nfirst nnext defmulti defmethod meta with-meta ns in-ns create-ns import refer keys select-keys vals key val rseq name namespace promise into transient persistent! conj! assoc! dissoc! pop! disj! use class type num float double short byte boolean bigint biginteger bigdec print-method print-dup throw-if printf format load compile get-in update-in pr pr-on newline flush read slurp read-line subvec with-open memfn time re-find re-groups rand-int rand mod locking assert-valid-fdecl alias resolve ref deref refset swap! reset! set-validator! compare-and-set! alter-meta! reset-meta! commute get-validator alter ref-set ref-history-count ref-min-history ref-max-history ensure sync io! new next conj set! to-array future future-call into-array aset gen-class reduce map filter find empty hash-map hash-set sorted-map sorted-map-by sorted-set sorted-set-by vec vector seq flatten reverse assoc dissoc list disj get union difference intersection extend extend-type extend-protocol int nth delay count concat chunk chunk-buffer chunk-append chunk-first chunk-rest max min dec unchecked-inc-int unchecked-inc unchecked-dec-inc unchecked-dec unchecked-negate unchecked-add-int unchecked-add unchecked-subtract-int unchecked-subtract chunk-next chunk-cons chunked-seq? prn vary-meta lazy-seq spread list* str find-keyword keyword symbol gensym force rationalize"},r="a-zA-Z_\\-!.?+*=<>&#'",n="["+r+"]["+r+"0-9/;:]*",a="[-+]?\\d+(\\.\\d+)?",o={b:n,r:0},s={cN:"number",b:a,r:0},i=e.inherit(e.QSM,{i:null}),c=e.C(";","$",{r:0}),d={cN:"literal",b:/\b(true|false|nil)\b/},l={b:"[\\[\\{]",e:"[\\]\\}]"},m={cN:"comment",b:"\\^"+n},p=e.C("\\^\\{","\\}"),u={cN:"symbol",b:"[:]{1,2}"+n},f={b:"\\(",e:"\\)"},h={eW:!0,r:0},y={k:t,l:n,cN:"name",b:n,starts:h},b=[f,i,m,p,c,u,l,s,d,o];return f.c=[e.C("comment",""),y,h],h.c=b,l.c=b,{aliases:["clj"],i:/\S/,c:[f,i,m,p,c,u,l,s,d]}});
+    hljs.initHighlightingOnLoad();
+  </script>
+</html>

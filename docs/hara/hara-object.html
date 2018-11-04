@@ -1,0 +1,1311 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <link rel="shortcut icon" href="favicon.ico">
+  <title>hara.object - object to data</title>
+  <script src="js/highlight.min.js"></script>
+  <script src="js/gumshoe.min.js"></script>
+  <script src="js/smooth-scroll.min.js"></script>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/poole.css">
+  <link rel="stylesheet" href="css/syntax.css">
+  <link rel="stylesheet" href="css/lanyon.css">
+  <link rel="stylesheet" href="css/bolton.css">
+  <link rel="stylesheet" href="css/bolton-api.css">
+  <link rel="stylesheet" href="css/bolton-highlight.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  
+</head>
+
+  <body class="theme-base-0b">
+    <span id="page-top"></span>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <nav class="sidebar-nav">
+    <span>&nbsp;</span>
+    <a class="sidebar-nav-item header" href="index.html" style="padding-bottom:5px"><b>HOME</b></a>
+    <a class="sidebar-nav-item" href="hara-config.html">config</a><a class="sidebar-nav-item" href="hara-core.html">core</a><a class="sidebar-nav-item" href="hara-data.html">data</a><a class="sidebar-nav-item" href="hara-deploy.html">deploy</a><a class="sidebar-nav-item" href="hara-event.html">event</a><a class="sidebar-nav-item" href="hara-function.html">function</a><a class="sidebar-nav-item" href="hara-function-procedure.html">function.procedure</a><a class="sidebar-nav-item" href="hara-function-task.html">function.task</a><a class="sidebar-nav-item" href="hara-io-archive.html">io.archive</a><a class="sidebar-nav-item" href="hara-io-file.html">io.file</a><a class="sidebar-nav-item" href="hara-io-project.html">io.project</a><a class="sidebar-nav-item" href="hara-io-scheduler.html">io.scheduler</a><a class="sidebar-nav-item" href="hara-lib-aether.html">lib.aether</a><a class="sidebar-nav-item" href="hara-lib-jgit.html">lib.jgit</a><a class="sidebar-nav-item" href="hara-math.html">math</a><a class="sidebar-nav-item" href="hara-module.html">module</a><a class="sidebar-nav-item" href="hara-object.html">object</a><a class="sidebar-nav-item" href="hara-print.html">print</a><a class="sidebar-nav-item" href="hara-security.html">security</a><a class="sidebar-nav-item" href="hara-security-openpgp.html">security.openpgp</a><a class="sidebar-nav-item" href="hara-state.html">state</a><a class="sidebar-nav-item" href="hara-state-ova.html">state.ova</a><a class="sidebar-nav-item" href="hara-string.html">string</a><a class="sidebar-nav-item" href="hara-test.html">test</a><a class="sidebar-nav-item" href="hara-time.html">time</a><a class="sidebar-nav-item" href="hara-watch.html">watch</a>
+    <span class="sidebar-nav-item">&nbsp;</span>
+    <span class="sidebar-nav-item">&nbsp;</span>
+  </nav>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <span>object</span>
+            <small>object to data</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="page">
+          <div class="heading">
+            <div>
+              <h5>Author: Chris Zheng&nbsp;&nbsp;<a href="mailto:z@caudate.me">(z@caudate.me)</a></h5>
+              <h5>Date: 04 November 2018</h5>
+              <h5>Repository: <a href="https://github.com/zcaudate/hara">https://github.com/zcaudate/hara</a></h5>
+              <h5>Version: 3.0.1</h5></div></div>
+          <hr/>
+
+          <div class="toc">
+              <nav>
+                <ul>
+                  <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#element"><h4>2 &nbsp; Element</h4></a><a class="section" data-scroll="" href="#entry__hara_object__class_convert"><h5><i>class-convert</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__class_hierarchy"><h5><i>class-hierarchy</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__class_info"><h5><i>class-info</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__constructor_QMARK_"><h5><i>constructor?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__context_class"><h5><i>context-class</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__element"><h5><i>element</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__element_QMARK_"><h5><i>element?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__field_QMARK_"><h5><i>field?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__instance_QMARK_"><h5><i>instance?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__method_QMARK_"><h5><i>method?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__plain_QMARK_"><h5><i>plain?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__private_QMARK_"><h5><i>private?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__public_QMARK_"><h5><i>public?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__static_QMARK_"><h5><i>static?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__to_element"><h5><i>to-element</i></h5></a></li><li><a class="chapter" data-scroll="" href="#query"><h4>3 &nbsp; Query</h4></a><a class="section" data-scroll="" href="#entry__hara_object__delegate"><h5><i>delegate</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__query_class"><h5><i>query-class</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__query_hierarchy"><h5><i>query-hierarchy</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__query_instance"><h5><i>query-instance</i></h5></a></li><li><a class="chapter" data-scroll="" href="#framework"><h4>4 &nbsp; Framework</h4></a><a class="section" data-scroll="" href="#entry__hara_object__from_data"><h5><i>from-data</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__get"><h5><i>get</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__get_in"><h5><i>get-in</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__keys"><h5><i>keys</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__map_like"><h5><i>map-like</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__meta_read"><h5><i>meta-read</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__meta_write"><h5><i>meta-write</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__read_all_getters"><h5><i>read-all-getters</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__read_fields"><h5><i>read-fields</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__read_getters"><h5><i>read-getters</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__set"><h5><i>set</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__string_like"><h5><i>string-like</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__struct_accessor"><h5><i>struct-accessor</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__struct_fields"><h5><i>struct-fields</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__struct_getters"><h5><i>struct-getters</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__to_data"><h5><i>to-data</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__to_map"><h5><i>to-map</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__unextend"><h5><i>unextend</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__vector_like"><h5><i>vector-like</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__write_all_setters"><h5><i>write-all-setters</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__write_fields"><h5><i>write-fields</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__write_setters"><h5><i>write-setters</i></h5></a></li>
+                </ul>
+              </nav>
+          </div>
+          <div>
+    <span id="introduction"></span>
+    <h2><b>1 &nbsp;&nbsp; Introduction</b></h2>
+</div><div><p><a href='https://github.com/caudata/hara/blob/master/src/hara/object.clj'>hara.object</a> allows flexible construction of configuration files.</p>
+</div><div>
+    <span id="installation"></span>
+    <h3>1.1 &nbsp;&nbsp; Installation</h3>
+</div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;hara/object &quot;3.0.1&quot;&#93;</code></pre>
+</div><div><p>All functions are in the <code>hara.object</code> namespace.      </p><pre><code> &#40;use &#40;quote hara.object&#41;&#41;</code></pre>
+</div><div>
+    <span id="element"></span>
+    <h2><b>2 &nbsp;&nbsp; Element</b></h2>
+</div><div class="api">
+    <span id="entry__hara_object__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_object__class_convert">class-convert</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__class_hierarchy">class-hierarchy</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__class_info">class-info</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__constructor_QMARK_">constructor?</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__context_class">context-class</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__element">element</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__element_QMARK_">element?</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__field_QMARK_">field?</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__instance_QMARK_">instance?</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__method_QMARK_">method?</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__plain_QMARK_">plain?</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__private_QMARK_">private?</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__public_QMARK_">public?</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__static_QMARK_">static?</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__to_element">to-element</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_object__class_convert"></span>
+                <div class="entry-description">
+                    <h4><b>class-convert&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>converts a class to its representation.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/element/class.clj#L119-L129" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__class_convert">
+                        <label class="source-toggle" for="entry__pre_hara_object__class_convert"></label>
+                        <pre class="source"><code class="clojure">(defn class-convert
+  ([v] (class-convert v :class))
+  ([v to] (-class-convert v to)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/element/class_test.clj#L45-L51" target="_blank">link</a></i></h6><code class="clojure">(class-convert "byte") => Byte/TYPE
+
+(class-convert 'byte :string) => "byte"
+
+(class-convert (Class/forName "[[B") :string) => "byte[][]"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__class_hierarchy"></span>
+                <div class="entry-description">
+                    <h4><b>class-hierarchy&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>lists the class and interface hierarchy for the class</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/element.clj#L36-L48" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__class_hierarchy">
+                        <label class="source-toggle" for="entry__pre_hara_object__class_hierarchy"></label>
+                        <pre class="source"><code class="clojure">(defn class-hierarchy
+  [obj]
+  (let [t (common/context-class obj)]
+    (vec (cons t (inheritance/ancestor-tree t)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/element_test.clj#L31-L38" target="_blank">link</a></i></h6><code class="clojure">(element/class-hierarchy String)
+=> [java.lang.String
+    [java.lang.Object
+     #{java.io.Serializable
+       java.lang.Comparable
+       java.lang.CharSequence}]]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__class_info"></span>
+                <div class="entry-description">
+                    <h4><b>class-info&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>lists class information</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/element.clj#L24-L34" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__class_info">
+                        <label class="source-toggle" for="entry__pre_hara_object__class_info"></label>
+                        <pre class="source"><code class="clojure">(defn class-info
+  [obj]
+  (select-keys (type/seed :class (common/context-class obj))
+               [:name :hash :modifiers]))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/element_test.clj#L23-L28" target="_blank">link</a></i></h6><code class="clojure">(element/class-info String)
+=> (contains {:name "java.lang.String"
+              :hash anything
+              :modifiers #{:instance :class :public :final}})</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__constructor_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>constructor?&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>checks if if an element is a constructor</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/element.clj#L50-L60" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__constructor_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_object__constructor_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn constructor?
+  [elem]
+  (-> elem :tag (= :constructor)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/element_test.clj#L41-L47" target="_blank">link</a></i></h6><code class="clojure">(-> (.getConstructors String)
+    (first)
+    (element/to-element)
+    (element/constructor?))
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__context_class"></span>
+                <div class="entry-description">
+                    <h4><b>context-class&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>if x is a class, return x otherwise return the class of x</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/element/common.clj#L4-L14" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__context_class">
+                        <label class="source-toggle" for="entry__pre_hara_object__context_class"></label>
+                        <pre class="source"><code class="clojure">(defn context-class
+  [obj]
+  (if (class? obj) obj (type obj)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/element/common_test.clj#L6-L12" target="_blank">link</a></i></h6><code class="clojure">(context-class String)
+=> String
+
+(context-class "")
+=> String</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__element"></span>
+                <div class="entry-description">
+                    <h4><b>element&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>creates a element from a map</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/element/common.clj#L78-L85" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__element">
+                        <label class="source-toggle" for="entry__pre_hara_object__element"></label>
+                        <pre class="source"><code class="clojure">(defn element
+  [body]
+  (Element. body))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/element/common_test.clj#L45-L48" target="_blank">link</a></i></h6><code class="clojure">(element {})
+=> hara.object.element.common.Element</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__element_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>element?&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>checker for the element type</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/element/common.clj#L87-L94" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__element_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_object__element_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn element?
+  [x]
+  (instance? Element x))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/element/common_test.clj#L51-L54" target="_blank">link</a></i></h6><code class="clojure">(element? (element {}))
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__field_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>field?&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>checks if an element is a field</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/element.clj#L74-L84" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__field_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_object__field_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn field?
+  [elem]
+  (-> elem :tag (= :field)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/element_test.clj#L59-L65" target="_blank">link</a></i></h6><code class="clojure">(-> (.getFields String)
+    (first)
+    (element/to-element)
+    (element/field?))
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__instance_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>instance?&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>checks if an element is non static</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/element.clj#L100-L111" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__instance_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_object__instance_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn instance?
+  [elem]
+  (-> elem :modifiers :instance boolean))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/element_test.clj#L78-L85" target="_blank">link</a></i></h6><code class="clojure">(->> (.getMethods String)
+     (map element/to-element)
+     (filter element/instance?)
+     first)
+;;#elem[equals :: (java.lang.String, java.lang.Object) -> boolean]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__method_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>method?&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>checks if an element is a method</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/element.clj#L62-L72" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__method_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_object__method_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn method?
+  [elem]
+  (-> elem :tag (= :method)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/element_test.clj#L50-L56" target="_blank">link</a></i></h6><code class="clojure">(-> (.getMethods String)
+    (first)
+    (element/to-element)
+    (element/method?))
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__plain_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>plain?&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>checks if an element is neither public or private</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/element.clj#L139-L143" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__plain_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_object__plain_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn plain?
+  [elem]
+  (-> elem :modifiers :plain boolean))</code></pre>
+                    </div>
+                </div>
+                <pre class="error"><h6>example not found</h6><code></code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__private_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>private?&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>checks if an element is private</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/element.clj#L126-L137" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__private_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_object__private_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn private?
+  [elem]
+  (-> elem :modifiers :private boolean))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/element_test.clj#L98-L105" target="_blank">link</a></i></h6><code class="clojure">(->> (.getDeclaredFields String)
+     (map element/to-element)
+     (filter element/private?)
+     first)
+;;#elem[value :: (java.lang.String) | byte[]]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__public_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>public?&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>checks if an element is public</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/element.clj#L113-L124" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__public_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_object__public_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn public?
+  [elem]
+  (-> elem :modifiers :public boolean))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/element_test.clj#L88-L95" target="_blank">link</a></i></h6><code class="clojure">(->> (.getMethods String)
+     (map element/to-element)
+     (filter element/public?)
+     first)
+;;#elem[equals :: (java.lang.String, java.lang.Object) -> boolean]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__static_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>static?&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>checks if an element is a static one</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/element.clj#L86-L98" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__static_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_object__static_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn static?
+  [elem]
+  (and (-> elem :modifiers :static boolean)
+       (not (constructor? elem))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/element_test.clj#L68-L75" target="_blank">link</a></i></h6><code class="clojure">(->> (.getMethods String)
+     (map element/to-element)
+     (filter element/static?)
+     first)
+;;#elem[valueOf :: (int) -> java.lang.String]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__to_element"></span>
+                <div class="entry-description">
+                    <h4><b>to-element&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>converts a `java.reflect` object to a `hara.object.element` one</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/element.clj#L16-L18" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__to_element">
+                        <label class="source-toggle" for="entry__pre_hara_object__to_element"></label>
+                        <pre class="source"><code class="clojure">(definvoke to-element
+  [:memoize {:arglists '([obj])
+             :function common/-to-element}])</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/element_test.clj#L7-L11" target="_blank">link</a></i></h6><code class="clojure">(element/to-element (first (.getMethods String)))
+;; #elem[equals :: (java.lang.String, java.lang.Object) -> boolean]</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="query"></span>
+    <h2><b>3 &nbsp;&nbsp; Query</b></h2>
+</div><div class="api">
+    <span id="entry__hara_object__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_object__delegate">delegate</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__query_class">query-class</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__query_hierarchy">query-hierarchy</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__query_instance">query-instance</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_object__delegate"></span>
+                <div class="entry-description">
+                    <h4><b>delegate&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>allow transparent field access and manipulation to the underlying object.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/query.clj#L195-L211" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__delegate">
+                        <label class="source-toggle" for="entry__pre_hara_object__delegate"></label>
+                        <pre class="source"><code class="clojure">(defn delegate
+  [obj]
+ (let [fields (->> (map (juxt (comp keyword :name) identity) (query-instance obj [:field]))
+                   (into {}))]
+   (Delegate. obj fields)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/query_test.clj#L85-L95" target="_blank">link</a></i></h6><code class="clojure">(def -a- "hello")
+(def -*a-  (delegate -a-))
+(def -world-array- (.getBytes "world"))
+
+(mapv char (-*a- :value)) => [h e l l o]
+
+(-*a- :value -world-array-)
+(String. (-*a- :value)) => "world"
+-a- => "world"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__query_class"></span>
+                <div class="entry-description">
+                    <h4><b>query-class&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>queries the java view of the class declaration</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/query.clj#L44-L54" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__query_class">
+                        <label class="source-toggle" for="entry__pre_hara_object__query_class"></label>
+                        <pre class="source"><code class="clojure">(defn query-class
+  [obj selectors]
+  (select-class-elements (common/context-class obj) selectors))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/query_test.clj#L28-L34" target="_blank">link</a></i></h6><code class="clojure">(query-class String [#"^c" :name])
+;;=> ["charAt" "checkBounds" "codePointAt" "codePointBefore"
+;;    "codePointCount" "compareTo" "compareToIgnoreCase"
+;;    "concat" "contains" "contentEquals" "copyValueOf"]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__query_hierarchy"></span>
+                <div class="entry-description">
+                    <h4><b>query-hierarchy&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>lists what methods could be applied to a particular instance</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/query.clj#L80-L94" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__query_hierarchy">
+                        <label class="source-toggle" for="entry__pre_hara_object__query_hierarchy"></label>
+                        <pre class="source"><code class="clojure">(defn query-hierarchy
+  [obj selectors]
+  (let [grp (input/args-group selectors)
+        tcls (common/context-class obj)
+        elems (concat (select-class-elements tcls selectors)
+                      (select-supers-elements tcls selectors))]
+    (if (and (seq elems)
+             (common/element? (first elems)))
+      (order/order grp elems)
+      (sort (set elems)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/query_test.clj#L47-L50" target="_blank">link</a></i></h6><code class="clojure">(query-hierarchy String [:name #"^to"])
+=> ["toCharArray" "toLowerCase" "toString" "toUpperCase"]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__query_instance"></span>
+                <div class="entry-description">
+                    <h4><b>query-instance&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>lists what class methods could be applied to a particular instance</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/query.clj#L119-L130" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__query_instance">
+                        <label class="source-toggle" for="entry__pre_hara_object__query_instance"></label>
+                        <pre class="source"><code class="clojure">(defn query-instance
+  [obj selectors]
+  (let [tcls (type obj)]
+    (select-instance-elements tcls (if (class? obj) obj) selectors)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/query_test.clj#L63-L69" target="_blank">link</a></i></h6><code class="clojure">(query-instance "abc" [:name #"^to"])
+=> ["toCharArray" "toLowerCase" "toString" "toUpperCase"]
+
+(query-instance String [:name #"^to"])
+=> (contains ["toString"])</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="framework"></span>
+    <h2><b>4 &nbsp;&nbsp; Framework</b></h2>
+</div><div class="api">
+    <span id="entry__hara_object__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_object__from_data">from-data</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__get">get</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__get_in">get-in</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__keys">keys</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__map_like">map-like</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__meta_read">meta-read</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__meta_write">meta-write</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__read_all_getters">read-all-getters</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__read_fields">read-fields</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__read_getters">read-getters</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__set">set</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__string_like">string-like</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__struct_accessor">struct-accessor</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__struct_fields">struct-fields</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__struct_getters">struct-getters</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__to_data">to-data</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__to_map">to-map</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__unextend">unextend</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__vector_like">vector-like</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__write_all_setters">write-all-setters</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__write_fields">write-fields</a></li>
+            <li><a data-scroll="" href="#entry__hara_object__write_setters">write-setters</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_object__from_data"></span>
+                <div class="entry-description">
+                    <h4><b>from-data&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>creates the object from data</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/framework/write.clj#L184-L237" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__from_data">
+                        <label class="source-toggle" for="entry__pre_hara_object__from_data"></label>
+                        <pre class="source"><code class="clojure">(defn from-data
+  [arg ^Class cls]
+  (let [^Class targ (type arg)]
+    (cond
+      ;; If there is a direct match
+      (or (element.util/param-arg-match cls targ)
+          (element.util/param-float-match cls targ))
+      arg
+      
+      ;; Special case for String/CharArray
+      (and (string? arg) (= cls (Class/forName "[C")))
+      (.toCharArray arg)
+
+      ;; Special case for Enums
+      (enum/enum? cls)
+      (if (string? arg)
+        (enum/to-enum arg cls)
+        (throw (ex-info "Only strings supported for Enums" {:input arg
+                                                            :type cls})))
+
+      ;; If there is a vector
+      (and (vector? arg)
+           (.isArray cls))
+      (let [cls (.getComponentType cls)]
+        (->> arg
+             (map #(from-data % cls))
+             (into-array cls)))
+
+      :else
+      (let [{:keys [from-clojure from-string from-vector] :as mobj} (meta-write cls)]
+        (cond
+
+          from-clojure (from-clojure arg)
+
+          ;; If input is a string and there is a from-string method
+          (and (string? arg) from-string)
+          (from-string arg)
+
+          ;; If input is a string and there is a from-string method
+          (and (vector? arg) from-vector)
+          (from-vector arg)
+
+          ;; If the input is a map
+          (map? arg)
+          (from-map arg cls)
+
+          :else
+          (throw (Exception. (format "Problem converting %s to %s" arg cls))))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/framework/write_test.clj#L102-L106" target="_blank">link</a></i></h6><code class="clojure">(-> (write/from-data ["hello"] (Class/forName "[Ljava.lang.String;"))
+    seq)
+=> ["hello"]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__get"></span>
+                <div class="entry-description">
+                    <h4><b>get&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>accessor with either keyword or array lookup</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/framework/access.clj#L40-L54" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__get">
+                        <label class="source-toggle" for="entry__pre_hara_object__get"></label>
+                        <pre class="source"><code class="clojure">(defn get
+  [obj k]
+  (cond (keyword? k)
+        (get-with-keyword obj k)
+
+        (.isArray (type obj))
+        (nth obj k)
+
+        (sequential? k)
+        (get-with-array obj k)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/framework/access_test.clj#L29-L32" target="_blank">link</a></i></h6><code class="clojure">(access/get (test.Cat. "spike") :name)
+=> "spike"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__get_in"></span>
+                <div class="entry-description">
+                    <h4><b>get-in&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>accesses the nested object using specifiedb path</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/framework/access.clj#L56-L66" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__get_in">
+                        <label class="source-toggle" for="entry__pre_hara_object__get_in"></label>
+                        <pre class="source"><code class="clojure">(defn get-in
+  [obj ks]
+  (cond (empty? ks)
+        obj
+        
+        :else
+        (get-in (get obj (first ks)) (rest ks))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/framework/access_test.clj#L35-L37" target="_blank">link</a></i></h6><code class="clojure">(access/get-in (test.Cat. "spike") [:name])</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__keys"></span>
+                <div class="entry-description">
+                    <h4><b>keys&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>gets all keys of an object</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/framework/access.clj#L68-L75" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__keys">
+                        <label class="source-toggle" for="entry__pre_hara_object__keys"></label>
+                        <pre class="source"><code class="clojure">(defn keys
+  [obj]
+  (-> obj type read/meta-read :methods clojure.core/keys))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/framework/access_test.clj#L40-L43" target="_blank">link</a></i></h6><code class="clojure">(access/keys (test.Cat. "spike"))
+=> (contains [:name])</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__map_like"></span>
+                <div class="entry-description">
+                    <h4><b>map-like&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>creates an accessibility layer for map-like objects</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/framework.clj#L42-L71" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__map_like">
+                        <label class="source-toggle" for="entry__pre_hara_object__map_like"></label>
+                        <pre class="source"><code class="clojure">(defmacro map-like
+  [& {:as classes}]
+  `(vector ~@(map (fn [[cls opts]]
+                    `(map-like/extend-map-like ~cls ~opts))
+                  classes)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/framework_test.clj#L29-L52" target="_blank">link</a></i></h6><code class="clojure">(framework/map-like
+ org.eclipse.jgit.revwalk.RevCommit
+ {:tag "commit"
+  :include [:commit-time :name :author-ident :full-message]})
+
+(framework/map-like
+ org.eclipse.jgit.lib.PersonIdent
+ {:tag "person"
+  :exclude [:time-zone]})
+
+(framework/map-like
+ org.eclipse.jgit.api.Status
+ {:tag "status"
+  :display (fn [m]
+             (reduce-kv (fn [out k v]
+                          (if (and (or (instance? java.util.Collection v)
+                                       (instance? java.util.Map v))
+                                   (empty? v))
+                            out
+                            (assoc out k v)))
+                        {}
+                        m))})</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__meta_read"></span>
+                <div class="entry-description">
+                    <h4><b>meta-read&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>access read-attributes with caching</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/framework/read.clj#L8-L18" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__meta_read">
+                        <label class="source-toggle" for="entry__pre_hara_object__meta_read"></label>
+                        <pre class="source"><code class="clojure">(definvoke meta-read
+  [:memoize]
+  ([^Class cls]
+   (assoc (protocol.object/-meta-read cls) :class cls)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/framework/read_test.clj#L11-L16" target="_blank">link</a></i></h6><code class="clojure">(read/meta-read Pet)
+=> (contains-in {:class test.Pet
+                 :methods {:name fn?
+                           :species fn?}})</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__meta_write"></span>
+                <div class="entry-description">
+                    <h4><b>meta-write&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>access read-attributes with caching</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/framework/write.clj#L18-L30" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__meta_write">
+                        <label class="source-toggle" for="entry__pre_hara_object__meta_write"></label>
+                        <pre class="source"><code class="clojure">(definvoke meta-write
+  [:memoize]
+  ([^Class cls]
+   (assoc (protocol.object/-meta-write cls) :class cls)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/framework/write_test.clj#L11-L18" target="_blank">link</a></i></h6><code class="clojure">(write/meta-write DogBuilder)
+=> (contains {:class test.DogBuilder
+              :empty fn?,
+              :methods (contains
+                        {:name
+                         (contains {:type java.lang.String, :fn fn?})})})</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__read_all_getters"></span>
+                <div class="entry-description">
+                    <h4><b>read-all-getters&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>returns fields of an object and base classes</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/framework/read.clj#L85-L93" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__read_all_getters">
+                        <label class="source-toggle" for="entry__pre_hara_object__read_all_getters"></label>
+                        <pre class="source"><code class="clojure">(defn read-all-getters
+  ([cls] (read-all-getters cls +read-get-opts+))
+  ([cls {:keys [prefix template extra] :as opts}]
+   (read-getters cls opts query/query-hierarchy)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/framework/read_test.clj#L46-L49" target="_blank">link</a></i></h6><code class="clojure">(-> (read/read-all-getters Dog)
+    keys)
+=> [:class :name :species]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__read_fields"></span>
+                <div class="entry-description">
+                    <h4><b>read-fields&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>fields of an object from reflection</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/framework/read.clj#L20-L32" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__read_fields">
+                        <label class="source-toggle" for="entry__pre_hara_object__read_fields"></label>
+                        <pre class="source"><code class="clojure">(defn read-fields
+  ([cls]
+   (read-fields cls query/query-class))
+  ([cls query-fn]
+   (->> (query-fn cls [:field])
+        (map (juxt (comp keyword string/spear-type :name)
+                   identity))
+        (into {}))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/framework/read_test.clj#L19-L22" target="_blank">link</a></i></h6><code class="clojure">(-> (read/read-fields Dog)
+    keys)
+=> [:name :species]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__read_getters"></span>
+                <div class="entry-description">
+                    <h4><b>read-getters&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>returns fields of an object through getter methods</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/framework/read.clj#L70-L83" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__read_getters">
+                        <label class="source-toggle" for="entry__pre_hara_object__read_getters"></label>
+                        <pre class="source"><code class="clojure">(defn read-getters
+  ([cls] (read-getters cls +read-get-opts+))
+  ([cls opts] (read-getters cls +read-get-opts+ query/query-class))
+  ([cls {:keys [prefix template extra] :as opts} query-fn]
+   (->> [:method :instance :public (re-pattern (str "^" prefix ".+")) 1]
+        (query-fn cls)
+        (reduce (fn [out ele]
+                  (conj out (create-read-method ele prefix template extra)))
+                {}))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/framework/read_test.clj#L40-L43" target="_blank">link</a></i></h6><code class="clojure">(-> (read/read-getters Dog)
+    keys)
+=> [:name :species]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__set"></span>
+                <div class="entry-description">
+                    <h4><b>set&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>sets the fields of an object with a map</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/framework/access.clj#L98-L115" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__set">
+                        <label class="source-toggle" for="entry__pre_hara_object__set"></label>
+                        <pre class="source"><code class="clojure">(defn set
+  ([obj m]
+   (reduce-kv (fn [obj k v]
+                (set-with-keyword obj k v)
+                obj)
+              obj
+              m)
+   obj)
+  ([obj k v]
+   (set-with-keyword obj k v)
+   obj))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/framework/access_test.clj#L60-L65" target="_blank">link</a></i></h6><code class="clojure">(-> (doto (test.Cat. "spike")
+      (access/set {:name "fluffy"}))
+    (access/get :name))
+=> "fluffy"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__string_like"></span>
+                <div class="entry-description">
+                    <h4><b>string-like&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>creates an accessibility layer for string-like objects</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/framework.clj#L17-L40" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__string_like">
+                        <label class="source-toggle" for="entry__pre_hara_object__string_like"></label>
+                        <pre class="source"><code class="clojure">(defmacro string-like
+  [& {:as classes}]
+  `(vector ~@(map (fn [[cls opts]]
+                    `(string-like/extend-string-like ~cls ~opts))
+                  classes)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/framework_test.clj#L9-L26" target="_blank">link</a></i></h6><code class="clojure">(framework/string-like
+ java.io.File
+ {:tag "path"
+  :read (fn [f] (.getPath f))
+  :write (fn [^String path] (java.io.File. path))})
+  
+(object/to-data (java.io.File. "/home"))
+=> "/home"
+
+(object/from-data "/home" java.io.File)
+=> java.io.File
+
+;; Enums are automatically string-like
+
+(object/to-data java.lang.Thread$State/NEW)
+=> "NEW"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__struct_accessor"></span>
+                <div class="entry-description">
+                    <h4><b>struct-accessor&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>creates an accessor function</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/framework/struct.clj#L124-L139" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__struct_accessor">
+                        <label class="source-toggle" for="entry__pre_hara_object__struct_accessor"></label>
+                        <pre class="source"><code class="clojure">(defn struct-accessor
+  ([spec]
+   (struct-accessor spec :getter))
+  ([spec access]
+   (case access
+     :field  (fn field  [obj] (struct-fields spec obj))
+     :getter (fn getter [obj] (struct-getters spec obj)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/framework/struct_test.clj#L46-L53" target="_blank">link</a></i></h6><code class="clojure">((struct-accessor {:value [:data]
+                   :msg [:detail-message :value]}
+                  :field)
+ (ex-info "hello" {:a 1}))
+=> (contains {:value {:a 1},
+              :msg bytes?})</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__struct_fields"></span>
+                <div class="entry-description">
+                    <h4><b>struct-fields&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>creates a struct given an object and a field map</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/framework/struct.clj#L92-L122" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__struct_fields">
+                        <label class="source-toggle" for="entry__pre_hara_object__struct_fields"></label>
+                        <pre class="source"><code class="clojure">(defn struct-fields
+  [spec obj]
+  (let [cls (type obj)]
+    (cond (vector? spec)
+          ((apply comp (reverse (struct-field-functions spec cls))) obj)
+          
+          (map? spec)
+          (reduce (fn [out [k entry]]
+                    (cond (nil? obj)
+                          out
+                          
+                          (vector? entry)
+                          (let [entry (if (empty? entry)
+                                        [k]
+                                        entry)]
+                            (assoc out k (struct-fields entry obj)))
+                          
+                          (map? entry)
+                          (assoc out k (struct-fields entry ((field-function k cls) obj)))))
+                  {}
+                  spec))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/framework/struct_test.clj#L35-L43" target="_blank">link</a></i></h6><code class="clojure">(struct-fields {:depth []}
+               (ex-info "hello" {:a 1}))
+=> (contains {:depth number?})
+
+(struct-fields {:msg [:detail-message :value]}
+               (ex-info "hello" {:a 1}))
+=> (contains {:msg bytes?})</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__struct_getters"></span>
+                <div class="entry-description">
+                    <h4><b>struct-getters&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>creates a struct given an object and a getter map</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/framework/struct.clj#L48-L78" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__struct_getters">
+                        <label class="source-toggle" for="entry__pre_hara_object__struct_getters"></label>
+                        <pre class="source"><code class="clojure">(defn struct-getters
+  [spec obj]
+  (cond (vector? spec)
+        ((apply comp (map getter-function (reverse spec))) obj)
+        
+        (map? spec)
+        (reduce (fn [out [k entry]]
+                  (cond (nil? obj)
+                        out
+                        
+                        (vector? entry)
+                        (let [entry (if (empty? entry)
+                                      [k]
+                                      entry)]
+                          (assoc out k (struct-getters entry obj)))
+                        
+                        (map? entry)
+                        (assoc out k (struct-getters entry ((getter-function k) obj)))))
+                {}
+                spec)
+        :else (throw (ex-info "Not valid." {:spec spec}))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/framework/struct_test.clj#L18-L26" target="_blank">link</a></i></h6><code class="clojure">(struct-getters {:value [:data]
+                 :message []
+                 :class {:name []}}
+                (ex-info "hello" {:a 1}))
+=> {:value {:a 1},
+    :message "hello",
+    :class {:name "clojure.lang.ExceptionInfo"}}</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__to_data"></span>
+                <div class="entry-description">
+                    <h4><b>to-data&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>creates the object from a string or map</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/framework/read.clj#L95-L146" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__to_data">
+                        <label class="source-toggle" for="entry__pre_hara_object__to_data"></label>
+                        <pre class="source"><code class="clojure">(defn to-data
+  [obj]
+  (let [cls (type obj)
+        {:keys [to-clojure to-string to-map to-vector methods]} (meta-read cls)]
+    (cond (nil? obj) nil
+
+          (instance? java.util.Map obj)
+          obj
+          
+          to-clojure (to-clojure obj)
+
+          to-string (to-string obj)
+
+          to-map (to-map obj)
+
+          to-vector (to-vector obj)
+
+          methods (reduce-kv (fn [out k func]
+                               (if-some [v (func obj)]
+                                 (assoc out k (to-data v))
+                                 out))
+                             {}
+                             methods)
+
+          (.isArray ^Class cls)
+          (->> (seq obj)
+               (mapv to-data))
+
+          (instance? java.lang.Iterable obj)
+          (mapv to-data obj)
+
+          (instance? java.util.Iterator obj)
+          (->> obj iterator-seq (mapv to-data))
+
+          (instance? java.util.Enumeration obj)
+          (->> obj enumeration-seq (mapv to-data))
+
+          (instance? java.util.AbstractCollection obj)
+          (to-data (.iterator ^java.util.AbstractCollection obj))
+
+          (instance? java.lang.Enum obj)
+          (str obj)
+          
+          :else obj)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/framework/read_test.clj#L52-L58" target="_blank">link</a></i></h6><code class="clojure">(read/to-data "hello")
+=> "hello"
+
+(read/to-data (write/from-map {:name "hello" :species "dog"} Pet))
+=> (contains {:name "hello"})</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__to_map"></span>
+                <div class="entry-description">
+                    <h4><b>to-map&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>creates a map from an object</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/framework/read.clj#L148-L172" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__to_map">
+                        <label class="source-toggle" for="entry__pre_hara_object__to_map"></label>
+                        <pre class="source"><code class="clojure">(defn to-map
+  [obj]
+  (let [cls (type obj)
+        {:keys [to-map methods]} (meta-read cls)]
+    (cond (nil? obj) nil
+
+          (instance? java.util.Map obj)
+          obj
+
+          to-map (to-map obj)
+
+          methods (reduce-kv (fn [out k func]
+                               (if-some [v (func obj)]
+                                 (assoc out k (to-data v))
+                                 out))
+                             {}
+                             methods)
+
+          :else
+          (throw (Exception. (str "Cannot process object: " obj))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/framework/read_test.clj#L61-L64" target="_blank">link</a></i></h6><code class="clojure">(read/to-map (Cat. "spike"))
+=> (contains {:name "spike"})</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__unextend"></span>
+                <div class="entry-description">
+                    <h4><b>unextend&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>unextend a given class from the object framework</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/framework.clj#L87-L99" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__unextend">
+                        <label class="source-toggle" for="entry__pre_hara_object__unextend"></label>
+                        <pre class="source"><code class="clojure">(defn unextend
+  [cls]
+  [(fn/multi-remove protocol.object/-meta-read cls)
+   (fn/multi-remove protocol.object/-meta-write cls)
+   (fn/multi-remove print-method cls)
+   (fn/memoize-remove read/meta-read cls)
+   (fn/memoize-remove write/meta-write cls)])</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/framework_test.clj#L64-L72" target="_blank">link</a></i></h6><code class="clojure">(framework/unextend org.eclipse.jgit.lib.PersonIdent)
+;;=> [[#multifn[-meta-read 0x4ead3109] nil #multifn[print-method 0xcd219d4]]]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__vector_like"></span>
+                <div class="entry-description">
+                    <h4><b>vector-like&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>creates an accessibility layer for vector-like objects</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/framework.clj#L73-L85" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__vector_like">
+                        <label class="source-toggle" for="entry__pre_hara_object__vector_like"></label>
+                        <pre class="source"><code class="clojure">(defmacro vector-like
+  [& {:as classes}]
+  `(vector ~@(map (fn [[cls opts]]
+                    `(vector-like/extend-vector-like ~cls ~opts))
+                  classes)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/framework_test.clj#L55-L61" target="_blank">link</a></i></h6><code class="clojure">(framework/vector-like
+ org.eclipse.jgit.revwalk.RevWalk
+ {:tag "commits"
+  :read (fn [^org.eclipse.jgit.revwalk.RevWalk walk]
+          (->> walk (.iterator) object/to-data))})</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__write_all_setters"></span>
+                <div class="entry-description">
+                    <h4><b>write-all-setters&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>write all setters of an object and base classes</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/framework/write.clj#L98-L109" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__write_all_setters">
+                        <label class="source-toggle" for="entry__pre_hara_object__write_all_setters"></label>
+                        <pre class="source"><code class="clojure">(defn write-all-setters
+  ([cls] (write-all-setters cls {}))
+  ([cls opts]
+   (write-setters cls opts query/query-hierarchy)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/framework/write_test.clj#L55-L61" target="_blank">link</a></i></h6><code class="clojure">(write/write-all-setters Dog)
+=> {}
+
+(keys (write/write-all-setters DogBuilder))
+=> [:name]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__write_fields"></span>
+                <div class="entry-description">
+                    <h4><b>write-fields&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>write fields of an object from reflection</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/framework/write.clj#L34-L49" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__write_fields">
+                        <label class="source-toggle" for="entry__pre_hara_object__write_fields"></label>
+                        <pre class="source"><code class="clojure">(defn write-fields
+  ([cls]
+   (write-fields cls query/query-class))
+  ([cls query-fn]
+   (->> (query-fn cls [:field])
+        (reduce (fn [out ele]
+                  (let [k (-> ele :name string/spear-type keyword)
+                        cls (.getType (get-in ele [:all :delegate]))]
+                    (assoc out k {:type cls :fn ele})))
+                {}))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/framework/write_test.clj#L21-L25" target="_blank">link</a></i></h6><code class="clojure">(-> (write/write-fields Dog)
+    keys)
+=> [:name :species]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_object__write_setters"></span>
+                <div class="entry-description">
+                    <h4><b>write-setters&nbsp<a data-scroll="" href="#entry__hara_object__">^</a></b></h4>
+                    <p><i>write fields of an object through setter methods</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/object/framework/write.clj#L78-L96" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_object__write_setters">
+                        <label class="source-toggle" for="entry__pre_hara_object__write_setters"></label>
+                        <pre class="source"><code class="clojure">(defn write-setters
+  ([cls] (write-setters cls {}))
+  ([cls opts] (write-setters cls opts query/query-class))
+  ([cls {:keys [prefix template]
+         :or {prefix "set"
+              template +write-template+}} query-fn]
+   (->> [:method :instance :public (re-pattern (str "^" prefix ".+")) 2]
+        (query-fn cls)
+        (reduce (fn [out ele]
+                  (conj out (create-write-method ele prefix template)))
+                {}))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/object/framework/write_test.clj#L46-L52" target="_blank">link</a></i></h6><code class="clojure">(write/write-setters Dog)
+=> {}
+
+(keys (write/write-setters DogBuilder))
+=> [:name]</code></pre>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outline">
+      <div class="toc">
+        <nav data-gumshoe-header>
+          <ul data-gumshoe>
+            <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#element"><h4>2 &nbsp; Element</h4></a><a class="section" data-scroll="" href="#entry__hara_object__class_convert"><h5><i>class-convert</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__class_hierarchy"><h5><i>class-hierarchy</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__class_info"><h5><i>class-info</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__constructor_QMARK_"><h5><i>constructor?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__context_class"><h5><i>context-class</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__element"><h5><i>element</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__element_QMARK_"><h5><i>element?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__field_QMARK_"><h5><i>field?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__instance_QMARK_"><h5><i>instance?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__method_QMARK_"><h5><i>method?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__plain_QMARK_"><h5><i>plain?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__private_QMARK_"><h5><i>private?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__public_QMARK_"><h5><i>public?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__static_QMARK_"><h5><i>static?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__to_element"><h5><i>to-element</i></h5></a></li><li><a class="chapter" data-scroll="" href="#query"><h4>3 &nbsp; Query</h4></a><a class="section" data-scroll="" href="#entry__hara_object__delegate"><h5><i>delegate</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__query_class"><h5><i>query-class</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__query_hierarchy"><h5><i>query-hierarchy</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__query_instance"><h5><i>query-instance</i></h5></a></li><li><a class="chapter" data-scroll="" href="#framework"><h4>4 &nbsp; Framework</h4></a><a class="section" data-scroll="" href="#entry__hara_object__from_data"><h5><i>from-data</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__get"><h5><i>get</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__get_in"><h5><i>get-in</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__keys"><h5><i>keys</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__map_like"><h5><i>map-like</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__meta_read"><h5><i>meta-read</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__meta_write"><h5><i>meta-write</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__read_all_getters"><h5><i>read-all-getters</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__read_fields"><h5><i>read-fields</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__read_getters"><h5><i>read-getters</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__set"><h5><i>set</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__string_like"><h5><i>string-like</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__struct_accessor"><h5><i>struct-accessor</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__struct_fields"><h5><i>struct-fields</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__struct_getters"><h5><i>struct-getters</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__to_data"><h5><i>to-data</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__to_map"><h5><i>to-map</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__unextend"><h5><i>unextend</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__vector_like"><h5><i>vector-like</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__write_all_setters"><h5><i>write-all-setters</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__write_fields"><h5><i>write-fields</i></h5></a><a class="section" data-scroll="" href="#entry__hara_object__write_setters"><h5><i>write-setters</i></h5></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    
+    <!--label for="sidebar-checkbox" class="sidebar-toggle"></label-->
+
+  </body>
+
+  <script>
+  if (true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-31320512-2', 'caudate.me');
+    ga('send', 'pageview');
+  }
+  </script>
+  
+  <script type="text/javascript">
+    smoothScroll.init();
+    gumshoe.init({});
+  
+    hljs.registerLanguage("clojure",function(e){var t={"builtin-name":"def defonce cond apply if-not if-let if not not= = < > <= >= == + / * - rem quot neg? pos? delay? symbol? keyword? true? false? integer? empty? coll? list? set? ifn? fn? associative? sequential? sorted? counted? reversible? number? decimal? class? distinct? isa? float? rational? reduced? ratio? odd? even? char? seq? vector? string? map? nil? contains? zero? instance? not-every? not-any? libspec? -> ->> .. . inc compare do dotimes mapcat take remove take-while drop letfn drop-last take-last drop-while while intern condp case reduced cycle split-at split-with repeat replicate iterate range merge zipmap declare line-seq sort comparator sort-by dorun doall nthnext nthrest partition eval doseq await await-for let agent atom send send-off release-pending-sends add-watch mapv filterv remove-watch agent-error restart-agent set-error-handler error-handler set-error-mode! error-mode shutdown-agents quote var fn loop recur throw try monitor-enter monitor-exit defmacro defn defn- macroexpand macroexpand-1 for dosync and or when when-not when-let comp juxt partial sequence memoize constantly complement identity assert peek pop doto proxy defstruct first rest cons defprotocol cast coll deftype defrecord last butlast sigs reify second ffirst fnext nfirst nnext defmulti defmethod meta with-meta ns in-ns create-ns import refer keys select-keys vals key val rseq name namespace promise into transient persistent! conj! assoc! dissoc! pop! disj! use class type num float double short byte boolean bigint biginteger bigdec print-method print-dup throw-if printf format load compile get-in update-in pr pr-on newline flush read slurp read-line subvec with-open memfn time re-find re-groups rand-int rand mod locking assert-valid-fdecl alias resolve ref deref refset swap! reset! set-validator! compare-and-set! alter-meta! reset-meta! commute get-validator alter ref-set ref-history-count ref-min-history ref-max-history ensure sync io! new next conj set! to-array future future-call into-array aset gen-class reduce map filter find empty hash-map hash-set sorted-map sorted-map-by sorted-set sorted-set-by vec vector seq flatten reverse assoc dissoc list disj get union difference intersection extend extend-type extend-protocol int nth delay count concat chunk chunk-buffer chunk-append chunk-first chunk-rest max min dec unchecked-inc-int unchecked-inc unchecked-dec-inc unchecked-dec unchecked-negate unchecked-add-int unchecked-add unchecked-subtract-int unchecked-subtract chunk-next chunk-cons chunked-seq? prn vary-meta lazy-seq spread list* str find-keyword keyword symbol gensym force rationalize"},r="a-zA-Z_\\-!.?+*=<>&#'",n="["+r+"]["+r+"0-9/;:]*",a="[-+]?\\d+(\\.\\d+)?",o={b:n,r:0},s={cN:"number",b:a,r:0},i=e.inherit(e.QSM,{i:null}),c=e.C(";","$",{r:0}),d={cN:"literal",b:/\b(true|false|nil)\b/},l={b:"[\\[\\{]",e:"[\\]\\}]"},m={cN:"comment",b:"\\^"+n},p=e.C("\\^\\{","\\}"),u={cN:"symbol",b:"[:]{1,2}"+n},f={b:"\\(",e:"\\)"},h={eW:!0,r:0},y={k:t,l:n,cN:"name",b:n,starts:h},b=[f,i,m,p,c,u,l,s,d,o];return f.c=[e.C("comment",""),y,h],h.c=b,l.c=b,{aliases:["clj"],i:/\S/,c:[f,i,m,p,c,u,l,s,d]}});
+    hljs.initHighlightingOnLoad();
+  </script>
+</html>

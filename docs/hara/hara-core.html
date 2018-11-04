@@ -1,0 +1,2455 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <link rel="shortcut icon" href="favicon.ico">
+  <title>hara.core - general functions</title>
+  <script src="js/highlight.min.js"></script>
+  <script src="js/gumshoe.min.js"></script>
+  <script src="js/smooth-scroll.min.js"></script>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/poole.css">
+  <link rel="stylesheet" href="css/syntax.css">
+  <link rel="stylesheet" href="css/lanyon.css">
+  <link rel="stylesheet" href="css/bolton.css">
+  <link rel="stylesheet" href="css/bolton-api.css">
+  <link rel="stylesheet" href="css/bolton-highlight.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  
+</head>
+
+  <body class="theme-base-0b">
+    <span id="page-top"></span>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <nav class="sidebar-nav">
+    <span>&nbsp;</span>
+    <a class="sidebar-nav-item header" href="index.html" style="padding-bottom:5px"><b>HOME</b></a>
+    <a class="sidebar-nav-item" href="hara-config.html">config</a><a class="sidebar-nav-item" href="hara-core.html">core</a><a class="sidebar-nav-item" href="hara-data.html">data</a><a class="sidebar-nav-item" href="hara-deploy.html">deploy</a><a class="sidebar-nav-item" href="hara-event.html">event</a><a class="sidebar-nav-item" href="hara-function.html">function</a><a class="sidebar-nav-item" href="hara-function-procedure.html">function.procedure</a><a class="sidebar-nav-item" href="hara-function-task.html">function.task</a><a class="sidebar-nav-item" href="hara-io-archive.html">io.archive</a><a class="sidebar-nav-item" href="hara-io-file.html">io.file</a><a class="sidebar-nav-item" href="hara-io-project.html">io.project</a><a class="sidebar-nav-item" href="hara-io-scheduler.html">io.scheduler</a><a class="sidebar-nav-item" href="hara-lib-aether.html">lib.aether</a><a class="sidebar-nav-item" href="hara-lib-jgit.html">lib.jgit</a><a class="sidebar-nav-item" href="hara-math.html">math</a><a class="sidebar-nav-item" href="hara-module.html">module</a><a class="sidebar-nav-item" href="hara-object.html">object</a><a class="sidebar-nav-item" href="hara-print.html">print</a><a class="sidebar-nav-item" href="hara-security.html">security</a><a class="sidebar-nav-item" href="hara-security-openpgp.html">security.openpgp</a><a class="sidebar-nav-item" href="hara-state.html">state</a><a class="sidebar-nav-item" href="hara-state-ova.html">state.ova</a><a class="sidebar-nav-item" href="hara-string.html">string</a><a class="sidebar-nav-item" href="hara-test.html">test</a><a class="sidebar-nav-item" href="hara-time.html">time</a><a class="sidebar-nav-item" href="hara-watch.html">watch</a>
+    <span class="sidebar-nav-item">&nbsp;</span>
+    <span class="sidebar-nav-item">&nbsp;</span>
+  </nav>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <span>core</span>
+            <small>general functions</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="page">
+          <div class="heading">
+            <div>
+              <h5>Author: Chris Zheng&nbsp;&nbsp;<a href="mailto:z@caudate.me">(z@caudate.me)</a></h5>
+              <h5>Date: 04 November 2018</h5>
+              <h5>Repository: <a href="https://github.com/zcaudate/hara">https://github.com/zcaudate/hara</a></h5>
+              <h5>Version: 3.0.1</h5></div></div>
+          <hr/>
+
+          <div class="toc">
+              <nav>
+                <ul>
+                  <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#check"><h4>2 &nbsp; Check</h4></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__agent_QMARK_"><h5><i>agent?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__atom_QMARK_"><h5><i>atom?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__bigdec_QMARK_"><h5><i>bigdec?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__bigint_QMARK_"><h5><i>bigint?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__boolean_QMARK_"><h5><i>boolean?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__byte_QMARK_"><h5><i>byte?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__bytes_QMARK_"><h5><i>bytes?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__comparable_QMARK_"><h5><i>comparable?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__double_QMARK_"><h5><i>double?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__edn_QMARK_"><h5><i>edn?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__hash_map_QMARK_"><h5><i>hash-map?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__ideref_QMARK_"><h5><i>ideref?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__instant_QMARK_"><h5><i>instant?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__iobj_QMARK_"><h5><i>iobj?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__iref_QMARK_"><h5><i>iref?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__lazy_seq_QMARK_"><h5><i>lazy-seq?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__long_QMARK_"><h5><i>long?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__promise_QMARK_"><h5><i>promise?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__ref_QMARK_"><h5><i>ref?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__regexp_QMARK_"><h5><i>regexp?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__short_QMARK_"><h5><i>short?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__thread_QMARK_"><h5><i>thread?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__type_checker"><h5><i>type-checker</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__uri_QMARK_"><h5><i>uri?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__url_QMARK_"><h5><i>url?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__uuid_QMARK_"><h5><i>uuid?</i></h5></a></li><li><a class="chapter" data-scroll="" href="#class"><h4>3 &nbsp; Class</h4></a><a class="section" data-scroll="" href="#entry__hara_core_base_class__abstract_QMARK_"><h5><i>abstract?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_class__array_component"><h5><i>array-component</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_class__array_QMARK_"><h5><i>array?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_class__interface_QMARK_"><h5><i>interface?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_class__primitive_array_QMARK_"><h5><i>primitive-array?</i></h5></a></li><li><a class="chapter" data-scroll="" href="#encode"><h4>4 &nbsp; Encode</h4></a><a class="section" data-scroll="" href="#entry__hara_core_base_encode__from_base64"><h5><i>from-base64</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_encode__from_hex"><h5><i>from-hex</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_encode__from_hex_chars"><h5><i>from-hex-chars</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_encode__hex_chars"><h5><i>hex-chars</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_encode__to_base64"><h5><i>to-base64</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_encode__to_base64_bytes"><h5><i>to-base64-bytes</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_encode__to_hex"><h5><i>to-hex</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_encode__to_hex_chars"><h5><i>to-hex-chars</i></h5></a></li><li><a class="chapter" data-scroll="" href="#enum"><h4>5 &nbsp; Enum</h4></a><a class="section" data-scroll="" href="#entry__hara_core_base_enum__create_enum"><h5><i>create-enum</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_enum__enum_map"><h5><i>enum-map</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_enum__enum_values"><h5><i>enum-values</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_enum__enum_QMARK_"><h5><i>enum?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_enum__to_enum"><h5><i>to-enum</i></h5></a></li><li><a class="chapter" data-scroll="" href="#error"><h4>6 &nbsp; Error</h4></a><a class="section" data-scroll="" href="#entry__hara_core_base_error__suppress"><h5><i>suppress</i></h5></a></li><li><a class="chapter" data-scroll="" href="#inheritance"><h4>7 &nbsp; Inheritance</h4></a><a class="section" data-scroll="" href="#entry__hara_core_base_inheritance__all_ancestors"><h5><i>all-ancestors</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_inheritance__all_interfaces"><h5><i>all-interfaces</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_inheritance__ancestor_list"><h5><i>ancestor-list</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_inheritance__ancestor_tree"><h5><i>ancestor-tree</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_inheritance__best_match"><h5><i>best-match</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_inheritance__inherits_QMARK_"><h5><i>inherits?</i></h5></a></li><li><a class="chapter" data-scroll="" href="#match"><h4>8 &nbsp; Match</h4></a><a class="section" data-scroll="" href="#entry__hara_core_base_match__actual_pattern"><h5><i>actual-pattern</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_match__actual_pattern_QMARK_"><h5><i>actual-pattern?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_match__eval_pattern"><h5><i>eval-pattern</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_match__eval_pattern_QMARK_"><h5><i>eval-pattern?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_match__match_inner"><h5><i>match-inner</i></h5></a></li><li><a class="chapter" data-scroll="" href="#primitive"><h4>9 &nbsp; Primitive</h4></a><a class="section" data-scroll="" href="#entry__hara_core_base_primitive__create_lookup"><h5><i>create-lookup</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_primitive__primitive_type"><h5><i>primitive-type</i></h5></a></li><li><a class="chapter" data-scroll="" href="#protocol"><h4>10 &nbsp; Protocol</h4></a><a class="section" data-scroll="" href="#entry__hara_core_base_protocol__implements_QMARK_"><h5><i>implements?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_protocol__protocol_impls"><h5><i>protocol-impls</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_protocol__protocol_interface"><h5><i>protocol-interface</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_protocol__protocol_methods"><h5><i>protocol-methods</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_protocol__protocol_remove"><h5><i>protocol-remove</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_protocol__protocol_signatures"><h5><i>protocol-signatures</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_protocol__protocol_QMARK_"><h5><i>protocol?</i></h5></a></li><li><a class="chapter" data-scroll="" href="#result"><h4>11 &nbsp; Result</h4></a><a class="section" data-scroll="" href="#entry__hara_core_base_result____GT_result"><h5><i>->result</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_result__result"><h5><i>result</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_result__result_QMARK_"><h5><i>result?</i></h5></a></li><li><a class="chapter" data-scroll="" href="#shorthand"><h4>12 &nbsp; Shorthand</h4></a><a class="section" data-scroll="" href="#entry__hara_core_base_shorthand__call__GT_"><h5><i>call-></i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_shorthand__check"><h5><i>check</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_shorthand__check__GT_"><h5><i>check-></i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_shorthand__check_all"><h5><i>check-all</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_shorthand__check_QMARK___GT_"><h5><i>check?-></i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_shorthand__eq__GT_"><h5><i>eq-></i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_shorthand__fn__GT_"><h5><i>fn-></i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_shorthand__get__GT_"><h5><i>get-></i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_shorthand__shorthand_fn_expr"><h5><i>shorthand-fn-expr</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_shorthand__shorthand_form"><h5><i>shorthand-form</i></h5></a></li><li><a class="chapter" data-scroll="" href="#sort"><h4>13 &nbsp; Sort</h4></a><a class="section" data-scroll="" href="#entry__hara_core_base_sort__hierarchical_sort"><h5><i>hierarchical-sort</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_sort__hierarchical_top"><h5><i>hierarchical-top</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_sort__topological_sort"><h5><i>topological-sort</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_sort__topological_top"><h5><i>topological-top</i></h5></a></li><li><a class="chapter" data-scroll="" href="#util"><h4>14 &nbsp; Util</h4></a><a class="section" data-scroll="" href="#entry__hara_core_base_util__F"><h5><i>F</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_util__NIL"><h5><i>NIL</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_util__T"><h5><i>T</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_util__hash_label"><h5><i>hash-label</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_util__instant"><h5><i>instant</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_util__queue"><h5><i>queue</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_util__uri"><h5><i>uri</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_util__uuid"><h5><i>uuid</i></h5></a></li>
+                </ul>
+              </nav>
+          </div>
+          <div>
+    <span id="introduction"></span>
+    <h2><b>1 &nbsp;&nbsp; Introduction</b></h2>
+</div><div>
+    <span id="installation"></span>
+    <h3>1.1 &nbsp;&nbsp; Installation</h3>
+</div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;hara/base &quot;3.0.1&quot;&#93;</code></pre>
+</div><div>
+    <span id="check"></span>
+    <h2><b>2 &nbsp;&nbsp; Check</b></h2>
+</div><div class="api">
+    <span id="entry__hara_core_base_check__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_core_base_check__agent_QMARK_">agent?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_check__atom_QMARK_">atom?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_check__bigdec_QMARK_">bigdec?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_check__bigint_QMARK_">bigint?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_check__boolean_QMARK_">boolean?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_check__byte_QMARK_">byte?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_check__bytes_QMARK_">bytes?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_check__comparable_QMARK_">comparable?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_check__double_QMARK_">double?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_check__edn_QMARK_">edn?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_check__hash_map_QMARK_">hash-map?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_check__ideref_QMARK_">ideref?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_check__instant_QMARK_">instant?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_check__iobj_QMARK_">iobj?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_check__iref_QMARK_">iref?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_check__lazy_seq_QMARK_">lazy-seq?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_check__long_QMARK_">long?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_check__promise_QMARK_">promise?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_check__ref_QMARK_">ref?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_check__regexp_QMARK_">regexp?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_check__short_QMARK_">short?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_check__thread_QMARK_">thread?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_check__type_checker">type-checker</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_check__uri_QMARK_">uri?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_check__url_QMARK_">url?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_check__uuid_QMARK_">uuid?</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_core_base_check__agent_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>agent?&nbsp<a data-scroll="" href="#entry__hara_core_base_check__">^</a></b></h4>
+                    <p><i>returns `true` if `x` is of type `clojure.lang.Agent`.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/check.clj#L138-L144" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_check__agent_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_check__agent_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn agent?
+  [obj]
+  (instance? clojure.lang.Agent obj))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/check_test.clj#L99-L101" target="_blank">link</a></i></h6><code class="clojure">(agent? (agent nil)) => true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_check__atom_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>atom?&nbsp<a data-scroll="" href="#entry__hara_core_base_check__">^</a></b></h4>
+                    <p><i>returns `true` if `x` is of type `clojure.lang.Atom`.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/check.clj#L122-L128" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_check__atom_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_check__atom_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn atom?
+  [obj]
+  (instance? clojure.lang.Atom obj))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/check_test.clj#L89-L91" target="_blank">link</a></i></h6><code class="clojure">(atom? (atom nil)) => true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_check__bigdec_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>bigdec?&nbsp<a data-scroll="" href="#entry__hara_core_base_check__">^</a></b></h4>
+                    <p><i>returns `true` if `x` is of type `java.math.BigDecimal`.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/check.clj#L70-L76" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_check__bigdec_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_check__bigdec_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn bigdec?
+  [x] (instance? java.math.BigDecimal x))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/check_test.clj#L53-L56" target="_blank">link</a></i></h6><code class="clojure">(bigdec? 1M)       => true
+(bigdec? 1.0)      => false</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_check__bigint_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>bigint?&nbsp<a data-scroll="" href="#entry__hara_core_base_check__">^</a></b></h4>
+                    <p><i>returns `true` if `x` is of type `clojure.lang.BigInt`.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/check.clj#L54-L60" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_check__bigint_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_check__bigint_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn bigint?
+  [x] (instance? clojure.lang.BigInt x))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/check_test.clj#L41-L44" target="_blank">link</a></i></h6><code class="clojure">(bigint? 1N)       => true
+(bigint? 1)        =>  false</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_check__boolean_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>boolean?&nbsp<a data-scroll="" href="#entry__hara_core_base_check__">^</a></b></h4>
+                    <p><i>returns `true` if `x` is of type `java.lang.Boolean`.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/check.clj#L8-L14" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_check__boolean_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_check__boolean_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn boolean?
+  [x] (instance? java.lang.Boolean x))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/check_test.clj#L7-L10" target="_blank">link</a></i></h6><code class="clojure">(boolean? true)   => true
+(boolean? false)  => true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_check__byte_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>byte?&nbsp<a data-scroll="" href="#entry__hara_core_base_check__">^</a></b></h4>
+                    <p><i>returns `true` if `x` is of type `java.lang.Byte`</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/check.clj#L32-L37" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_check__byte_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_check__byte_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn byte?
+  [x] (instance? java.lang.Byte x))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/check_test.clj#L25-L27" target="_blank">link</a></i></h6><code class="clojure">(byte? (byte 1)) => true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_check__bytes_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>bytes?&nbsp<a data-scroll="" href="#entry__hara_core_base_check__">^</a></b></h4>
+                    <p><i>returns `true` if `x` is a primitive `byte` array.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/check.clj#L113-L120" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_check__bytes_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_check__bytes_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn bytes?
+  [^Object x]
+  (= (Class/forName "[B")
+     (.getClass x)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/check_test.clj#L84-L86" target="_blank">link</a></i></h6><code class="clojure">(bytes? (byte-array 8)) => true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_check__comparable_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>comparable?&nbsp<a data-scroll="" href="#entry__hara_core_base_check__">^</a></b></h4>
+                    <p><i>returns `true` if `x` and `y` both implements `java.lang.Comparable`.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/check.clj#L207-L215" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_check__comparable_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_check__comparable_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn comparable?
+  [x y]
+  (and (instance? Comparable x)
+       (instance? Comparable y)
+       (= (type x) (type y))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/check_test.clj#L146-L148" target="_blank">link</a></i></h6><code class="clojure">(comparable? 1 1) => true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_check__double_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>double?&nbsp<a data-scroll="" href="#entry__hara_core_base_check__">^</a></b></h4>
+                    <p><i>returns `true` if `x` is of type `java.lang.Double`.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/check.clj#L62-L68" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_check__double_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_check__double_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn double?
+  [x] (instance? java.lang.Double x))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/check_test.clj#L47-L50" target="_blank">link</a></i></h6><code class="clojure">(double? 1)            => false
+(double? (double 1))   => true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_check__edn_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>edn?&nbsp<a data-scroll="" href="#entry__hara_core_base_check__">^</a></b></h4>
+                    <p><i>checks if an entry is valid edn</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/check.clj#L217-L242" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_check__edn_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_check__edn_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn edn?
+  [x]
+  (or (nil? x)
+      (boolean? x)
+      (string? x)
+      (char? x)
+      (symbol? x)
+      (keyword? x)
+      (number? x)
+      (seq? x)
+      (vector? x)
+      (record? x)
+      (map? x)
+      (set? x)
+      (tagged-literal? x)
+      (var? x)
+      (regexp? x)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/check_test.clj#L151-L158" target="_blank">link</a></i></h6><code class="clojure">(edn? 1) => true
+
+(edn? {}) => true
+
+(edn? (java.util.Date.))
+=> false</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_check__hash_map_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>hash-map?&nbsp<a data-scroll="" href="#entry__hara_core_base_check__">^</a></b></h4>
+                    <p><i>returns `true` if `x` implements `clojure.lang.APersistentMap`.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/check.clj#L16-L22" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_check__hash_map_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_check__hash_map_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn hash-map?
+  [x] (instance? clojure.lang.APersistentMap x))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/check_test.clj#L13-L16" target="_blank">link</a></i></h6><code class="clojure">(hash-map? {})    => true
+(hash-map? [])    => false</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_check__ideref_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>ideref?&nbsp<a data-scroll="" href="#entry__hara_core_base_check__">^</a></b></h4>
+                    <p><i>returns `true` if `x` is of type `java.lang.IDeref`.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/check.clj#L158-L166" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_check__ideref_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_check__ideref_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn ideref?
+  [obj]
+  (instance? clojure.lang.IDeref obj))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/check_test.clj#L113-L117" target="_blank">link</a></i></h6><code class="clojure">(ideref? (atom 0))  => true
+(ideref? (promise)) => true
+(ideref? (future))  => true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_check__instant_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>instant?&nbsp<a data-scroll="" href="#entry__hara_core_base_check__">^</a></b></h4>
+                    <p><i>returns `true` if `x` is of type `java.util.Date`.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/check.clj#L78-L83" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_check__instant_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_check__instant_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn instant?
+  [x] (instance? java.util.Date x))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/check_test.clj#L59-L61" target="_blank">link</a></i></h6><code class="clojure">(instant? (java.util.Date.)) => true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_check__iobj_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>iobj?&nbsp<a data-scroll="" href="#entry__hara_core_base_check__">^</a></b></h4>
+                    <p><i>checks if a component is instance of clojure.lang.IObj</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/check.clj#L186-L194" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_check__iobj_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_check__iobj_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn iobj?
+  [x]
+  (instance? clojure.lang.IObj x))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/check_test.clj#L131-L135" target="_blank">link</a></i></h6><code class="clojure">(iobj? 1) => false
+
+(iobj? {}) => true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_check__iref_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>iref?&nbsp<a data-scroll="" href="#entry__hara_core_base_check__">^</a></b></h4>
+                    <p><i>returns `true` if `x` is of type `clojure.lang.IRef`.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/check.clj#L146-L156" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_check__iref_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_check__iref_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn iref?
+  [obj]
+  (instance? clojure.lang.IRef obj))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/check_test.clj#L104-L110" target="_blank">link</a></i></h6><code class="clojure">(iref? (atom 0))  => true
+(iref? (ref 0))   => true
+(iref? (agent 0)) => true
+(iref? (promise)) => false
+(iref? (future))  => false</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_check__lazy_seq_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>lazy-seq?&nbsp<a data-scroll="" href="#entry__hara_core_base_check__">^</a></b></h4>
+                    <p><i>returns `true` if `x` implements `clojure.lang.LazySeq`.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/check.clj#L24-L30" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_check__lazy_seq_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_check__lazy_seq_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn lazy-seq?
+  [x] (instance? clojure.lang.LazySeq x))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/check_test.clj#L19-L22" target="_blank">link</a></i></h6><code class="clojure">(lazy-seq? (map inc [1 2 3]))  => true
+(lazy-seq? ())    => false</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_check__long_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>long?&nbsp<a data-scroll="" href="#entry__hara_core_base_check__">^</a></b></h4>
+                    <p><i>returns `true` if `x` is of type `java.lang.Long`.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/check.clj#L46-L52" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_check__long_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_check__long_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn long?
+  [x] (instance? java.lang.Long x))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/check_test.clj#L35-L38" target="_blank">link</a></i></h6><code class="clojure">(long? 1)          => true
+(long? 1N)         => false</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_check__promise_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>promise?&nbsp<a data-scroll="" href="#entry__hara_core_base_check__">^</a></b></h4>
+                    <p><i>returns `true` is `x` is a promise</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/check.clj#L168-L176" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_check__promise_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_check__promise_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn promise?
+  [^Object obj]
+  (let [^String s (.getName ^Class (type obj))]
+    (.startsWith s "clojure.core$promise$")))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/check_test.clj#L120-L123" target="_blank">link</a></i></h6><code class="clojure">(promise? (promise)) => true
+(promise? (future))  => false</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_check__ref_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>ref?&nbsp<a data-scroll="" href="#entry__hara_core_base_check__">^</a></b></h4>
+                    <p><i>returns `true` if `x` is of type `clojure.lang.Ref`.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/check.clj#L130-L136" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_check__ref_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_check__ref_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn ref?
+  [obj]
+  (instance? clojure.lang.Ref obj))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/check_test.clj#L94-L96" target="_blank">link</a></i></h6><code class="clojure">(ref? (ref nil)) => true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_check__regexp_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>regexp?&nbsp<a data-scroll="" href="#entry__hara_core_base_check__">^</a></b></h4>
+                    <p><i>returns `true` if `x` implements `clojure.lang.IPersistentMap`.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/check.clj#L106-L111" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_check__regexp_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_check__regexp_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn regexp?
+  [x] (instance? java.util.regex.Pattern x))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/check_test.clj#L79-L81" target="_blank">link</a></i></h6><code class="clojure">(regexp? #"d+") => true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_check__short_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>short?&nbsp<a data-scroll="" href="#entry__hara_core_base_check__">^</a></b></h4>
+                    <p><i>returns `true` if `x` is of type `java.lang.Short`</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/check.clj#L39-L44" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_check__short_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_check__short_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn short?
+  [x] (instance? java.lang.Short x))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/check_test.clj#L30-L32" target="_blank">link</a></i></h6><code class="clojure">(short? (short 1)) => true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_check__thread_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>thread?&nbsp<a data-scroll="" href="#entry__hara_core_base_check__">^</a></b></h4>
+                    <p><i>returns `true` is `x` is a thread</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/check.clj#L178-L184" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_check__thread_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_check__thread_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn thread?
+  [obj]
+  (instance? java.lang.Thread obj))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/check_test.clj#L126-L128" target="_blank">link</a></i></h6><code class="clojure">(thread? (Thread/currentThread)) => true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_check__type_checker"></span>
+                <div class="entry-description">
+                    <h4><b>type-checker&nbsp<a data-scroll="" href="#entry__hara_core_base_check__">^</a></b></h4>
+                    <p><i>returns the checking function associated with `k`</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/check.clj#L196-L205" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_check__type_checker">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_check__type_checker"></label>
+                        <pre class="source"><code class="clojure">(defn type-checker
+  [k]
+  (resolve (symbol (str (name k) "?"))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/check_test.clj#L138-L143" target="_blank">link</a></i></h6><code class="clojure">(type-checker :string) => #'clojure.core/string?
+
+(require '[hara.core.base.check :refer [bytes?]])
+(type-checker :bytes)  => #'hara.core.base.check/bytes?</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_check__uri_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>uri?&nbsp<a data-scroll="" href="#entry__hara_core_base_check__">^</a></b></h4>
+                    <p><i>returns `true` if `x` is of type `java.net.URI`.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/check.clj#L92-L97" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_check__uri_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_check__uri_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn uri?
+  [x] (instance? java.net.URI x))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/check_test.clj#L69-L71" target="_blank">link</a></i></h6><code class="clojure">(uri? (java.net.URI. "http://www.google.com")) => true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_check__url_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>url?&nbsp<a data-scroll="" href="#entry__hara_core_base_check__">^</a></b></h4>
+                    <p><i>returns `true` if `x` is of type `java.net.URL`.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/check.clj#L99-L104" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_check__url_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_check__url_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn url?
+  [x] (instance? java.net.URL x))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/check_test.clj#L74-L76" target="_blank">link</a></i></h6><code class="clojure">(url? (java.net.URL. "file:/Users/chris/Development")) => true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_check__uuid_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>uuid?&nbsp<a data-scroll="" href="#entry__hara_core_base_check__">^</a></b></h4>
+                    <p><i>returns `true` if `x` is of type `java.util.UUID`.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/check.clj#L85-L90" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_check__uuid_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_check__uuid_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn uuid?
+  [x] (instance? java.util.UUID x))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/check_test.clj#L64-L66" target="_blank">link</a></i></h6><code class="clojure">(uuid? (java.util.UUID/randomUUID)) => true</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="class"></span>
+    <h2><b>3 &nbsp;&nbsp; Class</b></h2>
+</div><div class="api">
+    <span id="entry__hara_core_base_class__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_core_base_class__abstract_QMARK_">abstract?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_class__array_component">array-component</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_class__array_QMARK_">array?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_class__interface_QMARK_">interface?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_class__primitive_array_QMARK_">primitive-array?</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_core_base_class__abstract_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>abstract?&nbsp<a data-scroll="" href="#entry__hara_core_base_class__">^</a></b></h4>
+                    <p><i>returns `true` if `class` is an abstract class</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/class.clj#L49-L57" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_class__abstract_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_class__abstract_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn abstract?
+  [^java.lang.Class class]
+  (java.lang.reflect.Modifier/isAbstract (.getModifiers class)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/class_test.clj#L37-L41" target="_blank">link</a></i></h6><code class="clojure">(abstract? java.util.Map) => true
+
+(abstract? Class) => false</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_class__array_component"></span>
+                <div class="entry-description">
+                    <h4><b>array-component&nbsp<a data-scroll="" href="#entry__hara_core_base_class__">^</a></b></h4>
+                    <p><i>returns the array element within the array</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/class.clj#L25-L37" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_class__array_component">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_class__array_component"></label>
+                        <pre class="source"><code class="clojure">(defn array-component
+  [cls]
+  (if (array? cls)
+    (.getComponentType cls)
+    (throw (ex-info "Not an array" {:class cls}))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/class_test.clj#L21-L27" target="_blank">link</a></i></h6><code class="clojure">(array-component (type (int-array 0)))
+=> Integer/TYPE
+
+(array-component (type (into-array [1 2 3])))
+=> java.lang.Long</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_class__array_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>array?&nbsp<a data-scroll="" href="#entry__hara_core_base_class__">^</a></b></h4>
+                    <p><i>checks if a class is an array class</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/class.clj#L3-L10" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_class__array_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_class__array_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn array?
+  [cls]
+  (.isArray cls))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/class_test.clj#L6-L9" target="_blank">link</a></i></h6><code class="clojure">(array? (type (int-array 0)))
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_class__interface_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>interface?&nbsp<a data-scroll="" href="#entry__hara_core_base_class__">^</a></b></h4>
+                    <p><i>returns `true` if `class` is an interface</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/class.clj#L39-L47" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_class__interface_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_class__interface_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn interface?
+  [^java.lang.Class class]
+  (.isInterface class))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/class_test.clj#L30-L34" target="_blank">link</a></i></h6><code class="clojure">(interface? java.util.Map) => true
+
+(interface? Class) => false</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_class__primitive_array_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>primitive-array?&nbsp<a data-scroll="" href="#entry__hara_core_base_class__">^</a></b></h4>
+                    <p><i>checks if class is a primitive array</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/class.clj#L12-L23" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_class__primitive_array_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_class__primitive_array_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn primitive-array?
+  [cls]
+  (and (.isArray cls)
+       (.isPrimitive (.getComponentType cls))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/class_test.clj#L12-L18" target="_blank">link</a></i></h6><code class="clojure">(primitive-array? (type (int-array 0)))
+=> true
+
+(primitive-array? (type (into-array [1 2 3])))
+=> false</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="encode"></span>
+    <h2><b>4 &nbsp;&nbsp; Encode</b></h2>
+</div><div class="api">
+    <span id="entry__hara_core_base_encode__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_core_base_encode__from_base64">from-base64</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_encode__from_hex">from-hex</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_encode__from_hex_chars">from-hex-chars</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_encode__hex_chars">hex-chars</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_encode__to_base64">to-base64</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_encode__to_base64_bytes">to-base64-bytes</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_encode__to_hex">to-hex</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_encode__to_hex_chars">to-hex-chars</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_core_base_encode__from_base64"></span>
+                <div class="entry-description">
+                    <h4><b>from-base64&nbsp<a data-scroll="" href="#entry__hara_core_base_encode__">^</a></b></h4>
+                    <p><i>turns a base64 encoded string into a byte array</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/encode.clj#L78-L87" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_encode__from_base64">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_encode__from_base64"></label>
+                        <pre class="source"><code class="clojure">(defn from-base64
+  [input]
+  (.decode (Base64/getDecoder)
+           input))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/encode_test.clj#L51-L55" target="_blank">link</a></i></h6><code class="clojure">(-> (from-base64 "aGVsbG8=")
+    (String.))
+=> "hello"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_encode__from_hex"></span>
+                <div class="entry-description">
+                    <h4><b>from-hex&nbsp<a data-scroll="" href="#entry__hara_core_base_encode__">^</a></b></h4>
+                    <p><i>turns a hex string into a sequence of bytes</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/encode.clj#L46-L53" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_encode__from_hex">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_encode__from_hex"></label>
+                        <pre class="source"><code class="clojure">(defn from-hex
+  [s]
+  (byte-array (map #(apply from-hex-chars %) (partition 2 s))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/encode_test.clj#L30-L33" target="_blank">link</a></i></h6><code class="clojure">(String. (from-hex "68656c6c6f"))
+=> "hello"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_encode__from_hex_chars"></span>
+                <div class="entry-description">
+                    <h4><b>from-hex-chars&nbsp<a data-scroll="" href="#entry__hara_core_base_encode__">^</a></b></h4>
+                    <p><i>turns two hex characters into a byte value</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/encode.clj#L35-L44" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_encode__from_hex_chars">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_encode__from_hex_chars"></label>
+                        <pre class="source"><code class="clojure">(defn from-hex-chars
+  [c1 c2]
+  (unchecked-byte
+   (+ (bit-shift-left (Character/digit c1 16) 4)
+      (Character/digit c2 16))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/encode_test.clj#L24-L27" target="_blank">link</a></i></h6><code class="clojure">(byte (from-hex-chars 2 a))
+=> 42</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_encode__hex_chars"></span>
+                <div class="entry-description">
+                    <h4><b>hex-chars&nbsp<a data-scroll="" href="#entry__hara_core_base_encode__">^</a></b></h4>
+                    <p><i>turns a byte into two chars</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/encode.clj#L6-L18" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_encode__hex_chars">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_encode__hex_chars"></label>
+                        <pre class="source"><code class="clojure">(defn hex-chars
+  [b]
+  (let [v (bit-and b 0xFF)]
+    [(+hex-array+ (bit-shift-right v 4))
+     (+hex-array+ (bit-and v 0x0F))]))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/encode_test.clj#L6-L12" target="_blank">link</a></i></h6><code class="clojure">(hex-chars 255)
+=> [f f]
+
+(hex-chars 42)
+=> [2 a]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_encode__to_base64"></span>
+                <div class="entry-description">
+                    <h4><b>to-base64&nbsp<a data-scroll="" href="#entry__hara_core_base_encode__">^</a></b></h4>
+                    <p><i>turns a byte array into a base64 encoded string</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/encode.clj#L67-L76" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_encode__to_base64">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_encode__to_base64"></label>
+                        <pre class="source"><code class="clojure">(defn to-base64
+  [bytes]
+  (.encodeToString (Base64/getEncoder)
+                   bytes))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/encode_test.clj#L44-L48" target="_blank">link</a></i></h6><code class="clojure">(-> (.getBytes "hello")
+    (to-base64))
+=> "aGVsbG8="</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_encode__to_base64_bytes"></span>
+                <div class="entry-description">
+                    <h4><b>to-base64-bytes&nbsp<a data-scroll="" href="#entry__hara_core_base_encode__">^</a></b></h4>
+                    <p><i>turns a byte array into a base64 encoding</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/encode.clj#L55-L65" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_encode__to_base64_bytes">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_encode__to_base64_bytes"></label>
+                        <pre class="source"><code class="clojure">(defn to-base64-bytes
+  [bytes]
+  (.encode (Base64/getEncoder)
+           bytes))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/encode_test.clj#L36-L41" target="_blank">link</a></i></h6><code class="clojure">(-> (.getBytes "hello")
+    (to-base64-bytes)
+    (String.))
+=> "aGVsbG8="</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_encode__to_hex"></span>
+                <div class="entry-description">
+                    <h4><b>to-hex&nbsp<a data-scroll="" href="#entry__hara_core_base_encode__">^</a></b></h4>
+                    <p><i>turns a byte array into hex string</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/encode.clj#L26-L33" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_encode__to_hex">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_encode__to_hex"></label>
+                        <pre class="source"><code class="clojure">(defn to-hex
+  [bytes]
+  (String. (to-hex-chars bytes)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/encode_test.clj#L18-L21" target="_blank">link</a></i></h6><code class="clojure">(to-hex (.getBytes "hello"))
+=> "68656c6c6f"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_encode__to_hex_chars"></span>
+                <div class="entry-description">
+                    <h4><b>to-hex-chars&nbsp<a data-scroll="" href="#entry__hara_core_base_encode__">^</a></b></h4>
+                    <p><i>turns a byte array into a hex char array</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/encode.clj#L20-L24" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_encode__to_hex_chars">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_encode__to_hex_chars"></label>
+                        <pre class="source"><code class="clojure">(defn to-hex-chars
+  [bytes]
+  (char-array (mapcat hex-chars bytes)))</code></pre>
+                    </div>
+                </div>
+                <pre class="error"><h6>example not found</h6><code></code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="enum"></span>
+    <h2><b>5 &nbsp;&nbsp; Enum</b></h2>
+</div><div class="api">
+    <span id="entry__hara_core_base_enum__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_core_base_enum__create_enum">create-enum</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_enum__enum_map">enum-map</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_enum__enum_values">enum-values</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_enum__enum_QMARK_">enum?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_enum__to_enum">to-enum</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_core_base_enum__create_enum"></span>
+                <div class="entry-description">
+                    <h4><b>create-enum&nbsp<a data-scroll="" href="#entry__hara_core_base_enum__">^</a></b></h4>
+                    <p><i>creates an enum value from a string</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/enum.clj#L32-L46" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_enum__create_enum">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_enum__create_enum"></label>
+                        <pre class="source"><code class="clojure">(defn create-enum
+  [s type]
+  (loop [[e :as values] (enum-values type)]
+    (cond (empty? values)
+          (throw (ex-info "Cannot create enum" {:type type
+                                                :value s}))
+          (= (str e) s) e
+
+          :else
+          (recur (rest values)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/enum_test.clj#L22-L25" target="_blank">link</a></i></h6><code class="clojure">(create-enum "TYPE" ElementType)
+=> ElementType/TYPE</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_enum__enum_map"></span>
+                <div class="entry-description">
+                    <h4><b>enum-map&nbsp<a data-scroll="" href="#entry__hara_core_base_enum__">^</a></b></h4>
+                    <p><i>cached map of enum values</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/enum.clj#L48-L58" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_enum__enum_map">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_enum__enum_map"></label>
+                        <pre class="source"><code class="clojure">(definvoke enum-map
+  [:memoize]
+  ([type]
+   (->> (enum-values type)
+        (map (juxt (comp keyword string/spear-type string/to-string)
+                   identity))
+        (into {}))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/enum_test.clj#L28-L42" target="_blank">link</a></i></h6><code class="clojure">(enum-map ElementType)</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_enum__enum_values"></span>
+                <div class="entry-description">
+                    <h4><b>enum-values&nbsp<a data-scroll="" href="#entry__hara_core_base_enum__">^</a></b></h4>
+                    <p><i>returns all values of an enum type</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/enum.clj#L19-L30" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_enum__enum_values">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_enum__enum_values"></label>
+                        <pre class="source"><code class="clojure">(defn enum-values
+  [type]
+  (let [method (.getMethod type "values" (make-array Class 0))
+        values (.invoke method nil (object-array []))]
+    (seq values)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/enum_test.clj#L14-L19" target="_blank">link</a></i></h6><code class="clojure">(->> (enum-values ElementType)
+     (map str))
+=> (contains ["TYPE" "FIELD" "METHOD" "PARAMETER" "CONSTRUCTOR"]
+             :in-any-order :gaps-ok)</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_enum__enum_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>enum?&nbsp<a data-scroll="" href="#entry__hara_core_base_enum__">^</a></b></h4>
+                    <p><i>check to see if class is an enum type</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/enum.clj#L6-L17" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_enum__enum_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_enum__enum_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn enum?
+  [type]
+  (if (-> (inheritance/ancestor-list type)
+          (set)
+          (get java.lang.Enum))
+    true false))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/enum_test.clj#L7-L11" target="_blank">link</a></i></h6><code class="clojure">(enum? java.lang.annotation.ElementType) => true
+
+(enum? String) => false</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_enum__to_enum"></span>
+                <div class="entry-description">
+                    <h4><b>to-enum&nbsp<a data-scroll="" href="#entry__hara_core_base_enum__">^</a></b></h4>
+                    <p><i>gets an enum value given a symbol</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/enum.clj#L60-L76" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_enum__to_enum">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_enum__to_enum"></label>
+                        <pre class="source"><code class="clojure">(defn to-enum
+  [s type]
+  (let [key ((comp keyword string/spear-type string/to-string) s)]
+    (or (get (enum-map type) key)
+        (throw (ex-info "Cannot find the enum value."
+                        {:input s
+                         :key key
+                         :type type
+                         :options (keys (enum-map type))})))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/enum_test.clj#L45-L51" target="_blank">link</a></i></h6><code class="clojure">(to-enum "TYPE" ElementType)
+=> ElementType/TYPE
+
+(to-enum :field ElementType)
+=> ElementType/FIELD</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="error"></span>
+    <h2><b>6 &nbsp;&nbsp; Error</b></h2>
+</div><div class="api">
+    <span id="entry__hara_core_base_error__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_core_base_error__suppress">suppress</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_core_base_error__suppress"></span>
+                <div class="entry-description">
+                    <h4><b>suppress&nbsp<a data-scroll="" href="#entry__hara_core_base_error__">^</a></b></h4>
+                    <p><i>suppresses any errors thrown in the body.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/error.clj#L16-L33" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_error__suppress">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_error__suppress"></label>
+                        <pre class="source"><code class="clojure">(defmacro suppress
+  ([body]
+   `(try ~body (catch Throwable ~'t)))
+  ([body catch-val]
+   `(try ~body (catch Throwable ~'t
+                 (cond (fn? ~catch-val)
+                       (~catch-val ~'t)
+                       :else ~catch-val)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/error_test.clj#L6-L14" target="_blank">link</a></i></h6><code class="clojure">(suppress (throw (ex-info "Error" {}))) => nil
+
+(suppress (throw (ex-info "Error" {})) :error) => :error
+
+(suppress (throw (ex-info "Error" {}))
+          (fn [e]
+            (.getMessage e))) => "Error"</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="inheritance"></span>
+    <h2><b>7 &nbsp;&nbsp; Inheritance</b></h2>
+</div><div class="api">
+    <span id="entry__hara_core_base_inheritance__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_core_base_inheritance__all_ancestors">all-ancestors</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_inheritance__all_interfaces">all-interfaces</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_inheritance__ancestor_list">ancestor-list</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_inheritance__ancestor_tree">ancestor-tree</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_inheritance__best_match">best-match</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_inheritance__inherits_QMARK_">inherits?</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_core_base_inheritance__all_ancestors"></span>
+                <div class="entry-description">
+                    <h4><b>all-ancestors&nbsp<a data-scroll="" href="#entry__hara_core_base_inheritance__">^</a></b></h4>
+                    <p><i>returns all ancestors for a given type, itself included</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/inheritance.clj#L49-L53" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_inheritance__all_ancestors">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_inheritance__all_ancestors"></label>
+                        <pre class="source"><code class="clojure">(defn all-ancestors
+  [cls]
+  (let [bases (ancestor-list cls)
+        interfaces (mapcat all-interfaces bases)]
+    (set (concat bases interfaces))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/inheritance_test.clj#L51-L58" target="_blank">link</a></i></h6><code class="clojure">(all-ancestors String)
+=> #{java.lang.CharSequence
+     java.io.Serializable
+     java.lang.Object
+     java.lang.String
+     java.lang.Comparable}</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_inheritance__all_interfaces"></span>
+                <div class="entry-description">
+                    <h4><b>all-interfaces&nbsp<a data-scroll="" href="#entry__hara_core_base_inheritance__">^</a></b></h4>
+                    <p><i>lists all interfaces for a class</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/inheritance.clj#L19-L30" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_inheritance__all_interfaces">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_inheritance__all_interfaces"></label>
+                        <pre class="source"><code class="clojure">(defn all-interfaces
+  [cls]
+  (let [directs (.getInterfaces cls)
+        sub (mapcat all-interfaces directs)]
+    (set (concat directs sub))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/inheritance_test.clj#L14-L19" target="_blank">link</a></i></h6><code class="clojure">(all-interfaces clojure.lang.AFn)
+=> #{java.lang.Runnable
+     java.util.concurrent.Callable
+     clojure.lang.IFn}</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_inheritance__ancestor_list"></span>
+                <div class="entry-description">
+                    <h4><b>ancestor-list&nbsp<a data-scroll="" href="#entry__hara_core_base_inheritance__">^</a></b></h4>
+                    <p><i>lists the direct ancestors of a class</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/inheritance.clj#L5-L17" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_inheritance__ancestor_list">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_inheritance__ancestor_list"></label>
+                        <pre class="source"><code class="clojure">(defn ancestor-list
+  ([cls] (ancestor-list cls []))
+  ([^java.lang.Class cls output]
+   (if (nil? cls)
+     output
+     (recur (.getSuperclass cls) (conj output cls)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/inheritance_test.clj#L6-L11" target="_blank">link</a></i></h6><code class="clojure">(ancestor-list clojure.lang.PersistentHashMap)
+=> [clojure.lang.PersistentHashMap
+    clojure.lang.APersistentMap
+    clojure.lang.AFn
+    java.lang.Object]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_inheritance__ancestor_tree"></span>
+                <div class="entry-description">
+                    <h4><b>ancestor-tree&nbsp<a data-scroll="" href="#entry__hara_core_base_inheritance__">^</a></b></h4>
+                    <p><i>lists the hierarchy of bases and interfaces of a class.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/inheritance.clj#L32-L46" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_inheritance__ancestor_tree">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_inheritance__ancestor_tree"></label>
+                        <pre class="source"><code class="clojure">(defn ancestor-tree
+  ([cls] (ancestor-tree cls []))
+  ([^Class cls output]
+   (let [base (.getSuperclass cls)]
+     (if-not base output
+             (recur base
+                    (conj output [base (all-interfaces cls)]))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/inheritance_test.clj#L22-L48" target="_blank">link</a></i></h6><code class="clojure">(ancestor-tree Class)
+=> [[java.lang.Object #{java.io.Serializable
+                        java.lang.reflect.Type
+                        java.lang.reflect.AnnotatedElement
+                        java.lang.reflect.GenericDeclaration}]]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_inheritance__best_match"></span>
+                <div class="entry-description">
+                    <h4><b>best-match&nbsp<a data-scroll="" href="#entry__hara_core_base_inheritance__">^</a></b></h4>
+                    <p><i>finds the best matching interface or class from a list of candidates</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/inheritance.clj#L64-L79" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_inheritance__best_match">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_inheritance__best_match"></label>
+                        <pre class="source"><code class="clojure">(defn best-match
+  [candidates ^Class cls]
+  (or (get candidates cls)
+      (->> (apply concat (ancestor-tree cls))
+           (map (fn [v]
+                  (if (set? v)
+                    (first (set/intersection v candidates))
+                    (get candidates v))))
+           (filter identity)
+           first)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/inheritance_test.clj#L67-L71" target="_blank">link</a></i></h6><code class="clojure">(best-match #{Object} Long) => Object
+(best-match #{String} Long) => nil
+(best-match #{Object Number} Long) => Number</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_inheritance__inherits_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>inherits?&nbsp<a data-scroll="" href="#entry__hara_core_base_inheritance__">^</a></b></h4>
+                    <p><i>checks if one class inherits from another</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/inheritance.clj#L55-L62" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_inheritance__inherits_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_inheritance__inherits_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn inherits?
+  [ancestor cls]
+  (contains? (all-ancestors cls) ancestor))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/inheritance_test.clj#L61-L64" target="_blank">link</a></i></h6><code class="clojure">(inherits? clojure.lang.ILookup clojure.lang.APersistentMap)
+=> true</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="match"></span>
+    <h2><b>8 &nbsp;&nbsp; Match</b></h2>
+</div><div class="api">
+    <span id="entry__hara_core_base_match__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_core_base_match__actual_pattern">actual-pattern</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_match__actual_pattern_QMARK_">actual-pattern?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_match__eval_pattern">eval-pattern</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_match__eval_pattern_QMARK_">eval-pattern?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_match__match_inner">match-inner</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_core_base_match__actual_pattern"></span>
+                <div class="entry-description">
+                    <h4><b>actual-pattern&nbsp<a data-scroll="" href="#entry__hara_core_base_match__">^</a></b></h4>
+                    <p><i>constructs a pattern used for direct comparison</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/match.clj#L10-L18" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_match__actual_pattern">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_match__actual_pattern"></label>
+                        <pre class="source"><code class="clojure">(defn actual-pattern
+  [expression]
+  (ActualPattern. expression))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/match_test.clj#L6-L10" target="_blank">link</a></i></h6><code class="clojure">(actual-pattern '_)
+
+(actual-pattern #{1 2 3})</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_match__actual_pattern_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>actual-pattern?&nbsp<a data-scroll="" href="#entry__hara_core_base_match__">^</a></b></h4>
+                    <p><i>checks if input is an actual pattern</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/match.clj#L20-L33" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_match__actual_pattern_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_match__actual_pattern_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn actual-pattern?
+  ([pattern]
+   (instance? ActualPattern pattern))
+  ([pattern expression]
+   (and (actual-pattern? pattern)
+        (= expression (:expression pattern)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/match_test.clj#L13-L19" target="_blank">link</a></i></h6><code class="clojure">(actual-pattern? '_) => false
+
+(-> (actual-pattern '_)
+    actual-pattern?)
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_match__eval_pattern"></span>
+                <div class="entry-description">
+                    <h4><b>eval-pattern&nbsp<a data-scroll="" href="#entry__hara_core_base_match__">^</a></b></h4>
+                    <p><i>constructs a pattern that is evaluated before comparison</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/match.clj#L40-L48" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_match__eval_pattern">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_match__eval_pattern"></label>
+                        <pre class="source"><code class="clojure">(defn eval-pattern
+  [expression]
+  (EvaluationPattern. expression))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/match_test.clj#L22-L26" target="_blank">link</a></i></h6><code class="clojure">(eval-pattern '(keyword "a"))
+  
+(eval-pattern 'symbol?)</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_match__eval_pattern_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>eval-pattern?&nbsp<a data-scroll="" href="#entry__hara_core_base_match__">^</a></b></h4>
+                    <p><i>checks if input is an eval pattern</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/match.clj#L50-L61" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_match__eval_pattern_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_match__eval_pattern_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn eval-pattern?
+  ([pattern]
+   (instance? EvaluationPattern pattern))
+  ([pattern expression]
+   (and (eval-pattern? pattern)
+        (= expression (:expression pattern)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/match_test.clj#L30-L34" target="_blank">link</a></i></h6><code class="clojure">(-> (eval-pattern 'symbol?)
+    eval-pattern?)
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_match__match_inner"></span>
+                <div class="entry-description">
+                    <h4><b>match-inner&nbsp<a data-scroll="" href="#entry__hara_core_base_match__">^</a></b></h4>
+                    <p><i>matches the inner contents of a array</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/match.clj#L77-L98" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_match__match_inner">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_match__match_inner"></label>
+                        <pre class="source"><code class="clojure">(defn match-inner
+  [template arr]
+  (loop [[t & tmore :as tall] template
+         [x & more :as all] arr]
+    (cond (and (empty? tall) (empty? all))
+          true
+
+          (empty? tall) false
+
+          (= t '&)
+          (protocol.match/-match (first tmore) (cons x more))
+
+          (protocol.match/-match t x)
+          (recur tmore more)
+
+          :else false)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/match_test.clj#L38-L42" target="_blank">link</a></i></h6><code class="clojure">(match-inner [number? {:a {:b #'symbol?}} '& '_]
+             [1 {:a {:b 'o}} 5 67 89 100])
+=> true</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="primitive"></span>
+    <h2><b>9 &nbsp;&nbsp; Primitive</b></h2>
+</div><div class="api">
+    <span id="entry__hara_core_base_primitive__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_core_base_primitive__create_lookup">create-lookup</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_primitive__primitive_type">primitive-type</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_core_base_primitive__create_lookup"></span>
+                <div class="entry-description">
+                    <h4><b>create-lookup&nbsp<a data-scroll="" href="#entry__hara_core_base_primitive__">^</a></b></h4>
+                    <p><i>creates a path lookup given a record</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/primitive.clj#L36-L56" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_primitive__create_lookup">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_primitive__create_lookup"></label>
+                        <pre class="source"><code class="clojure">(defn create-lookup
+  ([m] (create-lookup m util/F))
+  ([m ignore]
+   (reduce-kv (fn [out type record]
+                (reduce-kv (fn [out k v]
+                                  (if (ignore k)
+                                    out
+                                    (assoc out v [type k])))
+                                out
+                                record))
+              {}
+              m)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/primitive_test.clj#L6-L13" target="_blank">link</a></i></h6><code class="clojure">(create-lookup {:byte {:name "byte" :size 1}
+                :long {:name "long" :size 4}})
+=> {"byte" [:byte :name]
+    1 [:byte :size]
+    "long" [:long :name]
+    4 [:long :size]}</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_primitive__primitive_type"></span>
+                <div class="entry-description">
+                    <h4><b>primitive-type&nbsp<a data-scroll="" href="#entry__hara_core_base_primitive__">^</a></b></h4>
+                    <p><i>converts primitive values across their different representations. The choices are:
+   :raw       - The string in the jdk (i.e. `Z` for Boolean, `C` for Character)
+   :symbol    - The symbol that hara.object.query uses for matching (i.e. boolean, char, int)
+   :string    - The string that hara.object.query uses for matching
+   :class     - The primitive class representation of the primitive
+   :container - The containing class representation for the primitive type</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/primitive.clj#L61-L92" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_primitive__primitive_type">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_primitive__primitive_type"></label>
+                        <pre class="source"><code class="clojure">(defn primitive-type
+  ([v to]
+   (if-let [[type rep] (get +primitive-lookup+ v)]
+     (get-in +primitive-records+ [type to]))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/primitive_test.clj#L16-L42" target="_blank">link</a></i></h6><code class="clojure">(primitive-type Boolean/TYPE :symbol)
+=> 'boolean
+
+(primitive-type "Z" :symbol)
+=> 'boolean
+
+(primitive-type "int" :symbol)
+=> 'int
+
+(primitive-type Character :string)
+=> "char"
+
+(primitive-type "V" :class)
+=> Void/TYPE
+
+(primitive-type 'long :container)
+=> Long
+
+(primitive-type 'long :type)
+=> :long</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="protocol"></span>
+    <h2><b>10 &nbsp;&nbsp; Protocol</b></h2>
+</div><div class="api">
+    <span id="entry__hara_core_base_protocol__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_core_base_protocol__implements_QMARK_">implements?</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_protocol__protocol_impls">protocol-impls</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_protocol__protocol_interface">protocol-interface</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_protocol__protocol_methods">protocol-methods</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_protocol__protocol_remove">protocol-remove</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_protocol__protocol_signatures">protocol-signatures</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_protocol__protocol_QMARK_">protocol?</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_core_base_protocol__implements_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>implements?&nbsp<a data-scroll="" href="#entry__hara_core_base_protocol__">^</a></b></h4>
+                    <p><i>checks whether a type has implemented a protocol</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/protocol.clj#L69-L97" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_protocol__implements_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_protocol__implements_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn implements?
+  ([{:keys [impls] :as protocol} type]
+   (boolean (or (get impls type)
+                (inheritance/inherits? (protocol-interface protocol)
+                                       type)
+                (map first impls)
+                (filter #(inheritance/inherits? % type))
+                seq)))
+  ([protocol type method]
+   (let [method (keyword (str method))
+         impls (:impls protocol)]
+     (boolean (or (get-in impls [type method])
+                  (inheritance/inherits? (protocol-interface protocol)
+                                         type)
+                  (->> impls
+                       (filter (fn [[_ methods]] (get methods method)))
+                       (map first)
+                       (filter #(inheritance/inherits? % type))
+                       seq))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/protocol_test.clj#L51-L59" target="_blank">link</a></i></h6><code class="clojure">(implements? state/IStateGet clojure.lang.Atom)
+=> true
+
+(implements? state/IStateGet
+             clojure.lang.Atom
+             "-get-state")
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_protocol__protocol_impls"></span>
+                <div class="entry-description">
+                    <h4><b>protocol-impls&nbsp<a data-scroll="" href="#entry__hara_core_base_protocol__">^</a></b></h4>
+                    <p><i>returns types that implement the protocol</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/protocol.clj#L38-L55" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_protocol__protocol_impls">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_protocol__protocol_impls"></label>
+                        <pre class="source"><code class="clojure">(defn protocol-impls
+  [protocol]
+  (-> protocol :impls keys set))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/protocol_test.clj#L29-L42" target="_blank">link</a></i></h6><code class="clojure">(protocol-impls state/IStateSet)
+=> (contains [clojure.lang.Agent
+              clojure.lang.Ref
+              clojure.lang.IAtom
+              clojure.lang.Volatile
+              clojure.lang.IPending
+              clojure.lang.Var]
+             :in-any-order :gaps-ok)
+
+(protocol-impls state/IStateGet)
+=> (contains [clojure.lang.IDeref clojure.lang.IPending]
+             :in-any-order :gaps-ok)</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_protocol__protocol_interface"></span>
+                <div class="entry-description">
+                    <h4><b>protocol-interface&nbsp<a data-scroll="" href="#entry__hara_core_base_protocol__">^</a></b></h4>
+                    <p><i>returns the java interface for a given protocol</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/protocol.clj#L5-L12" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_protocol__protocol_interface">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_protocol__protocol_interface"></label>
+                        <pre class="source"><code class="clojure">(defn protocol-interface
+  [protocol]
+  (-> protocol :on-interface))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/protocol_test.clj#L8-L11" target="_blank">link</a></i></h6><code class="clojure">(protocol-interface state/IStateGet)
+=> hara.protocol.state.IStateGet</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_protocol__protocol_methods"></span>
+                <div class="entry-description">
+                    <h4><b>protocol-methods&nbsp<a data-scroll="" href="#entry__hara_core_base_protocol__">^</a></b></h4>
+                    <p><i>returns the methods provided by the protocol</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/protocol.clj#L14-L21" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_protocol__protocol_methods">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_protocol__protocol_methods"></label>
+                        <pre class="source"><code class="clojure">(defn protocol-methods
+  [protocol]
+  (->> protocol :sigs vals (map :name) sort vec))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/protocol_test.clj#L14-L17" target="_blank">link</a></i></h6><code class="clojure">(protocol-methods state/IStateSet)
+=> '[-clone-state -empty-state -set-state -update-state]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_protocol__protocol_remove"></span>
+                <div class="entry-description">
+                    <h4><b>protocol-remove&nbsp<a data-scroll="" href="#entry__hara_core_base_protocol__">^</a></b></h4>
+                    <p><i>removes a protocol</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/protocol.clj#L99-L117" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_protocol__protocol_remove">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_protocol__protocol_remove"></label>
+                        <pre class="source"><code class="clojure">(defn protocol-remove
+  [protocol atype]
+  (-reset-methods (alter-var-root (:var protocol) update-in [:impls] dissoc atype)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/protocol_test.clj#L62-L76" target="_blank">link</a></i></h6><code class="clojure">(defprotocol -A-
+  (-dostuff [_]))
+
+(do (extend-protocol -A-
+      String
+      (-dostuff [_]))
+    
+     (implements? -A- String "-dostuff"))
+=> true
+
+(do (protocol-remove -A- String)
+    (implements? -A- String "-dostuff"))
+=> false</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_protocol__protocol_signatures"></span>
+                <div class="entry-description">
+                    <h4><b>protocol-signatures&nbsp<a data-scroll="" href="#entry__hara_core_base_protocol__">^</a></b></h4>
+                    <p><i>returns the method signatures provided by the protocol</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/protocol.clj#L23-L36" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_protocol__protocol_signatures">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_protocol__protocol_signatures"></label>
+                        <pre class="source"><code class="clojure">(defn protocol-signatures
+  [protocol]
+  (->> (:sigs protocol) 
+       (reduce (fn [out [_ m]]
+                 (assoc out (:name m) (dissoc m :name)))
+               {})))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/protocol_test.clj#L20-L26" target="_blank">link</a></i></h6><code class="clojure">(protocol-signatures state/IStateSet)
+=> '{-update-state  {:arglists ([obj f args opts]) :doc nil}
+     -set-state     {:arglists ([obj v opts]) :doc nil}
+     -empty-state   {:arglists ([obj opts])   :doc nil}
+     -clone-state   {:arglists ([obj opts])   :doc nil}}</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_protocol__protocol_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>protocol?&nbsp<a data-scroll="" href="#entry__hara_core_base_protocol__">^</a></b></h4>
+                    <p><i>checks whether an object is a protocol</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/protocol.clj#L57-L67" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_protocol__protocol_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_protocol__protocol_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn protocol?
+  [obj]
+  (boolean (and (instance? clojure.lang.PersistentArrayMap obj)
+                (every? #(contains? obj %) [:on :on-interface :var])
+                (-> obj :on str Class/forName error/suppress)
+                (protocol-interface obj))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/protocol_test.clj#L45-L48" target="_blank">link</a></i></h6><code class="clojure">(protocol? state/IStateGet)
+=> true</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="result"></span>
+    <h2><b>11 &nbsp;&nbsp; Result</b></h2>
+</div><div class="api">
+    <span id="entry__hara_core_base_result__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_core_base_result____GT_result">->result</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_result__result">result</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_result__result_QMARK_">result?</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_core_base_result____GT_result"></span>
+                <div class="entry-description">
+                    <h4><b>->result&nbsp<a data-scroll="" href="#entry__hara_core_base_result__">^</a></b></h4>
+                    <p><i>converts data into a result</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/result.clj#L34-L46" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_result____GT_result">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_result____GT_result"></label>
+                        <pre class="source"><code class="clojure">(defn ->result
+  [key data]
+  (cond (result? data)
+        (assoc data :key key)
+
+        :else
+        (result {:key key :status :return :data data})))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/result_test.clj#L20-L24" target="_blank">link</a></i></h6><code class="clojure">(->result :hello [1 2 3])
+;;#result.return{:data [1 2 3], :key :hello}
+=> hara.core.base.result.Result</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_result__result"></span>
+                <div class="entry-description">
+                    <h4><b>result&nbsp<a data-scroll="" href="#entry__hara_core_base_result__">^</a></b></h4>
+                    <p><i>creates a result used for printing</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/result.clj#L14-L22" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_result__result">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_result__result"></label>
+                        <pre class="source"><code class="clojure">(defn result
+  [m]
+  (map->Result m))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/result_test.clj#L6-L10" target="_blank">link</a></i></h6><code class="clojure">(result {:status :warn :data [1 2 3 4]})
+;; #result{:status :warn, :data [1 2 3 4]}
+=> hara.core.base.result.Result</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_result__result_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>result?&nbsp<a data-scroll="" href="#entry__hara_core_base_result__">^</a></b></h4>
+                    <p><i>checks if an object is a result</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/result.clj#L24-L32" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_result__result_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_result__result_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn result?
+  [obj]
+  (instance? Result obj))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/result_test.clj#L13-L17" target="_blank">link</a></i></h6><code class="clojure">(-> (result {:status :warn :data [1 2 3 4]})
+    result?)
+=> true</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="shorthand"></span>
+    <h2><b>12 &nbsp;&nbsp; Shorthand</b></h2>
+</div><div class="api">
+    <span id="entry__hara_core_base_shorthand__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_core_base_shorthand__call__GT_">call-></a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_shorthand__check">check</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_shorthand__check__GT_">check-></a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_shorthand__check_all">check-all</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_shorthand__check_QMARK___GT_">check?-></a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_shorthand__eq__GT_">eq-></a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_shorthand__fn__GT_">fn-></a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_shorthand__get__GT_">get-></a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_shorthand__shorthand_fn_expr">shorthand-fn-expr</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_shorthand__shorthand_form">shorthand-form</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_core_base_shorthand__call__GT_"></span>
+                <div class="entry-description">
+                    <h4><b>call->&nbsp<a data-scroll="" href="#entry__hara_core_base_shorthand__">^</a></b></h4>
+                    <p><i>indirect call, takes `obj` and a list containing either a function,
+   a symbol representing the function or the symbol `?` and any additional
+   arguments. Used for calling functions that have been stored as symbols.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/shorthand.clj#L39-L62" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_shorthand__call__GT_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_shorthand__call__GT_"></label>
+                        <pre class="source"><code class="clojure">(defn call->
+  [obj [ff & args]]
+  (cond (nil? ff)     obj
+        (list? ff)    (recur (call-> obj ff) args)
+        (vector? ff)  (recur (get-in obj ff) args)
+        (keyword? ff) (recur (get obj ff) args)
+        (fn? ff)      (apply ff obj args)
+        (symbol? ff)  (if-let [f (do
+                                   (error/suppress (require (symbol (namespace ff))))
+                                   (error/suppress (resolve ff)))]
+                        (apply fn/invoke f obj args)
+                        (recur (get obj ff) args))
+        :else         (recur (get obj ff) args)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/shorthand_test.clj#L25-L34" target="_blank">link</a></i></h6><code class="clojure">(call-> 1 '(+ 2 3 4)) => 10
+
+(call-> 1 '(< 2)) => true
+
+(call-> {:a {:b 1}} '((get-in [:a :b]) = 1))
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_shorthand__check"></span>
+                <div class="entry-description">
+                    <h4><b>check&nbsp<a data-scroll="" href="#entry__hara_core_base_shorthand__">^</a></b></h4>
+                    <p><i>checks</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/shorthand.clj#L97-L116" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_shorthand__check">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_shorthand__check"></label>
+                        <pre class="source"><code class="clojure">(defn check
+  ([obj chk]
+   (or (= obj chk)
+       (-> (get-> obj chk) not not)))
+  ([obj sel chk]
+   (check (get-> obj sel) chk)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/shorthand_test.clj#L55-L67" target="_blank">link</a></i></h6><code class="clojure">(check 2 2) => true
+
+(check 2 even?) => true
+
+(check 2 '(> 1)) => true
+
+(check {:a {:b 1}} '([:a :b] (= 1))) => true
+
+(check {:a {:b 1}} :a vector?) => false
+
+(check {:a {:b 1}} [:a :b] 1) => true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_shorthand__check__GT_"></span>
+                <div class="entry-description">
+                    <h4><b>check->&nbsp<a data-scroll="" href="#entry__hara_core_base_shorthand__">^</a></b></h4>
+                    <p><i>shorthand ways of checking where `m` fits `prchk`</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/shorthand.clj#L131-L149" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_shorthand__check__GT_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_shorthand__check__GT_"></label>
+                        <pre class="source"><code class="clojure">(defn check->
+  [obj pchk]
+  (cond (vector? pchk)
+        (apply check-all obj pchk)
+
+        (set? pchk)
+        (or (some true? (map #(check-> obj %) pchk))
+            false)
+
+        :else
+        (check obj pchk)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/shorthand_test.clj#L78-L84" target="_blank">link</a></i></h6><code class="clojure">(check-> {:a 1} :a) => true
+
+(check-> {:a 1 :val 1} [:val 1]) => true
+
+(check-> {:a {:b 1}} [[:a :b] odd?]) => true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_shorthand__check_all"></span>
+                <div class="entry-description">
+                    <h4><b>check-all&nbsp<a data-scroll="" href="#entry__hara_core_base_shorthand__">^</a></b></h4>
+                    <p><i>returns `true` if `obj` satisfies all pairs of sel and chk</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/shorthand.clj#L118-L129" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_shorthand__check_all">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_shorthand__check_all"></label>
+                        <pre class="source"><code class="clojure">(defn check-all
+  [obj & pairs]
+  (every? (fn [[sel chk]]
+            (check obj sel chk))
+          (partition 2 pairs)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/shorthand_test.clj#L70-L75" target="_blank">link</a></i></h6><code class="clojure">(check-all {:a {:b 1}}
+           :a       #(instance? clojure.lang.IPersistentMap %)
+           [:a :b]  1)
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_shorthand__check_QMARK___GT_"></span>
+                <div class="entry-description">
+                    <h4><b>check?->&nbsp<a data-scroll="" href="#entry__hara_core_base_shorthand__">^</a></b></h4>
+                    <p><i>tests obj using prchk and returns `obj` or `res` if true</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/shorthand.clj#L151-L164" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_shorthand__check_QMARK___GT_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_shorthand__check_QMARK___GT_"></label>
+                        <pre class="source"><code class="clojure">(defn check?->
+  ([obj prchk] (check?-> obj prchk true))
+  ([obj prchk res]
+   (error/suppress (if (check-> obj prchk) res))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/shorthand_test.clj#L87-L95" target="_blank">link</a></i></h6><code class="clojure">(check?-> :3 even?) => nil
+
+(check?-> 3 even?) => nil
+
+(check?-> 2 even?) => true
+
+(check?-> {:id :1} '[:id (= :1)]) => true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_shorthand__eq__GT_"></span>
+                <div class="entry-description">
+                    <h4><b>eq->&nbsp<a data-scroll="" href="#entry__hara_core_base_shorthand__">^</a></b></h4>
+                    <p><i>compare if two vals are equal.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/shorthand.clj#L84-L95" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_shorthand__eq__GT_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_shorthand__eq__GT_"></label>
+                        <pre class="source"><code class="clojure">(defn eq->
+  [obj1 obj2 sel]
+  (= (get-> obj1 sel) (get-> obj2 sel)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/shorthand_test.clj#L45-L52" target="_blank">link</a></i></h6><code class="clojure">(eq-> {:id 1 :a 1} {:id 1 :a 2} :id)
+=> true
+
+(eq-> {:db {:id 1} :a 1}
+      {:db {:id 1} :a 2} [:db :id])
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_shorthand__fn__GT_"></span>
+                <div class="entry-description">
+                    <h4><b>fn->&nbsp<a data-scroll="" href="#entry__hara_core_base_shorthand__">^</a></b></h4>
+                    <p><i>constructs a function from a form representation.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/shorthand.clj#L31-L37" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_shorthand__fn__GT_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_shorthand__fn__GT_"></label>
+                        <pre class="source"><code class="clojure">(defn fn->
+  [form]
+  (eval (shorthand-fn-expr form)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/shorthand_test.clj#L20-L22" target="_blank">link</a></i></h6><code class="clojure">((fn-> '(+ 10)) 10) => 20</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_shorthand__get__GT_"></span>
+                <div class="entry-description">
+                    <h4><b>get->&nbsp<a data-scroll="" href="#entry__hara_core_base_shorthand__">^</a></b></h4>
+                    <p><i>provides a shorthand way of getting a return value.
+ `sel` can be a function, a vector, or a value.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/shorthand.clj#L64-L82" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_shorthand__get__GT_">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_shorthand__get__GT_"></label>
+                        <pre class="source"><code class="clojure">(defn get->
+  [obj sel]
+  (cond (nil? sel)    obj
+        (list? sel)   (call-> obj sel)
+        (vector? sel) (get-in obj sel)
+        (symbol? sel) (if-let [f (do (if-let [nsp (.getNamespace ^clojure.lang.Symbol sel)]
+                                       (require (symbol nsp)))
+                                     (error/suppress (resolve sel)))]
+                        (fn/invoke f obj)
+                        (get obj sel))
+        (ifn? sel)    (sel obj)
+        :else         (get obj sel)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/shorthand_test.clj#L37-L42" target="_blank">link</a></i></h6><code class="clojure">(get-> {:a {:b {:c 1}}} :a) => {:b {:c 1}}
+
+(get-> {:a {:b {:c 1}}} [:a :b]) => {:c 1}</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_shorthand__shorthand_fn_expr"></span>
+                <div class="entry-description">
+                    <h4><b>shorthand-fn-expr&nbsp<a data-scroll="" href="#entry__hara_core_base_shorthand__">^</a></b></h4>
+                    <p><i>makes a function expression out of the form</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/shorthand.clj#L21-L29" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_shorthand__shorthand_fn_expr">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_shorthand__shorthand_fn_expr"></label>
+                        <pre class="source"><code class="clojure">(defn shorthand-fn-expr
+  [form]
+  (apply list 'fn ['?]
+         (list (shorthand-form '? form))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/shorthand_test.clj#L14-L17" target="_blank">link</a></i></h6><code class="clojure">(shorthand-fn-expr '(+ 2))
+=> '(fn [?] (+ ? 2))</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_shorthand__shorthand_form"></span>
+                <div class="entry-description">
+                    <h4><b>shorthand-form&nbsp<a data-scroll="" href="#entry__hara_core_base_shorthand__">^</a></b></h4>
+                    <p><i>makes an expression using `sym`</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/shorthand.clj#L5-L19" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_shorthand__shorthand_form">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_shorthand__shorthand_form"></label>
+                        <pre class="source"><code class="clojure">(defn shorthand-form
+  [sym [ff & more]]
+  (cond (nil? ff)     sym
+        (list? ff)    (recur (shorthand-form sym ff) more)
+        (vector? ff)  (recur (list 'get-in sym ff) more)
+        (keyword? ff) (recur (list 'get sym ff) more)
+        (symbol? ff)  (apply list ff sym more)
+        :else         (recur (list 'get sym ff) more)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/shorthand_test.clj#L6-L11" target="_blank">link</a></i></h6><code class="clojure">(shorthand-form 'y '(str)) => '(str y)
+
+(shorthand-form 'x '((inc) (- 2) (+ 2)))
+=> '(+ (- (inc x) 2) 2)</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="sort"></span>
+    <h2><b>13 &nbsp;&nbsp; Sort</b></h2>
+</div><div class="api">
+    <span id="entry__hara_core_base_sort__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_core_base_sort__hierarchical_sort">hierarchical-sort</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_sort__hierarchical_top">hierarchical-top</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_sort__topological_sort">topological-sort</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_sort__topological_top">topological-top</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_core_base_sort__hierarchical_sort"></span>
+                <div class="entry-description">
+                    <h4><b>hierarchical-sort&nbsp<a data-scroll="" href="#entry__hara_core_base_sort__">^</a></b></h4>
+                    <p><i>prunes a hierarchy of descendants into a directed graph</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/sort.clj#L21-L53" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_sort__hierarchical_sort">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_sort__hierarchical_sort"></label>
+                        <pre class="source"><code class="clojure">(defn hierarchical-sort
+  [idx]
+  (let [top (hierarchical-top idx)]
+    (loop [out {}
+           candidates (dissoc idx top)
+           level #{top}]
+      (if (empty? level)
+        out
+        (let [base  (apply set/union (vals candidates))
+              out   (reduce (fn [out i]
+                              (assoc out i (set/difference (get idx i) base)))
+                            out
+                            level)
+              nlevel (mapcat #(get out %) level)
+              ncandidates (apply dissoc idx (concat (keys out) nlevel))]
+          (recur out
+                 ncandidates
+                 nlevel))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/sort_test.clj#L17-L30" target="_blank">link</a></i></h6><code class="clojure">(hierarchical-sort {1 #{2 3 4 5 6}
+                    2 #{3 5 6}
+                    3 #{5 6}
+                    4 #{}
+                    5 #{6}
+                    6 #{}})
+=> {1 #{4 2}
+    2 #{3}
+    3 #{5}
+    4 #{}
+    5 #{6}
+    6 #{}}</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_sort__hierarchical_top"></span>
+                <div class="entry-description">
+                    <h4><b>hierarchical-top&nbsp<a data-scroll="" href="#entry__hara_core_base_sort__">^</a></b></h4>
+                    <p><i>find the top node for the hierarchy of descendants</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/sort.clj#L4-L19" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_sort__hierarchical_top">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_sort__hierarchical_top"></label>
+                        <pre class="source"><code class="clojure">(defn hierarchical-top
+  [idx]
+  (let [rest (apply set/union (vals idx))]
+    (ffirst (filter (fn [[k v]]
+                      (not-empty (set/difference (conj v k) rest)))
+                    idx))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/sort_test.clj#L6-L14" target="_blank">link</a></i></h6><code class="clojure">(hierarchical-top 
+  {1 #{2 3 4 5 6}
+   2 #{3 5 6}
+   3 #{5 6}
+   4 #{}
+   5 #{6}
+   6 #{}}) => 1</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_sort__topological_sort"></span>
+                <div class="entry-description">
+                    <h4><b>topological-sort&nbsp<a data-scroll="" href="#entry__hara_core_base_sort__">^</a></b></h4>
+                    <p><i>sorts a directed graph into its dependency order</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/sort.clj#L65-L99" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_sort__topological_sort">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_sort__topological_sort"></label>
+                        <pre class="source"><code class="clojure">(defn topological-sort
+  ([g]
+   (let [g (let [dependent-nodes (apply set/union (vals g))]
+             (reduce #(if (get % %2) % (assoc % %2 #{})) g dependent-nodes))]
+     (topological-sort g () (topological-top g))))
+  ([g l s]
+   (cond (empty? s)
+         (if (every? empty? (vals g))
+           l
+           (throw (ex-info "Graph Contains Circular Dependency."
+                           {:data (->> g
+                                       (filter (fn [[k v]] (-> v empty? not)))
+                                       (into {}))
+                            :list l})))
+
+         :else
+         (let [[n s*] (if-let [item (first s)]
+                        [item (set/difference s #{item})])
+               m (g n)
+               g* (reduce #(update-in % [n] set/difference #{%2}) g m)]
+           (recur g* (cons n l) (set/union s* (set/intersection (topological-top g*) m)))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/sort_test.clj#L38-L50" target="_blank">link</a></i></h6><code class="clojure">(topological-sort {:a #{:b :c},
+                   :b #{:d :e},
+                   :c #{:e :f},
+                   :d #{},
+                   :e #{:f},
+                   :f nil})
+=> [:f :d :e :b :c :a]
+
+(topological-sort {:a #{:b},
+                   :b #{:a}})
+=> (throws)</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_sort__topological_top"></span>
+                <div class="entry-description">
+                    <h4><b>topological-top&nbsp<a data-scroll="" href="#entry__hara_core_base_sort__">^</a></b></h4>
+                    <p><i>nodes that have no other nodes that are dependent on them</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/sort.clj#L55-L63" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_sort__topological_top">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_sort__topological_top"></label>
+                        <pre class="source"><code class="clojure">(defn topological-top
+  [g]
+  (let [nodes (set (keys g))
+        dependent-nodes (apply set/union (vals g))]
+    (set/difference nodes dependent-nodes)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/sort_test.clj#L33-L35" target="_blank">link</a></i></h6><code class="clojure">(topological-top {:a #{} :b #{:a}})
+=> #{:b}</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="util"></span>
+    <h2><b>14 &nbsp;&nbsp; Util</b></h2>
+</div><div class="api">
+    <span id="entry__hara_core_base_util__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_core_base_util__F">F</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_util__NIL">NIL</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_util__T">T</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_util__hash_label">hash-label</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_util__instant">instant</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_util__queue">queue</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_util__uri">uri</a></li>
+            <li><a data-scroll="" href="#entry__hara_core_base_util__uuid">uuid</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_core_base_util__F"></span>
+                <div class="entry-description">
+                    <h4><b>F&nbsp<a data-scroll="" href="#entry__hara_core_base_util__">^</a></b></h4>
+                    <p><i>returns `false` for any combination of input `args`</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/util.clj#L12-L19" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_util__F">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_util__F"></label>
+                        <pre class="source"><code class="clojure">(defn F
+  [& args] false)</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/util_test.clj#L13-L17" target="_blank">link</a></i></h6><code class="clojure">(F) => false
+(F :hello) => false
+(F 1 2 3) => false</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_util__NIL"></span>
+                <div class="entry-description">
+                    <h4><b>NIL&nbsp<a data-scroll="" href="#entry__hara_core_base_util__">^</a></b></h4>
+                    <p><i>returns `nil` for any combination of input `args`</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/util.clj#L21-L28" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_util__NIL">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_util__NIL"></label>
+                        <pre class="source"><code class="clojure">(defn NIL
+  [& args] nil)</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/util_test.clj#L20-L24" target="_blank">link</a></i></h6><code class="clojure">(NIL) => nil
+(NIL :hello) => nil
+(NIL 1 2 3) => nil</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_util__T"></span>
+                <div class="entry-description">
+                    <h4><b>T&nbsp<a data-scroll="" href="#entry__hara_core_base_util__">^</a></b></h4>
+                    <p><i>returns `true` for any combination of input `args`</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/util.clj#L3-L10" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_util__T">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_util__T"></label>
+                        <pre class="source"><code class="clojure">(defn T
+  [& args] true)</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/util_test.clj#L6-L10" target="_blank">link</a></i></h6><code class="clojure">(T) => true
+(T :hello) => true
+(T 1 2 3) => true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_util__hash_label"></span>
+                <div class="entry-description">
+                    <h4><b>hash-label&nbsp<a data-scroll="" href="#entry__hara_core_base_util__">^</a></b></h4>
+                    <p><i>returns a keyword repesentation of the hash-code. For use in
+   generating internally unique keys</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/util.clj#L79-L92" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_util__hash_label">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_util__hash_label"></label>
+                        <pre class="source"><code class="clojure">(defn hash-label
+  ([^Object obj] (str "__" (.hashCode obj) "__"))
+  ([^Object obj & more]
+   (let [result (->> (cons obj more)
+                     (map (fn [^Object x] (.hashCode x)))
+                     (clojure.string/join "_"))]
+     (str "__" result "__"))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/util_test.clj#L54-L59" target="_blank">link</a></i></h6><code class="clojure">(hash-label 1) => "__1__"
+(hash-label "a" "b" "c") => "__97_98_99__"
+(hash-label "abc") => "__96354__"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_util__instant"></span>
+                <div class="entry-description">
+                    <h4><b>instant&nbsp<a data-scroll="" href="#entry__hara_core_base_util__">^</a></b></h4>
+                    <p><i>returns a `java.util.Date` object</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/util.clj#L61-L69" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_util__instant">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_util__instant"></label>
+                        <pre class="source"><code class="clojure">(defn instant
+  ([] (java.util.Date.))
+  ([^Long val] (java.util.Date. val)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/util_test.clj#L41-L45" target="_blank">link</a></i></h6><code class="clojure">(instant) => #(instance? java.util.Date %)
+
+(instant 0) => #inst "1970-01-01T00:00:00.000-00:00"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_util__queue"></span>
+                <div class="entry-description">
+                    <h4><b>queue&nbsp<a data-scroll="" href="#entry__hara_core_base_util__">^</a></b></h4>
+                    <p><i>returns a `clojure.lang.PersistentQueue` object.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/util.clj#L30-L38" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_util__queue">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_util__queue"></label>
+                        <pre class="source"><code class="clojure">(defn queue
+  ([] (clojure.lang.PersistentQueue/EMPTY))
+  ([x] (conj (queue) x))
+  ([x & xs] (apply conj (queue) x xs)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/util_test.clj#L27-L30" target="_blank">link</a></i></h6><code class="clojure">(def a (queue 1 2 3 4))
+(pop a) => [2 3 4]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_util__uri"></span>
+                <div class="entry-description">
+                    <h4><b>uri&nbsp<a data-scroll="" href="#entry__hara_core_base_util__">^</a></b></h4>
+                    <p><i>returns a `java.net.URI` object</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/util.clj#L71-L77" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_util__uri">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_util__uri"></label>
+                        <pre class="source"><code class="clojure">(defn uri
+  [path] (java.net.URI/create path))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/util_test.clj#L48-L51" target="_blank">link</a></i></h6><code class="clojure">(uri "http://www.google.com")
+=> #(instance? java.net.URI %)</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_core_base_util__uuid"></span>
+                <div class="entry-description">
+                    <h4><b>uuid&nbsp<a data-scroll="" href="#entry__hara_core_base_util__">^</a></b></h4>
+                    <p><i>returns a `java.util.UUID` object</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/core/base/util.clj#L40-L59" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_core_base_util__uuid">
+                        <label class="source-toggle" for="entry__pre_hara_core_base_util__uuid"></label>
+                        <pre class="source"><code class="clojure">(defn uuid
+  ([] (java.util.UUID/randomUUID))
+  ([id]
+   (cond (string? id)
+         (java.util.UUID/fromString id)
+
+         (instance? (Class/forName "[B") id)
+         (java.util.UUID/nameUUIDFromBytes id)
+
+         :else
+         (throw (ex-info (str id " can only be a string or byte array")))))
+  ([^Long msb ^Long lsb]
+   (java.util.UUID. msb lsb)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/core/base/util_test.clj#L33-L38" target="_blank">link</a></i></h6><code class="clojure">(uuid) => #(instance? java.util.UUID %)
+
+(uuid "00000000-0000-0000-0000-000000000000")
+=> #uuid "00000000-0000-0000-0000-000000000000"</code></pre>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outline">
+      <div class="toc">
+        <nav data-gumshoe-header>
+          <ul data-gumshoe>
+            <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#check"><h4>2 &nbsp; Check</h4></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__agent_QMARK_"><h5><i>agent?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__atom_QMARK_"><h5><i>atom?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__bigdec_QMARK_"><h5><i>bigdec?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__bigint_QMARK_"><h5><i>bigint?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__boolean_QMARK_"><h5><i>boolean?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__byte_QMARK_"><h5><i>byte?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__bytes_QMARK_"><h5><i>bytes?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__comparable_QMARK_"><h5><i>comparable?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__double_QMARK_"><h5><i>double?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__edn_QMARK_"><h5><i>edn?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__hash_map_QMARK_"><h5><i>hash-map?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__ideref_QMARK_"><h5><i>ideref?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__instant_QMARK_"><h5><i>instant?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__iobj_QMARK_"><h5><i>iobj?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__iref_QMARK_"><h5><i>iref?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__lazy_seq_QMARK_"><h5><i>lazy-seq?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__long_QMARK_"><h5><i>long?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__promise_QMARK_"><h5><i>promise?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__ref_QMARK_"><h5><i>ref?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__regexp_QMARK_"><h5><i>regexp?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__short_QMARK_"><h5><i>short?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__thread_QMARK_"><h5><i>thread?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__type_checker"><h5><i>type-checker</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__uri_QMARK_"><h5><i>uri?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__url_QMARK_"><h5><i>url?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_check__uuid_QMARK_"><h5><i>uuid?</i></h5></a></li><li><a class="chapter" data-scroll="" href="#class"><h4>3 &nbsp; Class</h4></a><a class="section" data-scroll="" href="#entry__hara_core_base_class__abstract_QMARK_"><h5><i>abstract?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_class__array_component"><h5><i>array-component</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_class__array_QMARK_"><h5><i>array?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_class__interface_QMARK_"><h5><i>interface?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_class__primitive_array_QMARK_"><h5><i>primitive-array?</i></h5></a></li><li><a class="chapter" data-scroll="" href="#encode"><h4>4 &nbsp; Encode</h4></a><a class="section" data-scroll="" href="#entry__hara_core_base_encode__from_base64"><h5><i>from-base64</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_encode__from_hex"><h5><i>from-hex</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_encode__from_hex_chars"><h5><i>from-hex-chars</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_encode__hex_chars"><h5><i>hex-chars</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_encode__to_base64"><h5><i>to-base64</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_encode__to_base64_bytes"><h5><i>to-base64-bytes</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_encode__to_hex"><h5><i>to-hex</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_encode__to_hex_chars"><h5><i>to-hex-chars</i></h5></a></li><li><a class="chapter" data-scroll="" href="#enum"><h4>5 &nbsp; Enum</h4></a><a class="section" data-scroll="" href="#entry__hara_core_base_enum__create_enum"><h5><i>create-enum</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_enum__enum_map"><h5><i>enum-map</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_enum__enum_values"><h5><i>enum-values</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_enum__enum_QMARK_"><h5><i>enum?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_enum__to_enum"><h5><i>to-enum</i></h5></a></li><li><a class="chapter" data-scroll="" href="#error"><h4>6 &nbsp; Error</h4></a><a class="section" data-scroll="" href="#entry__hara_core_base_error__suppress"><h5><i>suppress</i></h5></a></li><li><a class="chapter" data-scroll="" href="#inheritance"><h4>7 &nbsp; Inheritance</h4></a><a class="section" data-scroll="" href="#entry__hara_core_base_inheritance__all_ancestors"><h5><i>all-ancestors</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_inheritance__all_interfaces"><h5><i>all-interfaces</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_inheritance__ancestor_list"><h5><i>ancestor-list</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_inheritance__ancestor_tree"><h5><i>ancestor-tree</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_inheritance__best_match"><h5><i>best-match</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_inheritance__inherits_QMARK_"><h5><i>inherits?</i></h5></a></li><li><a class="chapter" data-scroll="" href="#match"><h4>8 &nbsp; Match</h4></a><a class="section" data-scroll="" href="#entry__hara_core_base_match__actual_pattern"><h5><i>actual-pattern</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_match__actual_pattern_QMARK_"><h5><i>actual-pattern?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_match__eval_pattern"><h5><i>eval-pattern</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_match__eval_pattern_QMARK_"><h5><i>eval-pattern?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_match__match_inner"><h5><i>match-inner</i></h5></a></li><li><a class="chapter" data-scroll="" href="#primitive"><h4>9 &nbsp; Primitive</h4></a><a class="section" data-scroll="" href="#entry__hara_core_base_primitive__create_lookup"><h5><i>create-lookup</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_primitive__primitive_type"><h5><i>primitive-type</i></h5></a></li><li><a class="chapter" data-scroll="" href="#protocol"><h4>10 &nbsp; Protocol</h4></a><a class="section" data-scroll="" href="#entry__hara_core_base_protocol__implements_QMARK_"><h5><i>implements?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_protocol__protocol_impls"><h5><i>protocol-impls</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_protocol__protocol_interface"><h5><i>protocol-interface</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_protocol__protocol_methods"><h5><i>protocol-methods</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_protocol__protocol_remove"><h5><i>protocol-remove</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_protocol__protocol_signatures"><h5><i>protocol-signatures</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_protocol__protocol_QMARK_"><h5><i>protocol?</i></h5></a></li><li><a class="chapter" data-scroll="" href="#result"><h4>11 &nbsp; Result</h4></a><a class="section" data-scroll="" href="#entry__hara_core_base_result____GT_result"><h5><i>->result</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_result__result"><h5><i>result</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_result__result_QMARK_"><h5><i>result?</i></h5></a></li><li><a class="chapter" data-scroll="" href="#shorthand"><h4>12 &nbsp; Shorthand</h4></a><a class="section" data-scroll="" href="#entry__hara_core_base_shorthand__call__GT_"><h5><i>call-></i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_shorthand__check"><h5><i>check</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_shorthand__check__GT_"><h5><i>check-></i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_shorthand__check_all"><h5><i>check-all</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_shorthand__check_QMARK___GT_"><h5><i>check?-></i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_shorthand__eq__GT_"><h5><i>eq-></i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_shorthand__fn__GT_"><h5><i>fn-></i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_shorthand__get__GT_"><h5><i>get-></i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_shorthand__shorthand_fn_expr"><h5><i>shorthand-fn-expr</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_shorthand__shorthand_form"><h5><i>shorthand-form</i></h5></a></li><li><a class="chapter" data-scroll="" href="#sort"><h4>13 &nbsp; Sort</h4></a><a class="section" data-scroll="" href="#entry__hara_core_base_sort__hierarchical_sort"><h5><i>hierarchical-sort</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_sort__hierarchical_top"><h5><i>hierarchical-top</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_sort__topological_sort"><h5><i>topological-sort</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_sort__topological_top"><h5><i>topological-top</i></h5></a></li><li><a class="chapter" data-scroll="" href="#util"><h4>14 &nbsp; Util</h4></a><a class="section" data-scroll="" href="#entry__hara_core_base_util__F"><h5><i>F</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_util__NIL"><h5><i>NIL</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_util__T"><h5><i>T</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_util__hash_label"><h5><i>hash-label</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_util__instant"><h5><i>instant</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_util__queue"><h5><i>queue</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_util__uri"><h5><i>uri</i></h5></a><a class="section" data-scroll="" href="#entry__hara_core_base_util__uuid"><h5><i>uuid</i></h5></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    
+    <!--label for="sidebar-checkbox" class="sidebar-toggle"></label-->
+
+  </body>
+
+  <script>
+  if (true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-31320512-2', 'caudate.me');
+    ga('send', 'pageview');
+  }
+  </script>
+  
+  <script type="text/javascript">
+    smoothScroll.init();
+    gumshoe.init({});
+  
+    hljs.registerLanguage("clojure",function(e){var t={"builtin-name":"def defonce cond apply if-not if-let if not not= = < > <= >= == + / * - rem quot neg? pos? delay? symbol? keyword? true? false? integer? empty? coll? list? set? ifn? fn? associative? sequential? sorted? counted? reversible? number? decimal? class? distinct? isa? float? rational? reduced? ratio? odd? even? char? seq? vector? string? map? nil? contains? zero? instance? not-every? not-any? libspec? -> ->> .. . inc compare do dotimes mapcat take remove take-while drop letfn drop-last take-last drop-while while intern condp case reduced cycle split-at split-with repeat replicate iterate range merge zipmap declare line-seq sort comparator sort-by dorun doall nthnext nthrest partition eval doseq await await-for let agent atom send send-off release-pending-sends add-watch mapv filterv remove-watch agent-error restart-agent set-error-handler error-handler set-error-mode! error-mode shutdown-agents quote var fn loop recur throw try monitor-enter monitor-exit defmacro defn defn- macroexpand macroexpand-1 for dosync and or when when-not when-let comp juxt partial sequence memoize constantly complement identity assert peek pop doto proxy defstruct first rest cons defprotocol cast coll deftype defrecord last butlast sigs reify second ffirst fnext nfirst nnext defmulti defmethod meta with-meta ns in-ns create-ns import refer keys select-keys vals key val rseq name namespace promise into transient persistent! conj! assoc! dissoc! pop! disj! use class type num float double short byte boolean bigint biginteger bigdec print-method print-dup throw-if printf format load compile get-in update-in pr pr-on newline flush read slurp read-line subvec with-open memfn time re-find re-groups rand-int rand mod locking assert-valid-fdecl alias resolve ref deref refset swap! reset! set-validator! compare-and-set! alter-meta! reset-meta! commute get-validator alter ref-set ref-history-count ref-min-history ref-max-history ensure sync io! new next conj set! to-array future future-call into-array aset gen-class reduce map filter find empty hash-map hash-set sorted-map sorted-map-by sorted-set sorted-set-by vec vector seq flatten reverse assoc dissoc list disj get union difference intersection extend extend-type extend-protocol int nth delay count concat chunk chunk-buffer chunk-append chunk-first chunk-rest max min dec unchecked-inc-int unchecked-inc unchecked-dec-inc unchecked-dec unchecked-negate unchecked-add-int unchecked-add unchecked-subtract-int unchecked-subtract chunk-next chunk-cons chunked-seq? prn vary-meta lazy-seq spread list* str find-keyword keyword symbol gensym force rationalize"},r="a-zA-Z_\\-!.?+*=<>&#'",n="["+r+"]["+r+"0-9/;:]*",a="[-+]?\\d+(\\.\\d+)?",o={b:n,r:0},s={cN:"number",b:a,r:0},i=e.inherit(e.QSM,{i:null}),c=e.C(";","$",{r:0}),d={cN:"literal",b:/\b(true|false|nil)\b/},l={b:"[\\[\\{]",e:"[\\]\\}]"},m={cN:"comment",b:"\\^"+n},p=e.C("\\^\\{","\\}"),u={cN:"symbol",b:"[:]{1,2}"+n},f={b:"\\(",e:"\\)"},h={eW:!0,r:0},y={k:t,l:n,cN:"name",b:n,starts:h},b=[f,i,m,p,c,u,l,s,d,o];return f.c=[e.C("comment",""),y,h],h.c=b,l.c=b,{aliases:["clj"],i:/\S/,c:[f,i,m,p,c,u,l,s,d]}});
+    hljs.initHighlightingOnLoad();
+  </script>
+</html>

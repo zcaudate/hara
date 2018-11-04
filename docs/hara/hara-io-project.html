@@ -1,0 +1,520 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <link rel="shortcut icon" href="favicon.ico">
+  <title>hara.io.project - project configuration support</title>
+  <script src="js/highlight.min.js"></script>
+  <script src="js/gumshoe.min.js"></script>
+  <script src="js/smooth-scroll.min.js"></script>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/poole.css">
+  <link rel="stylesheet" href="css/syntax.css">
+  <link rel="stylesheet" href="css/lanyon.css">
+  <link rel="stylesheet" href="css/bolton.css">
+  <link rel="stylesheet" href="css/bolton-api.css">
+  <link rel="stylesheet" href="css/bolton-highlight.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  
+</head>
+
+  <body class="theme-base-0b">
+    <span id="page-top"></span>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <nav class="sidebar-nav">
+    <span>&nbsp;</span>
+    <a class="sidebar-nav-item header" href="index.html" style="padding-bottom:5px"><b>HOME</b></a>
+    <a class="sidebar-nav-item" href="hara-config.html">config</a><a class="sidebar-nav-item" href="hara-core.html">core</a><a class="sidebar-nav-item" href="hara-data.html">data</a><a class="sidebar-nav-item" href="hara-deploy.html">deploy</a><a class="sidebar-nav-item" href="hara-event.html">event</a><a class="sidebar-nav-item" href="hara-function.html">function</a><a class="sidebar-nav-item" href="hara-function-procedure.html">function.procedure</a><a class="sidebar-nav-item" href="hara-function-task.html">function.task</a><a class="sidebar-nav-item" href="hara-io-archive.html">io.archive</a><a class="sidebar-nav-item" href="hara-io-file.html">io.file</a><a class="sidebar-nav-item" href="hara-io-project.html">io.project</a><a class="sidebar-nav-item" href="hara-io-scheduler.html">io.scheduler</a><a class="sidebar-nav-item" href="hara-lib-aether.html">lib.aether</a><a class="sidebar-nav-item" href="hara-lib-jgit.html">lib.jgit</a><a class="sidebar-nav-item" href="hara-math.html">math</a><a class="sidebar-nav-item" href="hara-module.html">module</a><a class="sidebar-nav-item" href="hara-object.html">object</a><a class="sidebar-nav-item" href="hara-print.html">print</a><a class="sidebar-nav-item" href="hara-security.html">security</a><a class="sidebar-nav-item" href="hara-security-openpgp.html">security.openpgp</a><a class="sidebar-nav-item" href="hara-state.html">state</a><a class="sidebar-nav-item" href="hara-state-ova.html">state.ova</a><a class="sidebar-nav-item" href="hara-string.html">string</a><a class="sidebar-nav-item" href="hara-test.html">test</a><a class="sidebar-nav-item" href="hara-time.html">time</a><a class="sidebar-nav-item" href="hara-watch.html">watch</a>
+    <span class="sidebar-nav-item">&nbsp;</span>
+    <span class="sidebar-nav-item">&nbsp;</span>
+  </nav>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <span>io.project</span>
+            <small>project configuration support</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="page">
+          <div class="heading">
+            <div>
+              <h5>Author: Chris Zheng&nbsp;&nbsp;<a href="mailto:z@caudate.me">(z@caudate.me)</a></h5>
+              <h5>Date: 04 November 2018</h5>
+              <h5>Repository: <a href="https://github.com/zcaudate/hara">https://github.com/zcaudate/hara</a></h5>
+              <h5>Version: 3.0.1</h5></div></div>
+          <hr/>
+
+          <div class="toc">
+              <nav>
+                <ul>
+                  <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#api"><h4>2 &nbsp; API</h4></a><a class="section" data-scroll="" href="#entry__hara_io_project__all_files"><h5><i>all-files</i></h5></a><a class="section" data-scroll="" href="#entry__hara_io_project__exclude"><h5><i>exclude</i></h5></a><a class="section" data-scroll="" href="#entry__hara_io_project__file_lookup"><h5><i>file-lookup</i></h5></a><a class="section" data-scroll="" href="#entry__hara_io_project__file_namespace"><h5><i>file-namespace</i></h5></a><a class="section" data-scroll="" href="#entry__hara_io_project__file_suffix"><h5><i>file-suffix</i></h5></a><a class="section" data-scroll="" href="#entry__hara_io_project__file_type"><h5><i>file-type</i></h5></a><a class="section" data-scroll="" href="#entry__hara_io_project__in_context"><h5><i>in-context</i></h5></a><a class="section" data-scroll="" href="#entry__hara_io_project__project"><h5><i>project</i></h5></a><a class="section" data-scroll="" href="#entry__hara_io_project__project_file"><h5><i>project-file</i></h5></a><a class="section" data-scroll="" href="#entry__hara_io_project__project_name"><h5><i>project-name</i></h5></a><a class="section" data-scroll="" href="#entry__hara_io_project__source_ns"><h5><i>source-ns</i></h5></a><a class="section" data-scroll="" href="#entry__hara_io_project__sym_name"><h5><i>sym-name</i></h5></a><a class="section" data-scroll="" href="#entry__hara_io_project__test_ns"><h5><i>test-ns</i></h5></a><a class="section" data-scroll="" href="#entry__hara_io_project__test_suffix"><h5><i>test-suffix</i></h5></a></li>
+                </ul>
+              </nav>
+          </div>
+          <div>
+    <span id="introduction"></span>
+    <h2><b>1 &nbsp;&nbsp; Introduction</b></h2>
+</div><div><p><a href='https://github.com/caudata/hara/blob/master/src/hara/io/project.clj'>hara.io.project</a> reads the project level descriptor.</p>
+</div><div>
+    <span id="installation"></span>
+    <h3>1.1 &nbsp;&nbsp; Installation</h3>
+</div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;hara/io.project &quot;3.0.1&quot;&#93;</code></pre>
+</div><div><p>All functions are in the <code>hara.io.project</code> namespace.      </p><pre><code> &#40;use &#40;quote hara.io.project&#41;&#41;</code></pre>
+</div><div>
+    <span id="api"></span>
+    <h2><b>2 &nbsp;&nbsp; API</b></h2>
+</div><div class="api">
+    <span id="entry__hara_io_project__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_io_project__all_files">all-files</a></li>
+            <li><a data-scroll="" href="#entry__hara_io_project__exclude">exclude</a></li>
+            <li><a data-scroll="" href="#entry__hara_io_project__file_lookup">file-lookup</a></li>
+            <li><a data-scroll="" href="#entry__hara_io_project__file_namespace">file-namespace</a></li>
+            <li><a data-scroll="" href="#entry__hara_io_project__file_suffix">file-suffix</a></li>
+            <li><a data-scroll="" href="#entry__hara_io_project__file_type">file-type</a></li>
+            <li><a data-scroll="" href="#entry__hara_io_project__in_context">in-context</a></li>
+            <li><a data-scroll="" href="#entry__hara_io_project__project">project</a></li>
+            <li><a data-scroll="" href="#entry__hara_io_project__project_file">project-file</a></li>
+            <li><a data-scroll="" href="#entry__hara_io_project__project_name">project-name</a></li>
+            <li><a data-scroll="" href="#entry__hara_io_project__source_ns">source-ns</a></li>
+            <li><a data-scroll="" href="#entry__hara_io_project__sym_name">sym-name</a></li>
+            <li><a data-scroll="" href="#entry__hara_io_project__test_ns">test-ns</a></li>
+            <li><a data-scroll="" href="#entry__hara_io_project__test_suffix">test-suffix</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_io_project__all_files"></span>
+                <div class="entry-description">
+                    <h4><b>all-files&nbsp<a data-scroll="" href="#entry__hara_io_project__">^</a></b></h4>
+                    <p><i>returns all the clojure files in a directory</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/project.clj#L95-L121" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_io_project__all_files">
+                        <label class="source-toggle" for="entry__pre_hara_io_project__all_files"></label>
+                        <pre class="source"><code class="clojure">(defn all-files
+  ([] (all-files ["."]))
+  ([paths] (all-files paths {}))
+  ([paths opts]
+   (all-files paths opts (project)))
+  ([paths opts project]
+   (let [filt (-> {:include *include*}
+                  (merge opts)
+                  (update-in [:exclude]
+                             conj
+                             fs/link?))
+         result (->> paths
+                     (map #(fs/path (:root project) %))
+                     (mapcat #(fs/select % filt))
+                     (map str)
+                     (map (juxt file-namespace identity))
+                     (into {}))]
+     (dissoc result nil))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/io/project_test.clj#L40-L47" target="_blank">link</a></i></h6><code class="clojure">(count (all-files ["test"]))
+=> number?
+
+(-> (all-files ["test"])
+    (get 'hara.io.project-test))
+=> #(.endsWith ^String % "/test/hara/io/project_test.clj")</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_io_project__exclude"></span>
+                <div class="entry-description">
+                    <h4><b>exclude&nbsp<a data-scroll="" href="#entry__hara_io_project__">^</a></b></h4>
+                    <p><i>helper function for excluding certain namespaces</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/project.clj#L72-L93" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_io_project__exclude">
+                        <label class="source-toggle" for="entry__pre_hara_io_project__exclude"></label>
+                        <pre class="source"><code class="clojure">(defn exclude
+  [lookup exclusions]
+  (reduce-kv (fn [out ns v]
+               (let [nss (str ns)
+                     exclude? (->> exclusions
+                                   (map (fn [ex]
+                                          (.startsWith nss ex)))
+                                   (some true?))]
+                 (if exclude?
+                   out
+                   (assoc out ns v))))
+             {}
+
+             lookup))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/io/project_test.clj#L31-L37" target="_blank">link</a></i></h6><code class="clojure">(exclude '{lucid.legacy.analyzer :a
+           lucid.legacy :a
+           hara.lib.aether :b}
+         ["lucid.legacy"])
+=> '{hara.lib.aether :b}</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_io_project__file_lookup"></span>
+                <div class="entry-description">
+                    <h4><b>file-lookup&nbsp<a data-scroll="" href="#entry__hara_io_project__">^</a></b></h4>
+                    <p><i>creates a lookup of namespaces and files in the project</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/project.clj#L123-L135" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_io_project__file_lookup">
+                        <label class="source-toggle" for="entry__pre_hara_io_project__file_lookup"></label>
+                        <pre class="source"><code class="clojure">(defn file-lookup
+  ([] (file-lookup (project)))
+  ([project]
+   (all-files (concat (:source-paths project)
+                      (:test-paths project))
+              {}
+              project)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/io/project_test.clj#L50-L54" target="_blank">link</a></i></h6><code class="clojure">(-> (file-lookup (project))
+    (get 'hara.io.project))
+=> #(.endsWith ^String % "/src/hara/io/project.clj")</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_io_project__file_namespace"></span>
+                <div class="entry-description">
+                    <h4><b>file-namespace&nbsp<a data-scroll="" href="#entry__hara_io_project__">^</a></b></h4>
+                    <p><i>reads the namespace of the given path</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/project.clj#L57-L70" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_io_project__file_namespace">
+                        <label class="source-toggle" for="entry__pre_hara_io_project__file_namespace"></label>
+                        <pre class="source"><code class="clojure">(defn file-namespace
+  [path]
+  (try
+    (->> (fs/read-code path)
+         (filter #(-> % first (= 'ns)))
+         first
+         second)
+    (catch Throwable t
+      (println path "Cannot be loaded"))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/io/project_test.clj#L25-L28" target="_blank">link</a></i></h6><code class="clojure">(file-namespace "src/hara/io/project.clj")
+=> 'hara.io.project</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_io_project__file_suffix"></span>
+                <div class="entry-description">
+                    <h4><b>file-suffix&nbsp<a data-scroll="" href="#entry__hara_io_project__">^</a></b></h4>
+                    <p><i>returns the file suffix for a given type</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/project.clj#L137-L146" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_io_project__file_suffix">
+                        <label class="source-toggle" for="entry__pre_hara_io_project__file_suffix"></label>
+                        <pre class="source"><code class="clojure">(defn file-suffix
+  ([] (file-suffix common/*type*))
+  ([type]
+   (-> (common/type-lookup type) :extension)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/io/project_test.clj#L57-L61" target="_blank">link</a></i></h6><code class="clojure">(file-suffix) => ".clj"
+
+(file-suffix :cljs) => ".cljs"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_io_project__file_type"></span>
+                <div class="entry-description">
+                    <h4><b>file-type&nbsp<a data-scroll="" href="#entry__hara_io_project__">^</a></b></h4>
+                    <p><i>returns the type of file according to the suffix</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/project.clj#L157-L173" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_io_project__file_type">
+                        <label class="source-toggle" for="entry__pre_hara_io_project__file_type"></label>
+                        <pre class="source"><code class="clojure">(defn file-type
+  [path]
+  (cond (.endsWith (str path)
+                   (str (munge (test-suffix))
+                        (file-suffix)))
+        :test
+
+        :else
+        :source))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/io/project_test.clj#L69-L75" target="_blank">link</a></i></h6><code class="clojure">(file-type "project.clj")
+=> :source
+
+(file-type "test/hara/code_test.clj")
+=> :test</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_io_project__in_context"></span>
+                <div class="entry-description">
+                    <h4><b>in-context&nbsp<a data-scroll="" href="#entry__hara_io_project__">^</a></b></h4>
+                    <p><i>creates a local context for executing code functions</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/project.clj#L223-L245" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_io_project__in_context">
+                        <label class="source-toggle" for="entry__pre_hara_io_project__in_context"></label>
+                        <pre class="source"><code class="clojure">(defmacro in-context
+  [[func & args]]
+  (let [project `(project)
+        lookup  `(all-files ["src" "test"] {} ~'project)
+        current `(.getName *ns*)
+        params  `{}]
+    (case (count args)
+      0  `(let [~'project ~project]
+            (~func ~current ~params ~lookup ~'project))
+      1   (if (map? (first args))
+            `(let [~'project ~project]
+               (~func ~current ~(first args) ~lookup ~'project))
+            `(let [~'project ~project]
+               (~func ~(first args) ~params ~lookup ~'project)))
+      2   `(let [~'project ~project]
+             (~func ~@args ~lookup ~'project)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/io/project_test.clj#L99-L104" target="_blank">link</a></i></h6><code class="clojure">(in-context ((fn [current params _ project]
+               [current (:name project)])))
+=> '[hara.io.project-test
+     hara]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_io_project__project"></span>
+                <div class="entry-description">
+                    <h4><b>project&nbsp<a data-scroll="" href="#entry__hara_io_project__">^</a></b></h4>
+                    <p><i>returns project options as a map</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/project.clj#L31-L45" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_io_project__project">
+                        <label class="source-toggle" for="entry__pre_hara_io_project__project"></label>
+                        <pre class="source"><code class="clojure">(defn project
+  ([] (project (project-file)))
+  ([path]
+   (cond (nil? path)
+         (throw (ex-info "Cannot find project" {:path nil}))
+         
+         (fs/input-stream? path)
+         (lein/project path)
+         
+         :else
+         (project-fn path (-> (fs/path path)
+                              (fs/attributes)
+                              (:last-modified-time))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/io/project_test.clj#L12-L16" target="_blank">link</a></i></h6><code class="clojure">(project)
+=> (contains {:name symbol?
+              :dependencies vector?})</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_io_project__project_file"></span>
+                <div class="entry-description">
+                    <h4><b>project-file&nbsp<a data-scroll="" href="#entry__hara_io_project__">^</a></b></h4>
+                    <p><i>returns the current project file</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/project.clj#L13-L23" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_io_project__project_file">
+                        <label class="source-toggle" for="entry__pre_hara_io_project__project_file"></label>
+                        <pre class="source"><code class="clojure">(defn project-file
+  []
+  (->> [lein/*project-file*
+        shadow/*shadow-file*]
+       (filter fs/exists?)
+       (first)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/io/project_test.clj#L6-L9" target="_blank">link</a></i></h6><code class="clojure">(project-file)
+=> "project.clj"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_io_project__project_name"></span>
+                <div class="entry-description">
+                    <h4><b>project-name&nbsp<a data-scroll="" href="#entry__hara_io_project__">^</a></b></h4>
+                    <p><i>returns the name, read from the project map</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/project.clj#L47-L55" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_io_project__project_name">
+                        <label class="source-toggle" for="entry__pre_hara_io_project__project_name"></label>
+                        <pre class="source"><code class="clojure">(defn project-name
+  ([] (:name (project)))
+  ([path]
+   (:name (project path))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/io/project_test.clj#L19-L22" target="_blank">link</a></i></h6><code class="clojure">(project-name)
+=> 'hara</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_io_project__source_ns"></span>
+                <div class="entry-description">
+                    <h4><b>source-ns&nbsp<a data-scroll="" href="#entry__hara_io_project__">^</a></b></h4>
+                    <p><i>returns the source namespace</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/project.clj#L195-L207" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_io_project__source_ns">
+                        <label class="source-toggle" for="entry__pre_hara_io_project__source_ns"></label>
+                        <pre class="source"><code class="clojure">(defn source-ns
+  [ns]
+  (let [sns (str (sym-name ns))
+        suffix (test-suffix)
+        sns (if (.endsWith (str sns) suffix)
+              (subs sns 0 (- (count sns) (count suffix)))
+              sns)]
+    (symbol sns)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/io/project_test.clj#L87-L90" target="_blank">link</a></i></h6><code class="clojure">(source-ns 'a) => 'a
+(source-ns 'a-test) => 'a</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_io_project__sym_name"></span>
+                <div class="entry-description">
+                    <h4><b>sym-name&nbsp<a data-scroll="" href="#entry__hara_io_project__">^</a></b></h4>
+                    <p><i>returns the symbol of the namespace</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/project.clj#L175-L193" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_io_project__sym_name">
+                        <label class="source-toggle" for="entry__pre_hara_io_project__sym_name"></label>
+                        <pre class="source"><code class="clojure">(defn sym-name
+  [x]
+  (cond (instance? clojure.lang.Namespace x)
+        (.getName x)
+
+        (symbol? x)
+        x
+
+        :else
+        (throw (ex-info "Only symbols and namespaces are supported" {:type (type x)
+                                                                     :value x}))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/io/project_test.clj#L78-L84" target="_blank">link</a></i></h6><code class="clojure">(sym-name *ns*)
+=> 'hara.io.project-test
+
+(sym-name 'a)
+=> 'a</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_io_project__test_ns"></span>
+                <div class="entry-description">
+                    <h4><b>test-ns&nbsp<a data-scroll="" href="#entry__hara_io_project__">^</a></b></h4>
+                    <p><i>returns the test namespace</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/project.clj#L209-L221" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_io_project__test_ns">
+                        <label class="source-toggle" for="entry__pre_hara_io_project__test_ns"></label>
+                        <pre class="source"><code class="clojure">(defn test-ns
+  [ns]
+  (let [sns (str (sym-name ns))
+        suffix (test-suffix)
+        sns (if (.endsWith (str sns) suffix)
+              sns
+              (str sns suffix))]
+    (symbol sns)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/io/project_test.clj#L93-L96" target="_blank">link</a></i></h6><code class="clojure">(test-ns 'a) => 'a-test
+(test-ns 'a-test) => 'a-test</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_io_project__test_suffix"></span>
+                <div class="entry-description">
+                    <h4><b>test-suffix&nbsp<a data-scroll="" href="#entry__hara_io_project__">^</a></b></h4>
+                    <p><i>returns the test suffix</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/project.clj#L148-L155" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_io_project__test_suffix">
+                        <label class="source-toggle" for="entry__pre_hara_io_project__test_suffix"></label>
+                        <pre class="source"><code class="clojure">(defn test-suffix
+  ([] common/*test-suffix*)
+  ([s] (alter-var-root #'common/*test-suffix*
+                       (constantly s))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/io/project_test.clj#L64-L66" target="_blank">link</a></i></h6><code class="clojure">(test-suffix) => "-test"</code></pre>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outline">
+      <div class="toc">
+        <nav data-gumshoe-header>
+          <ul data-gumshoe>
+            <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#api"><h4>2 &nbsp; API</h4></a><a class="section" data-scroll="" href="#entry__hara_io_project__all_files"><h5><i>all-files</i></h5></a><a class="section" data-scroll="" href="#entry__hara_io_project__exclude"><h5><i>exclude</i></h5></a><a class="section" data-scroll="" href="#entry__hara_io_project__file_lookup"><h5><i>file-lookup</i></h5></a><a class="section" data-scroll="" href="#entry__hara_io_project__file_namespace"><h5><i>file-namespace</i></h5></a><a class="section" data-scroll="" href="#entry__hara_io_project__file_suffix"><h5><i>file-suffix</i></h5></a><a class="section" data-scroll="" href="#entry__hara_io_project__file_type"><h5><i>file-type</i></h5></a><a class="section" data-scroll="" href="#entry__hara_io_project__in_context"><h5><i>in-context</i></h5></a><a class="section" data-scroll="" href="#entry__hara_io_project__project"><h5><i>project</i></h5></a><a class="section" data-scroll="" href="#entry__hara_io_project__project_file"><h5><i>project-file</i></h5></a><a class="section" data-scroll="" href="#entry__hara_io_project__project_name"><h5><i>project-name</i></h5></a><a class="section" data-scroll="" href="#entry__hara_io_project__source_ns"><h5><i>source-ns</i></h5></a><a class="section" data-scroll="" href="#entry__hara_io_project__sym_name"><h5><i>sym-name</i></h5></a><a class="section" data-scroll="" href="#entry__hara_io_project__test_ns"><h5><i>test-ns</i></h5></a><a class="section" data-scroll="" href="#entry__hara_io_project__test_suffix"><h5><i>test-suffix</i></h5></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    
+    <!--label for="sidebar-checkbox" class="sidebar-toggle"></label-->
+
+  </body>
+
+  <script>
+  if (true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-31320512-2', 'caudate.me');
+    ga('send', 'pageview');
+  }
+  </script>
+  
+  <script type="text/javascript">
+    smoothScroll.init();
+    gumshoe.init({});
+  
+    hljs.registerLanguage("clojure",function(e){var t={"builtin-name":"def defonce cond apply if-not if-let if not not= = < > <= >= == + / * - rem quot neg? pos? delay? symbol? keyword? true? false? integer? empty? coll? list? set? ifn? fn? associative? sequential? sorted? counted? reversible? number? decimal? class? distinct? isa? float? rational? reduced? ratio? odd? even? char? seq? vector? string? map? nil? contains? zero? instance? not-every? not-any? libspec? -> ->> .. . inc compare do dotimes mapcat take remove take-while drop letfn drop-last take-last drop-while while intern condp case reduced cycle split-at split-with repeat replicate iterate range merge zipmap declare line-seq sort comparator sort-by dorun doall nthnext nthrest partition eval doseq await await-for let agent atom send send-off release-pending-sends add-watch mapv filterv remove-watch agent-error restart-agent set-error-handler error-handler set-error-mode! error-mode shutdown-agents quote var fn loop recur throw try monitor-enter monitor-exit defmacro defn defn- macroexpand macroexpand-1 for dosync and or when when-not when-let comp juxt partial sequence memoize constantly complement identity assert peek pop doto proxy defstruct first rest cons defprotocol cast coll deftype defrecord last butlast sigs reify second ffirst fnext nfirst nnext defmulti defmethod meta with-meta ns in-ns create-ns import refer keys select-keys vals key val rseq name namespace promise into transient persistent! conj! assoc! dissoc! pop! disj! use class type num float double short byte boolean bigint biginteger bigdec print-method print-dup throw-if printf format load compile get-in update-in pr pr-on newline flush read slurp read-line subvec with-open memfn time re-find re-groups rand-int rand mod locking assert-valid-fdecl alias resolve ref deref refset swap! reset! set-validator! compare-and-set! alter-meta! reset-meta! commute get-validator alter ref-set ref-history-count ref-min-history ref-max-history ensure sync io! new next conj set! to-array future future-call into-array aset gen-class reduce map filter find empty hash-map hash-set sorted-map sorted-map-by sorted-set sorted-set-by vec vector seq flatten reverse assoc dissoc list disj get union difference intersection extend extend-type extend-protocol int nth delay count concat chunk chunk-buffer chunk-append chunk-first chunk-rest max min dec unchecked-inc-int unchecked-inc unchecked-dec-inc unchecked-dec unchecked-negate unchecked-add-int unchecked-add unchecked-subtract-int unchecked-subtract chunk-next chunk-cons chunked-seq? prn vary-meta lazy-seq spread list* str find-keyword keyword symbol gensym force rationalize"},r="a-zA-Z_\\-!.?+*=<>&#'",n="["+r+"]["+r+"0-9/;:]*",a="[-+]?\\d+(\\.\\d+)?",o={b:n,r:0},s={cN:"number",b:a,r:0},i=e.inherit(e.QSM,{i:null}),c=e.C(";","$",{r:0}),d={cN:"literal",b:/\b(true|false|nil)\b/},l={b:"[\\[\\{]",e:"[\\]\\}]"},m={cN:"comment",b:"\\^"+n},p=e.C("\\^\\{","\\}"),u={cN:"symbol",b:"[:]{1,2}"+n},f={b:"\\(",e:"\\)"},h={eW:!0,r:0},y={k:t,l:n,cN:"name",b:n,starts:h},b=[f,i,m,p,c,u,l,s,d,o];return f.c=[e.C("comment",""),y,h],h.c=b,l.c=b,{aliases:["clj"],i:/\S/,c:[f,i,m,p,c,u,l,s,d]}});
+    hljs.initHighlightingOnLoad();
+  </script>
+</html>

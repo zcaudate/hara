@@ -1,0 +1,449 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <link rel="shortcut icon" href="favicon.ico">
+  <title>hara.print - print primitives</title>
+  <script src="js/highlight.min.js"></script>
+  <script src="js/gumshoe.min.js"></script>
+  <script src="js/smooth-scroll.min.js"></script>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/poole.css">
+  <link rel="stylesheet" href="css/syntax.css">
+  <link rel="stylesheet" href="css/lanyon.css">
+  <link rel="stylesheet" href="css/bolton.css">
+  <link rel="stylesheet" href="css/bolton-api.css">
+  <link rel="stylesheet" href="css/bolton-highlight.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  
+</head>
+
+  <body class="theme-base-0b">
+    <span id="page-top"></span>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <nav class="sidebar-nav">
+    <span>&nbsp;</span>
+    <a class="sidebar-nav-item header" href="index.html" style="padding-bottom:5px"><b>HOME</b></a>
+    <a class="sidebar-nav-item" href="hara-config.html">config</a><a class="sidebar-nav-item" href="hara-core.html">core</a><a class="sidebar-nav-item" href="hara-data.html">data</a><a class="sidebar-nav-item" href="hara-deploy.html">deploy</a><a class="sidebar-nav-item" href="hara-event.html">event</a><a class="sidebar-nav-item" href="hara-function.html">function</a><a class="sidebar-nav-item" href="hara-function-procedure.html">function.procedure</a><a class="sidebar-nav-item" href="hara-function-task.html">function.task</a><a class="sidebar-nav-item" href="hara-io-archive.html">io.archive</a><a class="sidebar-nav-item" href="hara-io-file.html">io.file</a><a class="sidebar-nav-item" href="hara-io-project.html">io.project</a><a class="sidebar-nav-item" href="hara-io-scheduler.html">io.scheduler</a><a class="sidebar-nav-item" href="hara-lib-aether.html">lib.aether</a><a class="sidebar-nav-item" href="hara-lib-jgit.html">lib.jgit</a><a class="sidebar-nav-item" href="hara-math.html">math</a><a class="sidebar-nav-item" href="hara-module.html">module</a><a class="sidebar-nav-item" href="hara-object.html">object</a><a class="sidebar-nav-item" href="hara-print.html">print</a><a class="sidebar-nav-item" href="hara-security.html">security</a><a class="sidebar-nav-item" href="hara-security-openpgp.html">security.openpgp</a><a class="sidebar-nav-item" href="hara-state.html">state</a><a class="sidebar-nav-item" href="hara-state-ova.html">state.ova</a><a class="sidebar-nav-item" href="hara-string.html">string</a><a class="sidebar-nav-item" href="hara-test.html">test</a><a class="sidebar-nav-item" href="hara-time.html">time</a><a class="sidebar-nav-item" href="hara-watch.html">watch</a>
+    <span class="sidebar-nav-item">&nbsp;</span>
+    <span class="sidebar-nav-item">&nbsp;</span>
+  </nav>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <span>print</span>
+            <small>print primitives</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="page">
+          <div class="heading">
+            <div>
+              <h5>Author: Chris Zheng&nbsp;&nbsp;<a href="mailto:z@caudate.me">(z@caudate.me)</a></h5>
+              <h5>Date: 04 November 2018</h5>
+              <h5>Repository: <a href="https://github.com/zcaudate/hara">https://github.com/zcaudate/hara</a></h5>
+              <h5>Version: 3.0.1</h5></div></div>
+          <hr/>
+
+          <div class="toc">
+              <nav>
+                <ul>
+                  <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#api"><h4>2 &nbsp; API</h4></a><a class="section" data-scroll="" href="#entry__hara_print__print_column"><h5><i>print-column</i></h5></a><a class="section" data-scroll="" href="#entry__hara_print__print_compare"><h5><i>print-compare</i></h5></a><a class="section" data-scroll="" href="#entry__hara_print__print_header"><h5><i>print-header</i></h5></a><a class="section" data-scroll="" href="#entry__hara_print__print_row"><h5><i>print-row</i></h5></a><a class="section" data-scroll="" href="#entry__hara_print__print_subtitle"><h5><i>print-subtitle</i></h5></a><a class="section" data-scroll="" href="#entry__hara_print__print_summary"><h5><i>print-summary</i></h5></a><a class="section" data-scroll="" href="#entry__hara_print__print_title"><h5><i>print-title</i></h5></a><a class="section" data-scroll="" href="#entry__hara_print__print_tree"><h5><i>print-tree</i></h5></a><a class="section" data-scroll="" href="#entry__hara_print__progress"><h5><i>progress</i></h5></a><a class="section" data-scroll="" href="#entry__hara_print__progress_string"><h5><i>progress-string</i></h5></a><a class="section" data-scroll="" href="#entry__hara_print__progress_update"><h5><i>progress-update</i></h5></a></li>
+                </ul>
+              </nav>
+          </div>
+          <div>
+    <span id="introduction"></span>
+    <h2><b>1 &nbsp;&nbsp; Introduction</b></h2>
+</div><div><p><a href='https://github.com/caudata/hara/blob/master/src/hara/print.clj'>hara.print</a> provides methods for printing.</p>
+</div><div>
+    <span id="installation"></span>
+    <h3>1.1 &nbsp;&nbsp; Installation</h3>
+</div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;hara/base &quot;3.0.1&quot;&#93;</code></pre>
+</div><div><p>All functions are in the <code>hara.print</code> namespace.      </p><pre><code> &#40;use &#40;quote hara.print&#41;&#41;</code></pre>
+</div><div>
+    <span id="api"></span>
+    <h2><b>2 &nbsp;&nbsp; API</b></h2>
+</div><div class="api">
+    <span id="entry__hara_print__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_print__print_column">print-column</a></li>
+            <li><a data-scroll="" href="#entry__hara_print__print_compare">print-compare</a></li>
+            <li><a data-scroll="" href="#entry__hara_print__print_header">print-header</a></li>
+            <li><a data-scroll="" href="#entry__hara_print__print_row">print-row</a></li>
+            <li><a data-scroll="" href="#entry__hara_print__print_subtitle">print-subtitle</a></li>
+            <li><a data-scroll="" href="#entry__hara_print__print_summary">print-summary</a></li>
+            <li><a data-scroll="" href="#entry__hara_print__print_title">print-title</a></li>
+            <li><a data-scroll="" href="#entry__hara_print__print_tree">print-tree</a></li>
+            <li><a data-scroll="" href="#entry__hara_print__progress">progress</a></li>
+            <li><a data-scroll="" href="#entry__hara_print__progress_string">progress-string</a></li>
+            <li><a data-scroll="" href="#entry__hara_print__progress_update">progress-update</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_print__print_column"></span>
+                <div class="entry-description">
+                    <h4><b>print-column&nbsp<a data-scroll="" href="#entry__hara_print__">^</a></b></h4>
+                    <p><i>prints the column</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/print/base/report.clj#L237-L255" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_print__print_column">
+                        <label class="source-toggle" for="entry__pre_hara_print__print_column"></label>
+                        <pre class="source"><code class="clojure">(defn print-column
+  [items name color]
+  (let [ns-len  (or (->> items (map (comp count str first)) sort last)
+                    20)
+        display {:padding 1
+                 :spacing 1
+                 :columns [{:id :key   :length (inc ns-len) :align :left}
+                           {:id name  :length 60 :color color}]}]
+    (print-header [:key name] display)
+    (doseq [[key m] items]
+      (print-row [key (get m name)] display))
+    (print "n")))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/print/base/print_test.clj#L123-L130" target="_blank">link</a></i></h6><code class="clojure">(-> (print-column [[:id.a {:data 100}] [:id.b {:data 200}]]
+                  :data
+                  #{})
+    (with-out-str))</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_print__print_compare"></span>
+                <div class="entry-description">
+                    <h4><b>print-compare&nbsp<a data-scroll="" href="#entry__hara_print__">^</a></b></h4>
+                    <p><i>outputs a side by side comparison</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/print/base/report.clj#L257-L276" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_print__print_compare">
+                        <label class="source-toggle" for="entry__pre_hara_print__print_compare"></label>
+                        <pre class="source"><code class="clojure">(defn print-compare
+  [output]
+  (let [ns-len  (or (->> output (map (comp count str first)) sort last)
+                    20)
+        item-params {:padding 1
+                     :spacing 1
+                     :columns [{:id :ns    :length (inc ns-len) :align :left}
+                               {:id :data  :length 50 :color #{:highlight}}
+                               {:id :data  :length 50 :color #{:magenta}}]}]
+    (doseq [[ns [src test]] output]
+      (print-row [ns src (if (empty? test)
+                           :no-tests
+                           test)]
+                 item-params))
+    (print "n")))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/print/base/print_test.clj#L133-L136" target="_blank">link</a></i></h6><code class="clojure">(-> (print-compare [['hara.code [[:a :b :c] [:d :e :f]]]])
+    (with-out-str))</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_print__print_header"></span>
+                <div class="entry-description">
+                    <h4><b>print-header&nbsp<a data-scroll="" href="#entry__hara_print__">^</a></b></h4>
+                    <p><i>prints a header for the row</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/print/base/report.clj#L177-L200" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_print__print_header">
+                        <label class="source-toggle" for="entry__pre_hara_print__print_header"></label>
+                        <pre class="source"><code class="clojure">(defn print-header
+  [titles {:keys [padding columns] :as params}]
+  (let [pad (pad padding)
+        header (-> (apply str
+                          (mapv (fn [title {:keys [align length]}]
+                                  (str pad
+                                       (justify align
+                                                (name title)
+                                                length)))
+                                titles
+                                columns))
+                   (ansi/style #{:bold}))]
+    (println header)
+    (print "n")))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/print/base/print_test.clj#L84-L93" target="_blank">link</a></i></h6><code class="clojure">(-> (print-header [:id :name :value]
+                  {:padding 0
+                   :spacing 1
+                   :columns [{:align :right :length 10}
+                             {:align :center :length 10}
+                             {:align :left :length 10}]})
+    (with-out-str))</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_print__print_row"></span>
+                <div class="entry-description">
+                    <h4><b>print-row&nbsp<a data-scroll="" href="#entry__hara_print__">^</a></b></h4>
+                    <p><i>prints a row to output</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/print/base/report.clj#L202-L215" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_print__print_row">
+                        <label class="source-toggle" for="entry__pre_hara_print__print_row"></label>
+                        <pre class="source"><code class="clojure">(defn print-row
+  [row params]
+  (apply mapv println (prepare-elements row params)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/print/base/print_test.clj#L96-L106" target="_blank">link</a></i></h6><code class="clojure">(-> (print-row ["hello" :world (result/result {:data [:a :b :c :d :e :f]
+                                               :status :info})]
+               {:padding 0
+                :spacing 1
+                :columns [{:align :right :length 10}
+                          {:align :center :length 10}
+                          {:align :left :length 10}]})
+    (with-out-str))</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_print__print_subtitle"></span>
+                <div class="entry-description">
+                    <h4><b>print-subtitle&nbsp<a data-scroll="" href="#entry__hara_print__">^</a></b></h4>
+                    <p><i>prints the subtitle</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/print/base/report.clj#L228-L235" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_print__print_subtitle">
+                        <label class="source-toggle" for="entry__pre_hara_print__print_subtitle"></label>
+                        <pre class="source"><code class="clojure">(defn print-subtitle
+  [text]
+  (print (ansi/style text #{:bold}) "n"))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/print/base/print_test.clj#L116-L120" target="_blank">link</a></i></h6><code class="clojure">(-> (print-subtitle "Hello Again")
+    (with-out-str))</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_print__print_summary"></span>
+                <div class="entry-description">
+                    <h4><b>print-summary&nbsp<a data-scroll="" href="#entry__hara_print__">^</a></b></h4>
+                    <p><i>outputs the summary of results</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/print/base/report.clj#L278-L286" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_print__print_summary">
+                        <label class="source-toggle" for="entry__pre_hara_print__print_summary"></label>
+                        <pre class="source"><code class="clojure">(defn print-summary
+  [m]
+  (let [ks (sort (keys m))]
+    (print (ansi/style (str "SUMMARY " m "n")  #{:bold}))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/print/base/print_test.clj#L139-L144" target="_blank">link</a></i></h6><code class="clojure">(-> (print-summary {:count 6 :files 2})
+    (with-out-str))</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_print__print_title"></span>
+                <div class="entry-description">
+                    <h4><b>print-title&nbsp<a data-scroll="" href="#entry__hara_print__">^</a></b></h4>
+                    <p><i>prints the title</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/print/base/report.clj#L217-L226" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_print__print_title">
+                        <label class="source-toggle" for="entry__pre_hara_print__print_title"></label>
+                        <pre class="source"><code class="clojure">(defn print-title
+  [title]
+  (let [line (apply str (repeat (count title) -))]
+    (print (ansi/style (string/format "n%sn%sn%sn" line title line)
+                       #{:bold}))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/print/base/print_test.clj#L109-L113" target="_blank">link</a></i></h6><code class="clojure">(-> (print-title "Hello World")
+    (with-out-str))</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_print__print_tree"></span>
+                <div class="entry-description">
+                    <h4><b>print-tree&nbsp<a data-scroll="" href="#entry__hara_print__">^</a></b></h4>
+                    <p><i>outputs the result of `format-tree`</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/print/base/report.clj#L309-L331" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_print__print_tree">
+                        <label class="source-toggle" for="entry__pre_hara_print__print_tree"></label>
+                        <pre class="source"><code class="clojure">(defn print-tree
+  ([tree]
+   (print-tree tree "" nil?))
+  ([tree prefix check]
+   (let [output (->> (format-tree tree prefix check)
+                     (string/split-lines))
+         min-spaces (apply min (map (fn [s] (-> (re-find #"^(s*)" s)
+                                                first
+                                                count))
+                                    output))
+         output (->> output
+                     (map #(subs % min-spaces))
+                     (map (fn [s] (if (.startsWith s " ")
+                                    (ansi/green "" s)
+                                    (ansi/bold  "n" s)))))]
+     (println (string/join output "n")))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/print/base/print_test.clj#L160-L165" target="_blank">link</a></i></h6><code class="clojure">(print-tree '[{a "1.1"}
+              [{b "1.2"}
+               [{c "1.3"}
+                {d "1.4"}]]])</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_print__progress"></span>
+                <div class="entry-description">
+                    <h4><b>progress&nbsp<a data-scroll="" href="#entry__hara_print__">^</a></b></h4>
+                    <p><i>creates a structure representing progress</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/print/base/progress.clj#L72-L90" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_print__progress">
+                        <label class="source-toggle" for="entry__pre_hara_print__progress"></label>
+                        <pre class="source"><code class="clojure">(defn progress
+  ([]
+   (progress nil))
+  ([initial]
+   (progress initial nil))
+  ([initial options]
+   (let [now (/ (System/nanoTime) 1000000000)
+         default {:start-time  now
+                  :update-time now
+                  :total 100
+                  :current 0
+                  :label ""}]
+     (Progress. (merge +progress-defaults+ options)
+                (atom (merge default initial))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/print/base/progress_test.clj#L30-L33" target="_blank">link</a></i></h6><code class="clojure">(-> (progress) :state deref)
+=> (contains {:total 100, :current 0, :label ""})</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_print__progress_string"></span>
+                <div class="entry-description">
+                    <h4><b>progress-string&nbsp<a data-scroll="" href="#entry__hara_print__">^</a></b></h4>
+                    <p><i>creates a string representation of the current progress</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/print/base/progress.clj#L92-L110" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_print__progress_string">
+                        <label class="source-toggle" for="entry__pre_hara_print__progress_string"></label>
+                        <pre class="source"><code class="clojure">(defn progress-string
+  ([progress]
+   (progress-string @(:state progress)
+                    (:options progress)))
+  ([{:keys [total current label] :as state} {:keys [template bar] :as options}]
+   (format "%s[%s] %ss %s"
+           (if-not (empty? label) (str label " ") "")
+           (progress-bar-string current total bar)
+           (progress-eta total current (- (:update-time state)
+                                          (:start-time state)))
+           (progress-spinner-string current total))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/print/base/progress_test.clj#L36-L42" target="_blank">link</a></i></h6><code class="clojure">(progress-string (-> @(:state (progress))
+                     (update :update-time + 10)
+                     (update :current + 9))
+                 +progress-defaults+)
+=> "[=====                 9/100                       ] 101s -"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_print__progress_update"></span>
+                <div class="entry-description">
+                    <h4><b>progress-update&nbsp<a data-scroll="" href="#entry__hara_print__">^</a></b></h4>
+                    <p><i>updates the progress meter</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/print/base/progress.clj#L112-L129" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_print__progress_update">
+                        <label class="source-toggle" for="entry__pre_hara_print__progress_update"></label>
+                        <pre class="source"><code class="clojure">(defn progress-update
+  ([progress]
+   (progress-update progress 1))
+  ([progress number]
+   (swap! (:state progress)
+          (fn [{:keys [total current] :as state}]
+            (let [now (/ (System/nanoTime) 1000000000)
+                  current (+ current number)
+                  current (if (< current total)
+                            current
+                            total)]
+              (-> state
+                  (assoc :update-time now
+                         :current current)))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/print/base/progress_test.clj#L45-L47" target="_blank">link</a></i></h6><code class="clojure">(progress-update (progress) 10)</code></pre>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outline">
+      <div class="toc">
+        <nav data-gumshoe-header>
+          <ul data-gumshoe>
+            <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#api"><h4>2 &nbsp; API</h4></a><a class="section" data-scroll="" href="#entry__hara_print__print_column"><h5><i>print-column</i></h5></a><a class="section" data-scroll="" href="#entry__hara_print__print_compare"><h5><i>print-compare</i></h5></a><a class="section" data-scroll="" href="#entry__hara_print__print_header"><h5><i>print-header</i></h5></a><a class="section" data-scroll="" href="#entry__hara_print__print_row"><h5><i>print-row</i></h5></a><a class="section" data-scroll="" href="#entry__hara_print__print_subtitle"><h5><i>print-subtitle</i></h5></a><a class="section" data-scroll="" href="#entry__hara_print__print_summary"><h5><i>print-summary</i></h5></a><a class="section" data-scroll="" href="#entry__hara_print__print_title"><h5><i>print-title</i></h5></a><a class="section" data-scroll="" href="#entry__hara_print__print_tree"><h5><i>print-tree</i></h5></a><a class="section" data-scroll="" href="#entry__hara_print__progress"><h5><i>progress</i></h5></a><a class="section" data-scroll="" href="#entry__hara_print__progress_string"><h5><i>progress-string</i></h5></a><a class="section" data-scroll="" href="#entry__hara_print__progress_update"><h5><i>progress-update</i></h5></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    
+    <!--label for="sidebar-checkbox" class="sidebar-toggle"></label-->
+
+  </body>
+
+  <script>
+  if (true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-31320512-2', 'caudate.me');
+    ga('send', 'pageview');
+  }
+  </script>
+  
+  <script type="text/javascript">
+    smoothScroll.init();
+    gumshoe.init({});
+  
+    hljs.registerLanguage("clojure",function(e){var t={"builtin-name":"def defonce cond apply if-not if-let if not not= = < > <= >= == + / * - rem quot neg? pos? delay? symbol? keyword? true? false? integer? empty? coll? list? set? ifn? fn? associative? sequential? sorted? counted? reversible? number? decimal? class? distinct? isa? float? rational? reduced? ratio? odd? even? char? seq? vector? string? map? nil? contains? zero? instance? not-every? not-any? libspec? -> ->> .. . inc compare do dotimes mapcat take remove take-while drop letfn drop-last take-last drop-while while intern condp case reduced cycle split-at split-with repeat replicate iterate range merge zipmap declare line-seq sort comparator sort-by dorun doall nthnext nthrest partition eval doseq await await-for let agent atom send send-off release-pending-sends add-watch mapv filterv remove-watch agent-error restart-agent set-error-handler error-handler set-error-mode! error-mode shutdown-agents quote var fn loop recur throw try monitor-enter monitor-exit defmacro defn defn- macroexpand macroexpand-1 for dosync and or when when-not when-let comp juxt partial sequence memoize constantly complement identity assert peek pop doto proxy defstruct first rest cons defprotocol cast coll deftype defrecord last butlast sigs reify second ffirst fnext nfirst nnext defmulti defmethod meta with-meta ns in-ns create-ns import refer keys select-keys vals key val rseq name namespace promise into transient persistent! conj! assoc! dissoc! pop! disj! use class type num float double short byte boolean bigint biginteger bigdec print-method print-dup throw-if printf format load compile get-in update-in pr pr-on newline flush read slurp read-line subvec with-open memfn time re-find re-groups rand-int rand mod locking assert-valid-fdecl alias resolve ref deref refset swap! reset! set-validator! compare-and-set! alter-meta! reset-meta! commute get-validator alter ref-set ref-history-count ref-min-history ref-max-history ensure sync io! new next conj set! to-array future future-call into-array aset gen-class reduce map filter find empty hash-map hash-set sorted-map sorted-map-by sorted-set sorted-set-by vec vector seq flatten reverse assoc dissoc list disj get union difference intersection extend extend-type extend-protocol int nth delay count concat chunk chunk-buffer chunk-append chunk-first chunk-rest max min dec unchecked-inc-int unchecked-inc unchecked-dec-inc unchecked-dec unchecked-negate unchecked-add-int unchecked-add unchecked-subtract-int unchecked-subtract chunk-next chunk-cons chunked-seq? prn vary-meta lazy-seq spread list* str find-keyword keyword symbol gensym force rationalize"},r="a-zA-Z_\\-!.?+*=<>&#'",n="["+r+"]["+r+"0-9/;:]*",a="[-+]?\\d+(\\.\\d+)?",o={b:n,r:0},s={cN:"number",b:a,r:0},i=e.inherit(e.QSM,{i:null}),c=e.C(";","$",{r:0}),d={cN:"literal",b:/\b(true|false|nil)\b/},l={b:"[\\[\\{]",e:"[\\]\\}]"},m={cN:"comment",b:"\\^"+n},p=e.C("\\^\\{","\\}"),u={cN:"symbol",b:"[:]{1,2}"+n},f={b:"\\(",e:"\\)"},h={eW:!0,r:0},y={k:t,l:n,cN:"name",b:n,starts:h},b=[f,i,m,p,c,u,l,s,d,o];return f.c=[e.C("comment",""),y,h],h.c=b,l.c=b,{aliases:["clj"],i:/\S/,c:[f,i,m,p,c,u,l,s,d]}});
+    hljs.initHighlightingOnLoad();
+  </script>
+</html>

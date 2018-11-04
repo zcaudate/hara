@@ -1,0 +1,1200 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <link rel="shortcut icon" href="favicon.ico">
+  <title>hara.function - methods for execution</title>
+  <script src="js/highlight.min.js"></script>
+  <script src="js/gumshoe.min.js"></script>
+  <script src="js/smooth-scroll.min.js"></script>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/poole.css">
+  <link rel="stylesheet" href="css/syntax.css">
+  <link rel="stylesheet" href="css/lanyon.css">
+  <link rel="stylesheet" href="css/bolton.css">
+  <link rel="stylesheet" href="css/bolton-api.css">
+  <link rel="stylesheet" href="css/bolton-highlight.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  
+</head>
+
+  <body class="theme-base-0b">
+    <span id="page-top"></span>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <nav class="sidebar-nav">
+    <span>&nbsp;</span>
+    <a class="sidebar-nav-item header" href="index.html" style="padding-bottom:5px"><b>HOME</b></a>
+    <a class="sidebar-nav-item" href="hara-config.html">config</a><a class="sidebar-nav-item" href="hara-core.html">core</a><a class="sidebar-nav-item" href="hara-data.html">data</a><a class="sidebar-nav-item" href="hara-deploy.html">deploy</a><a class="sidebar-nav-item" href="hara-event.html">event</a><a class="sidebar-nav-item" href="hara-function.html">function</a><a class="sidebar-nav-item" href="hara-function-procedure.html">function.procedure</a><a class="sidebar-nav-item" href="hara-function-task.html">function.task</a><a class="sidebar-nav-item" href="hara-io-archive.html">io.archive</a><a class="sidebar-nav-item" href="hara-io-file.html">io.file</a><a class="sidebar-nav-item" href="hara-io-project.html">io.project</a><a class="sidebar-nav-item" href="hara-io-scheduler.html">io.scheduler</a><a class="sidebar-nav-item" href="hara-lib-aether.html">lib.aether</a><a class="sidebar-nav-item" href="hara-lib-jgit.html">lib.jgit</a><a class="sidebar-nav-item" href="hara-math.html">math</a><a class="sidebar-nav-item" href="hara-module.html">module</a><a class="sidebar-nav-item" href="hara-object.html">object</a><a class="sidebar-nav-item" href="hara-print.html">print</a><a class="sidebar-nav-item" href="hara-security.html">security</a><a class="sidebar-nav-item" href="hara-security-openpgp.html">security.openpgp</a><a class="sidebar-nav-item" href="hara-state.html">state</a><a class="sidebar-nav-item" href="hara-state-ova.html">state.ova</a><a class="sidebar-nav-item" href="hara-string.html">string</a><a class="sidebar-nav-item" href="hara-test.html">test</a><a class="sidebar-nav-item" href="hara-time.html">time</a><a class="sidebar-nav-item" href="hara-watch.html">watch</a>
+    <span class="sidebar-nav-item">&nbsp;</span>
+    <span class="sidebar-nav-item">&nbsp;</span>
+  </nav>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <span>function</span>
+            <small>methods for execution</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="page">
+          <div class="heading">
+            <div>
+              <h5>Author: Chris Zheng&nbsp;&nbsp;<a href="mailto:z@caudate.me">(z@caudate.me)</a></h5>
+              <h5>Date: 04 November 2018</h5>
+              <h5>Repository: <a href="https://github.com/zcaudate/hara">https://github.com/zcaudate/hara</a></h5>
+              <h5>Version: 3.0.1</h5></div></div>
+          <hr/>
+
+          <div class="toc">
+              <nav>
+                <ul>
+                  <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#general"><h4>2 &nbsp; General</h4></a><a class="section" data-scroll="" href="#entry__hara_function__arg_check"><h5><i>arg-check</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__arg_count"><h5><i>arg-count</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__call"><h5><i>call</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__form_apply"><h5><i>form-apply</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__form_eval"><h5><i>form-eval</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__form_fn"><h5><i>form-fn</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__invoke"><h5><i>invoke</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__message"><h5><i>message</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__op"><h5><i>op</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__varg_count"><h5><i>varg-count</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__vargs_QMARK_"><h5><i>vargs?</i></h5></a></li><li><a class="chapter" data-scroll="" href="#hook"><h4>3 &nbsp; Hook</h4></a><a class="section" data-scroll="" href="#entry__hara_function__list_patched"><h5><i>list-patched</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__patch"><h5><i>patch</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__patched_QMARK_"><h5><i>patched?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__unpatch"><h5><i>unpatch</i></h5></a></li><li><a class="chapter" data-scroll="" href="#invoke"><h4>4 &nbsp; Invoke</h4></a><a class="section" data-scroll="" href="#entry__hara_function__defexecutive"><h5><i>defexecutive</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__definvoke"><h5><i>definvoke</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__form_arglists"><h5><i>form-arglists</i></h5></a></li><li><a class="chapter" data-scroll="" href="#macro"><h4>5 &nbsp; Macro</h4></a><a class="section" data-scroll="" href="#entry__hara_function__applym"><h5><i>applym</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__const"><h5><i>const</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__create_args"><h5><i>create-args</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__create_def_form"><h5><i>create-def-form</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__defcompose"><h5><i>defcompose</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__deflookup"><h5><i>deflookup</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__lookup"><h5><i>lookup</i></h5></a></li><li><a class="chapter" data-scroll="" href="#memoize"><h4>6 &nbsp; Memoize</h4></a><a class="section" data-scroll="" href="#entry__hara_function__defmemoize"><h5><i>defmemoize</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__memoize"><h5><i>memoize</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__memoize_clear"><h5><i>memoize-clear</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__memoize_remove"><h5><i>memoize-remove</i></h5></a></li><li><a class="chapter" data-scroll="" href="#multi"><h4>7 &nbsp; Multi</h4></a><a class="section" data-scroll="" href="#entry__hara_function__multi_add"><h5><i>multi-add</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__multi_clone"><h5><i>multi-clone</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__multi_get"><h5><i>multi-get</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__multi_has_QMARK_"><h5><i>multi-has?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__multi_keys"><h5><i>multi-keys</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__multi_list"><h5><i>multi-list</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__multi_match_QMARK_"><h5><i>multi-match?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__multi_remove"><h5><i>multi-remove</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__multi_QMARK_"><h5><i>multi?</i></h5></a></li>
+                </ul>
+              </nav>
+          </div>
+          <div>
+    <span id="introduction"></span>
+    <h2><b>1 &nbsp;&nbsp; Introduction</b></h2>
+</div><div><p><a href='https://github.com/caudata/hara/blob/master/src/hara/function.clj'>hara.function</a> provides methods for constructing functions.</p>
+</div><div>
+    <span id="installation"></span>
+    <h3>1.1 &nbsp;&nbsp; Installation</h3>
+</div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;hara/base &quot;3.0.1&quot;&#93;</code></pre>
+</div><div><p>All functions are in the <code>hara.function</code> namespace.      </p><pre><code> &#40;use &#40;quote hara.function&#41;&#41;</code></pre>
+</div><div>
+    <span id="general"></span>
+    <h2><b>2 &nbsp;&nbsp; General</b></h2>
+</div><div class="api">
+    <span id="entry__hara_function__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_function__arg_check">arg-check</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__arg_count">arg-count</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__call">call</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__form_apply">form-apply</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__form_eval">form-eval</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__form_fn">form-fn</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__invoke">invoke</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__message">message</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__op">op</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__varg_count">varg-count</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__vargs_QMARK_">vargs?</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_function__arg_check"></span>
+                <div class="entry-description">
+                    <h4><b>arg-check&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>counts the number of non-varidic argument types</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/arg.clj#L49-L64" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__arg_check">
+                        <label class="source-toggle" for="entry__pre_hara_function__arg_check"></label>
+                        <pre class="source"><code class="clojure">(defn arg-check
+  [f num]
+  (or (if-let [vc (varg-count f)]
+        (<= vc num))
+      (some #(= num %) (arg-count f))
+      (throw (ex-info (str "Function must accomodate " num " arguments")
+                      {:function f}))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/arg_test.clj#L29-L36" target="_blank">link</a></i></h6><code class="clojure">(arg-check (fn [x]) 1) => true
+
+(arg-check (fn [x & xs]) 1) => true
+
+(arg-check (fn [x & xs]) 0)
+=> (throws Exception "Function must accomodate 0 arguments")</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__arg_count"></span>
+                <div class="entry-description">
+                    <h4><b>arg-count&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>counts the number of non-varidic argument types</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/arg.clj#L32-L47" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__arg_count">
+                        <label class="source-toggle" for="entry__pre_hara_function__arg_count"></label>
+                        <pre class="source"><code class="clojure">(defn arg-count
+  [f]
+  (let [ms (filter (fn [^Method mthd]
+                     (= "invoke" (.getName mthd)))
+                   (.getDeclaredMethods (class f)))
+        ps (map (fn [^Method m]
+                  (.getParameterTypes m)) ms)]
+    (map alength ps)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/arg_test.clj#L20-L26" target="_blank">link</a></i></h6><code class="clojure">(arg-count (fn [x])) => [1]
+
+(arg-count (fn [x & xs])) => []
+
+(arg-count (fn ([x]) ([x y]))) => [1 2]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__call"></span>
+                <div class="entry-description">
+                    <h4><b>call&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>like `invoke` but reverses the function and first argument</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/dispatch.clj#L26-L39" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__call">
+                        <label class="source-toggle" for="entry__pre_hara_function__call"></label>
+                        <pre class="source"><code class="clojure">(defn call
+  ([obj] obj)
+  ([obj f] (if (nil? f) obj (f obj)))
+  ([obj f v1] (if (nil? f) obj (f obj v1)))
+  ([obj f v1 v2] (if (nil? f) obj (f obj v1 v2)))
+  ([obj f v1 v2 v3] (if (nil? f) obj (f obj v1 v2 v3)) )
+  ([obj f v1 v2 v3 v4] (if (nil? f) obj (f obj v1 v2 v3 v4)))
+  ([obj f v1 v2 v3 v4 & vs] (if (nil? f) obj (apply invoke f obj v1 v2 v3 v4 vs))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/dispatch_test.clj#L13-L17" target="_blank">link</a></i></h6><code class="clojure">(call 2) => 2
+  
+(call 2 + 1 2 3) => 8</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__form_apply"></span>
+                <div class="entry-description">
+                    <h4><b>form-apply&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>applies a list as a function to an argument vector</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/form.clj#L50-L56" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__form_apply">
+                        <label class="source-toggle" for="entry__pre_hara_function__form_apply"></label>
+                        <pre class="source"><code class="clojure">(defn form-apply
+  [form args]
+  (apply (form-fn form) args))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/form_test.clj#L33-L35" target="_blank">link</a></i></h6><code class="clojure">(form-apply '(+ 1 %1 %2) [2 3]) => 6</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__form_eval"></span>
+                <div class="entry-description">
+                    <h4><b>form-eval&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>evaluates a list as a functions and to a set of arguments.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/form.clj#L42-L48" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__form_eval">
+                        <label class="source-toggle" for="entry__pre_hara_function__form_eval"></label>
+                        <pre class="source"><code class="clojure">(defn form-eval
+  [form & args]
+  (apply (form-fn form) args))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/form_test.clj#L28-L30" target="_blank">link</a></i></h6><code class="clojure">(form-eval '(+ 1 %1 %2) 2 3) => 6</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__form_fn"></span>
+                <div class="entry-description">
+                    <h4><b>form-fn&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>creates a function out of a list</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/form.clj#L29-L40" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__form_fn">
+                        <label class="source-toggle" for="entry__pre_hara_function__form_fn"></label>
+                        <pre class="source"><code class="clojure">(defn form-fn
+  [form]
+  (try (let [fform (form-prep form)]
+         (with-meta (eval fform) (meta fform)))
+       (catch clojure.lang.Compiler$CompilerException e
+         (throw (ex-info "Cannot evaluate form." {:input form})))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/form_test.clj#L21-L25" target="_blank">link</a></i></h6><code class="clojure">(def my-inc (form-fn '(+ 1 %)))
+
+(my-inc 1) => 2
+(meta my-inc) => {:source "#(+ 1 %)n"}</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__invoke"></span>
+                <div class="entry-description">
+                    <h4><b>invoke&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>executes `(f v1 ... vn)` if `f` is not nil</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/dispatch.clj#L12-L24" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__invoke">
+                        <label class="source-toggle" for="entry__pre_hara_function__invoke"></label>
+                        <pre class="source"><code class="clojure">(defn invoke
+  ([f] (if-not (nil? f) (f)))
+  ([f v1] (if-not (nil? f) (f v1)))
+  ([f v1 v2] (if-not (nil? f) (f v1 v2)))
+  ([f v1 v2 v3] (if-not (nil? f) (f v1 v2 v3)))
+  ([f v1 v2 v3 v4] (if-not (nil? f) (f v1 v2 v3 v4)))
+  ([f v1 v2 v3 v4 & vs] (if-not (nil? f) (apply f v1 v2 v3 v4 vs))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/dispatch_test.clj#L6-L10" target="_blank">link</a></i></h6><code class="clojure">(invoke nil 1 2 3) => nil
+
+(invoke + 1 2 3) => 6</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__message"></span>
+                <div class="entry-description">
+                    <h4><b>message&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>message dispatch for object orientated type calling convention.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/dispatch.clj#L41-L56" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__message">
+                        <label class="source-toggle" for="entry__pre_hara_function__message"></label>
+                        <pre class="source"><code class="clojure">(defn message
+  ([obj kw] (invoke (obj kw) obj))
+  ([obj kw v1] (invoke (obj kw) obj v1))
+  ([obj kw v1 v2] (invoke (obj kw) obj v1 v2))
+  ([obj kw v1 v2 v3] (invoke (obj kw) obj v1 v2 v3))
+  ([obj kw v1 v2 v3 v4] (invoke (obj kw) obj v1 v2 v3 v4))
+  ([obj kw v1 v2 v3 v4 & vs] (apply invoke (obj kw) obj v1 v2 v3 v4 vs)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/dispatch_test.clj#L20-L27" target="_blank">link</a></i></h6><code class="clojure">(def obj {:a 10
+          :b 20
+          :get-sum (fn [this]
+                     (+ (:b this) (:a this)))})
+
+(message obj :get-sum) => 30</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__op"></span>
+                <div class="entry-description">
+                    <h4><b>op&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>loose version of apply. Will adjust the arguments to put into a function</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/dispatch.clj#L58-L79" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__op">
+                        <label class="source-toggle" for="entry__pre_hara_function__op"></label>
+                        <pre class="source"><code class="clojure">(defn op
+  [f & args]
+  (let [nargs (count args)
+        vargs (arg/varg-count f)]
+    (if (and vargs (>= nargs vargs))
+      (apply f args)
+      (let [fargs (arg/arg-count f)
+            candidates (filter #(<= % nargs) fargs)]
+        (if (empty? candidates)
+          (throw (Exception. (str "arguments have to be of at least length " (apply min fargs))))
+          (let [cnt (apply max candidates)]
+            (apply f (take cnt args))))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/dispatch_test.clj#L30-L38" target="_blank">link</a></i></h6><code class="clojure">(op + 1 2 3 4 5 6) => 21
+
+(op (fn [x] x) 1 2 3) => 1
+
+(op (fn [_ y] y) 1 2 3) => 2
+
+(op (fn [_] nil)) => (throws Exception)</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__varg_count"></span>
+                <div class="entry-description">
+                    <h4><b>varg-count&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>counts the number of arguments types before variable arguments</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/arg.clj#L19-L30" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__varg_count">
+                        <label class="source-toggle" for="entry__pre_hara_function__varg_count"></label>
+                        <pre class="source"><code class="clojure">(defn varg-count
+  [f]
+  (if (some (fn [^Method mthd]
+              (= "getRequiredArity" (.getName mthd)))
+            (.getDeclaredMethods (class f)))
+    (.getRequiredArity ^RestFn f)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/arg_test.clj#L13-L17" target="_blank">link</a></i></h6><code class="clojure">(varg-count (fn [x y & xs])) => 2
+
+(varg-count (fn [x])) => nil</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__vargs_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>vargs?&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>checks that function contain variable arguments</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/arg.clj#L5-L17" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__vargs_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_function__vargs_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn vargs?
+  [^Fn f]
+  (if (some (fn [^Method mthd]
+              (= "getRequiredArity" (.getName mthd)))
+            (.getDeclaredMethods (class f)))
+    true
+    false))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/arg_test.clj#L6-L10" target="_blank">link</a></i></h6><code class="clojure">(vargs? (fn [x])) => false
+
+(vargs? (fn [x & xs])) => true</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="hook"></span>
+    <h2><b>3 &nbsp;&nbsp; Hook</b></h2>
+</div><div class="api">
+    <span id="entry__hara_function__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_function__list_patched">list-patched</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__patch">patch</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__patched_QMARK_">patched?</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__unpatch">unpatch</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_function__list_patched"></span>
+                <div class="entry-description">
+                    <h4><b>list-patched&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>returns all functions that have been patched</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/hook.clj#L51-L63" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__list_patched">
+                        <label class="source-toggle" for="entry__pre_hara_function__list_patched"></label>
+                        <pre class="source"><code class="clojure">(defn list-patched
+  []
+  (set (keys @+original)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/hook_test.clj#L34-L42" target="_blank">link</a></i></h6><code class="clojure">(patch #'hara.core.base.check/double?
+       hara.core.base.check/double?)
+
+(-> (list-patched)
+    (get #'hara.core.base.check/double?)
+    boolean)
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__patch"></span>
+                <div class="entry-description">
+                    <h4><b>patch&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>patches the existing function with a given one</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/hook.clj#L12-L26" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__patch">
+                        <label class="source-toggle" for="entry__pre_hara_function__patch"></label>
+                        <pre class="source"><code class="clojure">(defn patch
+  [var f]
+  (when-not (get @+original var)
+    (state/update +original assoc var @var))
+  (doto var
+    (alter-var-root (constantly f))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/hook_test.clj#L10-L17" target="_blank">link</a></i></h6><code class="clojure">(patch #'hara.core.base.check/double?
+       (fn [x]
+         (instance? Float x)))
+  
+(hara.core.base.check/double? (float 1.0))
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__patched_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>patched?&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>checks if an existing function has been patched</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/hook.clj#L28-L35" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__patched_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_function__patched_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn patched?
+  [var]
+  (boolean (get @+original var)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/hook_test.clj#L20-L23" target="_blank">link</a></i></h6><code class="clojure">(patched? #'hara.core.base.check/double?)
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__unpatch"></span>
+                <div class="entry-description">
+                    <h4><b>unpatch&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>removes the patch creates for the var</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/hook.clj#L37-L49" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__unpatch">
+                        <label class="source-toggle" for="entry__pre_hara_function__unpatch"></label>
+                        <pre class="source"><code class="clojure">(defn unpatch
+  [var]
+  (when-let [f (get @+original var)]
+    (alter-var-root var (constantly f))
+    (state/update +original dissoc var)
+    f))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/hook_test.clj#L26-L31" target="_blank">link</a></i></h6><code class="clojure">(unpatch #'hara.core.base.check/double?)
+
+(hara.core.base.check/double? (float 1.0))
+=> false</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="invoke"></span>
+    <h2><b>4 &nbsp;&nbsp; Invoke</b></h2>
+</div><div class="api">
+    <span id="entry__hara_function__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_function__defexecutive">defexecutive</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__definvoke">definvoke</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__form_arglists">form-arglists</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_function__defexecutive"></span>
+                <div class="entry-description">
+                    <h4><b>defexecutive&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>creates an executable data type</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/executive.clj#L79-L100" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__defexecutive">
+                        <label class="source-toggle" for="entry__pre_hara_function__defexecutive"></label>
+                        <pre class="source"><code class="clojure">(defmacro defexecutive
+  [name doc? attrs? & [fields settings & body]]
+  (let [[doc attrs fields {:keys [keep?] :as settings} & body]
+        (macro/create-args (concat [doc? attrs? fields settings]
+                                   body))]
+    (create-executive-form name fields settings body)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/executive_test.clj#L39-L53" target="_blank">link</a></i></h6><code class="clojure">(declare hello-display hello-print)
+  
+(def hello-invoke (fn [this & args]
+                    (str (.name this) " " (apply + args))))
+  
+(defexecutive -Hello- [name place date]
+  {:tag "hello"
+   :invoke   hello-invoke
+   :display  hello-display
+   :print    hello-print})
+
+((-Hello-. "hello" nil nil) 1 2 3 4 5)
+=> "hello 15"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__definvoke"></span>
+                <div class="entry-description">
+                    <h4><b>definvoke&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>customisable invocation forms</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/invoke.clj#L112-L125" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__definvoke">
+                        <label class="source-toggle" for="entry__pre_hara_function__definvoke"></label>
+                        <pre class="source"><code class="clojure">(defmacro definvoke
+  [name doc? & [attrs? & [params & body :as more]]]
+  (let [[doc attrs [label {:keys [refresh stable] :as config}] & body]
+        (macro/create-args (concat [doc? attrs?] more))]
+    (if (or refresh
+            (not (true? stable))
+            (not (resolve name)))
+      (invoke-intern label name (assoc (merge config attrs) :doc doc) body))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/invoke_test.clj#L56-L60" target="_blank">link</a></i></h6><code class="clojure">(definvoke -another-
+  [:compose {:val (partial + 10)
+             :arglists '([& more])}])</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__form_arglists"></span>
+                <div class="entry-description">
+                    <h4><b>form-arglists&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>returns the arglists of a form</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/invoke.clj#L26-L43" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__form_arglists">
+                        <label class="source-toggle" for="entry__pre_hara_function__form_arglists"></label>
+                        <pre class="source"><code class="clojure">(defn form-arglists
+  [body]
+  (cond (list? (first body))
+        `(quote ~(map first body))
+        
+        (vector? (first body))
+        `(quote ~(list (first body)))
+        
+        :else
+        (throw (ex-info "Cannot find arglists." {:body body}))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/invoke_test.clj#L8-L14" target="_blank">link</a></i></h6><code class="clojure">(form-arglists '([x] x))
+=> '(quote ([x]))
+
+(form-arglists '(([x] x) ([x y] (+ x y))))
+=> '(quote ([x] [x y]))</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="macro"></span>
+    <h2><b>5 &nbsp;&nbsp; Macro</b></h2>
+</div><div class="api">
+    <span id="entry__hara_function__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_function__applym">applym</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__const">const</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__create_args">create-args</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__create_def_form">create-def-form</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__defcompose">defcompose</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__deflookup">deflookup</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__lookup">lookup</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_function__applym"></span>
+                <div class="entry-description">
+                    <h4><b>applym&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>allow macros to be applied to arguments just like functions</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/macro.clj#L14-L23" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__applym">
+                        <label class="source-toggle" for="entry__pre_hara_function__applym"></label>
+                        <pre class="source"><code class="clojure">(defmacro applym
+  [macro & args]
+ (cons macro (#'clojure.core/spread (map eval args))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/macro_test.clj#L13-L18" target="_blank">link</a></i></h6><code class="clojure">(applym const '((+ 1 2))) => 3
+
+(macroexpand '(applym const '((+ 1 2))))
+=> 3</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__const"></span>
+                <div class="entry-description">
+                    <h4><b>const&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>converts an expression into a constant at compile time</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/macro.clj#L4-L12" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__const">
+                        <label class="source-toggle" for="entry__pre_hara_function__const"></label>
+                        <pre class="source"><code class="clojure">(defmacro const
+  [body]
+ (eval body))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/macro_test.clj#L6-L10" target="_blank">link</a></i></h6><code class="clojure">(const (+ 1 2)) => 3
+
+(macroexpand '(const (+ 1 2))) => 3</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__create_args"></span>
+                <div class="entry-description">
+                    <h4><b>create-args&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>caches the result of a function</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/macro.clj#L25-L41" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__create_args">
+                        <label class="source-toggle" for="entry__pre_hara_function__create_args"></label>
+                        <pre class="source"><code class="clojure">(defn create-args
+  ([[doc? attr? & more :as arglist]]
+   (let [[doc attr? more] (if (string? doc?)
+                            [doc? attr? more]
+                            ["" doc? (cons attr? more)])
+         [attr more] (if (map? attr?)
+                       [attr? more]
+                       [{} (cons attr? more)])]
+     (->> more
+          (cons attr)
+          (cons doc)
+          (keep identity)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/macro_test.clj#L21-L34" target="_blank">link</a></i></h6><code class="clojure">(create-args '[[x] (inc x) nil nil])
+=> '("" {} [x] (inc x))</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__create_def_form"></span>
+                <div class="entry-description">
+                    <h4><b>create-def-form&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>removes a cached result</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/macro.clj#L43-L70" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__create_def_form">
+                        <label class="source-toggle" for="entry__pre_hara_function__create_def_form"></label>
+                        <pre class="source"><code class="clojure">(defn create-def-form
+  ([name attrs body]
+   `(do (def ~name ~body)
+          (doto (var ~name)
+            (alter-meta! merge ~attrs))))
+  ([name doc attrs arglist body]
+   (let [arglists (cond (nil? arglist)
+                        nil
+                        
+                        (vector? arglist)
+                        `(quote ~(list arglist))
+
+                        :else
+                        `(quote ~arglist))]
+     (create-def-form name
+                      (merge attrs
+                             {:doc doc}
+                             (if arglists {:arglists arglists}))
+                      body))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/macro_test.clj#L37-L44" target="_blank">link</a></i></h6><code class="clojure">(create-def-form 'hello "doc" {:added "1.3"} '[x] '(inc x))
+'(do (def hello (inc x))
+     (clojure.core/doto (var hello)
+       (clojure.core/alter-meta! clojure.core/merge
+                                 {:added "1.3"}
+                                 {:arglists (quote ([x])), :doc "doc"})))</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__defcompose"></span>
+                <div class="entry-description">
+                    <h4><b>defcompose&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>used instead of `def` for functional composition</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/macro.clj#L72-L83" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__defcompose">
+                        <label class="source-toggle" for="entry__pre_hara_function__defcompose"></label>
+                        <pre class="source"><code class="clojure">(defmacro defcompose
+  [name doc? attrs? & [arglist body]]
+  (->> (create-args [doc? attrs? arglist body])
+       (apply create-def-form name)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/macro_test.clj#L47-L53" target="_blank">link</a></i></h6><code class="clojure">(defcompose -add-10-
+  [x & more]
+  (partial + 10))
+
+(-add-10- 10) => 20</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__deflookup"></span>
+                <div class="entry-description">
+                    <h4><b>deflookup&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>defines a map based lookup</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/macro.clj#L111-L126" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__deflookup">
+                        <label class="source-toggle" for="entry__pre_hara_function__deflookup"></label>
+                        <pre class="source"><code class="clojure">(defmacro deflookup
+  [name doc? attrs? & [arglist lookup transfer?]]
+  (let [[doc attrs arglist & lookup-body]
+        (create-args [doc? attrs? arglist lookup transfer?])
+        
+        body `(lookup ~@lookup-body)]
+    (create-def-form name doc attrs arglist body)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/macro_test.clj#L71-L86" target="_blank">link</a></i></h6><code class="clojure">(deflookup -country-
+  [city]
+  {:kunming :china
+   :melbourne :australia})
+
+(-country- :kunming) => :china</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__lookup"></span>
+                <div class="entry-description">
+                    <h4><b>lookup&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>creates a lookup function based on a map lookup</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/macro.clj#L85-L109" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__lookup">
+                        <label class="source-toggle" for="entry__pre_hara_function__lookup"></label>
+                        <pre class="source"><code class="clojure">(defn lookup
+  ([m] m)
+  ([m {:keys [in out not-found] :as transfer}]
+   (cond (not (or in out not-found))
+         m
+         
+         :else
+         (let [in  (or in identity)
+               out (or out identity)]
+           (fn [input]
+             (out (get m (in input) not-found)))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/macro_test.clj#L56-L68" target="_blank">link</a></i></h6><code class="clojure">(def -opts-
+  {:in  (fn [s] (-> s (.toLowerCase) keyword))
+   :out name
+   :not-found :no-reference})
+  
+(def -lookup-
+  (lookup {:kunming :china
+           :melbourne :australia}
+          -opts-))
+  
+(-lookup- "MeLBoURne") => "australia"</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="memoize"></span>
+    <h2><b>6 &nbsp;&nbsp; Memoize</b></h2>
+</div><div class="api">
+    <span id="entry__hara_function__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_function__defmemoize">defmemoize</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__memoize">memoize</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__memoize_clear">memoize-clear</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__memoize_remove">memoize-remove</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_function__defmemoize"></span>
+                <div class="entry-description">
+                    <h4><b>defmemoize&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>defines a cached function</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/memoize.clj#L250-L264" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__defmemoize">
+                        <label class="source-toggle" for="entry__pre_hara_function__defmemoize"></label>
+                        <pre class="source"><code class="clojure">(defmacro defmemoize
+  [name doc? attrs? & body]
+  (let [[doc attrs & body]
+        (macro/create-args (concat [doc? attrs?] body))]
+    (invoke-intern-memoize :memoize name (assoc attrs :doc doc) body)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/memoize_test.clj#L128-L136" target="_blank">link</a></i></h6><code class="clojure">(defmemoize -dec-
+  "decrements"
+  {:added "1.0"}
+  ([x] (dec x)))
+  
+(-dec- 1) => 0
+@+-dec- => '{(1) 0}</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__memoize"></span>
+                <div class="entry-description">
+                    <h4><b>memoize&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>caches the result of a function</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/memoize.clj#L33-L53" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__memoize">
+                        <label class="source-toggle" for="entry__pre_hara_function__memoize"></label>
+                        <pre class="source"><code class="clojure">(defn memoize
+  ([function cache var]
+   (memoize function cache var +registry (volatile! :enabled)))
+  ([function cache var registry status]
+   (let [memfunction (fn [& args]
+                       (if-let [e (find @cache args)]
+                         (val e)
+                         (let [ret (apply function args)]
+                           (state/update cache assoc args ret)
+                           ret)))]
+     (Memoize. function memfunction cache var registry status))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/memoize_test.clj#L18-L26" target="_blank">link</a></i></h6><code class="clojure">(ns-unmap *ns* '+-inc-)
+(ns-unmap *ns* '-inc-)
+(def +-inc- (atom {}))
+(declare -inc-)
+(def -inc-  (memoize inc +-inc- #'-inc-))
+  
+(-inc- 1) => 2
+(-inc- 2) => 3</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__memoize_clear"></span>
+                <div class="entry-description">
+                    <h4><b>memoize-clear&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>clears all results</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/memoize.clj#L192-L202" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__memoize_clear">
+                        <label class="source-toggle" for="entry__pre_hara_function__memoize_clear"></label>
+                        <pre class="source"><code class="clojure">(defn memoize-clear
+  [^Memoize mem]
+  (let [cache (.cache mem)
+        v (state/get cache)]
+    (state/empty cache {})
+    v))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/memoize_test.clj#L103-L106" target="_blank">link</a></i></h6><code class="clojure">(memoize-clear -inc-)
+=> '{(2) 3}</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__memoize_remove"></span>
+                <div class="entry-description">
+                    <h4><b>memoize-remove&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>removes a cached result</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/memoize.clj#L180-L190" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__memoize_remove">
+                        <label class="source-toggle" for="entry__pre_hara_function__memoize_remove"></label>
+                        <pre class="source"><code class="clojure">(defn memoize-remove
+  ([^Memoize mem & args]
+   (let [cache (.cache mem)
+         v (get @cache args)]
+     (state/update cache dissoc args)
+     v)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/memoize_test.clj#L97-L100" target="_blank">link</a></i></h6><code class="clojure">(memoize-remove -inc- 1)
+=> 2</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="multi"></span>
+    <h2><b>7 &nbsp;&nbsp; Multi</b></h2>
+</div><div class="api">
+    <span id="entry__hara_function__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_function__multi_add">multi-add</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__multi_clone">multi-clone</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__multi_get">multi-get</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__multi_has_QMARK_">multi-has?</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__multi_keys">multi-keys</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__multi_list">multi-list</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__multi_match_QMARK_">multi-match?</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__multi_remove">multi-remove</a></li>
+            <li><a data-scroll="" href="#entry__hara_function__multi_QMARK_">multi?</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_function__multi_add"></span>
+                <div class="entry-description">
+                    <h4><b>multi-add&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>adds an entry to the multimethod</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/multi.clj#L122-L131" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__multi_add">
+                        <label class="source-toggle" for="entry__pre_hara_function__multi_add"></label>
+                        <pre class="source"><code class="clojure">(defn multi-add
+  [multi dispatch-val method]
+  (let [dispatch-fn (.dispatchFn multi)]
+    (if (multi-match? dispatch-fn method true)
+      (doto multi (.addMethod dispatch-val method)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/multi_test.clj#L74-L77" target="_blank">link</a></i></h6><code class="clojure">(multi-add world :c (fn [m] (assoc m :c 3)))
+=> world</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__multi_clone"></span>
+                <div class="entry-description">
+                    <h4><b>multi-clone&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>creates a multimethod from an existing one</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/multi.clj#L17-L45" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__multi_clone">
+                        <label class="source-toggle" for="entry__pre_hara_function__multi_clone"></label>
+                        <pre class="source"><code class="clojure">(defn multi-clone
+  [source name]
+  (let [table (.getMethodTable source)
+        clone (MultiFn. name
+                        (.dispatchFn source)
+                        (.defaultDispatchVal source)
+                        (.hierarchy source))]
+    (doseq [[dispatch-val method] table]
+      (.addMethod clone dispatch-val method))
+    clone))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/multi_test.clj#L14-L31" target="_blank">link</a></i></h6><code class="clojure">(defmulti hello :type)
+  
+(defmethod hello :a
+  [m] (assoc m :a 1))
+
+(def world (multi-clone hello "world"))
+  
+(defmethod world :b
+  [m] (assoc m :b 2))
+  
+(world {:type :b})
+=> {:type :b :b 2}
+  
+;; original method should not be changed
+(hello {:type :b})
+=> (throws)</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__multi_get"></span>
+                <div class="entry-description">
+                    <h4><b>multi-get&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>returns all entries in the multimethod</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/multi.clj#L75-L82" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__multi_get">
+                        <label class="source-toggle" for="entry__pre_hara_function__multi_get"></label>
+                        <pre class="source"><code class="clojure">(defn multi-get
+  [multi dispatch]
+  (get (.getMethodTable multi) dispatch))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/multi_test.clj#L53-L56" target="_blank">link</a></i></h6><code class="clojure">(multi-get world :b)
+=> fn?</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__multi_has_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>multi-has?&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>returns `true` if the multimethod contains a value for dispatch</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/multi.clj#L56-L63" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__multi_has_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_function__multi_has_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn multi-has?
+  [^MultiFn multi val]
+  (some #(= % val) (keys (.getMethodTable multi))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/multi_test.clj#L40-L43" target="_blank">link</a></i></h6><code class="clojure">(multi-has? print-method Class)
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__multi_keys"></span>
+                <div class="entry-description">
+                    <h4><b>multi-keys&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>returns all keys for a given multimethod</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/multi.clj#L47-L54" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__multi_keys">
+                        <label class="source-toggle" for="entry__pre_hara_function__multi_keys"></label>
+                        <pre class="source"><code class="clojure">(defn multi-keys
+  [^MultiFn multi]
+  (set (keys (.getMethodTable multi))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/multi_test.clj#L34-L37" target="_blank">link</a></i></h6><code class="clojure">(multi-keys world)
+=> #{:a :b}</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__multi_list"></span>
+                <div class="entry-description">
+                    <h4><b>multi-list&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>returns all entries in the multimethod</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/multi.clj#L65-L73" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__multi_list">
+                        <label class="source-toggle" for="entry__pre_hara_function__multi_list"></label>
+                        <pre class="source"><code class="clojure">(defn multi-list
+  [multi]
+  (.getMethodTable multi))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/multi_test.clj#L46-L50" target="_blank">link</a></i></h6><code class="clojure">(multi-list world)
+=> (satisfies [:a :b]
+              (comp vec sort keys))</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__multi_match_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>multi-match?&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>checks if the multi dispatch matches the arguments</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/multi.clj#L95-L120" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__multi_match_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_function__multi_match_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn multi-match?
+  ([multi method]
+   (multi-match? multi method false))
+  ([multi method throw?]
+   (let [multi-args   (set (arg/arg-count multi))
+         multi-vargs  (arg/varg-count multi)
+         method-args  (set (arg/arg-count method))
+         method-vargs (arg/varg-count method)]
+     (boolean (or (seq (set/intersection multi-args method-args))
+                  (and multi-vargs  (some #(<= % multi-vargs) method-args))
+                  (and method-vargs (some #(> % method-vargs) multi-args))
+                  (and multi-vargs method-vargs (<= method-vargs multi-vargs))
+                  (if throw?
+                    (throw (ex-info "Function args are not the same."
+                                    {:multi  {:args  multi-args
+                                              :vargs multi-vargs}
+                                     :method {:args  method-args
+                                              :vargs method-vargs}}))))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/multi_test.clj#L65-L71" target="_blank">link</a></i></h6><code class="clojure">(multi-match? (.dispatchFn string/-from-string) (fn [_ _ _]))
+=> true
+
+(multi-match? (.dispatchFn string/-from-string) (fn [_]) true)
+=> (throws)</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__multi_remove"></span>
+                <div class="entry-description">
+                    <h4><b>multi-remove&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>removes an entry</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/multi.clj#L84-L93" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__multi_remove">
+                        <label class="source-toggle" for="entry__pre_hara_function__multi_remove"></label>
+                        <pre class="source"><code class="clojure">(defn multi-remove
+  [multi dispatch]
+  (let [method (multi-get multi dispatch)]
+    (remove-method multi dispatch)
+    method))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/multi_test.clj#L59-L62" target="_blank">link</a></i></h6><code class="clojure">(multi-remove world :b)
+=> fn?</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function__multi_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>multi?&nbsp<a data-scroll="" href="#entry__hara_function__">^</a></b></h4>
+                    <p><i>returns `true` if `obj` is a multimethod</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/base/multi.clj#L7-L15" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function__multi_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_function__multi_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn multi?
+  [obj]
+  (instance? MultiFn obj))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/base/multi_test.clj#L7-L11" target="_blank">link</a></i></h6><code class="clojure">(multi? print-method) => true
+  
+(multi? println) => false</code></pre>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outline">
+      <div class="toc">
+        <nav data-gumshoe-header>
+          <ul data-gumshoe>
+            <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#general"><h4>2 &nbsp; General</h4></a><a class="section" data-scroll="" href="#entry__hara_function__arg_check"><h5><i>arg-check</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__arg_count"><h5><i>arg-count</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__call"><h5><i>call</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__form_apply"><h5><i>form-apply</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__form_eval"><h5><i>form-eval</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__form_fn"><h5><i>form-fn</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__invoke"><h5><i>invoke</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__message"><h5><i>message</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__op"><h5><i>op</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__varg_count"><h5><i>varg-count</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__vargs_QMARK_"><h5><i>vargs?</i></h5></a></li><li><a class="chapter" data-scroll="" href="#hook"><h4>3 &nbsp; Hook</h4></a><a class="section" data-scroll="" href="#entry__hara_function__list_patched"><h5><i>list-patched</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__patch"><h5><i>patch</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__patched_QMARK_"><h5><i>patched?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__unpatch"><h5><i>unpatch</i></h5></a></li><li><a class="chapter" data-scroll="" href="#invoke"><h4>4 &nbsp; Invoke</h4></a><a class="section" data-scroll="" href="#entry__hara_function__defexecutive"><h5><i>defexecutive</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__definvoke"><h5><i>definvoke</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__form_arglists"><h5><i>form-arglists</i></h5></a></li><li><a class="chapter" data-scroll="" href="#macro"><h4>5 &nbsp; Macro</h4></a><a class="section" data-scroll="" href="#entry__hara_function__applym"><h5><i>applym</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__const"><h5><i>const</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__create_args"><h5><i>create-args</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__create_def_form"><h5><i>create-def-form</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__defcompose"><h5><i>defcompose</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__deflookup"><h5><i>deflookup</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__lookup"><h5><i>lookup</i></h5></a></li><li><a class="chapter" data-scroll="" href="#memoize"><h4>6 &nbsp; Memoize</h4></a><a class="section" data-scroll="" href="#entry__hara_function__defmemoize"><h5><i>defmemoize</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__memoize"><h5><i>memoize</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__memoize_clear"><h5><i>memoize-clear</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__memoize_remove"><h5><i>memoize-remove</i></h5></a></li><li><a class="chapter" data-scroll="" href="#multi"><h4>7 &nbsp; Multi</h4></a><a class="section" data-scroll="" href="#entry__hara_function__multi_add"><h5><i>multi-add</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__multi_clone"><h5><i>multi-clone</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__multi_get"><h5><i>multi-get</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__multi_has_QMARK_"><h5><i>multi-has?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__multi_keys"><h5><i>multi-keys</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__multi_list"><h5><i>multi-list</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__multi_match_QMARK_"><h5><i>multi-match?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__multi_remove"><h5><i>multi-remove</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function__multi_QMARK_"><h5><i>multi?</i></h5></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    
+    <!--label for="sidebar-checkbox" class="sidebar-toggle"></label-->
+
+  </body>
+
+  <script>
+  if (true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-31320512-2', 'caudate.me');
+    ga('send', 'pageview');
+  }
+  </script>
+  
+  <script type="text/javascript">
+    smoothScroll.init();
+    gumshoe.init({});
+  
+    hljs.registerLanguage("clojure",function(e){var t={"builtin-name":"def defonce cond apply if-not if-let if not not= = < > <= >= == + / * - rem quot neg? pos? delay? symbol? keyword? true? false? integer? empty? coll? list? set? ifn? fn? associative? sequential? sorted? counted? reversible? number? decimal? class? distinct? isa? float? rational? reduced? ratio? odd? even? char? seq? vector? string? map? nil? contains? zero? instance? not-every? not-any? libspec? -> ->> .. . inc compare do dotimes mapcat take remove take-while drop letfn drop-last take-last drop-while while intern condp case reduced cycle split-at split-with repeat replicate iterate range merge zipmap declare line-seq sort comparator sort-by dorun doall nthnext nthrest partition eval doseq await await-for let agent atom send send-off release-pending-sends add-watch mapv filterv remove-watch agent-error restart-agent set-error-handler error-handler set-error-mode! error-mode shutdown-agents quote var fn loop recur throw try monitor-enter monitor-exit defmacro defn defn- macroexpand macroexpand-1 for dosync and or when when-not when-let comp juxt partial sequence memoize constantly complement identity assert peek pop doto proxy defstruct first rest cons defprotocol cast coll deftype defrecord last butlast sigs reify second ffirst fnext nfirst nnext defmulti defmethod meta with-meta ns in-ns create-ns import refer keys select-keys vals key val rseq name namespace promise into transient persistent! conj! assoc! dissoc! pop! disj! use class type num float double short byte boolean bigint biginteger bigdec print-method print-dup throw-if printf format load compile get-in update-in pr pr-on newline flush read slurp read-line subvec with-open memfn time re-find re-groups rand-int rand mod locking assert-valid-fdecl alias resolve ref deref refset swap! reset! set-validator! compare-and-set! alter-meta! reset-meta! commute get-validator alter ref-set ref-history-count ref-min-history ref-max-history ensure sync io! new next conj set! to-array future future-call into-array aset gen-class reduce map filter find empty hash-map hash-set sorted-map sorted-map-by sorted-set sorted-set-by vec vector seq flatten reverse assoc dissoc list disj get union difference intersection extend extend-type extend-protocol int nth delay count concat chunk chunk-buffer chunk-append chunk-first chunk-rest max min dec unchecked-inc-int unchecked-inc unchecked-dec-inc unchecked-dec unchecked-negate unchecked-add-int unchecked-add unchecked-subtract-int unchecked-subtract chunk-next chunk-cons chunked-seq? prn vary-meta lazy-seq spread list* str find-keyword keyword symbol gensym force rationalize"},r="a-zA-Z_\\-!.?+*=<>&#'",n="["+r+"]["+r+"0-9/;:]*",a="[-+]?\\d+(\\.\\d+)?",o={b:n,r:0},s={cN:"number",b:a,r:0},i=e.inherit(e.QSM,{i:null}),c=e.C(";","$",{r:0}),d={cN:"literal",b:/\b(true|false|nil)\b/},l={b:"[\\[\\{]",e:"[\\]\\}]"},m={cN:"comment",b:"\\^"+n},p=e.C("\\^\\{","\\}"),u={cN:"symbol",b:"[:]{1,2}"+n},f={b:"\\(",e:"\\)"},h={eW:!0,r:0},y={k:t,l:n,cN:"name",b:n,starts:h},b=[f,i,m,p,c,u,l,s,d,o];return f.c=[e.C("comment",""),y,h],h.c=b,l.c=b,{aliases:["clj"],i:/\S/,c:[f,i,m,p,c,u,l,s,d]}});
+    hljs.initHighlightingOnLoad();
+  </script>
+</html>

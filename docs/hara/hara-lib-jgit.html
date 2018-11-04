@@ -1,0 +1,440 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <link rel="shortcut icon" href="favicon.ico">
+  <title>hara.lib.jgit - interface for org.eclipse.jgit</title>
+  <script src="js/highlight.min.js"></script>
+  <script src="js/gumshoe.min.js"></script>
+  <script src="js/smooth-scroll.min.js"></script>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/poole.css">
+  <link rel="stylesheet" href="css/syntax.css">
+  <link rel="stylesheet" href="css/lanyon.css">
+  <link rel="stylesheet" href="css/bolton.css">
+  <link rel="stylesheet" href="css/bolton-api.css">
+  <link rel="stylesheet" href="css/bolton-highlight.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  
+</head>
+
+  <body class="theme-base-0b">
+    <span id="page-top"></span>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <nav class="sidebar-nav">
+    <span>&nbsp;</span>
+    <a class="sidebar-nav-item header" href="index.html" style="padding-bottom:5px"><b>HOME</b></a>
+    <a class="sidebar-nav-item" href="hara-config.html">config</a><a class="sidebar-nav-item" href="hara-core.html">core</a><a class="sidebar-nav-item" href="hara-data.html">data</a><a class="sidebar-nav-item" href="hara-deploy.html">deploy</a><a class="sidebar-nav-item" href="hara-event.html">event</a><a class="sidebar-nav-item" href="hara-function.html">function</a><a class="sidebar-nav-item" href="hara-function-procedure.html">function.procedure</a><a class="sidebar-nav-item" href="hara-function-task.html">function.task</a><a class="sidebar-nav-item" href="hara-io-archive.html">io.archive</a><a class="sidebar-nav-item" href="hara-io-file.html">io.file</a><a class="sidebar-nav-item" href="hara-io-project.html">io.project</a><a class="sidebar-nav-item" href="hara-io-scheduler.html">io.scheduler</a><a class="sidebar-nav-item" href="hara-lib-aether.html">lib.aether</a><a class="sidebar-nav-item" href="hara-lib-jgit.html">lib.jgit</a><a class="sidebar-nav-item" href="hara-math.html">math</a><a class="sidebar-nav-item" href="hara-module.html">module</a><a class="sidebar-nav-item" href="hara-object.html">object</a><a class="sidebar-nav-item" href="hara-print.html">print</a><a class="sidebar-nav-item" href="hara-security.html">security</a><a class="sidebar-nav-item" href="hara-security-openpgp.html">security.openpgp</a><a class="sidebar-nav-item" href="hara-state.html">state</a><a class="sidebar-nav-item" href="hara-state-ova.html">state.ova</a><a class="sidebar-nav-item" href="hara-string.html">string</a><a class="sidebar-nav-item" href="hara-test.html">test</a><a class="sidebar-nav-item" href="hara-time.html">time</a><a class="sidebar-nav-item" href="hara-watch.html">watch</a>
+    <span class="sidebar-nav-item">&nbsp;</span>
+    <span class="sidebar-nav-item">&nbsp;</span>
+  </nav>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <span>lib.jgit</span>
+            <small>interface for org.eclipse.jgit</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="page">
+          <div class="heading">
+            <div>
+              <h5>Author: Chris Zheng&nbsp;&nbsp;<a href="mailto:z@caudate.me">(z@caudate.me)</a></h5>
+              <h5>Date: 04 November 2018</h5>
+              <h5>Repository: <a href="https://github.com/zcaudate/hara">https://github.com/zcaudate/hara</a></h5>
+              <h5>Version: 3.0.1</h5></div></div>
+          <hr/>
+
+          <div class="toc">
+              <nav>
+                <ul>
+                  <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#usage"><h4>2 &nbsp; Usage</h4></a><a class="section" data-scroll="" href="#help"><h5><i>2.1 &nbsp; Help</i></h5></a><a class="section" data-scroll="" href="#basics"><h5><i>2.2 &nbsp; Basics</i></h5></a><a class="section" data-scroll="" href="#exploration"><h5><i>2.3 &nbsp; Exploration</i></h5></a><a class="section" data-scroll="" href="#local"><h5><i>2.4 &nbsp; Local</i></h5></a><a class="section" data-scroll="" href="#raw-objects"><h5><i>2.5 &nbsp; Raw Objects</i></h5></a><a class="section" data-scroll="" href="#branching"><h5><i>2.6 &nbsp; Branching</i></h5></a></li>
+                </ul>
+              </nav>
+          </div>
+          <div>
+    <span id="introduction"></span>
+    <h2><b>1 &nbsp;&nbsp; Introduction</b></h2>
+</div><div><p><a href='https://github.com/caudata/hara/blob/master/src/hara/lib/jgit.clj'>hara.lib.jgit</a> is used to as an interface to <a href='https://eclipse.org/jgit/'>jgit</a>.</p>
+</div><div>
+    <span id="installation"></span>
+    <h3>1.1 &nbsp;&nbsp; Installation</h3>
+</div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;hara/lib.jgit &quot;3.0.1&quot;&#93;</code></pre>
+</div><div><p>All functions are in the <code>hara.lib.jgit</code> namespace.      </p><pre><code> &#40;use &#40;quote hara.lib.jgit&#41;&#41;</code></pre>
+</div><div>
+    <span id="usage"></span>
+    <h2><b>2 &nbsp;&nbsp; Usage</b></h2>
+</div><div>
+    <span id="help"></span>
+    <h3>2.1 &nbsp;&nbsp; Help</h3>
+</div><div><p>To see all commands, there is the <code>:help</code> command:</p>
+</div><div class="code">
+    <pre><code class="clojure">(git :help) ;; or (git)
+=&gt; [:add :apply :archive :blame :branch :checkout :cherry
+    :clean :clone :commit :describe :diff :fetch :gc :init
+    :log :ls :merge :name :notes :pull :push :rebase :reflog
+    :remote :reset :revert :rm :stash :status :submodule :tag]</code></pre>
+</div><div><p>To see a command's sub-commands, just </p>
+</div><div class="code">
+    <pre><code class="clojure">(git :branch)
+=&gt; #{:create :delete :rename :list}</code></pre>
+</div><div>
+    <span id="basics"></span>
+    <h3>2.2 &nbsp;&nbsp; Basics</h3>
+</div><div>
+    <span id="init"></span>
+    <h3><i>2.2.1 &nbsp;&nbsp; :init</i></h3>
+</div><div><p>The <code>:init</code> command initialise a directory:</p>
+</div><div class="code">
+    <pre><code class="clojure">(git :init :directory &quot;/tmp/git-example&quot;)
+=&gt; &quot;/tmp/git-example/.git&quot;</code></pre>
+</div><div>
+    <span id="status"></span>
+    <h3><i>2.2.2 &nbsp;&nbsp; :status</i></h3>
+</div><div><p>The <code>:status</code> command checks the status of our new repository:</p>
+</div><div class="code">
+    <pre><code class="clojure">(git &quot;/tmp/git-example&quot; :status)
+=&gt; {:clean? true
+    :uncommitted-changes! false}</code></pre>
+</div><div><p>Having a directory as the first parameter sets the default directory so that next time <code>:status</code> is called, it doesn't need to be set:</p>
+</div><div class="code">
+    <pre><code class="clojure">(git :status)
+=&gt; {:clean? true
+    :uncommitted-changes! false}</code></pre>
+</div><div><p>We can add a file and check for the repository status:</p>
+</div><div class="code">
+    <pre><code class="clojure">(spit &quot;/tmp/git-example/hello.txt&quot; &quot;hello there&quot;)
+(git :status)
+=&gt; {:clean? false,
+    :uncommitted-changes! false,
+    :untracked #{&quot;hello.txt&quot;}}</code></pre>
+</div><div>
+    <span id="cd"></span>
+    <h3><i>2.2.3 &nbsp;&nbsp; :cd</i></h3>
+</div><div><p><code>:cd</code> sets the default directory:</p>
+</div><div class="code">
+    <pre><code class="clojure">(git :cd &quot;/tmp/git-example&quot;)
+(git :status)
+=&gt; {:clean? false,
+    :uncommitted-changes! false,
+    :untracked #{&quot;hello.txt&quot;}}</code></pre>
+</div><div>
+    <span id="pwd"></span>
+    <h3><i>2.2.4 &nbsp;&nbsp; :pwd</i></h3>
+</div><div><p><code>:pwd</code> retruns the current working directory:</p>
+</div><div class="code">
+    <pre><code class="clojure">(git :pwd)
+=&gt; &quot;/tmp/git-example&quot;</code></pre>
+</div><div>
+    <span id="exploration"></span>
+    <h3>2.3 &nbsp;&nbsp; Exploration</h3>
+</div><div><p>Help is avaliable at anytime by using <code>:?</code> or <code>:help</code> after the first command:</p>
+</div><div class="code">
+    <pre><code class="clojure">(git :init :?)
+=&gt; {:bare boolean,
+    :directory java.lang.String,
+    :git-dir java.lang.String}</code></pre>
+</div><div><p>Additional parameters may be put in:</p>
+</div><div class="code">
+    <pre><code class="clojure">(git :init
+     :bare false
+     :directory &quot;/tmp/git-example&quot;
+     :git-dir &quot;/tmp/git-example/.mercurial&quot;)
+=&gt; &quot;/tmp/git-example/.mercurial&quot;</code></pre>
+</div><div><p>Let's take a closer look at <code>:status</code></p>
+</div><div class="code">
+    <pre><code class="clojure">(git :status :?)
+=&gt; {:working-tree-it   org.eclipse.jgit.treewalk.WorkingTreeIterator,
+    :progress-monitor  org.eclipse.jgit.lib.ProgressMonitor,
+    :ignore-submodules #{&quot;NONE&quot; &quot;UNTRACKED&quot; &quot;DIRTY&quot; &quot;ALL&quot;},
+    :path              [java.lang.String]}</code></pre>
+</div><div><p>We can decode the representation of the options needed for:</p><ul><li><code>:working-tree-it</code> an input of type <code>org.eclipse.jgit.treewalk.WorkingTreeIterator</code></li><li><code>:progress-monitor</code> an input of type <code>org.eclipse.jgit.lib.ProgressMonitor</code></li><li><code>:ignore-submodules</code> an input of the following options <code>#{&quot;NONE&quot; &quot;UNTRACKED&quot; &quot;DIRTY&quot; &quot;ALL&quot;}</code></li><li><code>:path</code>, either a single or a vector input of type <code>java.lang.String</code></li></ul>
+</div><div>
+    <span id="local"></span>
+    <h3>2.4 &nbsp;&nbsp; Local</h3>
+</div><div>
+    <span id="add"></span>
+    <h3><i>2.4.1 &nbsp;&nbsp; :add</i></h3>
+</div><div><p>Options that <code>:add</code> take are:</p>
+</div><div class="code">
+    <pre><code class="clojure">(git :add :?)
+=&gt; {:filepattern [java.lang.String]
+    :update boolean
+    :working-tree-iterator org.eclipse.jgit.treewalk.WorkingTreeIterator}</code></pre>
+</div><div><p>We can now create three files and calling <code>:add</code> on <code>hello.txt</code></p>
+</div><div class="code">
+    <pre><code class="clojure">(git :init :directory &quot;/tmp/git-example&quot;)
+(git :cd &quot;/tmp/git-example&quot;)
+(do (spit &quot;/tmp/git-example/hello.txt&quot; &quot;hello&quot;)
+    (spit &quot;/tmp/git-example/world.txt&quot; &quot;world&quot;)
+    (spit &quot;/tmp/git-example/again.txt&quot; &quot;again&quot;))
+
+(git :add :filepattern [&quot;hello.txt&quot;])
+=&gt; {&quot;hello.txt&quot; #{:merged}}</code></pre>
+</div><div>
+    <span id="commit"></span>
+    <h3><i>2.4.2 &nbsp;&nbsp; :commit</i></h3>
+</div><div><p>Options that <code>:commit</code> take are:</p>
+</div><div class="code">
+    <pre><code class="clojure">(git :commit :?)
+=&gt; {:all boolean
+    :allow-empty boolean
+    :amend boolean
+    :author java.lang.String
+    :committer java.lang.String
+    :hook-output-stream java.lang.String
+    :insert-change-id boolean
+    :message java.lang.String
+    :no-verify boolean
+    :only java.lang.String
+    :reflog-comment java.lang.String}</code></pre>
+</div><div><p>The revision can now be committed:</p>
+</div><div class="code">
+    <pre><code class="clojure">(git :commit :message &quot;added hello.txt&quot;)
+=&gt; {:commit-time 1487219645,
+    :author-ident {:email-address &quot;z@caudate.me&quot;,
+                   :name &quot;Chris Zheng&quot;,
+                   :time-zone-offset 660,
+                   :when #inst &quot;2017-02-16T04:34:05.000-00:00&quot;},
+    :full-message &quot;added hello.txt&quot;,
+    :name &quot;c115771e38cfd22954cfbc0c1a5c0b7e7890b09f&quot;}</code></pre>
+</div><div><p><code>:commit</code> works like the shell <code>git commit</code> command, such as if the message is neede to be amended:</p>
+</div><div class="code">
+    <pre><code class="clojure">(git :commit :message &quot;added hello.txt with fix&quot; :amend true)
+=&gt; {:commit-time 1487219780,
+    :author-ident {:email-address &quot;z@caudate.me&quot;,
+                   :name &quot;Chris Zheng&quot;,
+                   :time-zone-offset 660,
+                   :when #inst &quot;2017-02-16T04:34:05.000-00:00&quot;},
+    :full-message &quot;added hello.txt with fix&quot;,
+    :name &quot;fa705232c13d19d3ef4b4b6cfd6993593615a55d&quot;}</code></pre>
+</div><div>
+    <span id="log"></span>
+    <h3><i>2.4.3 &nbsp;&nbsp; :log</i></h3>
+</div><div><p>``</p>
+</div><div class="code">
+    <pre><code class="clojure">(git :log)
+=&gt; [{:commit-time 1487219780,
+     :author-ident {:email-address &quot;z@caudate.me&quot;,
+                    :name &quot;Chris Zheng&quot;,
+                    :time-zone-offset 660,
+                    :when #inst &quot;2017-02-16T04:34:05.000-00:00&quot;},
+     :full-message &quot;added hello.txt with fix&quot;,
+     :name &quot;fa705232c13d19d3ef4b4b6cfd6993593615a55d&quot;}]</code></pre>
+</div><div>
+    <span id="rm"></span>
+    <h3><i>2.4.4 &nbsp;&nbsp; :rm</i></h3>
+</div><div><p><code>:rm</code> removes files from git:</p>
+</div><div class="code">
+    <pre><code class="clojure">(git :rm :?)
+=&gt; {:filepattern [java.lang.String], :cached boolean}</code></pre>
+</div><div><p><code>hello.txt</code> is removed and the revision committed</p>
+</div><div class="code">
+    <pre><code class="clojure">(git :rm :filepattern [&quot;hello.txt&quot;])
+(git :add :filepattern [&quot;again.txt&quot;])
+=&gt; {&quot;again.txt&quot; #{:merged}}
+
+(git :commit :message &quot;added again.txt, removed hello.txt&quot;)
+=&gt; {:commit-time 1487219780,
+    :author-ident {:email-address &quot;z@caudate.me&quot;,
+                   :name &quot;Chris Zheng&quot;,
+                   :time-zone-offset 660,
+                   :when #inst &quot;2017-02-16T04:34:05.000-00:00&quot;},
+    :full-message &quot;added hello.txt with fix&quot;,
+    :name &quot;fa705232c13d19d3ef4b4b6cfd6993593615a55d&quot;}</code></pre>
+</div><div>
+    <span id="workflow"></span>
+    <h3><i>2.4.5 &nbsp;&nbsp; workflow</i></h3>
+</div><div><p><code>:log</code> and <code>:status</code> show more information about the revision whilst more changes can be committed</p>
+</div><div class="code">
+    <pre><code class="clojure">(git :log)
+=&gt; [{:commit-time 1487223636,
+     :author-ident {:email-address &quot;z@caudate.me&quot;,
+                    :name &quot;Chris Zheng&quot;,
+                    :time-zone-offset 660,
+                    :when #inst &quot;2017-02-16T05:40:36.000-00:00&quot;},
+     :full-message &quot;added again.txt, removed hello.txt&quot;,
+     :name &quot;f00dae4b70f00daf90816ece100d49678b0f9271&quot;}
+    {:commit-time 1487219780,
+     :author-ident {:email-address &quot;z@caudate.me&quot;,
+                    :name &quot;Chris Zheng&quot;,
+                    :time-zone-offset 660,
+                    :when #inst &quot;2017-02-16T04:34:05.000-00:00&quot;},
+     :full-message &quot;added hello.txt with fix&quot;,
+     :name &quot;fa705232c13d19d3ef4b4b6cfd6993593615a55d&quot;}]
+
+(git :status)
+=&gt; {:untracked [&quot;world.txt&quot;] :clean? false}
+
+(git :add :filepattern [&quot;.&quot;])
+=&gt; {&quot;again.txt&quot; #{:merged}, &quot;world.txt&quot; #{:merged}}
+
+(git :commit :message &quot;added ALL files&quot; :amend true)
+=&gt; {:commit-time 1487224441,
+    :author-ident {:email-address &quot;z@caudate.me&quot;
+                   :name &quot;Chris Zheng&quot;,
+                   :time-zone-offset 660,
+                   :when #inst &quot;2017-02-16T05:52:34.000-00:00&quot;},
+    :full-message &quot;added ALL files&quot;,
+    :name &quot;02cecb2b8c08c1599ba95c165e08b633698cad99&quot;}
+
+(git :status)
+=&gt; {:clean? true}</code></pre>
+</div><div>
+    <span id="raw-objects"></span>
+    <h3>2.5 &nbsp;&nbsp; Raw Objects</h3>
+</div><div><p>When <code>:&amp;</code> is used in the parameter, the raw result of the commant call is returned instead of being converted into a corresponding map/string:</p>
+</div><div class="code">
+    <pre><code class="clojure">(git :status :&amp;)
+;; =&gt; #status{:conflicting []
+;;            :untracked-folders []
+;;            :missing []
+;;            :removed []
+;;            :clean? true}
+
+(type (git :status :&amp;))
+=&gt; org.eclipse.jgit.api.Status
+
+(type (git :log :&amp;))
+=&gt; org.eclipse.jgit.revwalk.RevWalk</code></pre>
+</div><div>
+    <span id="branching"></span>
+    <h3>2.6 &nbsp;&nbsp; Branching</h3>
+</div><div>
+    <span id="branch"></span>
+    <h3><i>2.6.1 &nbsp;&nbsp; :branch</i></h3>
+</div><div><p>The subcommands for :branch are:</p>
+</div><div class="code">
+    <pre><code class="clojure">(git :branch)
+=&gt; #{:create :delete :rename :list}</code></pre>
+</div><div><p>Branches for the repository are shown with the <code>:list</code> subcommand:</p>
+</div><div class="code">
+    <pre><code class="clojure">(git :branch :list)
+=&gt; [{:name &quot;refs/heads/master&quot;,
+     :object-id &quot;02cecb2b8c08c1599ba95c165e08b633698cad99&quot;,
+     :storage &quot;LOOSE&quot;,
+     :peeled? false,
+     :symbolic? false}]</code></pre>
+</div><div><p>New branches are be created through the <code>:create</code> subcommand:</p>
+</div><div class="code">
+    <pre><code class="clojure">(git :branch :create :name &quot;dev&quot;)
+=&gt; {:name &quot;refs/heads/dev&quot;,
+    :object-id &quot;02cecb2b8c08c1599ba95c165e08b633698cad99&quot;,
+    :storage &quot;LOOSE&quot;,
+    :peeled? false,
+    :symbolic? false}
+
+(git :branch :list)
+=&gt; [{:name &quot;refs/heads/dev&quot;,
+     :object-id &quot;02cecb2b8c08c1599ba95c165e08b633698cad99&quot;,
+     :storage &quot;LOOSE&quot;,
+     :peeled? false,
+     :symbolic? false}
+    {:name &quot;refs/heads/master&quot;,
+     :object-id &quot;02cecb2b8c08c1599ba95c165e08b633698cad99&quot;,
+     :storage &quot;LOOSE&quot;,
+     :peeled? false,
+     :symbolic? false}]</code></pre>
+</div><div><p>Branches are renamed through the <code>:rename</code> subcommand:</p>
+</div><div class="code">
+    <pre><code class="clojure">(git :branch :rename :?)
+=&gt; {:new-name java.lang.String,
+    :old-name java.lang.String}
+
+(git :branch :rename :new-name &quot;development&quot; :old-name &quot;dev&quot;)
+=&gt; {:name &quot;refs/heads/development&quot;,
+    :object-id &quot;02cecb2b8c08c1599ba95c165e08b633698cad99&quot;,
+    :storage &quot;LOOSE&quot;,
+    :peeled? false,
+    :symbolic? false}</code></pre>
+</div><div><p>Branches are deleted through the <code>:delete</code> subcommand:</p>
+</div><div class="code">
+    <pre><code class="clojure">(git :branch :delete :?)
+=&gt; {:branch-names [java.lang.String]
+    :force boolean}
+
+(git :branch :delete :branch-names (into-array [&quot;development&quot;]))
+=&gt; [&quot;refs/heads/development&quot;]</code></pre>
+</div><div>
+    <span id="checkout"></span>
+    <h3><i>2.6.2 &nbsp;&nbsp; :checkout</i></h3>
+</div><div><p>Branches for the repository can be accessed through <code>:checkout</code></p>
+</div><div class="code">
+    <pre><code class="clojure">(git :checkout :?)
+=&gt; {:path [java.lang.String],
+    :start-point java.lang.String,
+    :create-branch boolean,
+    :stage #{&quot;BASE&quot; &quot;THEIRS&quot; &quot;OURS&quot;},
+    :force boolean,
+    :name java.lang.String,
+    :paths [java.util.List],
+    :upstream-mode #{&quot;SET_UPSTREAM&quot; &quot;NOTRACK&quot; &quot;TRACK&quot;},
+    :all-paths boolean,
+    :orphan boolean}
+
+(git :branch :create :name &quot;dev&quot;)
+
+(git :checkout :name &quot;dev&quot;)
+=&gt; {:name &quot;refs/heads/dev&quot;,
+    :object-id &quot;02cecb2b8c08c1599ba95c165e08b633698cad99&quot;,
+    :storage &quot;LOOSE&quot;,
+    :peeled? false,
+    :symbolic? false}</code></pre>
+</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outline">
+      <div class="toc">
+        <nav data-gumshoe-header>
+          <ul data-gumshoe>
+            <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#usage"><h4>2 &nbsp; Usage</h4></a><a class="section" data-scroll="" href="#help"><h5><i>2.1 &nbsp; Help</i></h5></a><a class="section" data-scroll="" href="#basics"><h5><i>2.2 &nbsp; Basics</i></h5></a><a class="section" data-scroll="" href="#exploration"><h5><i>2.3 &nbsp; Exploration</i></h5></a><a class="section" data-scroll="" href="#local"><h5><i>2.4 &nbsp; Local</i></h5></a><a class="section" data-scroll="" href="#raw-objects"><h5><i>2.5 &nbsp; Raw Objects</i></h5></a><a class="section" data-scroll="" href="#branching"><h5><i>2.6 &nbsp; Branching</i></h5></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    
+    <!--label for="sidebar-checkbox" class="sidebar-toggle"></label-->
+
+  </body>
+
+  <script>
+  if (true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-31320512-2', 'caudate.me');
+    ga('send', 'pageview');
+  }
+  </script>
+  
+  <script type="text/javascript">
+    smoothScroll.init();
+    gumshoe.init({});
+  
+    hljs.registerLanguage("clojure",function(e){var t={"builtin-name":"def defonce cond apply if-not if-let if not not= = < > <= >= == + / * - rem quot neg? pos? delay? symbol? keyword? true? false? integer? empty? coll? list? set? ifn? fn? associative? sequential? sorted? counted? reversible? number? decimal? class? distinct? isa? float? rational? reduced? ratio? odd? even? char? seq? vector? string? map? nil? contains? zero? instance? not-every? not-any? libspec? -> ->> .. . inc compare do dotimes mapcat take remove take-while drop letfn drop-last take-last drop-while while intern condp case reduced cycle split-at split-with repeat replicate iterate range merge zipmap declare line-seq sort comparator sort-by dorun doall nthnext nthrest partition eval doseq await await-for let agent atom send send-off release-pending-sends add-watch mapv filterv remove-watch agent-error restart-agent set-error-handler error-handler set-error-mode! error-mode shutdown-agents quote var fn loop recur throw try monitor-enter monitor-exit defmacro defn defn- macroexpand macroexpand-1 for dosync and or when when-not when-let comp juxt partial sequence memoize constantly complement identity assert peek pop doto proxy defstruct first rest cons defprotocol cast coll deftype defrecord last butlast sigs reify second ffirst fnext nfirst nnext defmulti defmethod meta with-meta ns in-ns create-ns import refer keys select-keys vals key val rseq name namespace promise into transient persistent! conj! assoc! dissoc! pop! disj! use class type num float double short byte boolean bigint biginteger bigdec print-method print-dup throw-if printf format load compile get-in update-in pr pr-on newline flush read slurp read-line subvec with-open memfn time re-find re-groups rand-int rand mod locking assert-valid-fdecl alias resolve ref deref refset swap! reset! set-validator! compare-and-set! alter-meta! reset-meta! commute get-validator alter ref-set ref-history-count ref-min-history ref-max-history ensure sync io! new next conj set! to-array future future-call into-array aset gen-class reduce map filter find empty hash-map hash-set sorted-map sorted-map-by sorted-set sorted-set-by vec vector seq flatten reverse assoc dissoc list disj get union difference intersection extend extend-type extend-protocol int nth delay count concat chunk chunk-buffer chunk-append chunk-first chunk-rest max min dec unchecked-inc-int unchecked-inc unchecked-dec-inc unchecked-dec unchecked-negate unchecked-add-int unchecked-add unchecked-subtract-int unchecked-subtract chunk-next chunk-cons chunked-seq? prn vary-meta lazy-seq spread list* str find-keyword keyword symbol gensym force rationalize"},r="a-zA-Z_\\-!.?+*=<>&#'",n="["+r+"]["+r+"0-9/;:]*",a="[-+]?\\d+(\\.\\d+)?",o={b:n,r:0},s={cN:"number",b:a,r:0},i=e.inherit(e.QSM,{i:null}),c=e.C(";","$",{r:0}),d={cN:"literal",b:/\b(true|false|nil)\b/},l={b:"[\\[\\{]",e:"[\\]\\}]"},m={cN:"comment",b:"\\^"+n},p=e.C("\\^\\{","\\}"),u={cN:"symbol",b:"[:]{1,2}"+n},f={b:"\\(",e:"\\)"},h={eW:!0,r:0},y={k:t,l:n,cN:"name",b:n,starts:h},b=[f,i,m,p,c,u,l,s,d,o];return f.c=[e.C("comment",""),y,h],h.c=b,l.c=b,{aliases:["clj"],i:/\S/,c:[f,i,m,p,c,u,l,s,d]}});
+    hljs.initHighlightingOnLoad();
+  </script>
+</html>

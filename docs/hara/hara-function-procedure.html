@@ -1,0 +1,703 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <link rel="shortcut icon" href="favicon.ico">
+  <title>hara.function.procedure - self aware executives</title>
+  <script src="js/highlight.min.js"></script>
+  <script src="js/gumshoe.min.js"></script>
+  <script src="js/smooth-scroll.min.js"></script>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/poole.css">
+  <link rel="stylesheet" href="css/syntax.css">
+  <link rel="stylesheet" href="css/lanyon.css">
+  <link rel="stylesheet" href="css/bolton.css">
+  <link rel="stylesheet" href="css/bolton-api.css">
+  <link rel="stylesheet" href="css/bolton-highlight.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  
+</head>
+
+  <body class="theme-base-0b">
+    <span id="page-top"></span>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <nav class="sidebar-nav">
+    <span>&nbsp;</span>
+    <a class="sidebar-nav-item header" href="index.html" style="padding-bottom:5px"><b>HOME</b></a>
+    <a class="sidebar-nav-item" href="hara-config.html">config</a><a class="sidebar-nav-item" href="hara-core.html">core</a><a class="sidebar-nav-item" href="hara-data.html">data</a><a class="sidebar-nav-item" href="hara-deploy.html">deploy</a><a class="sidebar-nav-item" href="hara-event.html">event</a><a class="sidebar-nav-item" href="hara-function.html">function</a><a class="sidebar-nav-item" href="hara-function-procedure.html">function.procedure</a><a class="sidebar-nav-item" href="hara-function-task.html">function.task</a><a class="sidebar-nav-item" href="hara-io-archive.html">io.archive</a><a class="sidebar-nav-item" href="hara-io-file.html">io.file</a><a class="sidebar-nav-item" href="hara-io-project.html">io.project</a><a class="sidebar-nav-item" href="hara-io-scheduler.html">io.scheduler</a><a class="sidebar-nav-item" href="hara-lib-aether.html">lib.aether</a><a class="sidebar-nav-item" href="hara-lib-jgit.html">lib.jgit</a><a class="sidebar-nav-item" href="hara-math.html">math</a><a class="sidebar-nav-item" href="hara-module.html">module</a><a class="sidebar-nav-item" href="hara-object.html">object</a><a class="sidebar-nav-item" href="hara-print.html">print</a><a class="sidebar-nav-item" href="hara-security.html">security</a><a class="sidebar-nav-item" href="hara-security-openpgp.html">security.openpgp</a><a class="sidebar-nav-item" href="hara-state.html">state</a><a class="sidebar-nav-item" href="hara-state-ova.html">state.ova</a><a class="sidebar-nav-item" href="hara-string.html">string</a><a class="sidebar-nav-item" href="hara-test.html">test</a><a class="sidebar-nav-item" href="hara-time.html">time</a><a class="sidebar-nav-item" href="hara-watch.html">watch</a>
+    <span class="sidebar-nav-item">&nbsp;</span>
+    <span class="sidebar-nav-item">&nbsp;</span>
+  </nav>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <span>function.procedure</span>
+            <small>self aware executives</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="page">
+          <div class="heading">
+            <div>
+              <h5>Author: Chris Zheng&nbsp;&nbsp;<a href="mailto:z@caudate.me">(z@caudate.me)</a></h5>
+              <h5>Date: 04 November 2018</h5>
+              <h5>Repository: <a href="https://github.com/zcaudate/hara">https://github.com/zcaudate/hara</a></h5>
+              <h5>Version: 3.0.1</h5></div></div>
+          <hr/>
+
+          <div class="toc">
+              <nav>
+                <ul>
+                  <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#api"><h4>2 &nbsp; API</h4></a><a class="section" data-scroll="" href="#entry__hara_function_procedure__defprocedure"><h5><i>defprocedure</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function_procedure__procedure"><h5><i>procedure</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function_procedure__procedure_kill"><h5><i>procedure-kill</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function_procedure__procedure_running_QMARK_"><h5><i>procedure-running?</i></h5></a></li><li><a class="chapter" data-scroll="" href="#features"><h4>3 &nbsp; Features</h4></a><a class="section" data-scroll="" href="#basics"><h5><i>3.1 &nbsp; Basics</i></h5></a><a class="section" data-scroll="" href="#mode"><h5><i>3.2 &nbsp; Mode</i></h5></a><a class="section" data-scroll="" href="#control-of-execution"><h5><i>3.3 &nbsp; Control of Execution</i></h5></a><a class="section" data-scroll="" href="#instance"><h5><i>3.4 &nbsp; Instance</i></h5></a><a class="section" data-scroll="" href="#runtime-and-registry"><h5><i>3.5 &nbsp; Runtime and Registry</i></h5></a><a class="section" data-scroll="" href="#identity-and-caching"><h5><i>3.6 &nbsp; Identity and Caching</i></h5></a><a class="section" data-scroll="" href="#intermission"><h5><i>3.7 &nbsp; Intermission</i></h5></a><a class="section" data-scroll="" href="#overwrite"><h5><i>3.8 &nbsp; Overwrite</i></h5></a><a class="section" data-scroll="" href="#interrupt"><h5><i>3.9 &nbsp; Interrupt</i></h5></a><a class="section" data-scroll="" href="#time"><h5><i>3.10 &nbsp; Time</i></h5></a></li><li><a class="chapter" data-scroll="" href="#retries"><h4>4 &nbsp; Retries</h4></a><a class="section" data-scroll="" href="#simple"><h5><i>4.1 &nbsp; Simple</i></h5></a><a class="section" data-scroll="" href="#wait"><h5><i>4.2 &nbsp; Wait</i></h5></a><a class="section" data-scroll="" href="#arguments"><h5><i>4.3 &nbsp; Arguments</i></h5></a><a class="section" data-scroll="" href="#handlers"><h5><i>4.4 &nbsp; Handlers</i></h5></a></li>
+                </ul>
+              </nav>
+          </div>
+          <div>
+    <span id="introduction"></span>
+    <h2><b>1 &nbsp;&nbsp; Introduction</b></h2>
+</div><div><p><a href='https://github.com/caudata/hara/blob/master/src/hara/function/procedure.clj'>hara.function.procedure</a> provides a wrapper for controlling the execution of concurrent operations. Many features are added in order to support use in the real world. These include restarts, interrupts, timeouts, caching, synchronous/asynchronous dispatch, timing and other issues associated with concurrent systems.</p>
+</div><div><p>The library provides rich information about the execution of a particular running instance:</p><ul><li>the function that originated the process instance</li><li>the thread or future on which the instance is executing</li><li>the result (maybe cached) of the execution if returned</li><li>the time of execution</li><li>the id of the process (used for identification)</li><li>other running instances of the process</li></ul>
+</div><div>
+    <span id="installation"></span>
+    <h3>1.1 &nbsp;&nbsp; Installation</h3>
+</div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;hara/function.procedure &quot;3.0.1&quot;&#93;</code></pre>
+</div><div><p>All functions are in the <code>hara.function.procedure</code> namespace.      </p><pre><code> &#40;use &#40;quote hara.function.procedure&#41;&#41;</code></pre>
+</div><div>
+    <span id="api"></span>
+    <h2><b>2 &nbsp;&nbsp; API</b></h2>
+</div><div class="api">
+    <span id="entry__hara_function_procedure__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_function_procedure__defprocedure">defprocedure</a></li>
+            <li><a data-scroll="" href="#entry__hara_function_procedure__procedure">procedure</a></li>
+            <li><a data-scroll="" href="#entry__hara_function_procedure__procedure_kill">procedure-kill</a></li>
+            <li><a data-scroll="" href="#entry__hara_function_procedure__procedure_running_QMARK_">procedure-running?</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_function_procedure__defprocedure"></span>
+                <div class="entry-description">
+                    <h4><b>defprocedure&nbsp<a data-scroll="" href="#entry__hara_function_procedure__">^</a></b></h4>
+                    <p><i>defining a procedure</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/procedure.clj#L214-L233" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function_procedure__defprocedure">
+                        <label class="source-toggle" for="entry__pre_hara_function_procedure__defprocedure"></label>
+                        <pre class="source"><code class="clojure">(defmacro defprocedure
+  [name config & body]
+  (invoke-intern-procedure :procedure name config body))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/procedure_test.clj#L78-L93" target="_blank">link</a></i></h6><code class="clojure">(defprocedure -hello-
+  {:mode :sync}
+  ([]
+   (Thread/sleep 1000)
+   :DONE))
+  
+(defprocedure -print-hello-
+  {:id-fn :timestamp
+   :arglist [:timestamp :params :instance]
+   :params {:b 2}}
+  ([t params instance]
+   (println "INSTANCE: " instance)
+   (Thread/sleep 500)
+   (println "ENDED" t)))</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function_procedure__procedure"></span>
+                <div class="entry-description">
+                    <h4><b>procedure&nbsp<a data-scroll="" href="#entry__hara_function_procedure__">^</a></b></h4>
+                    <p><i>creates a procedure for computation</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/procedure.clj#L166-L194" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function_procedure__procedure">
+                        <label class="source-toggle" for="entry__pre_hara_function_procedure__procedure"></label>
+                        <pre class="source"><code class="clojure">(defn procedure
+  ([tk arglist]
+   (cond (fn? tk)
+         (procedure {:handler tk} arglist)
+
+         (check/hash-map? tk)
+         (-> (assoc tk :arglist arglist)
+             (nested/merge-nil-nested +default-settings+)
+             (map->Procedure)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/procedure_test.clj#L47-L65" target="_blank">link</a></i></h6><code class="clojure">@((procedure {:name "ID"
+              :handler (fn [id params instance]
+                         ; (println (-> instance :retry :count))
+                         (if (= 5 (-> instance :retry :count))
+                           (-> instance :retry :count)
+                           (throw (Exception.))))
+              :retry {:handle [{:on #{Exception}
+                                :apply   (fn [state e])
+                                :limit   (fn [state count])
+                                :wait    (fn [state count])}]
+                      :count 0
+                      :state  {:a 1 :b 2}
+                      :limit 10
+                      :wait  100}}
+             [:id :params :instance])
+  "ID" {} {:mode :async :cached false})
+=> 5</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function_procedure__procedure_kill"></span>
+                <div class="entry-description">
+                    <h4><b>procedure-kill&nbsp<a data-scroll="" href="#entry__hara_function_procedure__">^</a></b></h4>
+                    <p><i>kills a running procedure</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/procedure.clj#L235-L246" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function_procedure__procedure_kill">
+                        <label class="source-toggle" for="entry__pre_hara_function_procedure__procedure_kill"></label>
+                        <pre class="source"><code class="clojure">(defn procedure-kill
+  [{:keys [registry name id]}]
+  (registry/kill registry name id))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/procedure_test.clj#L96-L103" target="_blank">link</a></i></h6><code class="clojure">(def -proc- ((procedure {:name "hello"
+                         :id :1
+                         :handler (fn [] (Thread/sleep 1000000000))} [])))
+  
+(Thread/sleep 100)
+(procedure-kill -proc-)
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function_procedure__procedure_running_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>procedure-running?&nbsp<a data-scroll="" href="#entry__hara_function_procedure__">^</a></b></h4>
+                    <p><i>checks if a procedure is running</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/procedure.clj#L248-L260" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function_procedure__procedure_running_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_function_procedure__procedure_running_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn procedure-running?
+  [{:keys [thread] :as p}]
+  (and @thread
+       (not (future-done? @thread))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/procedure_test.clj#L106-L115" target="_blank">link</a></i></h6><code class="clojure">(def -proc- ((procedure {:name "hello"
+                         :id :1
+                         :handler (fn [] (Thread/sleep 1000000000))} [])))
+
+(procedure-running? -proc-)
+=> true</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="features"></span>
+    <h2><b>3 &nbsp;&nbsp; Features</b></h2>
+</div><div>
+    <span id="basics"></span>
+    <h3>3.1 &nbsp;&nbsp; Basics</h3>
+</div><div><p>There are many uses for a function that stores information about it's execution, as well as having it's execution properties be customised through input arguments. This will be demonstrated by creating a very simple function that waits for a second before outputting a result. As can be seen, there is an additional map before the argument vector and it's use will be shown later.</p>
+</div><div class="code">
+    <pre><code class="clojure">(defprocedure hello {}
+  []
+  (Thread/sleep 1000)
+  &quot;Hello&quot;)</code></pre>
+</div><div><p>We can call hello and see that it yields a future-like reference for the execution of the function. This will be called an <code>instance</code> of execution.</p>
+</div><div class="code">
+    <pre><code class="clojure">(hello)
+;; =&gt; #proc[d858c5b0-7671-41f1-96af-fdd768c24e84]
+;; {:args (), :input nil, :mode :async,
+;;  :runtime {:started #inst &quot;2015-12-08T15:10:41.695-00:00&quot;},
+;;  :interrupt false,
+;;  :timestamp #inst &quot;2015-12-08T15:10:41.695-00:00&quot;,
+;;  :result :waiting}</code></pre>
+</div><div><p>The result of the function is shown after one second when dereferenced.</p>
+</div><div class="code">
+    <pre><code class="clojure">@(hello)
+;; =&gt; &quot;Hello&quot; &lt;after one second&gt;</code></pre>
+</div><div>
+    <span id="mode"></span>
+    <h3>3.2 &nbsp;&nbsp; Mode</h3>
+</div><div><p>We now change the procedure slightly by setting the mode to <code>:sync</code>, by default the mode is <code>:async</code></p>
+</div><div class="code">
+    <pre><code class="clojure">(defprocedure hello {:mode :sync}
+  []
+  (Thread/sleep 1000)
+  &quot;Hello&quot;)</code></pre>
+</div><div><p>Notice that the call to <code>hello</code> does not return immediately but pauses for one second before returning the execution instance. Instead of running asynchronously like before, the call is synchronous. Notice that <code>:runtime</code> has an end time and there the value for <code>:result</code> has changed from <code>:waiting</code> to a map having <code>:type</code> and <code>:data</code> keys.</p>
+</div><div class="code">
+    <pre><code class="clojure">(hello)
+;; =&gt; #proc[0deadecf-2503-4653-9380-1739c6f1b1f8]
+;; {:args (), :input nil, :mode :sync,
+;;  :runtime {:ended #inst &quot;2015-12-08T15:34:53.250-00:00&quot;, :started #inst &quot;2015-12-08T15:34:52.248-00:00&quot;},
+;;  :interrupt false, :timestamp #inst &quot;2015-12-08T15:34:52.248-00:00&quot;,
+;;  :result {:type :success, :data &quot;Hello&quot;}}</code></pre>
+</div><div><p>When it is dereferenced, there is no difference between the dereference second and the first <code>hello</code>s</p>
+</div><div class="code">
+    <pre><code class="clojure">@(hello)
+;; =&gt; &quot;Hello&quot; &lt;after one second&gt;</code></pre>
+</div><div>
+    <span id="control-of-execution"></span>
+    <h3>3.3 &nbsp;&nbsp; Control of Execution</h3>
+</div><div><p>Lets add another option to our procedure, this time <code>:arglist</code></p>
+</div><div class="code">
+    <pre><code class="clojure">(defprocedure hello {:mode :sync :arglist [:mode]}
+  []
+  (Thread/sleep 1000)
+  &quot;Hello&quot;)</code></pre>
+</div><div><p>We should be familiar with the call to <code>hello</code> because it behaves the same to the previous definitions when called directly:</p>
+</div><div class="code">
+    <pre><code class="clojure">(hello)
+;; =&gt; #proc[7b2de1b5-267b-4d54-be66-1fd5fabd0a4c]
+;; {:args (), :input nil, :mode :sync,
+;;  :runtime {:ended #inst &quot;2015-12-08T15:49:35.948-00:00&quot;, :started #inst &quot;2015-12-08T15:49:34.946-00:00&quot;},
+;;  :interrupt false, :timestamp #inst &quot;2015-12-08T15:49:34.946-00:00&quot;,
+;;  :result {:type :success, :data &quot;Hello&quot;}}</code></pre>
+</div><div><p>However, we can play with what mode we wish the function to run by running <code>hello</code> with an additional argument:</p>
+</div><div class="code">
+    <pre><code class="clojure">(hello :async)
+;; =&gt; #proc[50d3d2fb-faa3-4bd4-810d-936b30881b55]
+;; {:args (), :input (:async), :mode :async,
+;;  :runtime {:started #inst &quot;2015-12-08T15:51:08.486-00:00&quot;},
+;;  :interrupt false, :timestamp #inst &quot;2015-12-08T15:51:08.486-00:00&quot;,
+;;  :result :waiting}</code></pre>
+</div><div><p>When it is dereferenced, there should be no difference of behavior to the previous definitions.</p>
+</div><div class="code">
+    <pre><code class="clojure">@(hello :async)
+;; =&gt; &quot;Hello&quot; &lt;after one second&gt;</code></pre>
+</div><div><p>The <code>:arglist</code> can be seen as an outer wrapper on top of the original function. The arglist count should always be equal or more than the function's argument count. In this way, the execution of the function can be controlled by the caller using only data. This is extremely useful as will be seen next:</p>
+</div><div>
+    <span id="instance"></span>
+    <h3>3.4 &nbsp;&nbsp; Instance</h3>
+</div><div><p>There are special keywords that we can put in the <code>:arglist</code> vector in order to adjust the behavior of execution. The most general is <code>:instance</code>. With <code>:instance</code>, we can overwrite any execution property. This is shown in an example below:</p>
+</div><div class="code">
+    <pre><code class="clojure">(defprocedure hello {:mode :sync :arglist [:instance]}
+  [instance]
+  (Thread/sleep (:sleep instance))
+  (:mode instance))</code></pre>
+</div><div></div><div class="code">
+    <pre><code class="clojure">@(hello {:sleep 2000 :mode :async})
+;; =&gt; :async &lt;after two seconds&gt;</code></pre>
+</div><div><p>We can see what the <code>instance</code> variable passed to the function actually contains:</p>
+</div><div class="code">
+    <pre><code class="clojure">(defprocedure hello {:mode :sync :arglist [:instance]}
+  [instance]
+  (Thread/sleep (:sleep instance))
+  (keys instance))</code></pre>
+</div><div></div><div class="code">
+    <pre><code class="clojure">@(hello {:sleep 100 :mode :async})
+;; =&gt; (:args :time :arglist :registry :mode :procedure
+;;     :id-fn :cache :result :id :runtime :interrupt
+;;     :input :timestamp :handler :sleep) &lt;after 100ms&gt;</code></pre>
+</div><div><p>In fact, this structure is exactly what we get when we call <code>hello</code> without dereferencing:</p>
+</div><div class="code">
+    <pre><code class="clojure">(keys (hello {:sleep 100 :mode :async}))
+;; =&gt; (:args :time :arglist :registry :mode :procedure
+;;     :id-fn :cache :result :id :runtime :interrupt
+;;     :input :timestamp :handler :sleep) &lt;occurs instantly&gt;</code></pre>
+</div><div>
+    <span id="runtime-and-registry"></span>
+    <h3>3.5 &nbsp;&nbsp; Runtime and Registry</h3>
+</div><div><p>We can look at the function's execution through it's <code>:runtime</code> and <code>:registry</code> keys. We can reuse the previous definition of <code>hello</code> to create two long running functions:</p>
+</div><div class="code">
+    <pre><code class="clojure">(def a (hello {:name &quot;hello&quot; :sleep 100000 :mode :async :id &quot;instance-a&quot;}))
+(def b (hello {:name &quot;hello&quot; :sleep 100000 :mode :async :id &quot;instance-b&quot;}))</code></pre>
+</div><div><p>Now that we have the instances of execution, we can view when it has been started:</p>
+</div><div class="code">
+    <pre><code class="clojure">(:runtime a)
+;; =&gt; #&lt;Atom@9cab002: {:started #inst &quot;2015-12-10T05:56:17.685-00:00&quot;}&gt;</code></pre>
+</div><div><p>As well as access all running instances through a global registry:</p>
+</div><div class="code">
+    <pre><code class="clojure">(:registry a)
+;; =&gt; #reg {&quot;hello&quot; (&quot;instance-b&quot; &quot;instance-a&quot;)}</code></pre>
+</div><div><p>We can stop the execution of <code>instance a</code>:</p>
+</div><div class="code">
+    <pre><code class="clojure">(require '[hara.function.procedure.registry :as registry])
+
+(registry/kill (:registry a) &quot;hello&quot; &quot;instance-a&quot;)
+;; =&gt; true</code></pre>
+</div><div><p>A check will reveal that <code>instance b</code> is still running</p>
+</div><div class="code">
+    <pre><code class="clojure">(:registry a)
+;; =&gt; #reg {&quot;hello&quot; (&quot;instance-b&quot;)}</code></pre>
+</div><div><p><code>instance-b</code> is accessible from <code>instance-a</code>:</p>
+</div><div class="code">
+    <pre><code class="clojure">(-&gt; a :registry deref (get &quot;hello&quot;) (get &quot;instance-b&quot;))
+;; =&gt; #proc[instance-b]{:args (nil),
+;; :input ({:name &quot;hello&quot;, :mode :async, :id &quot;instance-b&quot;, :sleep 100000}), :mode :async,
+;; :runtime {:started #inst &quot;2015-12-10T06:02:21.752-00:00&quot;},
+;; :interrupt false, :timestamp #inst &quot;2015-12-10T06:02:21.752-00:00&quot;,
+;; :result :waiting, :name &quot;hello&quot;}</code></pre>
+</div><div><p>As well as to be killed from from <code>instance-a</code>:</p>
+</div><div class="code">
+    <pre><code class="clojure">(registry/kill (:registry a) &quot;hello&quot; &quot;instance-b&quot;)
+;; =&gt; true</code></pre>
+</div><div class="code">
+    <pre><code class="clojure">(:registry a)
+;; =&gt; #reg {}</code></pre>
+</div><div><p>This is very useful for coordinating strategies between execution instances.</p>
+</div><div>
+    <span id="identity-and-caching"></span>
+    <h3>3.6 &nbsp;&nbsp; Identity and Caching</h3>
+</div><div><p>In the previous section, there were concepts like <code>:id</code> and <code>:name</code> being introduced. These properties give context to the type of function being executed as well as to identify duplicates and wasted execution. To be able to uniquely identify an instance of execution as being the same as another means that additional operations such as caching, timeouts and interrupts can be used for control of execution.</p>
+</div><div><p>Let's look at a particular use case where results can be cached. The <code>power</code> function has been written using <code>defprocedure</code> to include caching. </p>
+</div><div class="code">
+    <pre><code class="clojure">(defprocedure power {:arglist [:x :instance] :id-fn :x :cached true :name &quot;power&quot; :interrupt true}
+  ([x] @(power x {}))
+  ([x instance]
+   (Thread/sleep 100)
+   (if (zero? x)
+     1
+     (* x (power (dec x) (select-keys instance [:cached]))))))</code></pre>
+</div><div><p>More about the parameters will be explained later but first, let's try this out. We will calculate 20! and see the caching kick in after the second try:</p>
+</div><div class="code">
+    <pre><code class="clojure">@(power 20)
+;; =&gt; 2432902008176640000 &lt;after some time&gt;
+
+(power 20)
+;; =&gt; 2432902008176640000 &lt;instantaneously&gt;</code></pre>
+</div><div><p>Sometimes, we actually wish to ignore the cache and have it recalculate. This can be done through arguments instead of any special forms</p>
+</div><div class="code">
+    <pre><code class="clojure">@(power 20 {:cached false})
+;; =&gt; 2432902008176640000 &lt;after some time&gt;
+
+@(power 20)
+;; =&gt; 2432902008176640000 &lt;instantaneously&gt;</code></pre>
+</div><div><p>We can look at the cached values directly from the instance:</p>
+</div><div class="code">
+    <pre><code class="clojure">(:cache (power 20))
+;; =&gt; #cache {&quot;power&quot; {0 ((0 nil)), 7 ((7 nil)), 20 ((20) (20 nil)),
+;;                     1 ((1 nil)), 4 ((4 nil)), 15 ((15 nil)), 13 ((13 nil)),
+;;                     6 ((6 nil)), 17 ((17 nil)), 3 ((3 nil)), 12 ((12 nil)),
+;;                     2 ((2 nil)), 19 ((19 nil)), 11 ((11 nil)), 9 ((9 nil)),
+;;                     5 ((5 nil)), 14 ((14 nil)), 16 ((16 nil)), 10 ((10 nil)),
+;;                     18 ((18 nil)), 8 ((8 nil))}}</code></pre>
+</div><div><p>In concurrent applications, where multiple processes may be doing the same calculation, this type of mechanism will be able to save quite a few clock cycles when used in the right way.</p>
+</div><div>
+    <span id="intermission"></span>
+    <h3>3.7 &nbsp;&nbsp; Intermission</h3>
+</div><div><p>Let's switch gears a little bit and talk philosophy. In working with the standard concurrent execution contructs like futures and promises, it was found that they lacked the self-awareness to coordinate with each other. The reason behind this is very simple: there is dissociation between what should be three concepts critical to concurrent execution: the function (governed by its definition), the execution (governed by time) and the result (governed by input).</p>
+</div><div>
+    <span id="synchronous-execution"></span>
+    <h3><i>3.7.1 &nbsp;&nbsp; Synchronous Execution</i></h3>
+</div><div><p>Execution is not an issue in a synchronous world; it occurs with the ticking of the system clock and there are no other processes that are able to affect the world, we can establish a link between the <strong>past</strong> and the <strong>future</strong> because there is no <strong>present</strong> as such in terms of what is happening right now. It just doesn't exist, or rather we don't need to account for it in order to build our programs. In the synchronous world, there is no difference between a function and a lookup table of inputs and outputs</p>
+</div><div class="figure">
+    <a id="the-synchronous-world"></a>
+    <h4><i>fig.1  &nbsp;-&nbsp; The Synchronous World</i></h4>
+    <div class="img">
+        <img width="40%" src="img/hara.function.procedure/synchronous.png" title="The Synchronous World" line="{:row 256, :col 1, :end-row 256, :end-col 363}">
+    </div>
+    <p></p>
+</div><div>
+    <span id="concurrent-execution"></span>
+    <h3><i>3.7.2 &nbsp;&nbsp; Concurrent Execution</i></h3>
+</div><div><p>In the concurrent world things happen very differently; or rather, things are required to be accounted very differently in order for a program to succeed. Time the conquerer is the master behind all calculation. To neglect time is a idealistic and will ultimately result in failure.</p>
+</div><div class="figure">
+    <a id="the-concurrent-world"></a>
+    <h4><i>fig.2  &nbsp;-&nbsp; The Concurrent World</i></h4>
+    <div class="img">
+        <img width="80%" src="img/hara.function.procedure/concurrent.png" title="The Concurrent World" line="{:row 262, :col 1, :end-row 262, :end-col 367}">
+    </div>
+    <p></p>
+</div><div>
+    <span id="coordination-of-concurrent-execution"></span>
+    <h3><i>3.7.3 &nbsp;&nbsp; Coordination of Concurrent Execution</i></h3>
+</div><div><p>An example of how this could be useful can be shown below.</p>
+</div><div class="figure">
+    <a id="execution-coordination"></a>
+    <h4><i>fig.3  &nbsp;-&nbsp; Execution Coordination</i></h4>
+    <div class="img">
+        <img width="100%" src="img/hara.function.procedure/example.png" title="Execution Coordination" line="{:row 268, :col 1, :end-row 268, :end-col 373}">
+    </div>
+    <p></p>
+</div><div><p>Computation <strong>C</strong> is estimated to take 10 hours to complete and both process A and process B both require the same result. Now, process A has started computation for 9 and a half hours but has not finished and process B is starting. In this case, instead of waiting another 10 hours for computation, if process B is aware that process A is already doing the computation, all it needs to do is to wait on the result of A instead of starting from scratch.</p><p>Instead of taking 10 hours, process B will just take 0.5 hours.</p>
+</div><div>
+    <span id="overwrite"></span>
+    <h3>3.8 &nbsp;&nbsp; Overwrite</h3>
+</div><div><p>Caching is a part of the bigger problem of how calculation can be shared between one or more concurrent processes. So when working with caching, we have to think about coordination and how processes should be able to work together. Lets try this out with a function that returns a random integer between 0 and 1000.</p>
+</div><div class="code">
+    <pre><code class="clojure">(defprocedure random-int {:arglist [:instance]
+                          :id-fn (constantly &quot;current&quot;)
+                          :cached true
+                          :name &quot;random&quot;
+                          :interrupt true}
+  ([instance] (rand-int 1000)))</code></pre>
+</div><div><p>Lets give this a go by making two calls and watching the cache kick in:</p>
+</div><div class="code">
+    <pre><code class="clojure">@(random-int {})
+;; =&gt; 675
+
+@(random-int {})
+;; =&gt; 675</code></pre>
+</div><div><p>This is may or may not be good depending on the problem. Imagine something like multiple concurrent processes hitting a database to retrieve the same value. Sometimes, we want to make a call without affecting everyone else; other times, we would wish to make a call and then update it globally for all processes. A combination of <code>:cached</code> and <code>:overwrite</code> allows this to happen.</p>
+</div><div><p>In the first case, we see that <code>:overwrite true</code> will update the cache with a new value:</p>
+</div><div class="code">
+    <pre><code class="clojure">@(random-int {:overwrite true})
+;; =&gt; 132
+@(random-int {})
+;; =&gt; 132</code></pre>
+</div><div><p>In the second case, we see that <code>:cached false</code> will return the value whilst skipping the cache altogether</p>
+</div><div class="code">
+    <pre><code class="clojure">@(random-int {:cached false})
+;; =&gt; 276
+@(random-int {})
+;; =&gt; 132</code></pre>
+</div><div>
+    <span id="interrupt"></span>
+    <h3>3.9 &nbsp;&nbsp; Interrupt</h3>
+</div><div><p>Another important characteristic is that sometimes, a process is taking too long and we need to restart it. We construct a function showing 50% chance of failure.</p>
+</div><div class="code">
+    <pre><code class="clojure">(defprocedure random-failure {:arglist [:instance]
+                              :id-fn (constantly &quot;current&quot;)
+                              :name &quot;random&quot;}
+  ([instance]
+   (println &quot;Function Started:&quot; (:timestamp instance))
+   (if (&gt; 0.5 (rand))
+     (Thread/sleep 1000000))
+   (println &quot;Function Finished: &quot; (:timestamp instance))))</code></pre>
+</div><div><p>The function behavior can be activated by calling it a few times. As the probabily of failure is quite high, We find that there is no output for <code>Function Finished</code>.</p>
+</div><div class="code">
+    <pre><code class="clojure">(random-failure {})
+;; Function Started: #inst &quot;2015-12-13T10:21:28.382-00:00&quot;
+;; Function Finished:  #inst &quot;2015-12-13T10:21:28.382-00:00&quot;
+
+(random-failure {})
+;; Function Started: #inst &quot;2015-12-13T10:21:29.757-00:00&quot;</code></pre>
+</div><div><p>Our function is set so that another call of the same type will just wait, subsequent calls will block for the calculation:</p>
+</div><div class="code">
+    <pre><code class="clojure">(random-failure {})
+;; =&gt; &lt;No output&gt;</code></pre>
+</div><div><p>By default, a called procedure will block and wait on another of the same type to finish before returning the result. However, if it is required to kill a procedure that is taking too long to finish, setting <code>:interrupt true</code> will interrupt the current execution and proceed again from the beginning:</p>
+</div><div class="code">
+    <pre><code class="clojure">(random-failure {:interrupt true})
+;; Function Started: #inst &quot;2015-12-13T11:35:28.751-00:00&quot;
+;; Function Finished:  #inst &quot;2015-12-13T11:35:28.751-00:00&quot;</code></pre>
+</div><div><p>This is used for mitigating coordination problems when one process is waiting on the other without reason.</p>
+</div><div>
+    <span id="time"></span>
+    <h3>3.10 &nbsp;&nbsp; Time</h3>
+</div><div><p>We can access information about the instant's start and end time through the <code>:runtime</code> key. The <code>:timestamp</code> key is used for coordination between processes that may have started at slightly different times due to the randomness of the thread pool. We see an example below:</p>
+</div><div class="code">
+    <pre><code class="clojure">(defprocedure current [:instance]
+  [instance]
+  (Thread/sleep 100)
+  (-&gt; instance
+      (select-keys [:timestamp :runtime])))</code></pre>
+</div><div><p>A call to <code>current</code> returns information about the operation:</p>
+</div><div class="code">
+    <pre><code class="clojure">(-&gt; @(current {})
+    (update-in [:runtime] deref))
+;; =&gt; {:runtime {:ended #inst &quot;2015-12-13T13:54:24.475-00:00&quot;,
+;;               :started #inst &quot;2015-12-13T13:54:24.371-00:00&quot;},
+;;     :timestamp #inst &quot;2015-12-13T13:54:24.371-00:00&quot;}</code></pre>
+</div><div><p>By default, the value of <code>:timestamp</code> is same as <code>:started</code>. However, we can also pass in the exact <code>:timestamp</code> we want the function to have as it's argument.</p>
+</div><div>
+    <span id="retries"></span>
+    <h2><b>4 &nbsp;&nbsp; Retries</b></h2>
+</div><div><p>In the real world, there is always going to be failure and having the ability to deal with failure is key to system robustness. Retries are a very important feature for any concurrent process as it allows for strategies to be implemented on failure.</p><p>When a function throws an exception, we wish to then be able to adjust and calmly start again with either the same call or another strategy for mitigation. Although this can be done using <code>try</code>/<code>catch</code> blocks, <code>hara.function.procedure</code> offers an elegant alternative.</p>
+</div><div>
+    <span id="simple"></span>
+    <h3>4.1 &nbsp;&nbsp; Simple</h3>
+</div><div><p>We can construct the most basic retry</p>
+</div><div class="code">
+    <pre><code class="clojure">(defprocedure retry-println
+  {:retry {:on Throwable
+           :limit  3
+           :wait   1000}}
+  []
+  (println &quot;Started Function&quot;)
+  (throw (Exception. &quot;Hello&quot;)))</code></pre>
+</div><div><p>Lets run the function and see what happens:</p>
+</div><div class="code">
+    <pre><code class="clojure">@(retry-println)
+;; Started Function
+;; &lt;1000 ms pause&gt;
+;; Started Function
+;; &lt;1000 ms pause&gt;
+;; Started Function
+;; &lt;1000 ms pause&gt;
+;; Started Function
+;; Exception Hello</code></pre>
+</div><div><p>Notice that the function starts, errors and then retries 3 times, pausing 1000ms before each retry. Once it reaches the limit of 3, the function gives up and throws the error.</p>
+</div><div>
+    <span id="wait"></span>
+    <h3>4.2 &nbsp;&nbsp; Wait</h3>
+</div><div><p>An important variable to control is the wait time. We construct the next example to explain this feature:</p>
+</div><div class="code">
+    <pre><code class="clojure">(defprocedure restart-wait
+  {:retry {:on Throwable
+           :limit  3
+           :wait   (fn [state count]
+                     (let [t (* count 1000)]
+                       (println &quot;STATE:&quot; state &quot;WAITING&quot; t &quot;ms&quot;)
+                       t))}}
+  []
+  (println &quot;Started Function&quot;)
+  (throw (Exception. &quot;Hello&quot;)))</code></pre>
+</div><div><p>Instead of using a fixed value for the wait time, it is controllable by passing a function taking two parameters: <code>state</code> (which is used to hold data about the current status of the retries) and <code>count</code> (the number of retries attempted). The output of this function is shown below:</p>
+</div><div class="code">
+    <pre><code class="clojure">@(restart-wait)
+;; Started Function
+;; STATE: nil WAITING 0 ms
+;; Started Function
+;; STATE: nil WAITING 1000 ms
+;; Started Function
+;; STATE: nil WAITING 2000 ms
+;; Started Function
+;; Exception Hello</code></pre>
+</div><div>
+    <span id="arguments"></span>
+    <h3>4.3 &nbsp;&nbsp; Arguments</h3>
+</div><div><p>The difference between <code>hara.function.procedure</code> and other libraries for concurrent constructs lie in the fact that the modes of operation such as caching, timing, threads and other runtime decisions can be passed to the function itself. This also applies to retry strategies as well.  can be passed in as arguments to affect how a function is evaluated. We see an example of a procedure:</p>
+</div><div class="code">
+    <pre><code class="clojure">(defprocedure restart-args [:instance]
+  []
+  (println &quot;Started Function&quot;)
+  (throw (Exception. &quot;Hello&quot;)))</code></pre>
+</div><div><p>When it is called directly, the output is predictable:</p>
+</div><div class="code">
+    <pre><code class="clojure">@(restart-args)
+;; Started Function
+;; Exception Hello</code></pre>
+</div><div><p>When it is called with retry options, there is a very different output:</p>
+</div><div class="code">
+    <pre><code class="clojure">@(restart-args {:retry {:on Throwable
+                        :limit  3
+                        :wait   (fn [state count]
+                                  (let [t (* count 1000)]
+                                    (println &quot;WAITING&quot; t &quot;ms&quot;)
+                                    t))}})
+;; Started Function
+;; WAITING 0 ms
+;; Started Function
+;; WAITING 1000 ms
+;; Started Function
+;; WAITING 2000 ms
+;; Started Function
+;; Exception Hello</code></pre>
+</div><div><p>The advantage of this approach is significant. Most of the time, the modes of execution are hard-coded and so cannot be changed. With parameterised control of execution, how a function is run is now totally in the hands of the caller and so allows much more freedom and flexible for how systems can be defined.</p>
+</div><div>
+    <span id="handlers"></span>
+    <h3>4.4 &nbsp;&nbsp; Handlers</h3>
+</div><div><p>The retry handler mechanism is compatible with <code>hara.event</code> and offers the same semanitics for querying on exception data. Notice that multiple handlers can be set up for the procedure.</p>
+</div><div class="code">
+    <pre><code class="clojure">(defprocedure restart-cats
+  {:arglist [:instance]
+   :retry {:handlers [{:on    {:cats odd?}
+                       :apply (fn [state e]
+                                (-&gt; state
+                                    (update-in [:types (type e)] (fnil inc 0))
+                                    (update-in [:total]
+                                               (fnil (fn [out]
+                                                       (if (&gt; 0.3 (rand))
+                                                         (inc out)
+                                                         out))
+                                                     0))))
+                       :wait  100
+                       :limit 100}]}}
+  [instance]
+  (println (-&gt; instance :retry :count)
+           (-&gt; instance :retry :state))
+  (if-let [res (-&gt; instance :retry :state :total)]
+    (if (&lt; res 5)
+      (throw (ex-info &quot;Cats&quot; {:cats 3})))
+    (throw (ex-info &quot;Cats&quot; {:cats 3}))))</code></pre>
+</div><div><p>We can see the results of the output:</p>
+</div><div class="code">
+    <pre><code class="clojure">@(restart-cats {})
+;; nil nil
+;; 1 {:total 1, :types {clojure.lang.ExceptionInfo 1}}
+;; 2 {:total 2, :types {clojure.lang.ExceptionInfo 2}}
+;; 3 {:total 3, :types {clojure.lang.ExceptionInfo 3}}
+;; 4 {:total 3, :types {clojure.lang.ExceptionInfo 4}}
+;; 5 {:total 3, :types {clojure.lang.ExceptionInfo 5}}
+;; 6 {:total 3, :types {clojure.lang.ExceptionInfo 6}}
+;; 7 {:total 4, :types {clojure.lang.ExceptionInfo 7}}
+;; 8 {:total 4, :types {clojure.lang.ExceptionInfo 8}}
+;; 9 {:total 4, :types {clojure.lang.ExceptionInfo 9}}
+;; 10 {:total 4, :types {clojure.lang.ExceptionInfo 10}}
+;; 11 {:total 5, :types {clojure.lang.ExceptionInfo 11}}</code></pre>
+</div><div><p>Lets talk a little about <code>state</code>. In many failure scenarios, there are particular strategies that one needs to apply in order to mitigate a particular situation. <code>:apply</code> is a way to manipulate the state based upon the previous state and the exception that occurred. Using a combination of <code>:apply</code> and <code>:wait</code> will allow most retry strategies to be expressed.</p>
+</div><div><p>Some more sample <code>:handlers</code> can be seen below. The parameters outside of the <code>:handlers</code> vector are default values.</p>
+</div><div class="code">
+    <pre><code class="clojure">{:retry {:handlers [{:on #{Exception}
+                     :apply   (fn [state e])
+                     :limit   (fn [state count])
+                     :wait    (fn [state count])}
+                    {:on Error
+                     :apply   (fn [state e])
+                     :limit   :no}
+                    {:on     (fn [e] (instance? Throwable e))
+                     :apply  (fn [state e])
+                     :limit  :no}]
+         :on Throwable
+         :count 0
+         :state  {:a 1 :b 2}
+         :limit 10
+         :wait  100}}</code></pre>
+</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outline">
+      <div class="toc">
+        <nav data-gumshoe-header>
+          <ul data-gumshoe>
+            <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#api"><h4>2 &nbsp; API</h4></a><a class="section" data-scroll="" href="#entry__hara_function_procedure__defprocedure"><h5><i>defprocedure</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function_procedure__procedure"><h5><i>procedure</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function_procedure__procedure_kill"><h5><i>procedure-kill</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function_procedure__procedure_running_QMARK_"><h5><i>procedure-running?</i></h5></a></li><li><a class="chapter" data-scroll="" href="#features"><h4>3 &nbsp; Features</h4></a><a class="section" data-scroll="" href="#basics"><h5><i>3.1 &nbsp; Basics</i></h5></a><a class="section" data-scroll="" href="#mode"><h5><i>3.2 &nbsp; Mode</i></h5></a><a class="section" data-scroll="" href="#control-of-execution"><h5><i>3.3 &nbsp; Control of Execution</i></h5></a><a class="section" data-scroll="" href="#instance"><h5><i>3.4 &nbsp; Instance</i></h5></a><a class="section" data-scroll="" href="#runtime-and-registry"><h5><i>3.5 &nbsp; Runtime and Registry</i></h5></a><a class="section" data-scroll="" href="#identity-and-caching"><h5><i>3.6 &nbsp; Identity and Caching</i></h5></a><a class="section" data-scroll="" href="#intermission"><h5><i>3.7 &nbsp; Intermission</i></h5></a><a class="section" data-scroll="" href="#overwrite"><h5><i>3.8 &nbsp; Overwrite</i></h5></a><a class="section" data-scroll="" href="#interrupt"><h5><i>3.9 &nbsp; Interrupt</i></h5></a><a class="section" data-scroll="" href="#time"><h5><i>3.10 &nbsp; Time</i></h5></a></li><li><a class="chapter" data-scroll="" href="#retries"><h4>4 &nbsp; Retries</h4></a><a class="section" data-scroll="" href="#simple"><h5><i>4.1 &nbsp; Simple</i></h5></a><a class="section" data-scroll="" href="#wait"><h5><i>4.2 &nbsp; Wait</i></h5></a><a class="section" data-scroll="" href="#arguments"><h5><i>4.3 &nbsp; Arguments</i></h5></a><a class="section" data-scroll="" href="#handlers"><h5><i>4.4 &nbsp; Handlers</i></h5></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    
+    <!--label for="sidebar-checkbox" class="sidebar-toggle"></label-->
+
+  </body>
+
+  <script>
+  if (true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-31320512-2', 'caudate.me');
+    ga('send', 'pageview');
+  }
+  </script>
+  
+  <script type="text/javascript">
+    smoothScroll.init();
+    gumshoe.init({});
+  
+    hljs.registerLanguage("clojure",function(e){var t={"builtin-name":"def defonce cond apply if-not if-let if not not= = < > <= >= == + / * - rem quot neg? pos? delay? symbol? keyword? true? false? integer? empty? coll? list? set? ifn? fn? associative? sequential? sorted? counted? reversible? number? decimal? class? distinct? isa? float? rational? reduced? ratio? odd? even? char? seq? vector? string? map? nil? contains? zero? instance? not-every? not-any? libspec? -> ->> .. . inc compare do dotimes mapcat take remove take-while drop letfn drop-last take-last drop-while while intern condp case reduced cycle split-at split-with repeat replicate iterate range merge zipmap declare line-seq sort comparator sort-by dorun doall nthnext nthrest partition eval doseq await await-for let agent atom send send-off release-pending-sends add-watch mapv filterv remove-watch agent-error restart-agent set-error-handler error-handler set-error-mode! error-mode shutdown-agents quote var fn loop recur throw try monitor-enter monitor-exit defmacro defn defn- macroexpand macroexpand-1 for dosync and or when when-not when-let comp juxt partial sequence memoize constantly complement identity assert peek pop doto proxy defstruct first rest cons defprotocol cast coll deftype defrecord last butlast sigs reify second ffirst fnext nfirst nnext defmulti defmethod meta with-meta ns in-ns create-ns import refer keys select-keys vals key val rseq name namespace promise into transient persistent! conj! assoc! dissoc! pop! disj! use class type num float double short byte boolean bigint biginteger bigdec print-method print-dup throw-if printf format load compile get-in update-in pr pr-on newline flush read slurp read-line subvec with-open memfn time re-find re-groups rand-int rand mod locking assert-valid-fdecl alias resolve ref deref refset swap! reset! set-validator! compare-and-set! alter-meta! reset-meta! commute get-validator alter ref-set ref-history-count ref-min-history ref-max-history ensure sync io! new next conj set! to-array future future-call into-array aset gen-class reduce map filter find empty hash-map hash-set sorted-map sorted-map-by sorted-set sorted-set-by vec vector seq flatten reverse assoc dissoc list disj get union difference intersection extend extend-type extend-protocol int nth delay count concat chunk chunk-buffer chunk-append chunk-first chunk-rest max min dec unchecked-inc-int unchecked-inc unchecked-dec-inc unchecked-dec unchecked-negate unchecked-add-int unchecked-add unchecked-subtract-int unchecked-subtract chunk-next chunk-cons chunked-seq? prn vary-meta lazy-seq spread list* str find-keyword keyword symbol gensym force rationalize"},r="a-zA-Z_\\-!.?+*=<>&#'",n="["+r+"]["+r+"0-9/;:]*",a="[-+]?\\d+(\\.\\d+)?",o={b:n,r:0},s={cN:"number",b:a,r:0},i=e.inherit(e.QSM,{i:null}),c=e.C(";","$",{r:0}),d={cN:"literal",b:/\b(true|false|nil)\b/},l={b:"[\\[\\{]",e:"[\\]\\}]"},m={cN:"comment",b:"\\^"+n},p=e.C("\\^\\{","\\}"),u={cN:"symbol",b:"[:]{1,2}"+n},f={b:"\\(",e:"\\)"},h={eW:!0,r:0},y={k:t,l:n,cN:"name",b:n,starts:h},b=[f,i,m,p,c,u,l,s,d,o];return f.c=[e.C("comment",""),y,h],h.c=b,l.c=b,{aliases:["clj"],i:/\S/,c:[f,i,m,p,c,u,l,s,d]}});
+    hljs.initHighlightingOnLoad();
+  </script>
+</html>

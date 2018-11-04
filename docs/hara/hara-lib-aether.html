@@ -1,0 +1,594 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <link rel="shortcut icon" href="favicon.ico">
+  <title>hara.lib.aether - interface for org.eclipse.aether</title>
+  <script src="js/highlight.min.js"></script>
+  <script src="js/gumshoe.min.js"></script>
+  <script src="js/smooth-scroll.min.js"></script>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/poole.css">
+  <link rel="stylesheet" href="css/syntax.css">
+  <link rel="stylesheet" href="css/lanyon.css">
+  <link rel="stylesheet" href="css/bolton.css">
+  <link rel="stylesheet" href="css/bolton-api.css">
+  <link rel="stylesheet" href="css/bolton-highlight.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  
+</head>
+
+  <body class="theme-base-0b">
+    <span id="page-top"></span>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <nav class="sidebar-nav">
+    <span>&nbsp;</span>
+    <a class="sidebar-nav-item header" href="index.html" style="padding-bottom:5px"><b>HOME</b></a>
+    <a class="sidebar-nav-item" href="hara-config.html">config</a><a class="sidebar-nav-item" href="hara-core.html">core</a><a class="sidebar-nav-item" href="hara-data.html">data</a><a class="sidebar-nav-item" href="hara-deploy.html">deploy</a><a class="sidebar-nav-item" href="hara-event.html">event</a><a class="sidebar-nav-item" href="hara-function.html">function</a><a class="sidebar-nav-item" href="hara-function-procedure.html">function.procedure</a><a class="sidebar-nav-item" href="hara-function-task.html">function.task</a><a class="sidebar-nav-item" href="hara-io-archive.html">io.archive</a><a class="sidebar-nav-item" href="hara-io-file.html">io.file</a><a class="sidebar-nav-item" href="hara-io-project.html">io.project</a><a class="sidebar-nav-item" href="hara-io-scheduler.html">io.scheduler</a><a class="sidebar-nav-item" href="hara-lib-aether.html">lib.aether</a><a class="sidebar-nav-item" href="hara-lib-jgit.html">lib.jgit</a><a class="sidebar-nav-item" href="hara-math.html">math</a><a class="sidebar-nav-item" href="hara-module.html">module</a><a class="sidebar-nav-item" href="hara-object.html">object</a><a class="sidebar-nav-item" href="hara-print.html">print</a><a class="sidebar-nav-item" href="hara-security.html">security</a><a class="sidebar-nav-item" href="hara-security-openpgp.html">security.openpgp</a><a class="sidebar-nav-item" href="hara-state.html">state</a><a class="sidebar-nav-item" href="hara-state-ova.html">state.ova</a><a class="sidebar-nav-item" href="hara-string.html">string</a><a class="sidebar-nav-item" href="hara-test.html">test</a><a class="sidebar-nav-item" href="hara-time.html">time</a><a class="sidebar-nav-item" href="hara-watch.html">watch</a>
+    <span class="sidebar-nav-item">&nbsp;</span>
+    <span class="sidebar-nav-item">&nbsp;</span>
+  </nav>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <span>lib.aether</span>
+            <small>interface for org.eclipse.aether</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="page">
+          <div class="heading">
+            <div>
+              <h5>Author: Chris Zheng&nbsp;&nbsp;<a href="mailto:z@caudate.me">(z@caudate.me)</a></h5>
+              <h5>Date: 04 November 2018</h5>
+              <h5>Repository: <a href="https://github.com/zcaudate/hara">https://github.com/zcaudate/hara</a></h5>
+              <h5>Version: 3.0.1</h5></div></div>
+          <hr/>
+
+          <div class="toc">
+              <nav>
+                <ul>
+                  <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#api"><h4>2 &nbsp; API</h4></a><a class="section" data-scroll="" href="#entry__hara_lib_aether__aether"><h5><i>aether</i></h5></a><a class="section" data-scroll="" href="#entry__hara_lib_aether__artifact__GT_dependency"><h5><i>artifact->dependency</i></h5></a><a class="section" data-scroll="" href="#entry__hara_lib_aether__collect_dependencies"><h5><i>collect-dependencies</i></h5></a><a class="section" data-scroll="" href="#entry__hara_lib_aether__deploy_artifact"><h5><i>deploy-artifact</i></h5></a><a class="section" data-scroll="" href="#entry__hara_lib_aether__install_artifact"><h5><i>install-artifact</i></h5></a><a class="section" data-scroll="" href="#entry__hara_lib_aether__outdated_QMARK_"><h5><i>outdated?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_lib_aether__populate_artifact"><h5><i>populate-artifact</i></h5></a><a class="section" data-scroll="" href="#entry__hara_lib_aether__pull"><h5><i>pull</i></h5></a><a class="section" data-scroll="" href="#entry__hara_lib_aether__push"><h5><i>push</i></h5></a><a class="section" data-scroll="" href="#entry__hara_lib_aether__resolve_dependencies"><h5><i>resolve-dependencies</i></h5></a><a class="section" data-scroll="" href="#entry__hara_lib_aether__resolve_versions"><h5><i>resolve-versions</i></h5></a></li>
+                </ul>
+              </nav>
+          </div>
+          <div>
+    <span id="introduction"></span>
+    <h2><b>1 &nbsp;&nbsp; Introduction</b></h2>
+</div><div><p><a href='https://github.com/caudata/hara/blob/master/src/hara/lib/aether.clj'>hara.lib.aether</a> is used to as an interface to manage dependencies. It is meant as an alternative to <a href='https://github.com/cemerick/pomegranate'>pomegranate</a> for package installation, dependency resolution and other tasks.</p>
+</div><div>
+    <span id="installation"></span>
+    <h3>1.1 &nbsp;&nbsp; Installation</h3>
+</div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;hara/lib.aether &quot;3.0.1&quot;&#93;</code></pre>
+</div><div><p>All functions are in the <code>hara.lib.aether</code> namespace.      </p><pre><code> &#40;use &#40;quote hara.lib.aether&#41;&#41;</code></pre>
+</div><div>
+    <span id="api"></span>
+    <h2><b>2 &nbsp;&nbsp; API</b></h2>
+</div><div class="api">
+    <span id="entry__hara_lib_aether__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_lib_aether__aether">aether</a></li>
+            <li><a data-scroll="" href="#entry__hara_lib_aether__artifact__GT_dependency">artifact->dependency</a></li>
+            <li><a data-scroll="" href="#entry__hara_lib_aether__collect_dependencies">collect-dependencies</a></li>
+            <li><a data-scroll="" href="#entry__hara_lib_aether__deploy_artifact">deploy-artifact</a></li>
+            <li><a data-scroll="" href="#entry__hara_lib_aether__install_artifact">install-artifact</a></li>
+            <li><a data-scroll="" href="#entry__hara_lib_aether__outdated_QMARK_">outdated?</a></li>
+            <li><a data-scroll="" href="#entry__hara_lib_aether__populate_artifact">populate-artifact</a></li>
+            <li><a data-scroll="" href="#entry__hara_lib_aether__pull">pull</a></li>
+            <li><a data-scroll="" href="#entry__hara_lib_aether__push">push</a></li>
+            <li><a data-scroll="" href="#entry__hara_lib_aether__resolve_dependencies">resolve-dependencies</a></li>
+            <li><a data-scroll="" href="#entry__hara_lib_aether__resolve_versions">resolve-versions</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_lib_aether__aether"></span>
+                <div class="entry-description">
+                    <h4><b>aether&nbsp<a data-scroll="" href="#entry__hara_lib_aether__">^</a></b></h4>
+                    <p><i>creates an `Aether` object</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/lib/aether/base.clj#L22-L46" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_lib_aether__aether">
+                        <label class="source-toggle" for="entry__pre_hara_lib_aether__aether"></label>
+                        <pre class="source"><code class="clojure">(defn aether
+  ([] (aether {}))
+  ([config]
+   (let [system  (system/repository-system)
+         session (->> (select-keys config [:local-repo])
+                      (session/session system))]
+     (-> +defaults+
+         (merge {:system system
+                 :session session})
+         (map->Aether)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/lib/aether/base_test.clj#L7-L20" target="_blank">link</a></i></h6><code class="clojure">(aether)
+=> (contains-in
+    {:repositories (contains [{:id "clojars",
+                               :type "default",
+                               :url "https://clojars.org/repo"}
+                              {:id "central",
+                               :type "default",
+                               :url "https://repo1.maven.org/maven2/"}]
+                             :in-any-order
+                             :gaps-ok),
+     :system org.eclipse.aether.RepositorySystem
+     :session org.eclipse.aether.RepositorySystemSession})</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_lib_aether__artifact__GT_dependency"></span>
+                <div class="entry-description">
+                    <h4><b>artifact->dependency&nbsp<a data-scroll="" href="#entry__hara_lib_aether__">^</a></b></h4>
+                    <p><i>converts an artifact to a dependency</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/lib/aether.clj#L17-L40" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_lib_aether__artifact__GT_dependency">
+                        <label class="source-toggle" for="entry__pre_hara_lib_aether__artifact__GT_dependency"></label>
+                        <pre class="source"><code class="clojure">(defn artifact->dependency
+  [artifact]
+  (let [coord (cond (artifact/coord? artifact)
+                    artifact
+                    
+                    (map? artifact)
+                    (apply vector (:name artifact) (:version artifact)
+                           (mapcat identity (dissoc artifact :name :version)))
+
+                    :else
+                    (artifact/artifact :coord artifact))
+        [name version & {:keys [scope exclusions]}] coord]
+    (object/from-data {:artifact [name version]
+                       :scope scope
+                       :exclusions exclusions}
+                      Dependency)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/lib/aether_test.clj#L6-L12" target="_blank">link</a></i></h6><code class="clojure">(artifact->dependency '[org.clojure/clojure "1.8.0" :scope "compile" :exclusions [org.asm/compile]])
+;; #dep{:artifact "org.clojure:clojure:jar:1.8.0",
+;;      :exclusions ["org.asm:compile:jar:"],
+;;      :optional false, :scope "compile", :optional? false}
+=> org.eclipse.aether.graph.Dependency</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_lib_aether__collect_dependencies"></span>
+                <div class="entry-description">
+                    <h4><b>collect-dependencies&nbsp<a data-scroll="" href="#entry__hara_lib_aether__">^</a></b></h4>
+                    <p><i>getting the dependencies of a repo using pom files</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/lib/aether.clj#L67-L95" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_lib_aether__collect_dependencies">
+                        <label class="source-toggle" for="entry__pre_hara_lib_aether__collect_dependencies"></label>
+                        <pre class="source"><code class="clojure">(defn collect-dependencies
+  ([coords]
+   (collect-dependencies coords {}))
+  ([coords opts]
+   (collect-dependencies (base/aether) coords opts))
+  ([{:keys [system session repositories]} coords opts]
+   (binding [listener/*progress* (atom [])
+             listener/*pairs* (atom {})]
+     (let [opts   (nested/merge-nested {:type :defalut
+                                        :return :hierarchy
+                                        :print {:hierarchy true
+                                                :title true
+                                                :timing true}}
+                                       opts)
+           reqm   (cond (and (sequential? coords)
+                             (not (artifact/coord? coords)))
+                        {:dependencies (mapv artifact->dependency coords)}
+
+                        :else
+                        {:root (artifact->dependency coords)})
+           request (request/collect-request
+                    (assoc reqm :repositories repositories))]
+       (if (-> opts :print :title)
+         (print/print-title "COLLECTING DEPENDENCIES")
+         (clojure.core/print "n"))
+       (-> (.collectDependencies system session request)
+           (result/return-deps @listener/*progress* opts))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/lib/aether_test.clj#L34-L37" target="_blank">link</a></i></h6><code class="clojure">(collect-dependencies '[prismatic/schema "1.1.3"] {:type :coord})
+=> '[[prismatic/schema "1.1.3"]]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_lib_aether__deploy_artifact"></span>
+                <div class="entry-description">
+                    <h4><b>deploy-artifact&nbsp<a data-scroll="" href="#entry__hara_lib_aether__">^</a></b></h4>
+                    <p><i>deploys artifacts to the given coordinate</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/lib/aether.clj#L177-L210" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_lib_aether__deploy_artifact">
+                        <label class="source-toggle" for="entry__pre_hara_lib_aether__deploy_artifact"></label>
+                        <pre class="source"><code class="clojure">(defn deploy-artifact
+  ([coord {:keys [artifacts repository] :as opts}]
+   (deploy-artifact (base/aether) coord opts))
+  ([{:keys [system session]} coord {:keys [artifacts repository] :as opts}]
+   (binding [listener/*progress* (atom [])
+             listener/*pairs* (atom {})]
+     (let [opts   (nested/merge-nested {:type :default
+                                        :print {:title true
+                                                :timing true}}
+                                       opts)
+           opts (populate-artifact coord opts)
+           request (request/deploy-request opts)]
+       (if (-> opts :print :title)
+         (print/print-title "DEPLOYING ARTIFACTS")
+         (clojure.core/print "n"))
+       (-> (.deploy system session request)
+           (result/return @listener/*progress* opts))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/lib/aether_test.clj#L76-L91" target="_blank">link</a></i></h6><code class="clojure">(deploy-artifact
+ '[hara/hara.module.artifact "2.4.8"]
+ {:artifacts [{:file "hara.module.artifact-2.4.8.jar"
+               :extension "jar"}
+              {:file "hara.module.artifact-2.4.8.pom"
+               :extension "pom"}
+              {:file "hara.module.artifact-2.4.8.pom.asc"
+               :extension "pom.asc"}
+              {:file "hara.module.artifact-2.4.8.jar.asc"
+               :extension "jar.asc"}]
+  :repository {:id "clojars"
+               :url "https://clojars.org/repo/"
+               :authentication {:username "zcaudate"
+                                :password "hello"}}})</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_lib_aether__install_artifact"></span>
+                <div class="entry-description">
+                    <h4><b>install-artifact&nbsp<a data-scroll="" href="#entry__hara_lib_aether__">^</a></b></h4>
+                    <p><i>installs artifacts to the given coordinate</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/lib/aether.clj#L150-L175" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_lib_aether__install_artifact">
+                        <label class="source-toggle" for="entry__pre_hara_lib_aether__install_artifact"></label>
+                        <pre class="source"><code class="clojure">(defn install-artifact
+  ([coord {:keys [artifacts] :as opts}]
+   (install-artifact (base/aether) coord opts))
+  ([{:keys [system session]} coord {:keys [artifacts] :as opts}]
+   (binding [listener/*progress* (atom [])
+             listener/*pairs* (atom {})]
+     (let [opts   (nested/merge-nested {:type :default
+                                        :print {:title true
+                                                :timing true}}
+                                       opts)
+           opts (populate-artifact coord opts)
+           request (request/install-request opts)]
+       (if (-> opts :print :title)
+         (print/print-title "INSTALLING ARTIFACTS")
+         (clojure.core/print "n"))
+       (-> (.install system session request)
+           (result/return @listener/*progress* opts))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/lib/aether_test.clj#L66-L73" target="_blank">link</a></i></h6><code class="clojure">(install-artifact
+ '[im.chit/hara.module.artifact "2.4.8"]
+ {:artifacts [{:file "hara.module.artifact-2.4.8.jar"
+               :extension "jar"}
+              {:file "hara.module.artifact-2.4.8.pom"
+               :extension "pom"}]})</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_lib_aether__outdated_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>outdated?&nbsp<a data-scroll="" href="#entry__hara_lib_aether__">^</a></b></h4>
+                    <p><i>checks if a set of artifacts are outdated</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/lib/aether.clj#L305-L327" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_lib_aether__outdated_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_lib_aether__outdated_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn outdated?
+  ([coords]
+   (outdated? coords {}))
+  ([coords opts]
+   (outdated? (base/aether) coords opts))
+  ([aether coords opts]
+   (let [opts    (nested/merge-nested opts {:print {:results true}})
+         reps    (mapv artifact/artifact coords)
+         inputs  (map #(assoc % :version "LATEST") reps)
+         latest  (resolve-versions aether inputs opts)
+         results (->> (mapv (fn [in new]
+                              (if (not= (:version in)
+                                        (:version new))
+                                [(first (artifact/artifact :coord in)) (:version in)  '=> (:version new)]))
+                            reps latest)
+                      (filterv identity))]
+     (cond-> results
+       (and (seq results) (-> opts :print :results)) (doto prn)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/lib/aether_test.clj#L124-L127" target="_blank">link</a></i></h6><code class="clojure">(outdated? '[[binaryage/devtools "0.9.7"]])
+=> (contains-in [['binaryage/devtools "0.9.7" '=> string?]])</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_lib_aether__populate_artifact"></span>
+                <div class="entry-description">
+                    <h4><b>populate-artifact&nbsp<a data-scroll="" href="#entry__hara_lib_aether__">^</a></b></h4>
+                    <p><i>allows coordinate to fill rest of values</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/lib/aether.clj#L42-L65" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_lib_aether__populate_artifact">
+                        <label class="source-toggle" for="entry__pre_hara_lib_aether__populate_artifact"></label>
+                        <pre class="source"><code class="clojure">(defn populate-artifact
+  [coord opts]
+  (let [root (-> (artifact/artifact coord)
+                 (select-keys [:artifact :group :version]))]
+    opts (update-in opts [:artifacts]
+                    (fn [arr] (mapv #(merge % root) arr)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/lib/aether_test.clj#L15-L31" target="_blank">link</a></i></h6><code class="clojure">(populate-artifact '[midje "1.6.3"]
+                   {:artifacts [{:extension "pom"
+                                 :file "midje.pom"}
+                                {:extension "jar"
+                                 :file "midje.jar"}]})
+=> {:artifacts [{:extension "pom",
+                 :file "midje.pom",
+                 :artifact "midje",
+                 :group "midje",
+                 :version "1.6.3"}
+                {:extension "jar",
+                 :file "midje.jar",
+                 :artifact "midje",
+                 :group "midje",
+                 :version "1.6.3"}]}</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_lib_aether__pull"></span>
+                <div class="entry-description">
+                    <h4><b>pull&nbsp<a data-scroll="" href="#entry__hara_lib_aether__">^</a></b></h4>
+                    <p><i>resolves the coordinate from maven and loads dependency into classpath</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/lib/aether.clj#L212-L238" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_lib_aether__pull">
+                        <label class="source-toggle" for="entry__pre_hara_lib_aether__pull"></label>
+                        <pre class="source"><code class="clojure">(defn pull
+  ([coords]
+   (pull coords {}))
+  ([coords opts]
+   (pull (base/aether) coords opts))
+  ([{:keys [loader] :as aether} coords {:keys [keep renew nodeps] :as opts}]
+   (let [loader    (or loader classloader/+base+)
+         coords    (if (or (not (vector? coords))
+                           (artifact/coord? coords))
+                     [coords]
+                     coords)
+         coords    (if-not renew (remove #(deps/loaded-artifact? % loader) coords))
+         coords    (if nodeps
+                     coords
+                     (resolve-dependencies aether coords {:print {:hierarchy false}}))
+         unloaded  (if-not keep (deps/unload coords loader :different))
+         loaded    (deps/load coords loader)]
+     {:artifacts coords
+      :unloaded unloaded
+      :loaded loaded})))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/lib/aether_test.clj#L94-L99" target="_blank">link</a></i></h6><code class="clojure">(pull '[[joda-time "2.9"]])</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_lib_aether__push"></span>
+                <div class="entry-description">
+                    <h4><b>push&nbsp<a data-scroll="" href="#entry__hara_lib_aether__">^</a></b></h4>
+                    <p><i>gets rid of a dependency that is not needed</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/lib/aether.clj#L240-L272" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_lib_aether__push">
+                        <label class="source-toggle" for="entry__pre_hara_lib_aether__push"></label>
+                        <pre class="source"><code class="clojure">(defn push
+  ([coords]
+   (push coords {}))
+  ([coords opts]
+   (push (base/aether) coords opts))
+  ([{:keys [loader] :as aether} coords {:keys [clean simulate nodeps] :as opts}]
+   (let [loader  (or loader classloader/+base+)
+         coords    (if (or (not (vector? coords))
+                           (artifact/coord? coords))
+                     [coords]
+                     coords)
+         coords  (if nodeps
+                   coords
+                   (collect-dependencies aether coords {:return :resolved
+                                                        :print {:hierarchy false}}))
+         unloaded (if-not simulate (deps/unload coords loader :same))
+         cleaned  (mapcat (fn [coord]
+                            (case clean
+                              :none     nil
+                              :artifact (deps/clean coord (assoc opts :full false))
+                              :full     (deps/clean coord (assoc opts :full true))
+                              nil))
+                          coords)]
+     {:artifacts coords
+      :unloaded unloaded
+      :cleaned cleaned})))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/lib/aether_test.clj#L102-L109" target="_blank">link</a></i></h6><code class="clojure">(push '[[joda-time "2.9"]])</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_lib_aether__resolve_dependencies"></span>
+                <div class="entry-description">
+                    <h4><b>resolve-dependencies&nbsp<a data-scroll="" href="#entry__hara_lib_aether__">^</a></b></h4>
+                    <p><i>resolves maven dependencies for a set of coordinates</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/lib/aether.clj#L97-L148" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_lib_aether__resolve_dependencies">
+                        <label class="source-toggle" for="entry__pre_hara_lib_aether__resolve_dependencies"></label>
+                        <pre class="source"><code class="clojure">(defn resolve-dependencies
+  ([coords]
+   (resolve-dependencies coords {}))
+  ([coords opts]
+   (resolve-dependencies (base/aether) coords opts))
+  ([{:keys [system session repositories]} coords opts]
+   (binding [listener/*progress* (atom [])
+             listener/*pairs* (atom {})]
+     (let [opts   (nested/merge-nested {:type :default
+                                        :return :resolved
+                                        :print {:hierarchy true
+                                                :title true
+                                                :timing true}}
+                                       opts)
+           reqm   (cond (and (sequential? coords)
+                             (not (artifact/coord? coords)))
+                        {:dependencies (mapv artifact->dependency coords)}
+
+                        :else
+                        {:root (artifact->dependency coords)})
+           request (request/dependency-request
+                    (assoc reqm :repositories repositories))]
+       (if (-> opts :print :title)
+         (print/print-title "RESOLVING DEPENDENCIES")
+         (clojure.core/print "n"))
+       (-> (.resolveDependencies system session request)
+           (result/return-deps @listener/*progress* opts))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/lib/aether_test.clj#L40-L63" target="_blank">link</a></i></h6><code class="clojure">(resolve-dependencies '[prismatic/schema "1.1.3"] {:type :coord})
+=> '[[prismatic/schema "1.1.3"]]
+
+(vec (sort (resolve-dependencies '[midje "1.6.3"] {:type :coord})))
+=>  '[[clj-time/clj-time "0.6.0"]
+      [colorize/colorize "0.1.1"]
+      [commons-codec/commons-codec "1.9"]
+      [dynapath/dynapath "0.2.0"]
+      [gui-diff/gui-diff "0.5.0"]
+      [joda-time/joda-time "2.2"]
+      [midje/midje "1.6.3"]
+      [net.cgrand/parsley "0.9.1"]
+      [net.cgrand/regex "1.1.0"]
+      [ordered/ordered "1.2.0"]
+      [org.clojars.trptcolin/sjacket "0.1.3"]
+      [org.clojure/core.unify "0.5.2"]
+      [org.clojure/math.combinatorics "0.0.7"]
+      [org.clojure/tools.macro "0.1.5"]
+      [org.clojure/tools.namespace "0.2.4"]
+      [slingshot/slingshot "0.10.3"]
+      [swiss-arrows/swiss-arrows "1.0.0"]
+      [utilize/utilize "0.2.3"]]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_lib_aether__resolve_versions"></span>
+                <div class="entry-description">
+                    <h4><b>resolve-versions&nbsp<a data-scroll="" href="#entry__hara_lib_aether__">^</a></b></h4>
+                    <p><i>checks for given version of artifacts</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/lib/aether.clj#L274-L303" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_lib_aether__resolve_versions">
+                        <label class="source-toggle" for="entry__pre_hara_lib_aether__resolve_versions"></label>
+                        <pre class="source"><code class="clojure">(defn resolve-versions
+  ([coords]
+   (resolve-versions coords {}))
+  ([coords opts]
+   (resolve-versions (base/aether) coords opts))
+  ([{:keys [system session repositories]} coords opts]
+   (binding [listener/*progress* (atom [])
+             listener/*pairs* (atom {})]
+     (let [opts   (nested/merge-nested {:type :default
+                                        :print {:title true
+                                                :timing true}}
+                                       opts)]
+       (if (-> opts :print :title)
+         (print/print-title "RESOLVE VERSIONS")
+         (clojure.core/print "n"))
+       (-> (keep (fn [coord]
+                   (let [request (request/version-request {:artifact (artifact/artifact coord)
+                                                           :repositories repositories})]
+                     (try (.resolveVersion system session request)
+                          (catch Throwable t
+                            (println "Not Resolved:" coord)))))
+                 coords)
+           (result/return @listener/*progress* opts))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/lib/aether_test.clj#L112-L121" target="_blank">link</a></i></h6><code class="clojure">(resolve-versions '[[lein-monolith "LATEST"]
+                    [org.clojure/clojure "LATEST"]])
+=> (contains-in [{:group "lein-monolith", 
+                  :artifact "lein-monolith", 
+                  :version string?}
+                 {:group "org.clojure", 
+                  :artifact "clojure", 
+                  :version string?}])</code></pre>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outline">
+      <div class="toc">
+        <nav data-gumshoe-header>
+          <ul data-gumshoe>
+            <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#api"><h4>2 &nbsp; API</h4></a><a class="section" data-scroll="" href="#entry__hara_lib_aether__aether"><h5><i>aether</i></h5></a><a class="section" data-scroll="" href="#entry__hara_lib_aether__artifact__GT_dependency"><h5><i>artifact->dependency</i></h5></a><a class="section" data-scroll="" href="#entry__hara_lib_aether__collect_dependencies"><h5><i>collect-dependencies</i></h5></a><a class="section" data-scroll="" href="#entry__hara_lib_aether__deploy_artifact"><h5><i>deploy-artifact</i></h5></a><a class="section" data-scroll="" href="#entry__hara_lib_aether__install_artifact"><h5><i>install-artifact</i></h5></a><a class="section" data-scroll="" href="#entry__hara_lib_aether__outdated_QMARK_"><h5><i>outdated?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_lib_aether__populate_artifact"><h5><i>populate-artifact</i></h5></a><a class="section" data-scroll="" href="#entry__hara_lib_aether__pull"><h5><i>pull</i></h5></a><a class="section" data-scroll="" href="#entry__hara_lib_aether__push"><h5><i>push</i></h5></a><a class="section" data-scroll="" href="#entry__hara_lib_aether__resolve_dependencies"><h5><i>resolve-dependencies</i></h5></a><a class="section" data-scroll="" href="#entry__hara_lib_aether__resolve_versions"><h5><i>resolve-versions</i></h5></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    
+    <!--label for="sidebar-checkbox" class="sidebar-toggle"></label-->
+
+  </body>
+
+  <script>
+  if (true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-31320512-2', 'caudate.me');
+    ga('send', 'pageview');
+  }
+  </script>
+  
+  <script type="text/javascript">
+    smoothScroll.init();
+    gumshoe.init({});
+  
+    hljs.registerLanguage("clojure",function(e){var t={"builtin-name":"def defonce cond apply if-not if-let if not not= = < > <= >= == + / * - rem quot neg? pos? delay? symbol? keyword? true? false? integer? empty? coll? list? set? ifn? fn? associative? sequential? sorted? counted? reversible? number? decimal? class? distinct? isa? float? rational? reduced? ratio? odd? even? char? seq? vector? string? map? nil? contains? zero? instance? not-every? not-any? libspec? -> ->> .. . inc compare do dotimes mapcat take remove take-while drop letfn drop-last take-last drop-while while intern condp case reduced cycle split-at split-with repeat replicate iterate range merge zipmap declare line-seq sort comparator sort-by dorun doall nthnext nthrest partition eval doseq await await-for let agent atom send send-off release-pending-sends add-watch mapv filterv remove-watch agent-error restart-agent set-error-handler error-handler set-error-mode! error-mode shutdown-agents quote var fn loop recur throw try monitor-enter monitor-exit defmacro defn defn- macroexpand macroexpand-1 for dosync and or when when-not when-let comp juxt partial sequence memoize constantly complement identity assert peek pop doto proxy defstruct first rest cons defprotocol cast coll deftype defrecord last butlast sigs reify second ffirst fnext nfirst nnext defmulti defmethod meta with-meta ns in-ns create-ns import refer keys select-keys vals key val rseq name namespace promise into transient persistent! conj! assoc! dissoc! pop! disj! use class type num float double short byte boolean bigint biginteger bigdec print-method print-dup throw-if printf format load compile get-in update-in pr pr-on newline flush read slurp read-line subvec with-open memfn time re-find re-groups rand-int rand mod locking assert-valid-fdecl alias resolve ref deref refset swap! reset! set-validator! compare-and-set! alter-meta! reset-meta! commute get-validator alter ref-set ref-history-count ref-min-history ref-max-history ensure sync io! new next conj set! to-array future future-call into-array aset gen-class reduce map filter find empty hash-map hash-set sorted-map sorted-map-by sorted-set sorted-set-by vec vector seq flatten reverse assoc dissoc list disj get union difference intersection extend extend-type extend-protocol int nth delay count concat chunk chunk-buffer chunk-append chunk-first chunk-rest max min dec unchecked-inc-int unchecked-inc unchecked-dec-inc unchecked-dec unchecked-negate unchecked-add-int unchecked-add unchecked-subtract-int unchecked-subtract chunk-next chunk-cons chunked-seq? prn vary-meta lazy-seq spread list* str find-keyword keyword symbol gensym force rationalize"},r="a-zA-Z_\\-!.?+*=<>&#'",n="["+r+"]["+r+"0-9/;:]*",a="[-+]?\\d+(\\.\\d+)?",o={b:n,r:0},s={cN:"number",b:a,r:0},i=e.inherit(e.QSM,{i:null}),c=e.C(";","$",{r:0}),d={cN:"literal",b:/\b(true|false|nil)\b/},l={b:"[\\[\\{]",e:"[\\]\\}]"},m={cN:"comment",b:"\\^"+n},p=e.C("\\^\\{","\\}"),u={cN:"symbol",b:"[:]{1,2}"+n},f={b:"\\(",e:"\\)"},h={eW:!0,r:0},y={k:t,l:n,cN:"name",b:n,starts:h},b=[f,i,m,p,c,u,l,s,d,o];return f.c=[e.C("comment",""),y,h],h.c=b,l.c=b,{aliases:["clj"],i:/\S/,c:[f,i,m,p,c,u,l,s,d]}});
+    hljs.initHighlightingOnLoad();
+  </script>
+</html>

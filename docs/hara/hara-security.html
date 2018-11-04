@@ -1,0 +1,664 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <link rel="shortcut icon" href="favicon.ico">
+  <title>hara.security - encryption and JCA</title>
+  <script src="js/highlight.min.js"></script>
+  <script src="js/gumshoe.min.js"></script>
+  <script src="js/smooth-scroll.min.js"></script>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/poole.css">
+  <link rel="stylesheet" href="css/syntax.css">
+  <link rel="stylesheet" href="css/lanyon.css">
+  <link rel="stylesheet" href="css/bolton.css">
+  <link rel="stylesheet" href="css/bolton-api.css">
+  <link rel="stylesheet" href="css/bolton-highlight.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  
+</head>
+
+  <body class="theme-base-0b">
+    <span id="page-top"></span>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <nav class="sidebar-nav">
+    <span>&nbsp;</span>
+    <a class="sidebar-nav-item header" href="index.html" style="padding-bottom:5px"><b>HOME</b></a>
+    <a class="sidebar-nav-item" href="hara-config.html">config</a><a class="sidebar-nav-item" href="hara-core.html">core</a><a class="sidebar-nav-item" href="hara-data.html">data</a><a class="sidebar-nav-item" href="hara-deploy.html">deploy</a><a class="sidebar-nav-item" href="hara-event.html">event</a><a class="sidebar-nav-item" href="hara-function.html">function</a><a class="sidebar-nav-item" href="hara-function-procedure.html">function.procedure</a><a class="sidebar-nav-item" href="hara-function-task.html">function.task</a><a class="sidebar-nav-item" href="hara-io-archive.html">io.archive</a><a class="sidebar-nav-item" href="hara-io-file.html">io.file</a><a class="sidebar-nav-item" href="hara-io-project.html">io.project</a><a class="sidebar-nav-item" href="hara-io-scheduler.html">io.scheduler</a><a class="sidebar-nav-item" href="hara-lib-aether.html">lib.aether</a><a class="sidebar-nav-item" href="hara-lib-jgit.html">lib.jgit</a><a class="sidebar-nav-item" href="hara-math.html">math</a><a class="sidebar-nav-item" href="hara-module.html">module</a><a class="sidebar-nav-item" href="hara-object.html">object</a><a class="sidebar-nav-item" href="hara-print.html">print</a><a class="sidebar-nav-item" href="hara-security.html">security</a><a class="sidebar-nav-item" href="hara-security-openpgp.html">security.openpgp</a><a class="sidebar-nav-item" href="hara-state.html">state</a><a class="sidebar-nav-item" href="hara-state-ova.html">state.ova</a><a class="sidebar-nav-item" href="hara-string.html">string</a><a class="sidebar-nav-item" href="hara-test.html">test</a><a class="sidebar-nav-item" href="hara-time.html">time</a><a class="sidebar-nav-item" href="hara-watch.html">watch</a>
+    <span class="sidebar-nav-item">&nbsp;</span>
+    <span class="sidebar-nav-item">&nbsp;</span>
+  </nav>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <span>security</span>
+            <small>encryption and JCA</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="page">
+          <div class="heading">
+            <div>
+              <h5>Author: Chris Zheng&nbsp;&nbsp;<a href="mailto:z@caudate.me">(z@caudate.me)</a></h5>
+              <h5>Date: 04 November 2018</h5>
+              <h5>Repository: <a href="https://github.com/zcaudate/hara">https://github.com/zcaudate/hara</a></h5>
+              <h5>Version: 3.0.1</h5></div></div>
+          <hr/>
+
+          <div class="toc">
+              <nav>
+                <ul>
+                  <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#general"><h4>2 &nbsp; General</h4></a><a class="section" data-scroll="" href="#entry__hara_security____GT_key"><h5><i>->key</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__decrypt"><h5><i>decrypt</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__encrypt"><h5><i>encrypt</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__generate_key"><h5><i>generate-key</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__generate_key_pair"><h5><i>generate-key-pair</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__key__GT_map"><h5><i>key->map</i></h5></a></li><li><a class="chapter" data-scroll="" href="#verify"><h4>3 &nbsp; Verify</h4></a><a class="section" data-scroll="" href="#entry__hara_security__digest"><h5><i>digest</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__hmac"><h5><i>hmac</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__sign"><h5><i>sign</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__verify"><h5><i>verify</i></h5></a></li><li><a class="chapter" data-scroll="" href="#provider"><h4>4 &nbsp; Provider</h4></a><a class="section" data-scroll="" href="#entry__hara_security__cipher"><h5><i>cipher</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__key_generator"><h5><i>key-generator</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__key_pair_generator"><h5><i>key-pair-generator</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__key_store"><h5><i>key-store</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__list_providers"><h5><i>list-providers</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__list_services"><h5><i>list-services</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__mac"><h5><i>mac</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__message_digest"><h5><i>message-digest</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__signature"><h5><i>signature</i></h5></a></li>
+                </ul>
+              </nav>
+          </div>
+          <div>
+    <span id="introduction"></span>
+    <h2><b>1 &nbsp;&nbsp; Introduction</b></h2>
+</div><div><p><a href='https://github.com/caudata/hara/blob/master/src/hara/security.clj'>hara.security</a> provides an intuitive interface around the JCA suite of tools for securing your applications. As many other libraries such as Bouncy Castle also extend this framework, the methods allow better exploration and usage of the options. Furthermore, deliberate effort was made to allow keys to be expressed as data so that encryption could be handled more explictly and with more understanding.</p>
+</div><div>
+    <span id="installation"></span>
+    <h3>1.1 &nbsp;&nbsp; Installation</h3>
+</div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;hara/security &quot;3.0.1&quot;&#93;</code></pre>
+</div><div><p>All functions are in the <code>hara.security</code> namespace.      </p><pre><code> &#40;use &#40;quote hara.security&#41;&#41;</code></pre>
+</div><div>
+    <span id="general"></span>
+    <h2><b>2 &nbsp;&nbsp; General</b></h2>
+</div><div class="api">
+    <span id="entry__hara_security__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_security____GT_key">->key</a></li>
+            <li><a data-scroll="" href="#entry__hara_security__decrypt">decrypt</a></li>
+            <li><a data-scroll="" href="#entry__hara_security__encrypt">encrypt</a></li>
+            <li><a data-scroll="" href="#entry__hara_security__generate_key">generate-key</a></li>
+            <li><a data-scroll="" href="#entry__hara_security__generate_key_pair">generate-key-pair</a></li>
+            <li><a data-scroll="" href="#entry__hara_security__key__GT_map">key->map</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_security____GT_key"></span>
+                <div class="entry-description">
+                    <h4><b>->key&nbsp<a data-scroll="" href="#entry__hara_security__">^</a></b></h4>
+                    <p><i>idempotent function converting input into a key</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/security/base/key.clj#L196-L211" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_security____GT_key">
+                        <label class="source-toggle" for="entry__pre_hara_security____GT_key"></label>
+                        <pre class="source"><code class="clojure">(defn ->key
+  [k]
+  (cond (map? k)
+        (map->key k)
+
+        :else k))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/security/base/key_test.clj#L84-L92" target="_blank">link</a></i></h6><code class="clojure">(-> {:type "AES",
+     :mode :secret,
+     :format "RAW",
+     :encoded "euHlt5sHWhRpbKZHjrwrrQ=="}
+    (->key)
+    (->key))
+=> java.security.Key</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_security__decrypt"></span>
+                <div class="entry-description">
+                    <h4><b>decrypt&nbsp<a data-scroll="" href="#entry__hara_security__">^</a></b></h4>
+                    <p><i>decrypts a byte array using a key</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/security/base/cipher.clj#L57-L71" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_security__decrypt">
+                        <label class="source-toggle" for="entry__pre_hara_security__decrypt"></label>
+                        <pre class="source"><code class="clojure">(defn decrypt
+  ([bytes key]
+   (decrypt bytes key {}))
+  ([bytes key {:keys [algorithm params random iv] :as opts}]
+   (operate Cipher/DECRYPT_MODE bytes key opts)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/security/base/cipher_test.clj#L24-L32" target="_blank">link</a></i></h6><code class="clojure">(-> (decrypt (encode/from-hex  "30491ab4427e45909f3d2f5d600b0f93")
+             {:type "AES",
+              :mode :secret,
+              :format "RAW",
+              :encoded "euHlt5sHWhRpbKZHjrwrrQ=="})
+    (String.))
+=> "hello world"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_security__encrypt"></span>
+                <div class="entry-description">
+                    <h4><b>encrypt&nbsp<a data-scroll="" href="#entry__hara_security__">^</a></b></h4>
+                    <p><i>encrypts a byte array using a key</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/security/base/cipher.clj#L41-L55" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_security__encrypt">
+                        <label class="source-toggle" for="entry__pre_hara_security__encrypt"></label>
+                        <pre class="source"><code class="clojure">(defn encrypt
+  ([bytes key]
+   (encrypt bytes key {}))
+  ([bytes key {:keys [algorithm params random iv] :as opts}]
+   (operate Cipher/ENCRYPT_MODE bytes key opts)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/security/base/cipher_test.clj#L13-L21" target="_blank">link</a></i></h6><code class="clojure">(-> (encrypt (.getBytes "hello world")
+             {:type "AES",
+              :mode :secret,
+              :format "RAW",
+              :encoded "euHlt5sHWhRpbKZHjrwrrQ=="})
+    (encode/to-hex))
+=> "30491ab4427e45909f3d2f5d600b0f93"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_security__generate_key"></span>
+                <div class="entry-description">
+                    <h4><b>generate-key&nbsp<a data-scroll="" href="#entry__hara_security__">^</a></b></h4>
+                    <p><i>generates a key according to algorithm</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/security/base/key.clj#L32-L58" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_security__generate_key">
+                        <label class="source-toggle" for="entry__pre_hara_security__generate_key"></label>
+                        <pre class="source"><code class="clojure">(defn generate-key
+  ([] (provider/key-generator))
+  ([algo {:keys [provider] :as opts}]
+   {:pre [(:length opts)]}
+   (-> ^KeyGenerator (provider/key-generator algo provider)
+       (doto (init-key-generator opts))
+       (.generateKey))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/security/base/key_test.clj#L9-L27" target="_blank">link</a></i></h6><code class="clojure">(generate-key)
+=> ("AES" "ARCFOUR" "Blowfish" "DES" "DESede"
+          "HmacMD5" "HmacSHA1" "HmacSHA224" "HmacSHA256"
+          "HmacSHA384" "HmacSHA512" ...)
+
+(generate-key "AES" {:length 128})
+;;=> #key {:type "AES",
+;;         :mode :secret,
+;;         :format "RAW",
+;;         :encoded "AQgv8l+vJNfnEWuhHs55wg=="}
+
+(generate-key "HmacSHA224" {:length 40})
+;;=> #key {:type "HmacSHA224",
+;;         :mode :secret,
+;;         :format "RAW",
+;;         :encoded "0qQkmic="}</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_security__generate_key_pair"></span>
+                <div class="entry-description">
+                    <h4><b>generate-key-pair&nbsp<a data-scroll="" href="#entry__hara_security__">^</a></b></h4>
+                    <p><i>creates a public and private key pair</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/security/base/key.clj#L81-L106" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_security__generate_key_pair">
+                        <label class="source-toggle" for="entry__pre_hara_security__generate_key_pair"></label>
+                        <pre class="source"><code class="clojure">(defn generate-key-pair
+  ([]
+   (provider/key-pair-generator))
+  ([type {:keys [provider] :as opts}]
+   {:pre [(:length opts)]}
+   (-> ^KeyPairGenerator (provider/key-pair-generator type provider)
+       (doto (init-key-pair-generator opts))
+       (.generateKeyPair)
+       ((juxt #(.getPublic ^KeyPair %)
+              #(.getPrivate ^KeyPair %))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/security/base/key_test.clj#L33-L47" target="_blank">link</a></i></h6><code class="clojure">(generate-key-pair)
+=> ("DSA" "DiffieHellman" "EC" "RSA")
+
+(generate-key-pair "RSA" {:length 512})
+;;=> [#key {:type "RSA",
+;;          :mode :public,
+;;          :format "X.509",
+;;          :encoded "...." }
+;;    #key {:type "RSA",
+;;          :mode :private,
+;;          :format "PKCS#8",
+;;          :encoded "..."}]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_security__key__GT_map"></span>
+                <div class="entry-description">
+                    <h4><b>key->map&nbsp<a data-scroll="" href="#entry__hara_security__">^</a></b></h4>
+                    <p><i>returns a map representation of a key</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/security/base/key.clj#L141-L157" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_security__key__GT_map">
+                        <label class="source-toggle" for="entry__pre_hara_security__key__GT_map"></label>
+                        <pre class="source"><code class="clojure">(defn key->map
+  [^Key k]
+  (cond (map? k) k
+
+        :else
+        {:type    (.getAlgorithm k)
+         :mode    (key-mode k)
+         :format  (.getFormat k)
+         :encoded (encode/to-base64 (.getEncoded k))}))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/security/base/key_test.clj#L63-L69" target="_blank">link</a></i></h6><code class="clojure">(key->map (generate-key "AES" {:length 128}))
+=> (contains {:type "AES",
+              :mode :secret,
+              :format "RAW",
+              :encoded string?})</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="verify"></span>
+    <h2><b>3 &nbsp;&nbsp; Verify</b></h2>
+</div><div class="api">
+    <span id="entry__hara_security__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_security__digest">digest</a></li>
+            <li><a data-scroll="" href="#entry__hara_security__hmac">hmac</a></li>
+            <li><a data-scroll="" href="#entry__hara_security__sign">sign</a></li>
+            <li><a data-scroll="" href="#entry__hara_security__verify">verify</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_security__digest"></span>
+                <div class="entry-description">
+                    <h4><b>digest&nbsp<a data-scroll="" href="#entry__hara_security__">^</a></b></h4>
+                    <p><i>creates a digest out of a byte array</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/security/base/verify.clj#L5-L25" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_security__digest">
+                        <label class="source-toggle" for="entry__pre_hara_security__digest"></label>
+                        <pre class="source"><code class="clojure">(defn digest
+  ([]
+   (provider/message-digest))
+  ([bytes algo]
+   (digest bytes algo {}))
+  ([bytes algo {:keys [provider] :as opts}]
+   (-> ^java.security.MessageDigest
+    (provider/message-digest algo provider)
+       (doto (.update bytes))
+       (.digest))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/security/base/verify_test.clj#L9-L18" target="_blank">link</a></i></h6><code class="clojure">(digest)
+=> (contains ["MD2" "MD5" "SHA" "SHA-224"
+              "SHA-256" "SHA-384" "SHA-512"] :in-any-order :gaps-ok)
+
+(-> (digest (.getBytes "hello world")
+            "SHA")
+    (encode/to-hex))
+=> "2aae6c35c94fcfb415dbe95f408b9ce91ee846ed"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_security__hmac"></span>
+                <div class="entry-description">
+                    <h4><b>hmac&nbsp<a data-scroll="" href="#entry__hara_security__">^</a></b></h4>
+                    <p><i>creates a key encrypted digest</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/security/base/verify.clj#L37-L57" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_security__hmac">
+                        <label class="source-toggle" for="entry__pre_hara_security__hmac"></label>
+                        <pre class="source"><code class="clojure">(defn hmac
+  ([]
+   (provider/mac))
+  ([bytes key]
+   (hmac bytes key {}))
+  ([bytes key {:keys [algorithm provider] :as opts}]
+   (-> (provider/mac (or algorithm
+                         (key/key-type key))
+                     provider)
+       (doto (init-hmac (key/->key key) opts))
+       (.doFinal bytes))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/security/base/verify_test.clj#L24-L32" target="_blank">link</a></i></h6><code class="clojure">(-> (hmac (.getBytes "hello world")
+          {:type "HmacSHA1",
+           :mode :secret,
+           :format "RAW",
+           :encoded "wQ0lyydDSEFRKviwv/2BoWVQDpj8hbUiUXytuWj7Yv8="})
+    (encode/to-hex))
+=> "a6f9e08fad62f63a35c6fd320f4249c9ad3079dc"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_security__sign"></span>
+                <div class="entry-description">
+                    <h4><b>sign&nbsp<a data-scroll="" href="#entry__hara_security__">^</a></b></h4>
+                    <p><i>creates a signature using a private key</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/security/base/verify.clj#L59-L98" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_security__sign">
+                        <label class="source-toggle" for="entry__pre_hara_security__sign"></label>
+                        <pre class="source"><code class="clojure">(defn sign
+  ([]
+   (provider/signature))
+  ([bytes key {:keys [algorithm provider] :as opts}]
+   (-> (provider/signature algorithm provider)
+       (doto (.initSign (key/->key key)) (.update bytes))
+       (.sign))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/security/base/verify_test.clj#L35-L66" target="_blank">link</a></i></h6><code class="clojure">(sign)
+;; => (contains ["MD2withRSA" "MD5andSHA1withRSA" "MD5withRSA"
+;;               "NONEwithDSA" "NONEwithECDSA" "SHA1withDSA"
+;;               "SHA1withECDSA" "SHA1withRSA" "SHA224withDSA"
+;;               "SHA224withECDSA" "SHA224withRSA" "SHA256withDSA"
+;;               "SHA256withECDSA" "SHA256withRSA" "SHA384withECDSA"
+;;               "SHA384withRSA" "SHA512withECDSA" "SHA512withRSA"]
+;;              :in-any-order)
+
+(-> (sign
+     (.getBytes "hello world")
+     {:type "RSA",
+      :mode :private,
+      :format "PKCS#8",
+      :encoded
+      (apply str
+             ["MIIBVQIBADANBgkqhkiG9w0BAQEFAASCAT8wggE7AgEAAkEAmrOdqA5ZGMJ6"
+              "55meZCnj44B65ZUXnAscXu7GJcNQO91Z7B9NmWX/P59BBUC/yJ6s/ugEffhP"
+              "wCYJt013GkV6tQIDAQABAkBJxzV+C3G0XDOvNlUSoeO8AO8bhJIg6i+amrdH"
+              "FTGzimwp/eyOGZlXpHcaK57kSBK4npXgfWCFFLNuvAtCrQ91AiEA0McEFHMS"
+              "MTVU/78kDYSsJ+lty6izxkONp/XZ4+T6BDsCIQC9sWmBYAFDfiHvLnv2NT7O"
+              "08LR+UnNuDalduukc649zwIhAKXHEadHRA/M4GR/Gxqc2bKLeUJ4/98TrvzK"
+              "jCyYmioXAiAiOg2wY1M3C14yGvARB6ByjzD61AEmFlP93Qw9mwXYbwIhALR/"
+              "Uv4DvJJbR7mpRXcRCo9Me1wawdCndM5ZyF7Hvpu4"])}
+     {:algorithm "MD5withRSA"})
+    (encode/to-hex))
+=> (apply str ["5ba863c3e24c73f09d50749698ae82406490c"
+               "edc4566810461480e37da661754b7bf33cc6b"
+               "bf0f48646304c8994202d2fd7094e7420049f"
+               "eaa512c8cd72d7000"])</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_security__verify"></span>
+                <div class="entry-description">
+                    <h4><b>verify&nbsp<a data-scroll="" href="#entry__hara_security__">^</a></b></h4>
+                    <p><i>verifies a signature using a public key</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/security/base/verify.clj#L100-L128" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_security__verify">
+                        <label class="source-toggle" for="entry__pre_hara_security__verify"></label>
+                        <pre class="source"><code class="clojure">(defn verify
+  ([]
+   (provider/signature))
+  ([bytes signature key {:keys [algorithm provider] :as opts}]
+   (-> (provider/signature algorithm provider)
+       (doto (.initVerify (key/->key key)) (.update bytes))
+       (.verify signature))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/security/base/verify_test.clj#L69-L89" target="_blank">link</a></i></h6><code class="clojure">(verify (.getBytes "hello world")
+        (->> ["5ba863c3e24c73f09d50749698ae82406490c"
+              "edc4566810461480e37da661754b7bf33cc6b"
+              "bf0f48646304c8994202d2fd7094e7420049f"
+              "eaa512c8cd72d7000"]
+             (apply str)
+             (encode/from-hex))
+        {:type "RSA",
+         :mode :public,
+         :format "X.509",
+         :encoded
+         (apply str
+                ["MFwwDQYJKoZIhvcNAQEBBQADSwAwSA"
+                 "JBAJqznagOWRjCeueZnmQp4+OAeuWV"
+                 "F5wLHF7uxiXDUDvdWewfTZll/z+fQQ"
+                 "VAv8ierP7oBH34T8AmCbdNdxpFerUC"
+                 "AwEAAQ=="])}
+        {:algorithm "MD5withRSA"})
+=> true</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="provider"></span>
+    <h2><b>4 &nbsp;&nbsp; Provider</b></h2>
+</div><div class="api">
+    <span id="entry__hara_security__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_security__digest">digest</a></li>
+            <li><a data-scroll="" href="#entry__hara_security__hmac">hmac</a></li>
+            <li><a data-scroll="" href="#entry__hara_security__sign">sign</a></li>
+            <li><a data-scroll="" href="#entry__hara_security__verify">verify</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_security__digest"></span>
+                <div class="entry-description">
+                    <h4><b>digest&nbsp<a data-scroll="" href="#entry__hara_security__">^</a></b></h4>
+                    <p><i>creates a digest out of a byte array</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/security/base/verify.clj#L5-L25" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_security__digest">
+                        <label class="source-toggle" for="entry__pre_hara_security__digest"></label>
+                        <pre class="source"><code class="clojure">(defn digest
+  ([]
+   (provider/message-digest))
+  ([bytes algo]
+   (digest bytes algo {}))
+  ([bytes algo {:keys [provider] :as opts}]
+   (-> ^java.security.MessageDigest
+    (provider/message-digest algo provider)
+       (doto (.update bytes))
+       (.digest))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/security/base/verify_test.clj#L9-L18" target="_blank">link</a></i></h6><code class="clojure">(digest)
+=> (contains ["MD2" "MD5" "SHA" "SHA-224"
+              "SHA-256" "SHA-384" "SHA-512"] :in-any-order :gaps-ok)
+
+(-> (digest (.getBytes "hello world")
+            "SHA")
+    (encode/to-hex))
+=> "2aae6c35c94fcfb415dbe95f408b9ce91ee846ed"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_security__hmac"></span>
+                <div class="entry-description">
+                    <h4><b>hmac&nbsp<a data-scroll="" href="#entry__hara_security__">^</a></b></h4>
+                    <p><i>creates a key encrypted digest</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/security/base/verify.clj#L37-L57" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_security__hmac">
+                        <label class="source-toggle" for="entry__pre_hara_security__hmac"></label>
+                        <pre class="source"><code class="clojure">(defn hmac
+  ([]
+   (provider/mac))
+  ([bytes key]
+   (hmac bytes key {}))
+  ([bytes key {:keys [algorithm provider] :as opts}]
+   (-> (provider/mac (or algorithm
+                         (key/key-type key))
+                     provider)
+       (doto (init-hmac (key/->key key) opts))
+       (.doFinal bytes))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/security/base/verify_test.clj#L24-L32" target="_blank">link</a></i></h6><code class="clojure">(-> (hmac (.getBytes "hello world")
+          {:type "HmacSHA1",
+           :mode :secret,
+           :format "RAW",
+           :encoded "wQ0lyydDSEFRKviwv/2BoWVQDpj8hbUiUXytuWj7Yv8="})
+    (encode/to-hex))
+=> "a6f9e08fad62f63a35c6fd320f4249c9ad3079dc"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_security__sign"></span>
+                <div class="entry-description">
+                    <h4><b>sign&nbsp<a data-scroll="" href="#entry__hara_security__">^</a></b></h4>
+                    <p><i>creates a signature using a private key</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/security/base/verify.clj#L59-L98" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_security__sign">
+                        <label class="source-toggle" for="entry__pre_hara_security__sign"></label>
+                        <pre class="source"><code class="clojure">(defn sign
+  ([]
+   (provider/signature))
+  ([bytes key {:keys [algorithm provider] :as opts}]
+   (-> (provider/signature algorithm provider)
+       (doto (.initSign (key/->key key)) (.update bytes))
+       (.sign))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/security/base/verify_test.clj#L35-L66" target="_blank">link</a></i></h6><code class="clojure">(sign)
+;; => (contains ["MD2withRSA" "MD5andSHA1withRSA" "MD5withRSA"
+;;               "NONEwithDSA" "NONEwithECDSA" "SHA1withDSA"
+;;               "SHA1withECDSA" "SHA1withRSA" "SHA224withDSA"
+;;               "SHA224withECDSA" "SHA224withRSA" "SHA256withDSA"
+;;               "SHA256withECDSA" "SHA256withRSA" "SHA384withECDSA"
+;;               "SHA384withRSA" "SHA512withECDSA" "SHA512withRSA"]
+;;              :in-any-order)
+
+(-> (sign
+     (.getBytes "hello world")
+     {:type "RSA",
+      :mode :private,
+      :format "PKCS#8",
+      :encoded
+      (apply str
+             ["MIIBVQIBADANBgkqhkiG9w0BAQEFAASCAT8wggE7AgEAAkEAmrOdqA5ZGMJ6"
+              "55meZCnj44B65ZUXnAscXu7GJcNQO91Z7B9NmWX/P59BBUC/yJ6s/ugEffhP"
+              "wCYJt013GkV6tQIDAQABAkBJxzV+C3G0XDOvNlUSoeO8AO8bhJIg6i+amrdH"
+              "FTGzimwp/eyOGZlXpHcaK57kSBK4npXgfWCFFLNuvAtCrQ91AiEA0McEFHMS"
+              "MTVU/78kDYSsJ+lty6izxkONp/XZ4+T6BDsCIQC9sWmBYAFDfiHvLnv2NT7O"
+              "08LR+UnNuDalduukc649zwIhAKXHEadHRA/M4GR/Gxqc2bKLeUJ4/98TrvzK"
+              "jCyYmioXAiAiOg2wY1M3C14yGvARB6ByjzD61AEmFlP93Qw9mwXYbwIhALR/"
+              "Uv4DvJJbR7mpRXcRCo9Me1wawdCndM5ZyF7Hvpu4"])}
+     {:algorithm "MD5withRSA"})
+    (encode/to-hex))
+=> (apply str ["5ba863c3e24c73f09d50749698ae82406490c"
+               "edc4566810461480e37da661754b7bf33cc6b"
+               "bf0f48646304c8994202d2fd7094e7420049f"
+               "eaa512c8cd72d7000"])</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_security__verify"></span>
+                <div class="entry-description">
+                    <h4><b>verify&nbsp<a data-scroll="" href="#entry__hara_security__">^</a></b></h4>
+                    <p><i>verifies a signature using a public key</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/security/base/verify.clj#L100-L128" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_security__verify">
+                        <label class="source-toggle" for="entry__pre_hara_security__verify"></label>
+                        <pre class="source"><code class="clojure">(defn verify
+  ([]
+   (provider/signature))
+  ([bytes signature key {:keys [algorithm provider] :as opts}]
+   (-> (provider/signature algorithm provider)
+       (doto (.initVerify (key/->key key)) (.update bytes))
+       (.verify signature))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/security/base/verify_test.clj#L69-L89" target="_blank">link</a></i></h6><code class="clojure">(verify (.getBytes "hello world")
+        (->> ["5ba863c3e24c73f09d50749698ae82406490c"
+              "edc4566810461480e37da661754b7bf33cc6b"
+              "bf0f48646304c8994202d2fd7094e7420049f"
+              "eaa512c8cd72d7000"]
+             (apply str)
+             (encode/from-hex))
+        {:type "RSA",
+         :mode :public,
+         :format "X.509",
+         :encoded
+         (apply str
+                ["MFwwDQYJKoZIhvcNAQEBBQADSwAwSA"
+                 "JBAJqznagOWRjCeueZnmQp4+OAeuWV"
+                 "F5wLHF7uxiXDUDvdWewfTZll/z+fQQ"
+                 "VAv8ierP7oBH34T8AmCbdNdxpFerUC"
+                 "AwEAAQ=="])}
+        {:algorithm "MD5withRSA"})
+=> true</code></pre>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outline">
+      <div class="toc">
+        <nav data-gumshoe-header>
+          <ul data-gumshoe>
+            <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#general"><h4>2 &nbsp; General</h4></a><a class="section" data-scroll="" href="#entry__hara_security____GT_key"><h5><i>->key</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__decrypt"><h5><i>decrypt</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__encrypt"><h5><i>encrypt</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__generate_key"><h5><i>generate-key</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__generate_key_pair"><h5><i>generate-key-pair</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__key__GT_map"><h5><i>key->map</i></h5></a></li><li><a class="chapter" data-scroll="" href="#verify"><h4>3 &nbsp; Verify</h4></a><a class="section" data-scroll="" href="#entry__hara_security__digest"><h5><i>digest</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__hmac"><h5><i>hmac</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__sign"><h5><i>sign</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__verify"><h5><i>verify</i></h5></a></li><li><a class="chapter" data-scroll="" href="#provider"><h4>4 &nbsp; Provider</h4></a><a class="section" data-scroll="" href="#entry__hara_security__cipher"><h5><i>cipher</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__key_generator"><h5><i>key-generator</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__key_pair_generator"><h5><i>key-pair-generator</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__key_store"><h5><i>key-store</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__list_providers"><h5><i>list-providers</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__list_services"><h5><i>list-services</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__mac"><h5><i>mac</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__message_digest"><h5><i>message-digest</i></h5></a><a class="section" data-scroll="" href="#entry__hara_security__signature"><h5><i>signature</i></h5></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    
+    <!--label for="sidebar-checkbox" class="sidebar-toggle"></label-->
+
+  </body>
+
+  <script>
+  if (true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-31320512-2', 'caudate.me');
+    ga('send', 'pageview');
+  }
+  </script>
+  
+  <script type="text/javascript">
+    smoothScroll.init();
+    gumshoe.init({});
+  
+    hljs.registerLanguage("clojure",function(e){var t={"builtin-name":"def defonce cond apply if-not if-let if not not= = < > <= >= == + / * - rem quot neg? pos? delay? symbol? keyword? true? false? integer? empty? coll? list? set? ifn? fn? associative? sequential? sorted? counted? reversible? number? decimal? class? distinct? isa? float? rational? reduced? ratio? odd? even? char? seq? vector? string? map? nil? contains? zero? instance? not-every? not-any? libspec? -> ->> .. . inc compare do dotimes mapcat take remove take-while drop letfn drop-last take-last drop-while while intern condp case reduced cycle split-at split-with repeat replicate iterate range merge zipmap declare line-seq sort comparator sort-by dorun doall nthnext nthrest partition eval doseq await await-for let agent atom send send-off release-pending-sends add-watch mapv filterv remove-watch agent-error restart-agent set-error-handler error-handler set-error-mode! error-mode shutdown-agents quote var fn loop recur throw try monitor-enter monitor-exit defmacro defn defn- macroexpand macroexpand-1 for dosync and or when when-not when-let comp juxt partial sequence memoize constantly complement identity assert peek pop doto proxy defstruct first rest cons defprotocol cast coll deftype defrecord last butlast sigs reify second ffirst fnext nfirst nnext defmulti defmethod meta with-meta ns in-ns create-ns import refer keys select-keys vals key val rseq name namespace promise into transient persistent! conj! assoc! dissoc! pop! disj! use class type num float double short byte boolean bigint biginteger bigdec print-method print-dup throw-if printf format load compile get-in update-in pr pr-on newline flush read slurp read-line subvec with-open memfn time re-find re-groups rand-int rand mod locking assert-valid-fdecl alias resolve ref deref refset swap! reset! set-validator! compare-and-set! alter-meta! reset-meta! commute get-validator alter ref-set ref-history-count ref-min-history ref-max-history ensure sync io! new next conj set! to-array future future-call into-array aset gen-class reduce map filter find empty hash-map hash-set sorted-map sorted-map-by sorted-set sorted-set-by vec vector seq flatten reverse assoc dissoc list disj get union difference intersection extend extend-type extend-protocol int nth delay count concat chunk chunk-buffer chunk-append chunk-first chunk-rest max min dec unchecked-inc-int unchecked-inc unchecked-dec-inc unchecked-dec unchecked-negate unchecked-add-int unchecked-add unchecked-subtract-int unchecked-subtract chunk-next chunk-cons chunked-seq? prn vary-meta lazy-seq spread list* str find-keyword keyword symbol gensym force rationalize"},r="a-zA-Z_\\-!.?+*=<>&#'",n="["+r+"]["+r+"0-9/;:]*",a="[-+]?\\d+(\\.\\d+)?",o={b:n,r:0},s={cN:"number",b:a,r:0},i=e.inherit(e.QSM,{i:null}),c=e.C(";","$",{r:0}),d={cN:"literal",b:/\b(true|false|nil)\b/},l={b:"[\\[\\{]",e:"[\\]\\}]"},m={cN:"comment",b:"\\^"+n},p=e.C("\\^\\{","\\}"),u={cN:"symbol",b:"[:]{1,2}"+n},f={b:"\\(",e:"\\)"},h={eW:!0,r:0},y={k:t,l:n,cN:"name",b:n,starts:h},b=[f,i,m,p,c,u,l,s,d,o];return f.c=[e.C("comment",""),y,h],h.c=b,l.c=b,{aliases:["clj"],i:/\S/,c:[f,i,m,p,c,u,l,s,d]}});
+    hljs.initHighlightingOnLoad();
+  </script>
+</html>

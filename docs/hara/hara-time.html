@@ -1,0 +1,1295 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <link rel="shortcut icon" href="favicon.ico">
+  <title>hara.time - unified time</title>
+  <script src="js/highlight.min.js"></script>
+  <script src="js/gumshoe.min.js"></script>
+  <script src="js/smooth-scroll.min.js"></script>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/poole.css">
+  <link rel="stylesheet" href="css/syntax.css">
+  <link rel="stylesheet" href="css/lanyon.css">
+  <link rel="stylesheet" href="css/bolton.css">
+  <link rel="stylesheet" href="css/bolton-api.css">
+  <link rel="stylesheet" href="css/bolton-highlight.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  
+</head>
+
+  <body class="theme-base-0b">
+    <span id="page-top"></span>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <nav class="sidebar-nav">
+    <span>&nbsp;</span>
+    <a class="sidebar-nav-item header" href="index.html" style="padding-bottom:5px"><b>HOME</b></a>
+    <a class="sidebar-nav-item" href="hara-config.html">config</a><a class="sidebar-nav-item" href="hara-core.html">core</a><a class="sidebar-nav-item" href="hara-data.html">data</a><a class="sidebar-nav-item" href="hara-deploy.html">deploy</a><a class="sidebar-nav-item" href="hara-event.html">event</a><a class="sidebar-nav-item" href="hara-function.html">function</a><a class="sidebar-nav-item" href="hara-function-procedure.html">function.procedure</a><a class="sidebar-nav-item" href="hara-function-task.html">function.task</a><a class="sidebar-nav-item" href="hara-io-archive.html">io.archive</a><a class="sidebar-nav-item" href="hara-io-file.html">io.file</a><a class="sidebar-nav-item" href="hara-io-project.html">io.project</a><a class="sidebar-nav-item" href="hara-io-scheduler.html">io.scheduler</a><a class="sidebar-nav-item" href="hara-lib-aether.html">lib.aether</a><a class="sidebar-nav-item" href="hara-lib-jgit.html">lib.jgit</a><a class="sidebar-nav-item" href="hara-math.html">math</a><a class="sidebar-nav-item" href="hara-module.html">module</a><a class="sidebar-nav-item" href="hara-object.html">object</a><a class="sidebar-nav-item" href="hara-print.html">print</a><a class="sidebar-nav-item" href="hara-security.html">security</a><a class="sidebar-nav-item" href="hara-security-openpgp.html">security.openpgp</a><a class="sidebar-nav-item" href="hara-state.html">state</a><a class="sidebar-nav-item" href="hara-state-ova.html">state.ova</a><a class="sidebar-nav-item" href="hara-string.html">string</a><a class="sidebar-nav-item" href="hara-test.html">test</a><a class="sidebar-nav-item" href="hara-time.html">time</a><a class="sidebar-nav-item" href="hara-watch.html">watch</a>
+    <span class="sidebar-nav-item">&nbsp;</span>
+    <span class="sidebar-nav-item">&nbsp;</span>
+  </nav>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <span>time</span>
+            <small>unified time</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="page">
+          <div class="heading">
+            <div>
+              <h5>Author: Chris Zheng&nbsp;&nbsp;<a href="mailto:z@caudate.me">(z@caudate.me)</a></h5>
+              <h5>Date: 04 November 2018</h5>
+              <h5>Repository: <a href="https://github.com/zcaudate/hara">https://github.com/zcaudate/hara</a></h5>
+              <h5>Version: 3.0.1</h5></div></div>
+          <hr/>
+
+          <div class="toc">
+              <nav>
+                <ul>
+                  <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#general"><h4>2 &nbsp; General</h4></a><a class="section" data-scroll="" href="#entry__hara_time__calendar"><h5><i>calendar</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__default_type"><h5><i>default-type</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__duration_QMARK_"><h5><i>duration?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__epoch"><h5><i>epoch</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__instant_QMARK_"><h5><i>instant?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__now"><h5><i>now</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__representation_QMARK_"><h5><i>representation?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__time_meta"><h5><i>time-meta</i></h5></a></li><li><a class="chapter" data-scroll="" href="#timezone"><h4>3 &nbsp; Timezone</h4></a><a class="section" data-scroll="" href="#entry__hara_time__default_timezone"><h5><i>default-timezone</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__get_timezone"><h5><i>get-timezone</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__has_timezone_QMARK_"><h5><i>has-timezone?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__local_timezone"><h5><i>local-timezone</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__with_timezone"><h5><i>with-timezone</i></h5></a></li><li><a class="chapter" data-scroll="" href="#access"><h4>4 &nbsp; Access</h4></a><a class="section" data-scroll="" href="#entry__hara_time__day"><h5><i>day</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__day_of_week"><h5><i>day-of-week</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__hour"><h5><i>hour</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__millisecond"><h5><i>millisecond</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__minute"><h5><i>minute</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__month"><h5><i>month</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__second"><h5><i>second</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__year"><h5><i>year</i></h5></a></li><li><a class="chapter" data-scroll="" href="#convert"><h4>5 &nbsp; Convert</h4></a><a class="section" data-scroll="" href="#entry__hara_time__coerce"><h5><i>coerce</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__format"><h5><i>format</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__from_long"><h5><i>from-long</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__from_map"><h5><i>from-map</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__parse"><h5><i>parse</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__to_long"><h5><i>to-long</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__to_map"><h5><i>to-map</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__to_vector"><h5><i>to-vector</i></h5></a></li><li><a class="chapter" data-scroll="" href="#operation"><h4>6 &nbsp; Operation</h4></a><a class="section" data-scroll="" href="#entry__hara_time__adjust"><h5><i>adjust</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__after"><h5><i>after</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__before"><h5><i>before</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__earliest"><h5><i>earliest</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__equal"><h5><i>equal</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__latest"><h5><i>latest</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__minus"><h5><i>minus</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__plus"><h5><i>plus</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__to_length"><h5><i>to-length</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__truncate"><h5><i>truncate</i></h5></a></li><li><a class="chapter" data-scroll="" href="#walkthrough"><h4>7 &nbsp; Walkthrough</h4></a><a class="section" data-scroll="" href="#supported-types"><h5><i>7.1 &nbsp; Supported Types</i></h5></a><a class="section" data-scroll="" href="#date-as-data"><h5><i>7.2 &nbsp; Date as Data</i></h5></a><a class="section" data-scroll="" href="#extensiblity"><h5><i>7.3 &nbsp; Extensiblity</i></h5></a></li>
+                </ul>
+              </nav>
+          </div>
+          <div>
+    <span id="introduction"></span>
+    <h2><b>1 &nbsp;&nbsp; Introduction</b></h2>
+</div><div><p><a href='https://github.com/caudata/hara/blob/master/src/hara/time.clj'>hara.time</a> is a unified framework for representating time on the JVM.</p>
+</div><div>
+    <span id="installation"></span>
+    <h3>1.1 &nbsp;&nbsp; Installation</h3>
+</div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;hara/time &quot;3.0.1&quot;&#93;</code></pre>
+</div><div><p>All functions are in the <code>hara.time</code> namespace.      </p><pre><code> &#40;use &#40;quote hara.time&#41;&#41;</code></pre>
+</div><div>
+    <span id="general"></span>
+    <h2><b>2 &nbsp;&nbsp; General</b></h2>
+</div><div class="api">
+    <span id="entry__hara_time__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_time__calendar">calendar</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__default_type">default-type</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__duration_QMARK_">duration?</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__epoch">epoch</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__instant_QMARK_">instant?</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__now">now</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__representation_QMARK_">representation?</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__time_meta">time-meta</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_time__calendar"></span>
+                <div class="entry-description">
+                    <h4><b>calendar&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>creates a calendar to be used by the base date classes</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time/data/common.clj#L35-L43" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__calendar">
+                        <label class="source-toggle" for="entry__pre_hara_time__calendar"></label>
+                        <pre class="source"><code class="clojure">(defn calendar
+  [^Date date ^TimeZone timezone]
+  (doto (Calendar/getInstance timezone)
+    (.setTime date)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time/data/common_test.clj#L8-L11" target="_blank">link</a></i></h6><code class="clojure">(-> ^Calendar (calendar (Date. 0) (TimeZone/getTimeZone "GMT"))
+    (.getTime))
+=> #inst "1970-01-01T00:00:00.000-00:00"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__default_type"></span>
+                <div class="entry-description">
+                    <h4><b>default-type&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>accesses the default type for datetime</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time/data/common.clj#L45-L57" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__default_type">
+                        <label class="source-toggle" for="entry__pre_hara_time__default_type"></label>
+                        <pre class="source"><code class="clojure">(defn default-type
+  ([] *default-type*)
+  ([cls]
+   (alter-var-root #'*default-type*
+                   (constantly cls))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time/data/common_test.clj#L14-L20" target="_blank">link</a></i></h6><code class="clojure">(default-type) ;; getter
+=> clojure.lang.PersistentArrayMap
+
+(default-type Long) ;; setter
+=> java.lang.Long</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__duration_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>duration?&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>checks if an object implements the duration protocol</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L28-L36" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__duration_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_time__duration_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn duration?
+  [obj]
+  (satisfies? protocol.time/IDuration obj))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L17-L21" target="_blank">link</a></i></h6><code class="clojure">(t/duration? 0) => true
+
+(t/duration? {:weeks 1})
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__epoch"></span>
+                <div class="entry-description">
+                    <h4><b>epoch&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>returns the beginning of unix epoch</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L265-L273" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__epoch">
+                        <label class="source-toggle" for="entry__pre_hara_time__epoch"></label>
+                        <pre class="source"><code class="clojure">(defn epoch
+  ([] (epoch {}))
+  ([opts] (from-long 0 (merge {:type common/*default-type*}
+                              opts))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L187-L194" target="_blank">link</a></i></h6><code class="clojure">(t/epoch {:type Date})
+=> #inst "1970-01-01T00:00:00.000-00:00"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__instant_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>instant?&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>checks if an object implements the instant protocol</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L38-L45" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__instant_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_time__instant_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn instant?
+  [obj]
+  (satisfies? protocol.time/IInstant obj))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L24-L27" target="_blank">link</a></i></h6><code class="clojure">(t/instant? 0) => true
+
+(t/instant? (Date.)) => true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__now"></span>
+                <div class="entry-description">
+                    <h4><b>now&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>returns the current datetime</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L250-L263" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__now">
+                        <label class="source-toggle" for="entry__pre_hara_time__now"></label>
+                        <pre class="source"><code class="clojure">(defn now
+  ([] (now {}))
+  ([opts] (protocol.time/-now (merge {:type common/*default-type*}
+                                     opts))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L176-L184" target="_blank">link</a></i></h6><code class="clojure">(t/now)
+;; => #(instance? (t/default-type) %)
+
+(t/now {:type Date})
+=> #(instance? Date %)
+
+(t/now {:type Calendar})
+=> #(instance? Calendar %)</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__representation_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>representation?&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>checks if an object implements the representation protocol</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L18-L26" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__representation_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_time__representation_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn representation?
+  [obj]
+  (satisfies? protocol.time/IRepresentation obj))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L10-L14" target="_blank">link</a></i></h6><code class="clojure">(t/representation? 0) => false
+
+(t/representation? (common/calendar (Date. 0) (TimeZone/getTimeZone "GMT")))
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__time_meta"></span>
+                <div class="entry-description">
+                    <h4><b>time-meta&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>retrieves the meta-data for the time object</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L77-L84" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__time_meta">
+                        <label class="source-toggle" for="entry__pre_hara_time__time_meta"></label>
+                        <pre class="source"><code class="clojure">(defn time-meta
+  [cls]
+  (protocol.time/-time-meta cls))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L58-L67" target="_blank">link</a></i></h6><code class="clojure">(t/time-meta TimeZone)
+=> {:base :zone}</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="timezone"></span>
+    <h2><b>3 &nbsp;&nbsp; Timezone</b></h2>
+</div><div class="api">
+    <span id="entry__hara_time__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_time__default_timezone">default-timezone</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__get_timezone">get-timezone</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__has_timezone_QMARK_">has-timezone?</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__local_timezone">local-timezone</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__with_timezone">with-timezone</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_time__default_timezone"></span>
+                <div class="entry-description">
+                    <h4><b>default-timezone&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>accesses the default timezone as a string</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time/data/common.clj#L68-L82" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__default_timezone">
+                        <label class="source-toggle" for="entry__pre_hara_time__default_timezone"></label>
+                        <pre class="source"><code class="clojure">(defn default-timezone
+  ([]
+   (or *default-timezone*
+       (local-timezone)))
+  ([tz]
+   (alter-var-root #'*default-timezone*
+                   (constantly (protocol.string/-to-string tz)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time/data/common_test.clj#L29-L35" target="_blank">link</a></i></h6><code class="clojure">(default-timezone)  ;; getter
+=> "Asia/Ho_Chi_Minh"
+
+(default-timezone "GMT")  ;; setter
+=> "GMT"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__get_timezone"></span>
+                <div class="entry-description">
+                    <h4><b>get-timezone&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>returns the contained timezone if exists</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L58-L67" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__get_timezone">
+                        <label class="source-toggle" for="entry__pre_hara_time__get_timezone"></label>
+                        <pre class="source"><code class="clojure">(defn get-timezone
+  [t]
+  (protocol.time/-get-timezone t))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L38-L43" target="_blank">link</a></i></h6><code class="clojure">(t/get-timezone 0) => nil
+
+(t/get-timezone (common/calendar (Date. 0)
+                                 (TimeZone/getTimeZone "EST")))
+=> "EST"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__has_timezone_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>has-timezone?&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>checks if the instance contains a timezone</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L47-L56" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__has_timezone_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_time__has_timezone_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn has-timezone?
+  [t]
+  (protocol.time/-has-timezone? t))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L30-L35" target="_blank">link</a></i></h6><code class="clojure">(t/has-timezone? 0) => false
+
+(t/has-timezone? (common/calendar (Date. 0)
+                                  (TimeZone/getDefault)))
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__local_timezone"></span>
+                <div class="entry-description">
+                    <h4><b>local-timezone&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>returns the current timezone as a string</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time/data/common.clj#L59-L66" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__local_timezone">
+                        <label class="source-toggle" for="entry__pre_hara_time__local_timezone"></label>
+                        <pre class="source"><code class="clojure">(defn local-timezone
+  []
+  (.getID (TimeZone/getDefault)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time/data/common_test.clj#L23-L26" target="_blank">link</a></i></h6><code class="clojure">(local-timezone)
+=> "Asia/Ho_Chi_Minh"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__with_timezone"></span>
+                <div class="entry-description">
+                    <h4><b>with-timezone&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>returns the same instance in a different timezone</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L69-L75" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__with_timezone">
+                        <label class="source-toggle" for="entry__pre_hara_time__with_timezone"></label>
+                        <pre class="source"><code class="clojure">(defn with-timezone
+  [t tz]
+  (protocol.time/-with-timezone t tz))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L46-L55" target="_blank">link</a></i></h6><code class="clojure">(t/with-timezone 0 "EST") => 0</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="access"></span>
+    <h2><b>4 &nbsp;&nbsp; Access</b></h2>
+</div><div class="api">
+    <span id="entry__hara_time__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_time__day">day</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__day_of_week">day-of-week</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__hour">hour</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__millisecond">millisecond</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__minute">minute</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__month">month</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__second">second</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__year">year</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_time__day"></span>
+                <div class="entry-description">
+                    <h4><b>day&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>accesses the day representated by the instant</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L194-L202" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__day">
+                        <label class="source-toggle" for="entry__pre_hara_time__day"></label>
+                        <pre class="source"><code class="clojure">(defn day
+  ([t] (day t {}))
+  ([t opts]
+   ((wrap-proxy protocol.time/-day) t opts)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L144-L147" target="_blank">link</a></i></h6><code class="clojure">(t/day 0 {:timezone "GMT"}) => 1
+
+(t/day (Date. 0) {:timezone "EST"}) => 31</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__day_of_week"></span>
+                <div class="entry-description">
+                    <h4><b>day-of-week&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>accesses the day of week representated by the instant</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L204-L212" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__day_of_week">
+                        <label class="source-toggle" for="entry__pre_hara_time__day_of_week"></label>
+                        <pre class="source"><code class="clojure">(defn day-of-week
+  ([t] (day-of-week t {}))
+  ([t opts]
+   ((wrap-proxy protocol.time/-day-of-week) t opts)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L150-L153" target="_blank">link</a></i></h6><code class="clojure">(t/day-of-week 0 {:timezone "GMT"}) => 4
+
+(t/day-of-week (Date. 0) {:timezone "EST"}) => 3</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__hour"></span>
+                <div class="entry-description">
+                    <h4><b>hour&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>accesses the hour representated by the instant</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L214-L222" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__hour">
+                        <label class="source-toggle" for="entry__pre_hara_time__hour"></label>
+                        <pre class="source"><code class="clojure">(defn hour
+  ([t] (hour t {}))
+  ([t opts]
+   ((wrap-proxy protocol.time/-hour) t opts)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L156-L159" target="_blank">link</a></i></h6><code class="clojure">(t/hour 0 {:timezone "GMT"}) => 0
+
+(t/hour (Date. 0) {:timezone "Asia/Kolkata"}) => 5</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__millisecond"></span>
+                <div class="entry-description">
+                    <h4><b>millisecond&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>accesses the millisecond representated by the instant</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L242-L248" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__millisecond">
+                        <label class="source-toggle" for="entry__pre_hara_time__millisecond"></label>
+                        <pre class="source"><code class="clojure">(defn millisecond
+  ([t] (millisecond t {}))
+  ([t opts]
+   ((wrap-proxy protocol.time/-millisecond) t opts)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L172-L173" target="_blank">link</a></i></h6><code class="clojure">(t/millisecond 1010 {:timezone "GMT"}) => 10</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__minute"></span>
+                <div class="entry-description">
+                    <h4><b>minute&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>accesses the minute representated by the instant</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L224-L232" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__minute">
+                        <label class="source-toggle" for="entry__pre_hara_time__minute"></label>
+                        <pre class="source"><code class="clojure">(defn minute
+  ([t] (minute t {}))
+  ([t opts]
+   ((wrap-proxy protocol.time/-minute) t opts)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L162-L165" target="_blank">link</a></i></h6><code class="clojure">(t/minute 0 {:timezone "GMT"}) => 0
+
+(t/minute (Date. 0) {:timezone "Asia/Kolkata"}) => 30</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__month"></span>
+                <div class="entry-description">
+                    <h4><b>month&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>accesses the month representated by the instant</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L185-L192" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__month">
+                        <label class="source-toggle" for="entry__pre_hara_time__month"></label>
+                        <pre class="source"><code class="clojure">(defn month
+  ([t] (month t {}))
+  ([t opts]
+   ((wrap-proxy protocol.time/-month) t opts)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L138-L141" target="_blank">link</a></i></h6><code class="clojure">(t/month 0 {:timezone "GMT"}) => 1</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__second"></span>
+                <div class="entry-description">
+                    <h4><b>second&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>accesses the second representated by the instant</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L234-L240" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__second">
+                        <label class="source-toggle" for="entry__pre_hara_time__second"></label>
+                        <pre class="source"><code class="clojure">(defn second
+  ([t] (second t {}))
+  ([t opts]
+   ((wrap-proxy protocol.time/-second) t opts)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L168-L169" target="_blank">link</a></i></h6><code class="clojure">(t/second 1000 {:timezone "GMT"}) => 1</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__year"></span>
+                <div class="entry-description">
+                    <h4><b>year&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>accesses the year representated by the instant</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L175-L183" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__year">
+                        <label class="source-toggle" for="entry__pre_hara_time__year"></label>
+                        <pre class="source"><code class="clojure">(defn year
+  ([t] (year t {}))
+  ([t opts]
+   ((wrap-proxy protocol.time/-year) t opts)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L132-L135" target="_blank">link</a></i></h6><code class="clojure">(t/year 0 {:timezone "GMT"}) => 1970
+
+(t/year (Date. 0) {:timezone "EST"}) => 1969</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="convert"></span>
+    <h2><b>5 &nbsp;&nbsp; Convert</b></h2>
+</div><div class="api">
+    <span id="entry__hara_time__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_time__coerce">coerce</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__format">format</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__from_long">from-long</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__from_map">from-map</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__parse">parse</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__to_long">to-long</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__to_map">to-map</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__to_vector">to-vector</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_time__coerce"></span>
+                <div class="entry-description">
+                    <h4><b>coerce&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>adjust fields of a particular time</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L399-L415" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__coerce">
+                        <label class="source-toggle" for="entry__pre_hara_time__coerce"></label>
+                        <pre class="source"><code class="clojure">(defn coerce
+  [t {:keys [type timezone] :as opts}]
+  (let [type (or type common/*default-type*)
+        timezone (or timezone
+                     (get-timezone t))]
+    (-> (to-long t)
+        (from-long {:type type :timezone timezone}))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L281-L289" target="_blank">link</a></i></h6><code class="clojure">(t/coerce 0 {:type Date})
+=> #inst "1970-01-01T00:00:00.000-00:00"
+
+(t/coerce {:type clojure.lang.PersistentHashMap,
+           :timezone "PST", :long 915148800000,
+           :year 1999, :month 1, :day 1, :hour 0, :minute 0 :second 0, :millisecond 0}
+          {:type Date})
+=> #inst "1999-01-01T08:00:00.000-00:00"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__format"></span>
+                <div class="entry-description">
+                    <h4><b>format&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>converts a date into a string</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time/data/format.clj#L52-L80" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__format">
+                        <label class="source-toggle" for="entry__pre_hara_time__format"></label>
+                        <pre class="source"><code class="clojure">(defn format
+  ([t pattern] (format t pattern {}))
+  ([t pattern {:keys [cached] :as opts}]
+   (let [tmeta (protocol.time/-time-meta (class t))
+         ftype (-> tmeta :formatter :type)
+         fmt   (cache +format-cache+
+                      (fn [] (protocol.time/-formatter pattern (assoc opts :type ftype)))
+                      [ftype pattern]
+                      cached)]
+     (protocol.time/-format fmt t opts))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time/data/format_test.clj#L22-L39" target="_blank">link</a></i></h6><code class="clojure">(f/format (Date. 0) "HH MM dd Z" {:timezone "GMT" :cached true})
+=> "00 01 01 +0000"
+
+(f/format (common/calendar (Date. 0)
+                           (TimeZone/getTimeZone "GMT"))
+          "HH MM dd Z"
+          {})
+=> "00 01 01 +0000"
+
+(f/format (Timestamp. 0)
+          "HH MM dd Z"
+          {:timezone "PST"})
+=> "16 12 31 -0800"
+
+(f/format (Date. 0) "HH MM dd Z")
+=> string?</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__from_long"></span>
+                <div class="entry-description">
+                    <h4><b>from-long&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>creates an instant from a long</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L94-L108" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__from_long">
+                        <label class="source-toggle" for="entry__pre_hara_time__from_long"></label>
+                        <pre class="source"><code class="clojure">(defn from-long
+  ([t]
+   (from-long t nil))
+  ([t opts]
+   (protocol.time/-from-long t (merge {:type common/*default-type*} opts))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L75-L83" target="_blank">link</a></i></h6><code class="clojure">(-> (t/from-long 0 {:timezone "Asia/Kolkata"
+                    :type Calendar})
+    (t/to-map))
+
+=> {:type java.util.GregorianCalendar,
+    :timezone "Asia/Kolkata", :long 0
+    :year 1970, :month 1, :day 1,
+    :hour 5, :minute 30 :second 0, :millisecond 0}</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__from_map"></span>
+                <div class="entry-description">
+                    <h4><b>from-map&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>creates an map from an instant</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L129-L148" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__from_map">
+                        <label class="source-toggle" for="entry__pre_hara_time__from_map"></label>
+                        <pre class="source"><code class="clojure">(defn from-map
+  ([t] (from-map t {}))
+  ([t opts] (from-map t opts common/+zero-values+))
+  ([t {:keys [type timezone] :as opts} fill]
+   (cond (#{PersistentArrayMap PersistentHashMap} type)
+         (protocol.time/-with-timezone t timezone)
+
+         :else
+         (map/from-map t opts fill))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L94-L119" target="_blank">link</a></i></h6><code class="clojure">(t/from-map {:type java.util.GregorianCalendar,
+             :timezone "Asia/Kolkata", :long 0
+             :year 1970, :month 1, :day 1,
+             :hour 5, :minute 30 :second 0, :millisecond 0}
+
+            {:timezone "Asia/Kolkata"
+             :type Date})
+=> #inst "1970-01-01T00:00:00.000-00:00"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__parse"></span>
+                <div class="entry-description">
+                    <h4><b>parse&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>converts a string into a date</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time/data/format.clj#L82-L128" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__parse">
+                        <label class="source-toggle" for="entry__pre_hara_time__parse"></label>
+                        <pre class="source"><code class="clojure">(defn parse
+  ([s pattern] (parse s pattern {}))
+  ([s pattern {:keys [cached] :as opts}]
+   (let [opts   (merge {:type common/*default-type*} opts)
+         type   (:type opts)
+         tmeta  (protocol.time/-time-meta type)
+         ptype  (-> tmeta :parser :type)
+         parser (cache +parse-cache+
+                       (fn [] (protocol.time/-parser pattern (assoc opts :type ptype)))
+                       [ptype pattern]
+                       cached)]
+     (protocol.time/-parse parser s opts))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time/data/format_test.clj#L42-L78" target="_blank">link</a></i></h6><code class="clojure">(f/parse "00 00 01 01 01 1989 +0000"
+         "ss mm HH dd MM yyyy Z"
+         {:type Date :timezone "GMT"})
+=> #inst "1989-01-01T01:00:00.000-00:00"
+
+(-> (f/parse "00 00 01 01 01 1989 -0800"
+             "ss mm HH dd MM yyyy Z"
+             {:type Calendar})
+    (map/to-map {:timezone "GMT"}
+                common/+default-keys+))
+=> {:type java.util.GregorianCalendar,
+    :timezone "GMT",
+    :long 599648400000,
+    :year 1989,
+    :month 1, :day 1,
+    :hour 9, :minute 0,
+    :second 0, :millisecond 0}
+
+
+(-> (f/parse "00 00 01 01 01 1989 +0000"
+             "ss mm HH dd MM yyyy Z"
+             {:type Timestamp})
+    (map/to-map {:timezone "Asia/Kolkata"}
+                common/+default-keys+))
+=> {:type java.sql.Timestamp,
+    :timezone "Asia/Kolkata",
+    :long 599619600000,
+    :year 1989,
+    :month 1, :day 1,
+    :hour 6, :minute 30,
+    :second 0, :millisecond 0}</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__to_long"></span>
+                <div class="entry-description">
+                    <h4><b>to-long&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>gets the long representation for the instant</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L86-L92" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__to_long">
+                        <label class="source-toggle" for="entry__pre_hara_time__to_long"></label>
+                        <pre class="source"><code class="clojure">(defn to-long
+  [t]
+  (protocol.time/-to-long t))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L70-L72" target="_blank">link</a></i></h6><code class="clojure">(t/to-long #inst "1970-01-01T00:00:10.000-00:00")
+=> 10000</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__to_map"></span>
+                <div class="entry-description">
+                    <h4><b>to-map&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>creates an map from an instant</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L110-L127" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__to_map">
+                        <label class="source-toggle" for="entry__pre_hara_time__to_map"></label>
+                        <pre class="source"><code class="clojure">(defn to-map
+  ([t] (to-map t {}))
+  ([t opts] (to-map t opts common/+default-keys+))
+  ([t {:keys [timezone] :as opts} ks]
+   (cond (map? t)
+         (if timezone
+           (protocol.time/-with-timezone t timezone)
+           t)
+
+         :else
+         (map/to-map t opts ks))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L86-L91" target="_blank">link</a></i></h6><code class="clojure">(-> (t/from-long 0 {:timezone "Asia/Kolkata"
+                    :type Date})
+    (t/to-map {:timezone "GMT"} [:year :month :day]))
+=> {:type java.util.Date, :timezone "GMT", :long 0,
+    :year 1970, :month 1, :day 1}</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__to_vector"></span>
+                <div class="entry-description">
+                    <h4><b>to-vector&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>converts an instant to an array representation</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time/data/vector.clj#L6-L56" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__to_vector">
+                        <label class="source-toggle" for="entry__pre_hara_time__to_vector"></label>
+                        <pre class="source"><code class="clojure">(defn to-vector
+  [t {:keys [timezone] :as opts} ks]
+  (cond (map? t)
+        (if (or (nil? timezone)
+                (= timezone (:timezone opts)))
+          (mapv t ks)
+          (-> (map/from-map t (assoc opts :type java.util.Calendar))
+              (to-vector opts ks)))
+
+        :else
+        (let [tmeta (protocol.time/-time-meta (class t))
+              [p pmeta] (if-let [{:keys [proxy via]} (-> tmeta :map :to)]
+                          [(via t opts) (protocol.time/-time-meta proxy)]
+                          [t tmeta])
+              p         (if timezone
+                          (protocol.time/-with-timezone p timezone)
+                          p)
+              ks   (cond (vector? ks) ks
+
+                         (= :all ks)
+                         (reverse common/+default-keys+)
+
+                         (keyword? ks)
+                         (->> common/+default-keys+
+                              (drop-while #(not= % ks))
+                              (reverse)))
+              rep  (reduce (fn [out k]
+                             (let [t-fn (get common/+default-fns+ k)]
+                               (conj out (t-fn p opts))))
+                           []
+                           ks)]
+          rep)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time/data/vector_test.clj#L13-L30" target="_blank">link</a></i></h6><code class="clojure">(to-vector 0 {:timezone "GMT"} :all)
+=> [1970 1 1 0 0 0 0]
+
+(to-vector (Date. 0) {:timezone "GMT"} :day)
+=> [1970 1 1]
+
+(to-vector (common/calendar (Date. 0)
+                            (TimeZone/getTimeZone "EST"))
+           {}
+           [:month :day :year])
+=> [12 31 1969]
+
+(to-vector (common/calendar (Date. 0)
+                            (TimeZone/getTimeZone "EST"))
+           {:timezone "GMT"}
+           [:month :day :year])
+=> [1 1 1970]</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="operation"></span>
+    <h2><b>6 &nbsp;&nbsp; Operation</b></h2>
+</div><div class="api">
+    <span id="entry__hara_time__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_time__adjust">adjust</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__after">after</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__before">before</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__earliest">earliest</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__equal">equal</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__latest">latest</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__minus">minus</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__plus">plus</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__to_length">to-length</a></li>
+            <li><a data-scroll="" href="#entry__hara_time__truncate">truncate</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_time__adjust"></span>
+                <div class="entry-description">
+                    <h4><b>adjust&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>adjust fields of a particular time</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L362-L375" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__adjust">
+                        <label class="source-toggle" for="entry__pre_hara_time__adjust"></label>
+                        <pre class="source"><code class="clojure">(defn adjust
+  ([t rep]
+   (adjust t rep {}))
+  ([t rep opts]
+   (let [m (-> (to-map t opts)
+               (merge rep)
+               (dissoc :long))]
+     (from-long (from-map m {:type Long})
+                (assoc m :type (class t))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L252-L262" target="_blank">link</a></i></h6><code class="clojure">(t/adjust (Date. 0) {:year 2000 :second 10} {:timezone "GMT"})
+=> #inst "2000-01-01T00:00:10.000-00:00"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__after"></span>
+                <div class="entry-description">
+                    <h4><b>after&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>compare dates, returns true if t1 is after t2, etc</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L303-L315" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__after">
+                        <label class="source-toggle" for="entry__pre_hara_time__after"></label>
+                        <pre class="source"><code class="clojure">(defn after
+  ([t1 t2]
+   (> (to-long t1) (to-long t2)))
+  ([t1 t2 & more]
+   (apply > (map to-long (cons t1 (cons t2 more))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L215-L221" target="_blank">link</a></i></h6><code class="clojure">(t/after 2
+         (Date. 1)
+         (common/calendar
+          (Date. 0)
+          (TimeZone/getTimeZone "GMT")))
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__before"></span>
+                <div class="entry-description">
+                    <h4><b>before&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>compare dates, returns true if t1 is before t2, etc</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L289-L301" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__before">
+                        <label class="source-toggle" for="entry__pre_hara_time__before"></label>
+                        <pre class="source"><code class="clojure">(defn before
+  ([t1 t2]
+   (< (to-long t1) (to-long t2)))
+  ([t1 t2 & more]
+   (apply < (map to-long (cons t1 (cons t2 more))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L206-L212" target="_blank">link</a></i></h6><code class="clojure">(t/before 0
+          (Date. 1)
+          (common/calendar
+           (Date. 2)
+           (TimeZone/getTimeZone "GMT")))
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__earliest"></span>
+                <div class="entry-description">
+                    <h4><b>earliest&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>returns the earliest date out of a range of inputs</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L425-L431" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__earliest">
+                        <label class="source-toggle" for="entry__pre_hara_time__earliest"></label>
+                        <pre class="source"><code class="clojure">(defn earliest
+  [t1 t2 & more]
+  (first (sort-by protocol.time/-to-long (apply vector t1 t2 more))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L297-L299" target="_blank">link</a></i></h6><code class="clojure">(t/earliest (Date. 0) (Date. 1000) (Date. 20000))
+=> #inst "1970-01-01T00:00:00.000-00:00"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__equal"></span>
+                <div class="entry-description">
+                    <h4><b>equal&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>compares dates, retruns true if all inputs are the same</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L275-L287" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__equal">
+                        <label class="source-toggle" for="entry__pre_hara_time__equal"></label>
+                        <pre class="source"><code class="clojure">(defn equal
+  ([t1 t2]
+   (= (to-long t2) (to-long t1)))
+  ([t1 t2 & more]
+   (apply = (map to-long (cons t1 (cons t2 more))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L197-L203" target="_blank">link</a></i></h6><code class="clojure">(t/equal 1
+         (Date. 1)
+         (common/calendar
+          (Date. 1)
+          (TimeZone/getTimeZone "GMT")))
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__latest"></span>
+                <div class="entry-description">
+                    <h4><b>latest&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>returns the latest date out of a range of inputs</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L417-L423" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__latest">
+                        <label class="source-toggle" for="entry__pre_hara_time__latest"></label>
+                        <pre class="source"><code class="clojure">(defn latest
+  [t1 t2 & more]
+  (last (sort-by protocol.time/-to-long (apply vector t1 t2 more))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L292-L294" target="_blank">link</a></i></h6><code class="clojure">(t/latest (Date. 0) (Date. 1000) (Date. 20000))
+=> #inst "1970-01-01T00:00:20.000-00:00"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__minus"></span>
+                <div class="entry-description">
+                    <h4><b>minus&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>substracts a duration from the time</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L337-L360" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__minus">
+                        <label class="source-toggle" for="entry__pre_hara_time__minus"></label>
+                        <pre class="source"><code class="clojure">(defn minus
+  ([t duration]
+   (minus t duration {}))
+  ([t duration opts]
+   (from-long (- (to-long t)
+                 (to-length duration
+                            (-> (to-map t opts [:day :month :year])
+                                (assoc :backward true))))
+              (assoc opts :type (class t)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L236-L249" target="_blank">link</a></i></h6><code class="clojure">(t/minus (Date. 0) {:years 1})
+=> #inst "1969-01-01T00:00:00.000-00:00"
+
+(-> (t/from-map {:type java.time.ZonedDateTime
+                 :timezone "GMT",
+                 :year 1970, :month 1, :day 1,
+                 :hour 0, :minute 0, :second 0, :millisecond 0})
+    (t/minus    {:years 10 :months 1 :weeks 4 :days 2})
+    (t/to-map {:timezone "GMT"}))
+=> {:type java.time.ZonedDateTime, :timezone "GMT",
+    :long -320803200000
+    :year 1959, :month 11, :day 2,
+    :hour 0, :minute 0, :second 0, :millisecond 0}</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__plus"></span>
+                <div class="entry-description">
+                    <h4><b>plus&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>adds a duration to the time</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L317-L335" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__plus">
+                        <label class="source-toggle" for="entry__pre_hara_time__plus"></label>
+                        <pre class="source"><code class="clojure">(defn plus
+  ([t duration]
+   (plus t duration {}))
+  ([t duration opts]
+   (from-long (+ (to-long t)
+                 (to-length duration
+                            (to-map t opts [:day :month :year])))
+              (assoc opts :type (class t)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L224-L233" target="_blank">link</a></i></h6><code class="clojure">(t/plus (Date. 0) {:weeks 2})
+=> #inst "1970-01-15T00:00:00.000-00:00"
+
+(t/plus (Date. 0) 1000)
+=> #inst "1970-01-01T00:00:01.000-00:00"
+
+(t/plus (java.util.Date. 0)
+        {:years 10 :months 1 :weeks 4 :days 2})
+=> #inst "1980-03-02T00:00:00.000-00:00"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__to_length"></span>
+                <div class="entry-description">
+                    <h4><b>to-length&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>converts a object implementing IDuration to a long</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L150-L158" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__to_length">
+                        <label class="source-toggle" for="entry__pre_hara_time__to_length"></label>
+                        <pre class="source"><code class="clojure">(defn to-length
+  ([t]
+   (to-length t {:year 0 :month 1 :day 1}))
+  ([t rep]
+   (protocol.time/-to-length t rep)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L122-L124" target="_blank">link</a></i></h6><code class="clojure">(t/to-length {:days 1})
+=> 86400000</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_time__truncate"></span>
+                <div class="entry-description">
+                    <h4><b>truncate&nbsp<a data-scroll="" href="#entry__hara_time__">^</a></b></h4>
+                    <p><i>truncates the time to a particular field</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/time.clj#L377-L397" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_time__truncate">
+                        <label class="source-toggle" for="entry__pre_hara_time__truncate"></label>
+                        <pre class="source"><code class="clojure">(defn truncate
+  ([t col]
+   (truncate t col {}))
+  ([t col opts]
+   (let [rep  (to-map t opts)
+         trep (->> common/+default-keys+
+                   (drop-while #(not= col %))
+                   (concat [:type :timezone])
+                   (select-keys rep))]
+     (from-map (merge common/+zero-values+ (dissoc trep :long))
+               (assoc opts :type (class t))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/time_test.clj#L265-L278" target="_blank">link</a></i></h6><code class="clojure">(t/truncate #inst "1989-12-28T12:34:00.000-00:00"
+            :hour {:timezone "GMT"})
+=> #inst "1989-12-28T12:00:00.000-00:00"
+
+(t/truncate #inst "1989-12-28T12:34:00.000-00:00"
+            :year {:timezone "GMT"})
+=> #inst "1989-01-01T00:00:00.000-00:00"</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="walkthrough"></span>
+    <h2><b>7 &nbsp;&nbsp; Walkthrough</b></h2>
+</div><div><p>We can start off with the easiest call:</p>
+</div><div class="code">
+    <pre><code class="clojure">(t/now)
+;;=&gt; {:day 4, :hour 14, :timezone &quot;Asia/Kolkata&quot;,
+;;    :long 1457081866919, :second 46, :month 3,
+;;    :type java.util.Date, :year 2016, :millisecond 919, :minute 27}</code></pre>
+</div><div><p>Note that <code>now</code> returns a clojure map representing the current time. This is the default type, but we can also specify that we want a <code>java.util.Date</code> object</p>
+</div><div class="code">
+    <pre><code class="clojure">(t/now {:type java.util.Date})
+;;=&gt; #inst &quot;2016-03-04T08:57:46.919-00:00&quot;</code></pre>
+</div><div><p>If on Java version 1.8, the use of <code>:type</code> can set the returned object to be of type <code>java.time.Instant</code>.</p>
+</div><div class="code">
+    <pre><code class="clojure">(t/now {:type java.time.Instant})
+;;=&gt; #&lt;Instant 2016-03-04T08:58:11.678Z&gt;</code></pre>
+</div><div><p>The default timezone can also be accessed and modified through <code>default-timezone</code></p>
+</div><div class="code">
+    <pre><code class="clojure">(t/default-timezone)
+;;=&gt; &quot;Asia/Kolkata&quot;</code></pre>
+</div><div><p>The default type can be accessed and modified through <code>default-type</code>:</p>
+</div><div class="code">
+    <pre><code class="clojure">(t/default-type)
+;;=&gt; clojure.lang.PersistentArrayMap</code></pre>
+</div><div>
+    <span id="supported-types"></span>
+    <h3>7.1 &nbsp;&nbsp; Supported Types</h3>
+</div><div><p>Currently <code>hara.time</code> supports the following time representations</p><ul><li><code>java.lang.Long</code></li><li><code>java.util.Date</code></li><li><code>java.util.Calendar</code></li><li><code>java.sql.Timestamp</code></li><li><code>java.time.Instant</code></li><li><code>java.time.Clock</code></li><li><code>org.joda.time.DateTime</code> (when required)</li></ul>
+</div><div><p>Changing the <code>default-type</code> to Calendar will immediately affect the <code>now</code> function to return a <code>java.util.Calendar</code> object</p>
+</div><div class="code">
+    <pre><code class="clojure">(t/default-type java.util.Calendar)
+
+(t/now)
+;;=&gt; #inst &quot;2016-03-04T14:28:39.481+05:30&quot;
+
+(type (t/now))
+;;=&gt; java.util.GregorianCalendar</code></pre>
+</div><div><p>And again, a change of type will result in another representation</p>
+</div><div class="code">
+    <pre><code class="clojure">(t/default-type java.time.ZonedDateTime)
+
+(t/now)
+;;=&gt; #&lt;ZonedDateTime 2016-03-04T15:41:17.901+05:30[Asia/Kolkata]&gt;
+
+(type (t/now))
+;;=&gt; java.time.ZonedDateTime</code></pre>
+</div><div>
+    <span id="date-as-data"></span>
+    <h3>7.2 &nbsp;&nbsp; Date as Data</h3>
+</div><div><p><code>hara.time</code> has two basic concepts of time:</p><ul><li>time as an absolute value (long)</li><li>time as a representation in a given context (map)</li></ul>
+</div><div><p>These concepts can also be set as the default type, for example, we now set <code>Long</code> as the default type:</p>
+</div><div class="code">
+    <pre><code class="clojure">(t/default-type Long)
+
+(t/now)
+;;=&gt; 1457086323250</code></pre>
+</div><div><p>As well as a map as the default type:</p>
+</div><div class="code">
+    <pre><code class="clojure">(t/default-type clojure.lang.PersistentArrayMap)
+
+(t/now)
+;;=&gt; {:day 4, :hour 14, :timezone &quot;Asia/Kolkata&quot;,
+;;    :second 0, :day-of-week 6, :month 3,
+;;    :year 2016, :millisecond 611, :minute 33}</code></pre>
+</div><div><p>A specific timezone can be passed in and this is the same for all supported time objects:</p>
+</div><div class="code">
+    <pre><code class="clojure">(t/now {:timezone &quot;GMT&quot;})
+;;=&gt; {:day 4, :hour 9, :timezone &quot;GMT&quot;,
+;;    :second 13, :day-of-week 6, :month 3,
+;;    :year 2016, :millisecond 585, :minute 4}</code></pre>
+</div><div>
+    <span id="extensiblity"></span>
+    <h3>7.3 &nbsp;&nbsp; Extensiblity</h3>
+</div><div><p>Because the API is based on protocols, it is very easy to extend. For an example of how other date libraries can be added to the framework, please see <a href='https://github.com/caudata/hara/blob/master/src/hara/time/joda/'>hara.time.joda</a> for how <a href='http://www.joda.org/joda-time/'>joda-time</a> was added.</p>
+</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outline">
+      <div class="toc">
+        <nav data-gumshoe-header>
+          <ul data-gumshoe>
+            <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#general"><h4>2 &nbsp; General</h4></a><a class="section" data-scroll="" href="#entry__hara_time__calendar"><h5><i>calendar</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__default_type"><h5><i>default-type</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__duration_QMARK_"><h5><i>duration?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__epoch"><h5><i>epoch</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__instant_QMARK_"><h5><i>instant?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__now"><h5><i>now</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__representation_QMARK_"><h5><i>representation?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__time_meta"><h5><i>time-meta</i></h5></a></li><li><a class="chapter" data-scroll="" href="#timezone"><h4>3 &nbsp; Timezone</h4></a><a class="section" data-scroll="" href="#entry__hara_time__default_timezone"><h5><i>default-timezone</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__get_timezone"><h5><i>get-timezone</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__has_timezone_QMARK_"><h5><i>has-timezone?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__local_timezone"><h5><i>local-timezone</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__with_timezone"><h5><i>with-timezone</i></h5></a></li><li><a class="chapter" data-scroll="" href="#access"><h4>4 &nbsp; Access</h4></a><a class="section" data-scroll="" href="#entry__hara_time__day"><h5><i>day</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__day_of_week"><h5><i>day-of-week</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__hour"><h5><i>hour</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__millisecond"><h5><i>millisecond</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__minute"><h5><i>minute</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__month"><h5><i>month</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__second"><h5><i>second</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__year"><h5><i>year</i></h5></a></li><li><a class="chapter" data-scroll="" href="#convert"><h4>5 &nbsp; Convert</h4></a><a class="section" data-scroll="" href="#entry__hara_time__coerce"><h5><i>coerce</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__format"><h5><i>format</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__from_long"><h5><i>from-long</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__from_map"><h5><i>from-map</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__parse"><h5><i>parse</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__to_long"><h5><i>to-long</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__to_map"><h5><i>to-map</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__to_vector"><h5><i>to-vector</i></h5></a></li><li><a class="chapter" data-scroll="" href="#operation"><h4>6 &nbsp; Operation</h4></a><a class="section" data-scroll="" href="#entry__hara_time__adjust"><h5><i>adjust</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__after"><h5><i>after</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__before"><h5><i>before</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__earliest"><h5><i>earliest</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__equal"><h5><i>equal</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__latest"><h5><i>latest</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__minus"><h5><i>minus</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__plus"><h5><i>plus</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__to_length"><h5><i>to-length</i></h5></a><a class="section" data-scroll="" href="#entry__hara_time__truncate"><h5><i>truncate</i></h5></a></li><li><a class="chapter" data-scroll="" href="#walkthrough"><h4>7 &nbsp; Walkthrough</h4></a><a class="section" data-scroll="" href="#supported-types"><h5><i>7.1 &nbsp; Supported Types</i></h5></a><a class="section" data-scroll="" href="#date-as-data"><h5><i>7.2 &nbsp; Date as Data</i></h5></a><a class="section" data-scroll="" href="#extensiblity"><h5><i>7.3 &nbsp; Extensiblity</i></h5></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    
+    <!--label for="sidebar-checkbox" class="sidebar-toggle"></label-->
+
+  </body>
+
+  <script>
+  if (true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-31320512-2', 'caudate.me');
+    ga('send', 'pageview');
+  }
+  </script>
+  
+  <script type="text/javascript">
+    smoothScroll.init();
+    gumshoe.init({});
+  
+    hljs.registerLanguage("clojure",function(e){var t={"builtin-name":"def defonce cond apply if-not if-let if not not= = < > <= >= == + / * - rem quot neg? pos? delay? symbol? keyword? true? false? integer? empty? coll? list? set? ifn? fn? associative? sequential? sorted? counted? reversible? number? decimal? class? distinct? isa? float? rational? reduced? ratio? odd? even? char? seq? vector? string? map? nil? contains? zero? instance? not-every? not-any? libspec? -> ->> .. . inc compare do dotimes mapcat take remove take-while drop letfn drop-last take-last drop-while while intern condp case reduced cycle split-at split-with repeat replicate iterate range merge zipmap declare line-seq sort comparator sort-by dorun doall nthnext nthrest partition eval doseq await await-for let agent atom send send-off release-pending-sends add-watch mapv filterv remove-watch agent-error restart-agent set-error-handler error-handler set-error-mode! error-mode shutdown-agents quote var fn loop recur throw try monitor-enter monitor-exit defmacro defn defn- macroexpand macroexpand-1 for dosync and or when when-not when-let comp juxt partial sequence memoize constantly complement identity assert peek pop doto proxy defstruct first rest cons defprotocol cast coll deftype defrecord last butlast sigs reify second ffirst fnext nfirst nnext defmulti defmethod meta with-meta ns in-ns create-ns import refer keys select-keys vals key val rseq name namespace promise into transient persistent! conj! assoc! dissoc! pop! disj! use class type num float double short byte boolean bigint biginteger bigdec print-method print-dup throw-if printf format load compile get-in update-in pr pr-on newline flush read slurp read-line subvec with-open memfn time re-find re-groups rand-int rand mod locking assert-valid-fdecl alias resolve ref deref refset swap! reset! set-validator! compare-and-set! alter-meta! reset-meta! commute get-validator alter ref-set ref-history-count ref-min-history ref-max-history ensure sync io! new next conj set! to-array future future-call into-array aset gen-class reduce map filter find empty hash-map hash-set sorted-map sorted-map-by sorted-set sorted-set-by vec vector seq flatten reverse assoc dissoc list disj get union difference intersection extend extend-type extend-protocol int nth delay count concat chunk chunk-buffer chunk-append chunk-first chunk-rest max min dec unchecked-inc-int unchecked-inc unchecked-dec-inc unchecked-dec unchecked-negate unchecked-add-int unchecked-add unchecked-subtract-int unchecked-subtract chunk-next chunk-cons chunked-seq? prn vary-meta lazy-seq spread list* str find-keyword keyword symbol gensym force rationalize"},r="a-zA-Z_\\-!.?+*=<>&#'",n="["+r+"]["+r+"0-9/;:]*",a="[-+]?\\d+(\\.\\d+)?",o={b:n,r:0},s={cN:"number",b:a,r:0},i=e.inherit(e.QSM,{i:null}),c=e.C(";","$",{r:0}),d={cN:"literal",b:/\b(true|false|nil)\b/},l={b:"[\\[\\{]",e:"[\\]\\}]"},m={cN:"comment",b:"\\^"+n},p=e.C("\\^\\{","\\}"),u={cN:"symbol",b:"[:]{1,2}"+n},f={b:"\\(",e:"\\)"},h={eW:!0,r:0},y={k:t,l:n,cN:"name",b:n,starts:h},b=[f,i,m,p,c,u,l,s,d,o];return f.c=[e.C("comment",""),y,h],h.c=b,l.c=b,{aliases:["clj"],i:/\S/,c:[f,i,m,p,c,u,l,s,d]}});
+    hljs.initHighlightingOnLoad();
+  </script>
+</html>

@@ -1,0 +1,389 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <link rel="shortcut icon" href="favicon.ico">
+  <title>hara.module - code functionality management</title>
+  <script src="js/highlight.min.js"></script>
+  <script src="js/gumshoe.min.js"></script>
+  <script src="js/smooth-scroll.min.js"></script>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/poole.css">
+  <link rel="stylesheet" href="css/syntax.css">
+  <link rel="stylesheet" href="css/lanyon.css">
+  <link rel="stylesheet" href="css/bolton.css">
+  <link rel="stylesheet" href="css/bolton-api.css">
+  <link rel="stylesheet" href="css/bolton-highlight.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  
+</head>
+
+  <body class="theme-base-0b">
+    <span id="page-top"></span>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <nav class="sidebar-nav">
+    <span>&nbsp;</span>
+    <a class="sidebar-nav-item header" href="index.html" style="padding-bottom:5px"><b>HOME</b></a>
+    <a class="sidebar-nav-item" href="hara-config.html">config</a><a class="sidebar-nav-item" href="hara-core.html">core</a><a class="sidebar-nav-item" href="hara-data.html">data</a><a class="sidebar-nav-item" href="hara-deploy.html">deploy</a><a class="sidebar-nav-item" href="hara-event.html">event</a><a class="sidebar-nav-item" href="hara-function.html">function</a><a class="sidebar-nav-item" href="hara-function-procedure.html">function.procedure</a><a class="sidebar-nav-item" href="hara-function-task.html">function.task</a><a class="sidebar-nav-item" href="hara-io-archive.html">io.archive</a><a class="sidebar-nav-item" href="hara-io-file.html">io.file</a><a class="sidebar-nav-item" href="hara-io-project.html">io.project</a><a class="sidebar-nav-item" href="hara-io-scheduler.html">io.scheduler</a><a class="sidebar-nav-item" href="hara-lib-aether.html">lib.aether</a><a class="sidebar-nav-item" href="hara-lib-jgit.html">lib.jgit</a><a class="sidebar-nav-item" href="hara-math.html">math</a><a class="sidebar-nav-item" href="hara-module.html">module</a><a class="sidebar-nav-item" href="hara-object.html">object</a><a class="sidebar-nav-item" href="hara-print.html">print</a><a class="sidebar-nav-item" href="hara-security.html">security</a><a class="sidebar-nav-item" href="hara-security-openpgp.html">security.openpgp</a><a class="sidebar-nav-item" href="hara-state.html">state</a><a class="sidebar-nav-item" href="hara-state-ova.html">state.ova</a><a class="sidebar-nav-item" href="hara-string.html">string</a><a class="sidebar-nav-item" href="hara-test.html">test</a><a class="sidebar-nav-item" href="hara-time.html">time</a><a class="sidebar-nav-item" href="hara-watch.html">watch</a>
+    <span class="sidebar-nav-item">&nbsp;</span>
+    <span class="sidebar-nav-item">&nbsp;</span>
+  </nav>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <span>module</span>
+            <small>code functionality management</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="page">
+          <div class="heading">
+            <div>
+              <h5>Author: Chris Zheng&nbsp;&nbsp;<a href="mailto:z@caudate.me">(z@caudate.me)</a></h5>
+              <h5>Date: 04 November 2018</h5>
+              <h5>Repository: <a href="https://github.com/zcaudate/hara">https://github.com/zcaudate/hara</a></h5>
+              <h5>Version: 3.0.1</h5></div></div>
+          <hr/>
+
+          <div class="toc">
+              <nav>
+                <ul>
+                  <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#api"><h4>2 &nbsp; API</h4></a><a class="section" data-scroll="" href="#entry__hara_module__extend_abstract"><h5><i>extend-abstract</i></h5></a><a class="section" data-scroll="" href="#entry__hara_module__extend_all"><h5><i>extend-all</i></h5></a><a class="section" data-scroll="" href="#entry__hara_module__extend_implementations"><h5><i>extend-implementations</i></h5></a><a class="section" data-scroll="" href="#entry__hara_module__include"><h5><i>include</i></h5></a><a class="section" data-scroll="" href="#entry__hara_module__link"><h5><i>link</i></h5></a><a class="section" data-scroll="" href="#entry__hara_module__registered_link_QMARK_"><h5><i>registered-link?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_module__registered_links"><h5><i>registered-links</i></h5></a><a class="section" data-scroll="" href="#entry__hara_module__resolve_links"><h5><i>resolve-links</i></h5></a><a class="section" data-scroll="" href="#entry__hara_module__unresolved_links"><h5><i>unresolved-links</i></h5></a></li>
+                </ul>
+              </nav>
+          </div>
+          <div>
+    <span id="introduction"></span>
+    <h2><b>1 &nbsp;&nbsp; Introduction</b></h2>
+</div><div><p><a href='https://github.com/caudata/hara/blob/master/src/hara/module.clj'>hara.module</a> provides methods and data structures to link and package code into modules</p>
+</div><div>
+    <span id="installation"></span>
+    <h3>1.1 &nbsp;&nbsp; Installation</h3>
+</div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;hara/base &quot;3.0.1&quot;&#93;</code></pre>
+</div><div><p>All functions are in the <code>hara.module</code> namespace.      </p><pre><code> &#40;use &#40;quote hara.module&#41;&#41;</code></pre>
+</div><div>
+    <span id="api"></span>
+    <h2><b>2 &nbsp;&nbsp; API</b></h2>
+</div><div class="api">
+    <span id="entry__hara_module__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_module__extend_abstract">extend-abstract</a></li>
+            <li><a data-scroll="" href="#entry__hara_module__extend_all">extend-all</a></li>
+            <li><a data-scroll="" href="#entry__hara_module__extend_implementations">extend-implementations</a></li>
+            <li><a data-scroll="" href="#entry__hara_module__include">include</a></li>
+            <li><a data-scroll="" href="#entry__hara_module__link">link</a></li>
+            <li><a data-scroll="" href="#entry__hara_module__registered_link_QMARK_">registered-link?</a></li>
+            <li><a data-scroll="" href="#entry__hara_module__registered_links">registered-links</a></li>
+            <li><a data-scroll="" href="#entry__hara_module__resolve_links">resolve-links</a></li>
+            <li><a data-scroll="" href="#entry__hara_module__unresolved_links">unresolved-links</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_module__extend_abstract"></span>
+                <div class="entry-description">
+                    <h4><b>extend-abstract&nbsp<a data-scroll="" href="#entry__hara_module__">^</a></b></h4>
+                    <p><i>creates a set of abstract multimethods as well as extends a set of
+  protocols to a given type</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/module/base/abstract.clj#L203-L227" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_module__extend_abstract">
+                        <label class="source-toggle" for="entry__pre_hara_module__extend_abstract"></label>
+                        <pre class="source"><code class="clojure">(defmacro extend-abstract
+  [typesym protocolsyms & {:as options}]
+  (list `keep `identity
+        (cons `concat
+              (map #(protocol-all typesym % options)
+                   protocolsyms))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/module/base/abstract_test.clj#L106-L123" target="_blank">link</a></i></h6><code class="clojure">(extend-abstract
+ Envelope [IData]
+ :select -
+ :suffix -env
+ :prefix nil
+ :wrappers   {-data (str "hello " %)}
+ :dispatch   :type
+ :defaults   {nil   ([this & args] (Exception. "No input"))
+              -data ([this] (:hello this))})
+
+(data-env (map->Envelope {:hello "world"}))
+=> "world"
+
+(-data (map->Envelope {:hello "world"}))
+=> "hello world"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_module__extend_all"></span>
+                <div class="entry-description">
+                    <h4><b>extend-all&nbsp<a data-scroll="" href="#entry__hara_module__">^</a></b></h4>
+                    <p><i>transforms a protocl template into multiple extend-type expresions</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/module/base/extend.clj#L33-L49" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_module__extend_all">
+                        <label class="source-toggle" for="entry__pre_hara_module__extend_all"></label>
+                        <pre class="source"><code class="clojure">(defmacro extend-all
+  [proto ptmpls & args]
+  (let [types (partition 2 args)]
+    `(do
+       ~@(mapcat #(extend-entry proto ptmpls %) types))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/module/base/extend_test.clj#L23-L33" target="_blank">link</a></i></h6><code class="clojure">(macroexpand-1
+ '(extend-all Magma
+              [(op ([x y] (% x y)))]
+
+              Number        [op-number]
+              [List Vector] [op-list]))
+=> '(do (clojure.core/extend-type Number Magma (op ([x y] (op-number x y))))
+        (clojure.core/extend-type List Magma (op ([x y] (op-list x y))))
+        (clojure.core/extend-type Vector Magma (op ([x y] (op-list x y)))))</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_module__extend_implementations"></span>
+                <div class="entry-description">
+                    <h4><b>extend-implementations&nbsp<a data-scroll="" href="#entry__hara_module__">^</a></b></h4>
+                    <p><i>creates a set of implementation functions for implementation
+  of protocol functionality</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/module/base/abstract.clj#L270-L285" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_module__extend_implementations">
+                        <label class="source-toggle" for="entry__pre_hara_module__extend_implementations"></label>
+                        <pre class="source"><code class="clojure">(defmacro extend-implementations
+  [protocolsyms & {:as options}]
+  (vec
+   (mapcat #(protocol-implementation % options)
+           protocolsyms)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/module/base/abstract_test.clj#L151-L160" target="_blank">link</a></i></h6><code class="clojure">(extend-implementations
+ [IData]
+ :wrappers (fn [form _]
+             (list 'str form " again")))
+
+(data (map->Envelope {:hello "world"}))
+=> "hello world again"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_module__include"></span>
+                <div class="entry-description">
+                    <h4><b>include&nbsp<a data-scroll="" href="#entry__hara_module__">^</a></b></h4>
+                    <p><i>imports all or a selection of vars from one namespace to the current one.</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/module/base/include.clj#L5-L30" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_module__include">
+                        <label class="source-toggle" for="entry__pre_hara_module__include"></label>
+                        <pre class="source"><code class="clojure">(defmacro include
+  [& [opts? & sources]]
+  (let [[opts sources] (if (map? opts?)
+                         [opts? sources]
+                         [{} (cons opts? sources)])]
+    `(copy/copy (quote ~sources)
+                ~opts)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/module/base/include_test.clj#L7-L28" target="_blank">link</a></i></h6><code class="clojure">(include (hara.core.base.check atom? long?))
+(eval '(long? 1))  => true
+(eval '(atom? 1)) => false
+
+(include
+ {:fn (fn [ns sym var]
+        (intern ns sym (fn [x] (@var (bigint x)))))}
+ (hara.core.base.check bigint?))
+(eval '(bigint? 1)) => true
+
+(include
+ {:ns 'clojure.core}
+ (hara.core.base.check bigint?))
+=> [#'clojure.core/bigint?]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_module__link"></span>
+                <div class="entry-description">
+                    <h4><b>link&nbsp<a data-scroll="" href="#entry__hara_module__">^</a></b></h4>
+                    <p><i>creates links to vars that can be resolved in a controllable manner</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/module/base/include.clj#L53-L67" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_module__link">
+                        <label class="source-toggle" for="entry__pre_hara_module__link"></label>
+                        <pre class="source"><code class="clojure">(defmacro link
+  [& [opts? & sources]]
+  (let [[opts sources] (if (map? opts?)
+                         [opts? sources]
+                         [{} (cons opts? sources)])]
+    `(link-sources (quote ~sources)
+                   ~opts)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/module/base/include_test.clj#L34-L57" target="_blank">link</a></i></h6><code class="clojure">(link
+ {:resolve :lazy}
+ (hara.core.base.check atom?))
+  
+(meta #'atom?) => {:name 'atom?, :ns *ns*}</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_module__registered_link_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>registered-link?&nbsp<a data-scroll="" href="#entry__hara_module__">^</a></b></h4>
+                    <p><i>checks if a link is registered</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/module/base/link.clj#L130-L139" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_module__registered_link_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_module__registered_link_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn registered-link?
+  ([^Link link]
+   (let [sink     (.sink link)
+         registry (.registry link)]
+     (= link (get @registry sink)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/module/base/link_test.clj#L61-L64" target="_blank">link</a></i></h6><code class="clojure">(registered-link? -lnk-)
+=> false</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_module__registered_links"></span>
+                <div class="entry-description">
+                    <h4><b>registered-links&nbsp<a data-scroll="" href="#entry__hara_module__">^</a></b></h4>
+                    <p><i>returns all registered links</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/module/base/link.clj#L141-L153" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_module__registered_links">
+                        <label class="source-toggle" for="entry__pre_hara_module__registered_links"></label>
+                        <pre class="source"><code class="clojure">(defn registered-links
+  ([]
+   (registered-links +registry))
+  ([registry]
+   (keys @registry)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/module/base/link_test.clj#L67-L73" target="_blank">link</a></i></h6><code class="clojure">(register-link -lnk-)
+=> #'hara.module.base.link-test/-lnk-
+  
+(registered-links)
+=> (contains [(exactly #'-lnk-)])</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_module__resolve_links"></span>
+                <div class="entry-description">
+                    <h4><b>resolve-links&nbsp<a data-scroll="" href="#entry__hara_module__">^</a></b></h4>
+                    <p><i>resolves all unresolved links in a background thread</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/module/base/link.clj#L168-L182" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_module__resolve_links">
+                        <label class="source-toggle" for="entry__pre_hara_module__resolve_links"></label>
+                        <pre class="source"><code class="clojure">(defn resolve-links
+  ([]
+   (resolve-links +registry))
+  ([registry]
+   (future
+     (mapv (fn [v]
+             (try
+               (bind-resolve @v)
+               (catch Throwable t
+                 (println "LINK RESOLVE ERROR:" @v))))
+           (unresolved-links registry)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/module/base/link_test.clj#L81-L83" target="_blank">link</a></i></h6><code class="clojure">(resolve-links)</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_module__unresolved_links"></span>
+                <div class="entry-description">
+                    <h4><b>unresolved-links&nbsp<a data-scroll="" href="#entry__hara_module__">^</a></b></h4>
+                    <p><i>returns all unresolved links</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/module/base/link.clj#L155-L166" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_module__unresolved_links">
+                        <label class="source-toggle" for="entry__pre_hara_module__unresolved_links"></label>
+                        <pre class="source"><code class="clojure">(defn unresolved-links
+  ([]
+   (unresolved-links +registry))
+  ([registry]
+   (keep (fn [[k link]]
+           (= :unresolved (link-status link))
+           k)
+         @registry)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/module/base/link_test.clj#L76-L78" target="_blank">link</a></i></h6><code class="clojure">(unresolved-links)</code></pre>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outline">
+      <div class="toc">
+        <nav data-gumshoe-header>
+          <ul data-gumshoe>
+            <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#api"><h4>2 &nbsp; API</h4></a><a class="section" data-scroll="" href="#entry__hara_module__extend_abstract"><h5><i>extend-abstract</i></h5></a><a class="section" data-scroll="" href="#entry__hara_module__extend_all"><h5><i>extend-all</i></h5></a><a class="section" data-scroll="" href="#entry__hara_module__extend_implementations"><h5><i>extend-implementations</i></h5></a><a class="section" data-scroll="" href="#entry__hara_module__include"><h5><i>include</i></h5></a><a class="section" data-scroll="" href="#entry__hara_module__link"><h5><i>link</i></h5></a><a class="section" data-scroll="" href="#entry__hara_module__registered_link_QMARK_"><h5><i>registered-link?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_module__registered_links"><h5><i>registered-links</i></h5></a><a class="section" data-scroll="" href="#entry__hara_module__resolve_links"><h5><i>resolve-links</i></h5></a><a class="section" data-scroll="" href="#entry__hara_module__unresolved_links"><h5><i>unresolved-links</i></h5></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    
+    <!--label for="sidebar-checkbox" class="sidebar-toggle"></label-->
+
+  </body>
+
+  <script>
+  if (true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-31320512-2', 'caudate.me');
+    ga('send', 'pageview');
+  }
+  </script>
+  
+  <script type="text/javascript">
+    smoothScroll.init();
+    gumshoe.init({});
+  
+    hljs.registerLanguage("clojure",function(e){var t={"builtin-name":"def defonce cond apply if-not if-let if not not= = < > <= >= == + / * - rem quot neg? pos? delay? symbol? keyword? true? false? integer? empty? coll? list? set? ifn? fn? associative? sequential? sorted? counted? reversible? number? decimal? class? distinct? isa? float? rational? reduced? ratio? odd? even? char? seq? vector? string? map? nil? contains? zero? instance? not-every? not-any? libspec? -> ->> .. . inc compare do dotimes mapcat take remove take-while drop letfn drop-last take-last drop-while while intern condp case reduced cycle split-at split-with repeat replicate iterate range merge zipmap declare line-seq sort comparator sort-by dorun doall nthnext nthrest partition eval doseq await await-for let agent atom send send-off release-pending-sends add-watch mapv filterv remove-watch agent-error restart-agent set-error-handler error-handler set-error-mode! error-mode shutdown-agents quote var fn loop recur throw try monitor-enter monitor-exit defmacro defn defn- macroexpand macroexpand-1 for dosync and or when when-not when-let comp juxt partial sequence memoize constantly complement identity assert peek pop doto proxy defstruct first rest cons defprotocol cast coll deftype defrecord last butlast sigs reify second ffirst fnext nfirst nnext defmulti defmethod meta with-meta ns in-ns create-ns import refer keys select-keys vals key val rseq name namespace promise into transient persistent! conj! assoc! dissoc! pop! disj! use class type num float double short byte boolean bigint biginteger bigdec print-method print-dup throw-if printf format load compile get-in update-in pr pr-on newline flush read slurp read-line subvec with-open memfn time re-find re-groups rand-int rand mod locking assert-valid-fdecl alias resolve ref deref refset swap! reset! set-validator! compare-and-set! alter-meta! reset-meta! commute get-validator alter ref-set ref-history-count ref-min-history ref-max-history ensure sync io! new next conj set! to-array future future-call into-array aset gen-class reduce map filter find empty hash-map hash-set sorted-map sorted-map-by sorted-set sorted-set-by vec vector seq flatten reverse assoc dissoc list disj get union difference intersection extend extend-type extend-protocol int nth delay count concat chunk chunk-buffer chunk-append chunk-first chunk-rest max min dec unchecked-inc-int unchecked-inc unchecked-dec-inc unchecked-dec unchecked-negate unchecked-add-int unchecked-add unchecked-subtract-int unchecked-subtract chunk-next chunk-cons chunked-seq? prn vary-meta lazy-seq spread list* str find-keyword keyword symbol gensym force rationalize"},r="a-zA-Z_\\-!.?+*=<>&#'",n="["+r+"]["+r+"0-9/;:]*",a="[-+]?\\d+(\\.\\d+)?",o={b:n,r:0},s={cN:"number",b:a,r:0},i=e.inherit(e.QSM,{i:null}),c=e.C(";","$",{r:0}),d={cN:"literal",b:/\b(true|false|nil)\b/},l={b:"[\\[\\{]",e:"[\\]\\}]"},m={cN:"comment",b:"\\^"+n},p=e.C("\\^\\{","\\}"),u={cN:"symbol",b:"[:]{1,2}"+n},f={b:"\\(",e:"\\)"},h={eW:!0,r:0},y={k:t,l:n,cN:"name",b:n,starts:h},b=[f,i,m,p,c,u,l,s,d,o];return f.c=[e.C("comment",""),y,h],h.c=b,l.c=b,{aliases:["clj"],i:/\S/,c:[f,i,m,p,c,u,l,s,d]}});
+    hljs.initHighlightingOnLoad();
+  </script>
+</html>

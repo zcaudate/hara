@@ -1,0 +1,1297 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <link rel="shortcut icon" href="favicon.ico">
+  <title>hara.string - string manipulation</title>
+  <script src="js/highlight.min.js"></script>
+  <script src="js/gumshoe.min.js"></script>
+  <script src="js/smooth-scroll.min.js"></script>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/poole.css">
+  <link rel="stylesheet" href="css/syntax.css">
+  <link rel="stylesheet" href="css/lanyon.css">
+  <link rel="stylesheet" href="css/bolton.css">
+  <link rel="stylesheet" href="css/bolton-api.css">
+  <link rel="stylesheet" href="css/bolton-highlight.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  
+</head>
+
+  <body class="theme-base-0b">
+    <span id="page-top"></span>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <nav class="sidebar-nav">
+    <span>&nbsp;</span>
+    <a class="sidebar-nav-item header" href="index.html" style="padding-bottom:5px"><b>HOME</b></a>
+    <a class="sidebar-nav-item" href="hara-config.html">config</a><a class="sidebar-nav-item" href="hara-core.html">core</a><a class="sidebar-nav-item" href="hara-data.html">data</a><a class="sidebar-nav-item" href="hara-deploy.html">deploy</a><a class="sidebar-nav-item" href="hara-event.html">event</a><a class="sidebar-nav-item" href="hara-function.html">function</a><a class="sidebar-nav-item" href="hara-function-procedure.html">function.procedure</a><a class="sidebar-nav-item" href="hara-function-task.html">function.task</a><a class="sidebar-nav-item" href="hara-io-archive.html">io.archive</a><a class="sidebar-nav-item" href="hara-io-file.html">io.file</a><a class="sidebar-nav-item" href="hara-io-project.html">io.project</a><a class="sidebar-nav-item" href="hara-io-scheduler.html">io.scheduler</a><a class="sidebar-nav-item" href="hara-lib-aether.html">lib.aether</a><a class="sidebar-nav-item" href="hara-lib-jgit.html">lib.jgit</a><a class="sidebar-nav-item" href="hara-math.html">math</a><a class="sidebar-nav-item" href="hara-module.html">module</a><a class="sidebar-nav-item" href="hara-object.html">object</a><a class="sidebar-nav-item" href="hara-print.html">print</a><a class="sidebar-nav-item" href="hara-security.html">security</a><a class="sidebar-nav-item" href="hara-security-openpgp.html">security.openpgp</a><a class="sidebar-nav-item" href="hara-state.html">state</a><a class="sidebar-nav-item" href="hara-state-ova.html">state.ova</a><a class="sidebar-nav-item" href="hara-string.html">string</a><a class="sidebar-nav-item" href="hara-test.html">test</a><a class="sidebar-nav-item" href="hara-time.html">time</a><a class="sidebar-nav-item" href="hara-watch.html">watch</a>
+    <span class="sidebar-nav-item">&nbsp;</span>
+    <span class="sidebar-nav-item">&nbsp;</span>
+  </nav>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <span>string</span>
+            <small>string manipulation</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="page">
+          <div class="heading">
+            <div>
+              <h5>Author: Chris Zheng&nbsp;&nbsp;<a href="mailto:z@caudate.me">(z@caudate.me)</a></h5>
+              <h5>Date: 04 November 2018</h5>
+              <h5>Repository: <a href="https://github.com/zcaudate/hara">https://github.com/zcaudate/hara</a></h5>
+              <h5>Version: 3.0.1</h5></div></div>
+          <hr/>
+
+          <div class="toc">
+              <nav>
+                <ul>
+                  <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#general"><h4>2 &nbsp; General</h4></a><a class="section" data-scroll="" href="#entry__hara_string___EQ_"><h5><i>=</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__blank_QMARK_"><h5><i>blank?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__capital_case"><h5><i>capital-case</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__caseless_EQ_"><h5><i>caseless=</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__copy_string_var"><h5><i>copy-string-var</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__ends_with_QMARK_"><h5><i>ends-with?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__from_string"><h5><i>from-string</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__includes_QMARK_"><h5><i>includes?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__join"><h5><i>join</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__joinr"><h5><i>joinr</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__lower_case"><h5><i>lower-case</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__path_separator"><h5><i>path-separator</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__replace"><h5><i>replace</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__reverse"><h5><i>reverse</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__split"><h5><i>split</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__split_lines"><h5><i>split-lines</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__starts_with_QMARK_"><h5><i>starts-with?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__subs"><h5><i>subs</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__to_string"><h5><i>to-string</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__trim"><h5><i>trim</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__trim_left"><h5><i>trim-left</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__trim_newlines"><h5><i>trim-newlines</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__trim_right"><h5><i>trim-right</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__upper_case"><h5><i>upper-case</i></h5></a></li><li><a class="chapter" data-scroll="" href="#type"><h4>3 &nbsp; Type</h4></a><a class="section" data-scroll="" href="#entry__hara_string__camel_type"><h5><i>camel-type</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__capital_type"><h5><i>capital-type</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__lower_type"><h5><i>lower-type</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__pascal_type"><h5><i>pascal-type</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__phrase_type"><h5><i>phrase-type</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__snake_type"><h5><i>snake-type</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__spear_type"><h5><i>spear-type</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__typeless_EQ_"><h5><i>typeless=</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__upper_type"><h5><i>upper-type</i></h5></a></li><li><a class="chapter" data-scroll="" href="#path"><h4>4 &nbsp; Path</h4></a><a class="section" data-scroll="" href="#entry__hara_string__path_count"><h5><i>path-count</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__path_join"><h5><i>path-join</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__path_ns"><h5><i>path-ns</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__path_ns_array"><h5><i>path-ns-array</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__path_nth"><h5><i>path-nth</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__path_root"><h5><i>path-root</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__path_split"><h5><i>path-split</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__path_stem"><h5><i>path-stem</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__path_stem_array"><h5><i>path-stem-array</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__path_sub"><h5><i>path-sub</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__path_sub_array"><h5><i>path-sub-array</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__path_val"><h5><i>path-val</i></h5></a></li>
+                </ul>
+              </nav>
+          </div>
+          <div>
+    <span id="introduction"></span>
+    <h2><b>1 &nbsp;&nbsp; Introduction</b></h2>
+</div><div><p><a href='https://github.com/caudata/hara/blob/master/src/hara/string.clj'>hara.string</a> contains methods for string manipulation.</p>
+</div><div>
+    <span id="installation"></span>
+    <h3>1.1 &nbsp;&nbsp; Installation</h3>
+</div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;hara/base &quot;3.0.1&quot;&#93;</code></pre>
+</div><div><p>All functions are in the <code>hara.string</code> namespace.      </p><pre><code> &#40;use &#40;quote hara.string&#41;&#41;</code></pre>
+</div><div>
+    <span id="general"></span>
+    <h2><b>2 &nbsp;&nbsp; General</b></h2>
+</div><div class="api">
+    <span id="entry__hara_string__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_string___EQ_">=</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__blank_QMARK_">blank?</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__capital_case">capital-case</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__caseless_EQ_">caseless=</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__copy_string_var">copy-string-var</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__ends_with_QMARK_">ends-with?</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__from_string">from-string</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__includes_QMARK_">includes?</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__join">join</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__joinr">joinr</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__lower_case">lower-case</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__path_separator">path-separator</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__replace">replace</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__reverse">reverse</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__split">split</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__split_lines">split-lines</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__starts_with_QMARK_">starts-with?</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__subs">subs</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__to_string">to-string</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__trim">trim</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__trim_left">trim-left</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__trim_newlines">trim-newlines</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__trim_right">trim-right</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__upper_case">upper-case</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_string___EQ_"></span>
+                <div class="entry-description">
+                    <h4><b>=&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>compares two string-like things</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string.clj#L30-L41" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string___EQ_">
+                        <label class="source-toggle" for="entry__pre_hara_string___EQ_"></label>
+                        <pre class="source"><code class="clojure">(defn =
+  [x y]
+  (clojure.core/= (impl/to-string x)
+                  (impl/to-string y)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string_test.clj#L50-L56" target="_blank">link</a></i></h6><code class="clojure">(string/= :a 'a)
+=> true
+
+(string/= *ns* :hara.string-test)
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__blank_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>blank?&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>checks if string is empty or nil</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/common.clj#L8-L25" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__blank_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_string__blank_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn blank?
+  [^CharSequence s]
+  (if s
+    (loop [index (int 0)]
+      (if (= (.length s) index)
+        true
+        (if (Character/isWhitespace (.charAt s index))
+          (recur (inc index))
+          false)))
+    true))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/common_test.clj#L8-L14" target="_blank">link</a></i></h6><code class="clojure">(blank? nil)
+=> true
+
+(blank? "")
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__capital_case"></span>
+                <div class="entry-description">
+                    <h4><b>capital-case&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>converts a string object to capital case</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/common.clj#L108-L122" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__capital_case">
+                        <label class="source-toggle" for="entry__pre_hara_string__capital_case"></label>
+                        <pre class="source"><code class="clojure">(defn ^String capital-case
+  [^CharSequence s]
+  (let [s (.toString s)]
+    (if (< (count s) 2)
+      (.toUpperCase s)
+      (str (.toUpperCase (subs s 0 1))
+           (.toLowerCase (subs s 1))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/common_test.clj#L71-L77" target="_blank">link</a></i></h6><code class="clojure">(capital-case "hello.World")
+=> "Hello.world"
+
+(string/capital-case 'hello.World)
+=> 'Hello.world</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__caseless_EQ_"></span>
+                <div class="entry-description">
+                    <h4><b>caseless=&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>compares two values ignoring case</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/common.clj#L270-L281" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__caseless_EQ_">
+                        <label class="source-toggle" for="entry__pre_hara_string__caseless_EQ_"></label>
+                        <pre class="source"><code class="clojure">(defn caseless=
+  [x y]
+  (= (lower-case x)
+     (lower-case y)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/common_test.clj#L149-L155" target="_blank">link</a></i></h6><code class="clojure">(caseless= "heLLo" "HellO")
+=> true
+
+(string/caseless= 'heLLo :HellO)
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__copy_string_var"></span>
+                <div class="entry-description">
+                    <h4><b>copy-string-var&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>creates a function, augmenting it with string conversion properties</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string.clj#L7-L28" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__copy_string_var">
+                        <label class="source-toggle" for="entry__pre_hara_string__copy_string_var"></label>
+                        <pre class="source"><code class="clojure">(defn copy-string-var
+  ([type return ns name ^clojure.lang.Var source]
+   (let [func (case type
+                :op  (impl/wrap-op @source return)
+                :compare (impl/wrap-compare @source))
+         sink (intern ns name func)]
+     (alter-meta! sink
+                  merge
+                  (-> (meta source)
+                      (dissoc :name :ns)))
+     sink)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string_test.clj#L38-L47" target="_blank">link</a></i></h6><code class="clojure">(string/copy-string-var :op false *ns* '-subs- #'string/subs)
+=> #'hara.string-test/-subs-
+
+(-subs- :hello 3)
+=> :lo
+
+(-subs- :hello 1 4)
+=> :ell</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__ends_with_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>ends-with?&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>checks if string ends with another</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/common.clj#L148-L158" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__ends_with_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_string__ends_with_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn ends-with?
+  [^CharSequence s ^String substr]
+  (.endsWith (.toString s) substr))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/common_test.clj#L98-L104" target="_blank">link</a></i></h6><code class="clojure">(ends-with? "hello" "lo")
+=> true
+
+(string/ends-with? 'hello 'lo)
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__from_string"></span>
+                <div class="entry-description">
+                    <h4><b>from-string&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>meta information of keywords and symbols</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/null#Lnull-Lnull" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__from_string">
+                        <label class="source-toggle" for="entry__pre_hara_string__from_string"></label>
+                        <pre class="source"><code class="clojure"></code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string_test.clj#L20-L26" target="_blank">link</a></i></h6><code class="clojure">(string/from-string "hello/world" clojure.lang.Symbol)
+=> 'hello/world
+
+(string/from-string "hello/world" clojure.lang.Keyword)
+=> :hello/world</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__includes_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>includes?&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>checks if first string contains the second</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/common.clj#L160-L170" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__includes_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_string__includes_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn includes?
+  [^CharSequence s ^CharSequence substr]
+  (.contains (.toString s) substr))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/common_test.clj#L107-L113" target="_blank">link</a></i></h6><code class="clojure">(includes? "hello" "ell")
+=> true
+
+(string/includes? 'hello 'ell)
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__join"></span>
+                <div class="entry-description">
+                    <h4><b>join&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>joins an array using a separator</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/common.clj#L48-L70" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__join">
+                        <label class="source-toggle" for="entry__pre_hara_string__join"></label>
+                        <pre class="source"><code class="clojure">(defn ^String join
+  ([coll]
+     (apply str coll))
+  ([coll separator]
+     (loop [sb (StringBuilder. (str (first coll)))
+            more (next coll)
+            sep (str separator)]
+       (if more
+         (recur (-> sb (.append sep) (.append (str (first more))))
+                (next more)
+                sep)
+         (str sb)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/common_test.clj#L32-L41" target="_blank">link</a></i></h6><code class="clojure">(join ["a" "b" "c"] ".")
+=> "a.b.c"
+
+(join ["a" "b" "c"])
+=> "abc"
+
+(string/join [:a :b :c] "-")
+=> :a-b-c</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__joinr"></span>
+                <div class="entry-description">
+                    <h4><b>joinr&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>joins a list together</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string.clj#L43-L53" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__joinr">
+                        <label class="source-toggle" for="entry__pre_hara_string__joinr"></label>
+                        <pre class="source"><code class="clojure">(defn joinr
+  ([arr]
+   (joinr arr common/*sep*))
+  ([sep arr]
+   (impl/from-string (common/joinr sep (map impl/to-string arr))
+                     (type (first arr)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string_test.clj#L68-L71" target="_blank">link</a></i></h6><code class="clojure">(string/joinr "." [:a :b :c])
+=> :a.b.c</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__lower_case"></span>
+                <div class="entry-description">
+                    <h4><b>lower-case&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>converts a string object to lower case</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/common.clj#L96-L106" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__lower_case">
+                        <label class="source-toggle" for="entry__pre_hara_string__lower_case"></label>
+                        <pre class="source"><code class="clojure">(defn ^String lower-case
+  [^CharSequence s]
+  (.. s toString toLowerCase))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/common_test.clj#L62-L68" target="_blank">link</a></i></h6><code class="clojure">(lower-case "Hello.World")
+=> "hello.world"
+
+(string/lower-case 'Hello.World)
+=> 'hello.world</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__path_separator"></span>
+                <div class="entry-description">
+                    <h4><b>path-separator&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>returns the default path separator for an object</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/impl.clj#L32-L42" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__path_separator">
+                        <label class="source-toggle" for="entry__pre_hara_string__path_separator"></label>
+                        <pre class="source"><code class="clojure">(definvoke path-separator
+  [:memoize {:arglists '([type])
+             :function protocol.string/-path-separator}])</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/impl_test.clj#L24-L30" target="_blank">link</a></i></h6><code class="clojure">(path-separator clojure.lang.Namespace)
+=> "."
+
+(path-separator clojure.lang.Keyword)
+=> "/"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__replace"></span>
+                <div class="entry-description">
+                    <h4><b>replace&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>replace value in string with another</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/common.clj#L249-L267" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__replace">
+                        <label class="source-toggle" for="entry__pre_hara_string__replace"></label>
+                        <pre class="source"><code class="clojure">(defn ^String replace
+  [^CharSequence s match replacement]
+  (let [s (.toString s)]
+    (cond 
+     (instance? Character match) (.replace s ^Character match ^Character replacement)
+     (instance? CharSequence match) (.replace s ^CharSequence match ^CharSequence replacement)
+     (instance? Pattern match) (if (instance? CharSequence replacement)
+                                 (.replaceAll (re-matcher ^Pattern match s)
+                                              (.toString ^CharSequence replacement))
+                                 (replace-by s match replacement))
+     :else (throw (IllegalArgumentException. (str "Invalid match arg: " match))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/common_test.clj#L140-L146" target="_blank">link</a></i></h6><code class="clojure">(replace "hello" "el" "AL")
+=> "hALlo"
+
+(string/replace :hello "el" "AL")
+=> :hALlo</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__reverse"></span>
+                <div class="entry-description">
+                    <h4><b>reverse&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>reverses the string</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/common.clj#L124-L134" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__reverse">
+                        <label class="source-toggle" for="entry__pre_hara_string__reverse"></label>
+                        <pre class="source"><code class="clojure">(defn ^String reverse
+  [^CharSequence s]
+  (.toString (.reverse (StringBuilder. s))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/common_test.clj#L80-L86" target="_blank">link</a></i></h6><code class="clojure">(reverse "hello")
+=> "olleh"
+
+(string/reverse :hello)
+=> :olleh</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__split"></span>
+                <div class="entry-description">
+                    <h4><b>split&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>splits a string given a regex</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/null#Lnull-Lnull" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__split">
+                        <label class="source-toggle" for="entry__pre_hara_string__split"></label>
+                        <pre class="source"><code class="clojure"></code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string_test.clj#L7-L10" target="_blank">link</a></i></h6><code class="clojure">(string/split "a b" #" ") => ["a" "b"]
+(string/split " " #" ") => ["" ""]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__split_lines"></span>
+                <div class="entry-description">
+                    <h4><b>split-lines&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>splits a string given newlines</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/null#Lnull-Lnull" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__split_lines">
+                        <label class="source-toggle" for="entry__pre_hara_string__split_lines"></label>
+                        <pre class="source"><code class="clojure"></code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string_test.clj#L13-L17" target="_blank">link</a></i></h6><code class="clojure">(string/split-lines "anb") => ["a" "b"]
+  
+(string/split-lines "n") => ["" ""]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__starts_with_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>starts-with?&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>checks if string starts with another</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/common.clj#L136-L146" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__starts_with_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_string__starts_with_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn starts-with?
+  [^CharSequence s ^String substr]
+  (.startsWith (.toString s) substr))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/common_test.clj#L89-L95" target="_blank">link</a></i></h6><code class="clojure">(starts-with? "hello" "hel")
+=> true
+
+(string/starts-with? 'hello 'hel)
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__subs"></span>
+                <div class="entry-description">
+                    <h4><b>subs&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>compares two string-like things</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/null#Lnull-Lnull" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__subs">
+                        <label class="source-toggle" for="entry__pre_hara_string__subs"></label>
+                        <pre class="source"><code class="clojure"></code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string_test.clj#L59-L65" target="_blank">link</a></i></h6><code class="clojure">(string/subs :hello-world  3 8)
+=> :lo-wo
+
+(string/format :hello%d-world  100)
+=> :hello100-world</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__to_string"></span>
+                <div class="entry-description">
+                    <h4><b>to-string&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>converts symbols and keywords to string representation</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/null#Lnull-Lnull" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__to_string">
+                        <label class="source-toggle" for="entry__pre_hara_string__to_string"></label>
+                        <pre class="source"><code class="clojure"></code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string_test.clj#L29-L35" target="_blank">link</a></i></h6><code class="clojure">(string/to-string 'hello/world)
+=> "hello/world"
+
+(string/to-string :hello/world)
+=> "hello/world"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__trim"></span>
+                <div class="entry-description">
+                    <h4><b>trim&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>trims the string of whitespace</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/common.clj#L172-L190" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__trim">
+                        <label class="source-toggle" for="entry__pre_hara_string__trim"></label>
+                        <pre class="source"><code class="clojure">(defn ^String trim
+  [^CharSequence s]
+  (let [len (.length s)]
+    (loop [rindex len]
+      (if (zero? rindex)
+        ""
+        (if (Character/isWhitespace (.charAt s (dec rindex)))
+          (recur (dec rindex))
+          ;; there is at least one non-whitespace char in the string,
+          ;; so no need to check for lindex reaching len.
+          (loop [lindex 0]
+            (if (Character/isWhitespace (.charAt s lindex))
+              (recur (inc lindex))
+              (.. s (subSequence lindex rindex) toString))))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/common_test.clj#L116-L119" target="_blank">link</a></i></h6><code class="clojure">(trim "   hello   ")
+=> "hello"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__trim_left"></span>
+                <div class="entry-description">
+                    <h4><b>trim-left&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>trims the string of whitespace on left</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/common.clj#L192-L205" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__trim_left">
+                        <label class="source-toggle" for="entry__pre_hara_string__trim_left"></label>
+                        <pre class="source"><code class="clojure">(defn ^String trim-left
+  [^CharSequence s]
+  (let [len (.length s)]
+    (loop [index 0]
+      (if (= len index)
+        ""
+        (if (Character/isWhitespace (.charAt s index))
+          (recur (unchecked-inc index))
+          (.. s (subSequence index len) toString))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/common_test.clj#L122-L125" target="_blank">link</a></i></h6><code class="clojure">(trim-left "   hello   ")
+=> "hello   "</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__trim_newlines"></span>
+                <div class="entry-description">
+                    <h4><b>trim-newlines&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>removes newlines from right</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/common.clj#L221-L234" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__trim_newlines">
+                        <label class="source-toggle" for="entry__pre_hara_string__trim_newlines"></label>
+                        <pre class="source"><code class="clojure">(defn ^String trim-newlines
+  [^CharSequence s]
+  (loop [index (.length s)]
+    (if (zero? index)
+      ""
+      (let [ch (.charAt s (dec index))]
+        (if (or (= ch newline) (= ch return))
+          (recur (dec index))
+          (.. s (subSequence 0 index) toString))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/common_test.clj#L134-L137" target="_blank">link</a></i></h6><code class="clojure">(trim-newlines  "nn    hello   nn")
+=> "nn    hello   "</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__trim_right"></span>
+                <div class="entry-description">
+                    <h4><b>trim-right&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>trims the string of whitespace on right</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/common.clj#L207-L219" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__trim_right">
+                        <label class="source-toggle" for="entry__pre_hara_string__trim_right"></label>
+                        <pre class="source"><code class="clojure">(defn ^String trim-right
+  [^CharSequence s]
+  (loop [index (.length s)]
+    (if (zero? index)
+      ""
+      (if (Character/isWhitespace (.charAt s (unchecked-dec index)))
+        (recur (unchecked-dec index))
+        (.. s (subSequence 0 index) toString)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/common_test.clj#L128-L131" target="_blank">link</a></i></h6><code class="clojure">(trim-right "   hello   ")
+=> "hello"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__upper_case"></span>
+                <div class="entry-description">
+                    <h4><b>upper-case&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>converts a string object to upper case</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/common.clj#L84-L94" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__upper_case">
+                        <label class="source-toggle" for="entry__pre_hara_string__upper_case"></label>
+                        <pre class="source"><code class="clojure">(defn ^String upper-case
+  [^CharSequence s]
+  (.. s toString toUpperCase))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/common_test.clj#L53-L59" target="_blank">link</a></i></h6><code class="clojure">(upper-case "hello-world")
+=> "HELLO-WORLD"
+
+(string/upper-case :hello-world)
+=> :HELLO-WORLD</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="type"></span>
+    <h2><b>3 &nbsp;&nbsp; Type</b></h2>
+</div><div class="api">
+    <span id="entry__hara_string__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_string__camel_type">camel-type</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__capital_type">capital-type</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__lower_type">lower-type</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__pascal_type">pascal-type</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__phrase_type">phrase-type</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__snake_type">snake-type</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__spear_type">spear-type</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__typeless_EQ_">typeless=</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__upper_type">upper-type</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_string__camel_type"></span>
+                <div class="entry-description">
+                    <h4><b>camel-type&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>converts a string-like object to camel case representation</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/type.clj#L36-L48" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__camel_type">
+                        <label class="source-toggle" for="entry__pre_hara_string__camel_type"></label>
+                        <pre class="source"><code class="clojure">(defn camel-type
+  [^String value]
+  (re-sub value
+          +non-camel-pattern+
+          (fn [s] (common/upper-case (apply str (rest s))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/type_test.clj#L19-L25" target="_blank">link</a></i></h6><code class="clojure">(camel-type "hello-world")
+=> "helloWorld"
+
+(string/camel-type 'hello_world)
+=> 'helloWorld</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__capital_type"></span>
+                <div class="entry-description">
+                    <h4><b>capital-type&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>converts a string-like object to captital case representation</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/type.clj#L50-L63" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__capital_type">
+                        <label class="source-toggle" for="entry__pre_hara_string__capital_type"></label>
+                        <pre class="source"><code class="clojure">(defn capital-type
+  [^String value]
+  (-> (separate-humps value)
+      (common/split #"[ |-|_]")
+      (->> (map common/capital-case))
+      (common/join " ")))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/type_test.clj#L28-L34" target="_blank">link</a></i></h6><code class="clojure">(capital-type "hello world")
+=> "Hello World"
+
+(str (string/capital-type :hello-world))
+=> ":Hello World"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__lower_type"></span>
+                <div class="entry-description">
+                    <h4><b>lower-type&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>converts a string-like object to a lower case representation</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/type.clj#L65-L78" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__lower_type">
+                        <label class="source-toggle" for="entry__pre_hara_string__lower_type"></label>
+                        <pre class="source"><code class="clojure">(defn lower-type
+  [^String value]
+  (-> (separate-humps value)
+      (common/split #"[ |-|_]")
+      (->> (map common/lower-case))
+      (common/join " ")))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/type_test.clj#L37-L43" target="_blank">link</a></i></h6><code class="clojure">(lower-type "helloWorld")
+=> "hello world"
+
+(string/lower-type 'hello-world)
+=> (symbol "hello world")</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__pascal_type"></span>
+                <div class="entry-description">
+                    <h4><b>pascal-type&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>converts a string-like object to a pascal case representation</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/type.clj#L80-L92" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__pascal_type">
+                        <label class="source-toggle" for="entry__pre_hara_string__pascal_type"></label>
+                        <pre class="source"><code class="clojure">(defn pascal-type
+  [^String value]
+  (let [s (camel-type value)]
+    (str (.toUpperCase (subs s 0 1))
+         (subs s 1))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/type_test.clj#L46-L52" target="_blank">link</a></i></h6><code class="clojure">(pascal-type "helloWorld")
+=> "HelloWorld" 
+
+(string/pascal-type :hello-world)
+=> :HelloWorld</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__phrase_type"></span>
+                <div class="entry-description">
+                    <h4><b>phrase-type&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>converts a string-like object to snake case representation</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/type.clj#L94-L103" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__phrase_type">
+                        <label class="source-toggle" for="entry__pre_hara_string__phrase_type"></label>
+                        <pre class="source"><code class="clojure">(defn phrase-type
+  [^String value]
+  (let [s (lower-type value)]
+    (str (.toUpperCase (subs s 0 1))
+         (subs s 1))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/type_test.clj#L55-L58" target="_blank">link</a></i></h6><code class="clojure">(phrase-type "hello-world")
+=> "Hello world"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__snake_type"></span>
+                <div class="entry-description">
+                    <h4><b>snake-type&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>converts a string-like object to snake case representation</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/type.clj#L105-L117" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__snake_type">
+                        <label class="source-toggle" for="entry__pre_hara_string__snake_type"></label>
+                        <pre class="source"><code class="clojure">(defn snake-type
+  [value]
+  (-> (separate-humps value)
+      (common/lower-case)
+      (common/replace +non-snake-pattern+ "_")))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/type_test.clj#L61-L67" target="_blank">link</a></i></h6><code class="clojure">(snake-type "hello-world")
+=> "hello_world"
+
+(string/snake-type 'helloWorld)
+=> 'hello_world</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__spear_type"></span>
+                <div class="entry-description">
+                    <h4><b>spear-type&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>converts a string-like object to spear case representation</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/type.clj#L119-L131" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__spear_type">
+                        <label class="source-toggle" for="entry__pre_hara_string__spear_type"></label>
+                        <pre class="source"><code class="clojure">(defn spear-type
+  [value]
+  (-> (separate-humps value)
+      (common/lower-case)
+      (common/replace +non-spear-pattern+ "-")))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/type_test.clj#L70-L76" target="_blank">link</a></i></h6><code class="clojure">(spear-type "hello_world")
+=> "hello-world"
+
+(string/spear-type 'helloWorld)
+=> 'hello-world</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__typeless_EQ_"></span>
+                <div class="entry-description">
+                    <h4><b>typeless=&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>compares two representations </i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/type.clj#L148-L162" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__typeless_EQ_">
+                        <label class="source-toggle" for="entry__pre_hara_string__typeless_EQ_"></label>
+                        <pre class="source"><code class="clojure">(defn typeless=
+  [x y]
+  (= (lower-type x)
+     (lower-type y)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/type_test.clj#L88-L97" target="_blank">link</a></i></h6><code class="clojure">(typeless= "helloWorld" "hello_world")
+=> true
+  
+(string/typeless= :a-b-c "a b c")
+=> true
+
+(string/typeless= 'getMethod :get-method)
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__upper_type"></span>
+                <div class="entry-description">
+                    <h4><b>upper-type&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>converts a string-like object to upper case representation</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/type.clj#L133-L146" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__upper_type">
+                        <label class="source-toggle" for="entry__pre_hara_string__upper_type"></label>
+                        <pre class="source"><code class="clojure">(defn upper-type
+  [^String value]
+  (-> (separate-humps value)
+      (common/split #"[ |-|_]")
+      (->> (map common/upper-case))
+      (common/join " ")))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/type_test.clj#L79-L85" target="_blank">link</a></i></h6><code class="clojure">(upper-type "hello world")
+=> "HELLO WORLD"
+
+(str (string/upper-type 'hello-world))
+=> "HELLO WORLD"</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="path"></span>
+    <h2><b>4 &nbsp;&nbsp; Path</b></h2>
+</div><div class="api">
+    <span id="entry__hara_string__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_string__path_count">path-count</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__path_join">path-join</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__path_ns">path-ns</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__path_ns_array">path-ns-array</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__path_nth">path-nth</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__path_root">path-root</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__path_split">path-split</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__path_stem">path-stem</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__path_stem_array">path-stem-array</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__path_sub">path-sub</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__path_sub_array">path-sub-array</a></li>
+            <li><a data-scroll="" href="#entry__hara_string__path_val">path-val</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_string__path_count"></span>
+                <div class="entry-description">
+                    <h4><b>path-count&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>counts the number of elements in a given path</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/path.clj#L183-L195" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__path_count">
+                        <label class="source-toggle" for="entry__pre_hara_string__path_count"></label>
+                        <pre class="source"><code class="clojure">(defn path-count
+  ([s]
+   (path-count s common/*sep*))
+  ([s sep]
+   (count (path-split s sep))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/path_test.clj#L118-L124" target="_blank">link</a></i></h6><code class="clojure">(path/path-count "a/b/c")
+=> 3
+  
+(string/path-count *ns*)
+=> 4</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__path_join"></span>
+                <div class="entry-description">
+                    <h4><b>path-join&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>joins a sequence of elements into a path separated value</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/path.clj#L16-L32" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__path_join">
+                        <label class="source-toggle" for="entry__pre_hara_string__path_join"></label>
+                        <pre class="source"><code class="clojure">(defn path-join
+  ([arr] (path-join arr common/*sep*))
+  ([arr sep]
+   (if (seq arr)
+     (-> (filter identity arr)
+         (common/join sep)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/path_test.clj#L13-L22" target="_blank">link</a></i></h6><code class="clojure">(path/path-join ["a" "b" "c"])
+=> "a/b/c"
+
+(string/path-join '[:a :b :c] "-")
+=> :a-b-c
+  
+(string/path-join '[a b c] '-)
+=> 'a-b-c</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__path_ns"></span>
+                <div class="entry-description">
+                    <h4><b>path-ns&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>returns the path namespace of the string</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/path.clj#L67-L81" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__path_ns">
+                        <label class="source-toggle" for="entry__pre_hara_string__path_ns"></label>
+                        <pre class="source"><code class="clojure">(defn path-ns
+  ([s]
+   (path-ns s common/*sep*))
+  ([s sep]
+   (-> s
+       (path-ns-array sep)
+       (path-join sep))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/path_test.clj#L49-L55" target="_blank">link</a></i></h6><code class="clojure">(path/path-ns "a/b/c/d")
+=> "a/b/c"
+
+(string/path-ns :a.b.c ".")
+=> :a.b</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__path_ns_array"></span>
+                <div class="entry-description">
+                    <h4><b>path-ns-array&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>returns the path vector of the string</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/path.clj#L53-L65" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__path_ns_array">
+                        <label class="source-toggle" for="entry__pre_hara_string__path_ns_array"></label>
+                        <pre class="source"><code class="clojure">(defn path-ns-array
+  ([s]
+   (path-ns-array s common/*sep*))
+  ([s sep]
+   (or (butlast (path-split s sep)) [])))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/path_test.clj#L40-L46" target="_blank">link</a></i></h6><code class="clojure">(path/path-ns-array "a/b/c/d")
+=> ["a" "b" "c"]
+
+(string/path-ns-array (keyword "a/b/c/d"))
+=> [:a :b :c]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__path_nth"></span>
+                <div class="entry-description">
+                    <h4><b>path-nth&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>check for the val of the string</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/path.clj#L141-L150" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__path_nth">
+                        <label class="source-toggle" for="entry__pre_hara_string__path_nth"></label>
+                        <pre class="source"><code class="clojure">(defn path-nth
+  ([s n]
+   (path-nth s n common/*sep*))
+  ([s n sep]
+   (nth (path-split s sep) n)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/path_test.clj#L94-L97" target="_blank">link</a></i></h6><code class="clojure">(path/path-nth "a/b/c/d" 2)
+=> "c"</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__path_root"></span>
+                <div class="entry-description">
+                    <h4><b>path-root&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>returns the path root of the string</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/path.clj#L83-L95" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__path_root">
+                        <label class="source-toggle" for="entry__pre_hara_string__path_root"></label>
+                        <pre class="source"><code class="clojure">(defn path-root
+  ([s]
+   (path-root s common/*sep*))
+  ([s sep]
+   (first (path-ns-array s sep))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/path_test.clj#L58-L64" target="_blank">link</a></i></h6><code class="clojure">(path/path-root "a/b/c/d")
+=> "a"
+
+(string/path-root 'a.b.c ".")
+=> 'a</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__path_split"></span>
+                <div class="entry-description">
+                    <h4><b>path-split&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>splits a sequence of elements into a path separated value</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/path.clj#L34-L51" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__path_split">
+                        <label class="source-toggle" for="entry__pre_hara_string__path_split"></label>
+                        <pre class="source"><code class="clojure">(defn path-split
+  ([s] (path-split s common/*sep*))
+  ([s sep]
+   (common/split s (make-pattern sep))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/path_test.clj#L25-L37" target="_blank">link</a></i></h6><code class="clojure">(path/path-split "a/b/c/d")
+=> '["a" "b" "c" "d"]
+  
+(path/path-split "a.b.c.d" ".")
+=> ["a" "b" "c" "d"]
+  
+(string/path-split :hello/world)
+=> [:hello :world]
+  
+(string/path-split :hello.world ".")
+=> [:hello :world]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__path_stem"></span>
+                <div class="entry-description">
+                    <h4><b>path-stem&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>returns the path stem of the string</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/path.clj#L111-L125" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__path_stem">
+                        <label class="source-toggle" for="entry__pre_hara_string__path_stem"></label>
+                        <pre class="source"><code class="clojure">(defn path-stem
+  ([s]
+   (path-stem s common/*sep*))
+  ([s sep]
+   (-> s
+       (path-stem-array sep)
+       (path-join sep))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/path_test.clj#L76-L82" target="_blank">link</a></i></h6><code class="clojure">(path/path-stem "a/b/c/d")
+=> "b/c/d"
+
+(string/path-stem 'a.b.c.d ".")
+=> 'b.c.d</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__path_stem_array"></span>
+                <div class="entry-description">
+                    <h4><b>path-stem-array&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>returns the path stem vector of the string</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/path.clj#L97-L109" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__path_stem_array">
+                        <label class="source-toggle" for="entry__pre_hara_string__path_stem_array"></label>
+                        <pre class="source"><code class="clojure">(defn path-stem-array
+  ([s]
+   (path-stem-array s common/*sep*))
+  ([s sep]
+   (rest (path-split s sep))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/path_test.clj#L67-L73" target="_blank">link</a></i></h6><code class="clojure">(path/path-stem-array "a/b/c/d")
+=>  ["b" "c" "d"]
+
+(string/path-stem-array 'a.b.c.d ".")
+=> '[b c d]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__path_sub"></span>
+                <div class="entry-description">
+                    <h4><b>path-sub&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>returns a subsection of the path within the string</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/path.clj#L168-L181" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__path_sub">
+                        <label class="source-toggle" for="entry__pre_hara_string__path_sub"></label>
+                        <pre class="source"><code class="clojure">(defn path-sub
+  ([s start num]
+   (path-sub s start num common/*sep*))
+  ([s start num sep]
+   (-> (path-sub-array s start num sep)
+       (path-join sep))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/path_test.clj#L109-L115" target="_blank">link</a></i></h6><code class="clojure">(path/path-sub "a/b/c/d" 1 2)
+=> "b/c"
+
+(string/path-sub (symbol "a/b/c/d") 1 2)
+=> 'b/c</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__path_sub_array"></span>
+                <div class="entry-description">
+                    <h4><b>path-sub-array&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>returns a sub array of the path within the string</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/path.clj#L152-L166" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__path_sub_array">
+                        <label class="source-toggle" for="entry__pre_hara_string__path_sub_array"></label>
+                        <pre class="source"><code class="clojure">(defn path-sub-array
+  ([s start num]
+   (path-sub-array s start num common/*sep*))
+  ([s start num sep]
+   (->> (path-split s sep)
+        (drop start)
+        (take num))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/path_test.clj#L100-L106" target="_blank">link</a></i></h6><code class="clojure">(path/path-sub-array "a/b/c/d" 1 2)
+=> ["b" "c"]
+
+(string/path-sub-array (symbol "a/b/c/d") 1 2)
+=> '[b c]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_string__path_val"></span>
+                <div class="entry-description">
+                    <h4><b>path-val&nbsp<a data-scroll="" href="#entry__hara_string__">^</a></b></h4>
+                    <p><i>returns the val of the string</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/string/base/path.clj#L127-L139" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_string__path_val">
+                        <label class="source-toggle" for="entry__pre_hara_string__path_val"></label>
+                        <pre class="source"><code class="clojure">(defn path-val
+  ([s]
+   (path-val s common/*sep*))
+  ([s sep] 
+   (last (path-split s sep))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/string/base/path_test.clj#L85-L91" target="_blank">link</a></i></h6><code class="clojure">(path/path-val "a/b/c/d")
+=> "d"
+
+(string/path-val 'a.b.c.d ".")
+=> 'd</code></pre>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outline">
+      <div class="toc">
+        <nav data-gumshoe-header>
+          <ul data-gumshoe>
+            <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#general"><h4>2 &nbsp; General</h4></a><a class="section" data-scroll="" href="#entry__hara_string___EQ_"><h5><i>=</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__blank_QMARK_"><h5><i>blank?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__capital_case"><h5><i>capital-case</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__caseless_EQ_"><h5><i>caseless=</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__copy_string_var"><h5><i>copy-string-var</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__ends_with_QMARK_"><h5><i>ends-with?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__from_string"><h5><i>from-string</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__includes_QMARK_"><h5><i>includes?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__join"><h5><i>join</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__joinr"><h5><i>joinr</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__lower_case"><h5><i>lower-case</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__path_separator"><h5><i>path-separator</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__replace"><h5><i>replace</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__reverse"><h5><i>reverse</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__split"><h5><i>split</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__split_lines"><h5><i>split-lines</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__starts_with_QMARK_"><h5><i>starts-with?</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__subs"><h5><i>subs</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__to_string"><h5><i>to-string</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__trim"><h5><i>trim</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__trim_left"><h5><i>trim-left</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__trim_newlines"><h5><i>trim-newlines</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__trim_right"><h5><i>trim-right</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__upper_case"><h5><i>upper-case</i></h5></a></li><li><a class="chapter" data-scroll="" href="#type"><h4>3 &nbsp; Type</h4></a><a class="section" data-scroll="" href="#entry__hara_string__camel_type"><h5><i>camel-type</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__capital_type"><h5><i>capital-type</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__lower_type"><h5><i>lower-type</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__pascal_type"><h5><i>pascal-type</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__phrase_type"><h5><i>phrase-type</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__snake_type"><h5><i>snake-type</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__spear_type"><h5><i>spear-type</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__typeless_EQ_"><h5><i>typeless=</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__upper_type"><h5><i>upper-type</i></h5></a></li><li><a class="chapter" data-scroll="" href="#path"><h4>4 &nbsp; Path</h4></a><a class="section" data-scroll="" href="#entry__hara_string__path_count"><h5><i>path-count</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__path_join"><h5><i>path-join</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__path_ns"><h5><i>path-ns</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__path_ns_array"><h5><i>path-ns-array</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__path_nth"><h5><i>path-nth</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__path_root"><h5><i>path-root</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__path_split"><h5><i>path-split</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__path_stem"><h5><i>path-stem</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__path_stem_array"><h5><i>path-stem-array</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__path_sub"><h5><i>path-sub</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__path_sub_array"><h5><i>path-sub-array</i></h5></a><a class="section" data-scroll="" href="#entry__hara_string__path_val"><h5><i>path-val</i></h5></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    
+    <!--label for="sidebar-checkbox" class="sidebar-toggle"></label-->
+
+  </body>
+
+  <script>
+  if (true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-31320512-2', 'caudate.me');
+    ga('send', 'pageview');
+  }
+  </script>
+  
+  <script type="text/javascript">
+    smoothScroll.init();
+    gumshoe.init({});
+  
+    hljs.registerLanguage("clojure",function(e){var t={"builtin-name":"def defonce cond apply if-not if-let if not not= = < > <= >= == + / * - rem quot neg? pos? delay? symbol? keyword? true? false? integer? empty? coll? list? set? ifn? fn? associative? sequential? sorted? counted? reversible? number? decimal? class? distinct? isa? float? rational? reduced? ratio? odd? even? char? seq? vector? string? map? nil? contains? zero? instance? not-every? not-any? libspec? -> ->> .. . inc compare do dotimes mapcat take remove take-while drop letfn drop-last take-last drop-while while intern condp case reduced cycle split-at split-with repeat replicate iterate range merge zipmap declare line-seq sort comparator sort-by dorun doall nthnext nthrest partition eval doseq await await-for let agent atom send send-off release-pending-sends add-watch mapv filterv remove-watch agent-error restart-agent set-error-handler error-handler set-error-mode! error-mode shutdown-agents quote var fn loop recur throw try monitor-enter monitor-exit defmacro defn defn- macroexpand macroexpand-1 for dosync and or when when-not when-let comp juxt partial sequence memoize constantly complement identity assert peek pop doto proxy defstruct first rest cons defprotocol cast coll deftype defrecord last butlast sigs reify second ffirst fnext nfirst nnext defmulti defmethod meta with-meta ns in-ns create-ns import refer keys select-keys vals key val rseq name namespace promise into transient persistent! conj! assoc! dissoc! pop! disj! use class type num float double short byte boolean bigint biginteger bigdec print-method print-dup throw-if printf format load compile get-in update-in pr pr-on newline flush read slurp read-line subvec with-open memfn time re-find re-groups rand-int rand mod locking assert-valid-fdecl alias resolve ref deref refset swap! reset! set-validator! compare-and-set! alter-meta! reset-meta! commute get-validator alter ref-set ref-history-count ref-min-history ref-max-history ensure sync io! new next conj set! to-array future future-call into-array aset gen-class reduce map filter find empty hash-map hash-set sorted-map sorted-map-by sorted-set sorted-set-by vec vector seq flatten reverse assoc dissoc list disj get union difference intersection extend extend-type extend-protocol int nth delay count concat chunk chunk-buffer chunk-append chunk-first chunk-rest max min dec unchecked-inc-int unchecked-inc unchecked-dec-inc unchecked-dec unchecked-negate unchecked-add-int unchecked-add unchecked-subtract-int unchecked-subtract chunk-next chunk-cons chunked-seq? prn vary-meta lazy-seq spread list* str find-keyword keyword symbol gensym force rationalize"},r="a-zA-Z_\\-!.?+*=<>&#'",n="["+r+"]["+r+"0-9/;:]*",a="[-+]?\\d+(\\.\\d+)?",o={b:n,r:0},s={cN:"number",b:a,r:0},i=e.inherit(e.QSM,{i:null}),c=e.C(";","$",{r:0}),d={cN:"literal",b:/\b(true|false|nil)\b/},l={b:"[\\[\\{]",e:"[\\]\\}]"},m={cN:"comment",b:"\\^"+n},p=e.C("\\^\\{","\\}"),u={cN:"symbol",b:"[:]{1,2}"+n},f={b:"\\(",e:"\\)"},h={eW:!0,r:0},y={k:t,l:n,cN:"name",b:n,starts:h},b=[f,i,m,p,c,u,l,s,d,o];return f.c=[e.C("comment",""),y,h],h.c=b,l.c=b,{aliases:["clj"],i:/\S/,c:[f,i,m,p,c,u,l,s,d]}});
+    hljs.initHighlightingOnLoad();
+  </script>
+</html>

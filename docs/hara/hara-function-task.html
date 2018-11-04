@@ -1,0 +1,348 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <link rel="shortcut icon" href="favicon.ico">
+  <title>hara.function.task - executing bulk tasks</title>
+  <script src="js/highlight.min.js"></script>
+  <script src="js/gumshoe.min.js"></script>
+  <script src="js/smooth-scroll.min.js"></script>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/poole.css">
+  <link rel="stylesheet" href="css/syntax.css">
+  <link rel="stylesheet" href="css/lanyon.css">
+  <link rel="stylesheet" href="css/bolton.css">
+  <link rel="stylesheet" href="css/bolton-api.css">
+  <link rel="stylesheet" href="css/bolton-highlight.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  
+</head>
+
+  <body class="theme-base-0b">
+    <span id="page-top"></span>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <nav class="sidebar-nav">
+    <span>&nbsp;</span>
+    <a class="sidebar-nav-item header" href="index.html" style="padding-bottom:5px"><b>HOME</b></a>
+    <a class="sidebar-nav-item" href="hara-config.html">config</a><a class="sidebar-nav-item" href="hara-core.html">core</a><a class="sidebar-nav-item" href="hara-data.html">data</a><a class="sidebar-nav-item" href="hara-deploy.html">deploy</a><a class="sidebar-nav-item" href="hara-event.html">event</a><a class="sidebar-nav-item" href="hara-function.html">function</a><a class="sidebar-nav-item" href="hara-function-procedure.html">function.procedure</a><a class="sidebar-nav-item" href="hara-function-task.html">function.task</a><a class="sidebar-nav-item" href="hara-io-archive.html">io.archive</a><a class="sidebar-nav-item" href="hara-io-file.html">io.file</a><a class="sidebar-nav-item" href="hara-io-project.html">io.project</a><a class="sidebar-nav-item" href="hara-io-scheduler.html">io.scheduler</a><a class="sidebar-nav-item" href="hara-lib-aether.html">lib.aether</a><a class="sidebar-nav-item" href="hara-lib-jgit.html">lib.jgit</a><a class="sidebar-nav-item" href="hara-math.html">math</a><a class="sidebar-nav-item" href="hara-module.html">module</a><a class="sidebar-nav-item" href="hara-object.html">object</a><a class="sidebar-nav-item" href="hara-print.html">print</a><a class="sidebar-nav-item" href="hara-security.html">security</a><a class="sidebar-nav-item" href="hara-security-openpgp.html">security.openpgp</a><a class="sidebar-nav-item" href="hara-state.html">state</a><a class="sidebar-nav-item" href="hara-state-ova.html">state.ova</a><a class="sidebar-nav-item" href="hara-string.html">string</a><a class="sidebar-nav-item" href="hara-test.html">test</a><a class="sidebar-nav-item" href="hara-time.html">time</a><a class="sidebar-nav-item" href="hara-watch.html">watch</a>
+    <span class="sidebar-nav-item">&nbsp;</span>
+    <span class="sidebar-nav-item">&nbsp;</span>
+  </nav>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <span>function.task</span>
+            <small>executing bulk tasks</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="page">
+          <div class="heading">
+            <div>
+              <h5>Author: Chris Zheng&nbsp;&nbsp;<a href="mailto:z@caudate.me">(z@caudate.me)</a></h5>
+              <h5>Date: 04 November 2018</h5>
+              <h5>Repository: <a href="https://github.com/zcaudate/hara">https://github.com/zcaudate/hara</a></h5>
+              <h5>Version: 3.0.1</h5></div></div>
+          <hr/>
+
+          <div class="toc">
+              <nav>
+                <ul>
+                  <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#api"><h4>2 &nbsp; API</h4></a><a class="section" data-scroll="" href="#entry__hara_function_task__Task"><h5><i>Task</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function_task__deftask"><h5><i>deftask</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function_task__invoke_intern_task"><h5><i>invoke-intern-task</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function_task__single_function_print"><h5><i>single-function-print</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function_task__task"><h5><i>task</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function_task__task_defaults"><h5><i>task-defaults</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function_task__task_display"><h5><i>task-display</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function_task__task_status"><h5><i>task-status</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function_task__task_QMARK_"><h5><i>task?</i></h5></a></li>
+                </ul>
+              </nav>
+          </div>
+          <div>
+    <span id="introduction"></span>
+    <h2><b>1 &nbsp;&nbsp; Introduction</b></h2>
+</div><div><p><a href='https://github.com/caudata/hara/blob/master/src/hara/function/task.clj'>hara.function.task</a> provides methods for constructing bulk tasks.</p>
+</div><div>
+    <span id="installation"></span>
+    <h3>1.1 &nbsp;&nbsp; Installation</h3>
+</div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;hara/function.task &quot;3.0.1&quot;&#93;</code></pre>
+</div><div><p>All functions are in the <code>hara.function.task</code> namespace.      </p><pre><code> &#40;use &#40;quote hara.function.task&#41;&#41;</code></pre>
+</div><div>
+    <span id="api"></span>
+    <h2><b>2 &nbsp;&nbsp; API</b></h2>
+</div><div class="api">
+    <span id="entry__hara_function_task__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_function_task__Task">Task</a></li>
+            <li><a data-scroll="" href="#entry__hara_function_task__deftask">deftask</a></li>
+            <li><a data-scroll="" href="#entry__hara_function_task__invoke_intern_task">invoke-intern-task</a></li>
+            <li><a data-scroll="" href="#entry__hara_function_task__single_function_print">single-function-print</a></li>
+            <li><a data-scroll="" href="#entry__hara_function_task__task">task</a></li>
+            <li><a data-scroll="" href="#entry__hara_function_task__task_defaults">task-defaults</a></li>
+            <li><a data-scroll="" href="#entry__hara_function_task__task_display">task-display</a></li>
+            <li><a data-scroll="" href="#entry__hara_function_task__task_status">task-status</a></li>
+            <li><a data-scroll="" href="#entry__hara_function_task__task_QMARK_">task?</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_function_task__Task"></span>
+                <div class="entry-description">
+                    <h4><b>Task&nbsp<a data-scroll="" href="#entry__hara_function_task__">^</a></b></h4>
+                    <p><i>constructs a invokable Task object</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/task.clj#L23-L31" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function_task__Task">
+                        <label class="source-toggle" for="entry__pre_hara_function_task__Task"></label>
+                        <pre class="source"><code class="clojure">(defexecutive Task
+  [type name main construct arglists item result summary]
+  {:type    defrecord
+   :tag     "task"
+   :display task-display
+   :invoke  process/invoke
+   :status  task-status})</code></pre>
+                    </div>
+                </div>
+                <pre class="error"><h6>example not found</h6><code></code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function_task__deftask"></span>
+                <div class="entry-description">
+                    <h4><b>deftask&nbsp<a data-scroll="" href="#entry__hara_function_task__">^</a></b></h4>
+                    <p><i>defines a top level task</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/task.clj#L111-L121" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function_task__deftask">
+                        <label class="source-toggle" for="entry__pre_hara_function_task__deftask"></label>
+                        <pre class="source"><code class="clojure">(defmacro deftask
+  [name config & body]
+  (invoke-intern-task :task name config body))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/task_test.clj#L62-L68" target="_blank">link</a></i></h6><code class="clojure">(deftask -list-aliases-
+  {:template :namespace
+   :main clojure.core/ns-aliases
+   :item {:post (comp vec sort keys)}
+   :doc  "returns all aliases"})</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function_task__invoke_intern_task"></span>
+                <div class="entry-description">
+                    <h4><b>invoke-intern-task&nbsp<a data-scroll="" href="#entry__hara_function_task__">^</a></b></h4>
+                    <p><i>creates a form defining a task</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/task.clj#L93-L109" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function_task__invoke_intern_task">
+                        <label class="source-toggle" for="entry__pre_hara_function_task__invoke_intern_task"></label>
+                        <pre class="source"><code class="clojure">(definvoke invoke-intern-task
+  [:method {:multi protocol.function/-invoke-intern
+            :val :task}]
+  ([name config]
+   (invoke-intern-task :task name config nil))
+  ([_ name config _]
+   (let [template (:template config)
+         body `(task ~template ~(str name) ~config)
+         arglists (or (:arglists config)
+                      (-> (task-defaults template) :arglists))]
+     `(doto (def ~name ~body)
+        (alter-meta! merge (assoc ~config :arglists (quote ~arglists)))))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/task_test.clj#L46-L59" target="_blank">link</a></i></h6><code class="clojure">(invoke-intern-task '-task- '{:template :namespace
+                              :main {:fn clojure.core/ns-aliases}})</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function_task__single_function_print"></span>
+                <div class="entry-description">
+                    <h4><b>single-function-print&nbsp<a data-scroll="" href="#entry__hara_function_task__">^</a></b></h4>
+                    <p><i>if not `:bulk`, then print function output</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/task.clj#L45-L55" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function_task__single_function_print">
+                        <label class="source-toggle" for="entry__pre_hara_function_task__single_function_print"></label>
+                        <pre class="source"><code class="clojure">(defn single-function-print
+  [params]
+  (if (and (not (:bulk params))
+           (-> params :print :function nil?))
+    (assoc-in params [:print :function] true)
+    params))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/task_test.clj#L24-L27" target="_blank">link</a></i></h6><code class="clojure">(single-function-print {})
+=> {:print {:function true}}</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function_task__task"></span>
+                <div class="entry-description">
+                    <h4><b>task&nbsp<a data-scroll="" href="#entry__hara_function_task__">^</a></b></h4>
+                    <p><i>creates a task</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/task.clj#L57-L81" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function_task__task">
+                        <label class="source-toggle" for="entry__pre_hara_function_task__task"></label>
+                        <pre class="source"><code class="clojure">(defn task
+  ([m]
+   (map->Task m))
+  ([type name arg]
+   (let [[params main] (if (map? arg)
+                         [arg (-> arg :main :fn)]
+                         [{} arg])
+         defaults     (task-defaults type)
+         params       (nested/merge-nested defaults params)
+         count        (or (-> params :main :argcount) 4)
+         [main args?] (process/main-function main count)]
+     (task (nested/merge-nested defaults
+                                params
+                                {:main {:fn main
+                                        :args? args?}
+                                 :name name
+                                 :type type})))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/task_test.clj#L30-L36" target="_blank">link</a></i></h6><code class="clojure">(task :namespace "list-interns" ns-interns)
+  
+(task :namespace
+      "list-interns"
+      {:main {:fn clojure.core/ns-interns}})</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function_task__task_defaults"></span>
+                <div class="entry-description">
+                    <h4><b>task-defaults&nbsp<a data-scroll="" href="#entry__hara_function_task__">^</a></b></h4>
+                    <p><i>creates default settings for task groups</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/task.clj#L7-L15" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function_task__task_defaults">
+                        <label class="source-toggle" for="entry__pre_hara_function_task__task_defaults"></label>
+                        <pre class="source"><code class="clojure">(defmulti task-defaults
+  identity)</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/task_test.clj#L7-L12" target="_blank">link</a></i></h6><code class="clojure">(task-defaults :namespace)
+
+;;(task-defaults :project)</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function_task__task_display"></span>
+                <div class="entry-description">
+                    <h4><b>task-display&nbsp<a data-scroll="" href="#entry__hara_function_task__">^</a></b></h4>
+                    <p><i>displays the task-body</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/task.clj#L39-L43" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function_task__task_display">
+                        <label class="source-toggle" for="entry__pre_hara_function_task__task_display"></label>
+                        <pre class="source"><code class="clojure">(defn task-display
+  [^Task task]
+  {:fn (symbol (.name task))})</code></pre>
+                    </div>
+                </div>
+                <pre class="error"><h6>example not found</h6><code></code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function_task__task_status"></span>
+                <div class="entry-description">
+                    <h4><b>task-status&nbsp<a data-scroll="" href="#entry__hara_function_task__">^</a></b></h4>
+                    <p><i>displays the task-status</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/task.clj#L33-L37" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function_task__task_status">
+                        <label class="source-toggle" for="entry__pre_hara_function_task__task_status"></label>
+                        <pre class="source"><code class="clojure">(defn task-status
+  [^Task task]
+  (.type task))</code></pre>
+                    </div>
+                </div>
+                <pre class="error"><h6>example not found</h6><code></code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_function_task__task_QMARK_"></span>
+                <div class="entry-description">
+                    <h4><b>task?&nbsp<a data-scroll="" href="#entry__hara_function_task__">^</a></b></h4>
+                    <p><i>check if object is a task</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/function/task.clj#L83-L91" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_function_task__task_QMARK_">
+                        <label class="source-toggle" for="entry__pre_hara_function_task__task_QMARK_"></label>
+                        <pre class="source"><code class="clojure">(defn task?
+  [x]
+  (instance? Task x))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/function/task_test.clj#L39-L43" target="_blank">link</a></i></h6><code class="clojure">(-> (task :namespace "list-interns" ns-interns)
+    (task?))
+=> true</code></pre>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outline">
+      <div class="toc">
+        <nav data-gumshoe-header>
+          <ul data-gumshoe>
+            <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#api"><h4>2 &nbsp; API</h4></a><a class="section" data-scroll="" href="#entry__hara_function_task__Task"><h5><i>Task</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function_task__deftask"><h5><i>deftask</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function_task__invoke_intern_task"><h5><i>invoke-intern-task</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function_task__single_function_print"><h5><i>single-function-print</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function_task__task"><h5><i>task</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function_task__task_defaults"><h5><i>task-defaults</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function_task__task_display"><h5><i>task-display</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function_task__task_status"><h5><i>task-status</i></h5></a><a class="section" data-scroll="" href="#entry__hara_function_task__task_QMARK_"><h5><i>task?</i></h5></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    
+    <!--label for="sidebar-checkbox" class="sidebar-toggle"></label-->
+
+  </body>
+
+  <script>
+  if (true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-31320512-2', 'caudate.me');
+    ga('send', 'pageview');
+  }
+  </script>
+  
+  <script type="text/javascript">
+    smoothScroll.init();
+    gumshoe.init({});
+  
+    hljs.registerLanguage("clojure",function(e){var t={"builtin-name":"def defonce cond apply if-not if-let if not not= = < > <= >= == + / * - rem quot neg? pos? delay? symbol? keyword? true? false? integer? empty? coll? list? set? ifn? fn? associative? sequential? sorted? counted? reversible? number? decimal? class? distinct? isa? float? rational? reduced? ratio? odd? even? char? seq? vector? string? map? nil? contains? zero? instance? not-every? not-any? libspec? -> ->> .. . inc compare do dotimes mapcat take remove take-while drop letfn drop-last take-last drop-while while intern condp case reduced cycle split-at split-with repeat replicate iterate range merge zipmap declare line-seq sort comparator sort-by dorun doall nthnext nthrest partition eval doseq await await-for let agent atom send send-off release-pending-sends add-watch mapv filterv remove-watch agent-error restart-agent set-error-handler error-handler set-error-mode! error-mode shutdown-agents quote var fn loop recur throw try monitor-enter monitor-exit defmacro defn defn- macroexpand macroexpand-1 for dosync and or when when-not when-let comp juxt partial sequence memoize constantly complement identity assert peek pop doto proxy defstruct first rest cons defprotocol cast coll deftype defrecord last butlast sigs reify second ffirst fnext nfirst nnext defmulti defmethod meta with-meta ns in-ns create-ns import refer keys select-keys vals key val rseq name namespace promise into transient persistent! conj! assoc! dissoc! pop! disj! use class type num float double short byte boolean bigint biginteger bigdec print-method print-dup throw-if printf format load compile get-in update-in pr pr-on newline flush read slurp read-line subvec with-open memfn time re-find re-groups rand-int rand mod locking assert-valid-fdecl alias resolve ref deref refset swap! reset! set-validator! compare-and-set! alter-meta! reset-meta! commute get-validator alter ref-set ref-history-count ref-min-history ref-max-history ensure sync io! new next conj set! to-array future future-call into-array aset gen-class reduce map filter find empty hash-map hash-set sorted-map sorted-map-by sorted-set sorted-set-by vec vector seq flatten reverse assoc dissoc list disj get union difference intersection extend extend-type extend-protocol int nth delay count concat chunk chunk-buffer chunk-append chunk-first chunk-rest max min dec unchecked-inc-int unchecked-inc unchecked-dec-inc unchecked-dec unchecked-negate unchecked-add-int unchecked-add unchecked-subtract-int unchecked-subtract chunk-next chunk-cons chunked-seq? prn vary-meta lazy-seq spread list* str find-keyword keyword symbol gensym force rationalize"},r="a-zA-Z_\\-!.?+*=<>&#'",n="["+r+"]["+r+"0-9/;:]*",a="[-+]?\\d+(\\.\\d+)?",o={b:n,r:0},s={cN:"number",b:a,r:0},i=e.inherit(e.QSM,{i:null}),c=e.C(";","$",{r:0}),d={cN:"literal",b:/\b(true|false|nil)\b/},l={b:"[\\[\\{]",e:"[\\]\\}]"},m={cN:"comment",b:"\\^"+n},p=e.C("\\^\\{","\\}"),u={cN:"symbol",b:"[:]{1,2}"+n},f={b:"\\(",e:"\\)"},h={eW:!0,r:0},y={k:t,l:n,cN:"name",b:n,starts:h},b=[f,i,m,p,c,u,l,s,d,o];return f.c=[e.C("comment",""),y,h],h.c=b,l.c=b,{aliases:["clj"],i:/\S/,c:[f,i,m,p,c,u,l,s,d]}});
+    hljs.initHighlightingOnLoad();
+  </script>
+</html>

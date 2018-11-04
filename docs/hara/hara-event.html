@@ -1,0 +1,1040 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <link rel="shortcut icon" href="favicon.ico">
+  <title>hara.event - conditional restarts</title>
+  <script src="js/highlight.min.js"></script>
+  <script src="js/gumshoe.min.js"></script>
+  <script src="js/smooth-scroll.min.js"></script>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/poole.css">
+  <link rel="stylesheet" href="css/syntax.css">
+  <link rel="stylesheet" href="css/lanyon.css">
+  <link rel="stylesheet" href="css/bolton.css">
+  <link rel="stylesheet" href="css/bolton-api.css">
+  <link rel="stylesheet" href="css/bolton-highlight.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  
+</head>
+
+  <body class="theme-base-0b">
+    <span id="page-top"></span>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <nav class="sidebar-nav">
+    <span>&nbsp;</span>
+    <a class="sidebar-nav-item header" href="index.html" style="padding-bottom:5px"><b>HOME</b></a>
+    <a class="sidebar-nav-item" href="hara-config.html">config</a><a class="sidebar-nav-item" href="hara-core.html">core</a><a class="sidebar-nav-item" href="hara-data.html">data</a><a class="sidebar-nav-item" href="hara-deploy.html">deploy</a><a class="sidebar-nav-item" href="hara-event.html">event</a><a class="sidebar-nav-item" href="hara-function.html">function</a><a class="sidebar-nav-item" href="hara-function-procedure.html">function.procedure</a><a class="sidebar-nav-item" href="hara-function-task.html">function.task</a><a class="sidebar-nav-item" href="hara-io-archive.html">io.archive</a><a class="sidebar-nav-item" href="hara-io-file.html">io.file</a><a class="sidebar-nav-item" href="hara-io-project.html">io.project</a><a class="sidebar-nav-item" href="hara-io-scheduler.html">io.scheduler</a><a class="sidebar-nav-item" href="hara-lib-aether.html">lib.aether</a><a class="sidebar-nav-item" href="hara-lib-jgit.html">lib.jgit</a><a class="sidebar-nav-item" href="hara-math.html">math</a><a class="sidebar-nav-item" href="hara-module.html">module</a><a class="sidebar-nav-item" href="hara-object.html">object</a><a class="sidebar-nav-item" href="hara-print.html">print</a><a class="sidebar-nav-item" href="hara-security.html">security</a><a class="sidebar-nav-item" href="hara-security-openpgp.html">security.openpgp</a><a class="sidebar-nav-item" href="hara-state.html">state</a><a class="sidebar-nav-item" href="hara-state-ova.html">state.ova</a><a class="sidebar-nav-item" href="hara-string.html">string</a><a class="sidebar-nav-item" href="hara-test.html">test</a><a class="sidebar-nav-item" href="hara-time.html">time</a><a class="sidebar-nav-item" href="hara-watch.html">watch</a>
+    <span class="sidebar-nav-item">&nbsp;</span>
+    <span class="sidebar-nav-item">&nbsp;</span>
+  </nav>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <span>event</span>
+            <small>conditional restarts</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="page">
+          <div class="heading">
+            <div>
+              <h5>Author: Chris Zheng&nbsp;&nbsp;<a href="mailto:z@caudate.me">(z@caudate.me)</a></h5>
+              <h5>Date: 04 November 2018</h5>
+              <h5>Repository: <a href="https://github.com/zcaudate/hara">https://github.com/zcaudate/hara</a></h5>
+              <h5>Version: 3.0.1</h5></div></div>
+          <hr/>
+
+          <div class="toc">
+              <nav>
+                <ul>
+                  <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#signal"><h4>2 &nbsp; Signal</h4></a><a class="section" data-scroll="" href="#entry__hara_event__clear_listeners"><h5><i>clear-listeners</i></h5></a><a class="section" data-scroll="" href="#entry__hara_event__deflistener"><h5><i>deflistener</i></h5></a><a class="section" data-scroll="" href="#entry__hara_event__install_listener"><h5><i>install-listener</i></h5></a><a class="section" data-scroll="" href="#entry__hara_event__list_listeners"><h5><i>list-listeners</i></h5></a><a class="section" data-scroll="" href="#entry__hara_event__signal"><h5><i>signal</i></h5></a><a class="section" data-scroll="" href="#entry__hara_event__uninstall_listener"><h5><i>uninstall-listener</i></h5></a><a class="section" data-scroll="" href="#entry__hara_event__with_temp_listener"><h5><i>with-temp-listener</i></h5></a></li><li><a class="chapter" data-scroll="" href="#restart"><h4>3 &nbsp; Restart</h4></a><a class="section" data-scroll="" href="#entry__hara_event__choose"><h5><i>choose</i></h5></a><a class="section" data-scroll="" href="#entry__hara_event__continue"><h5><i>continue</i></h5></a><a class="section" data-scroll="" href="#entry__hara_event__default"><h5><i>default</i></h5></a><a class="section" data-scroll="" href="#entry__hara_event__escalate"><h5><i>escalate</i></h5></a><a class="section" data-scroll="" href="#entry__hara_event__fail"><h5><i>fail</i></h5></a><a class="section" data-scroll="" href="#entry__hara_event__manage"><h5><i>manage</i></h5></a><a class="section" data-scroll="" href="#entry__hara_event__raise"><h5><i>raise</i></h5></a></li><li><a class="chapter" data-scroll="" href="#walkthough"><h4>4 &nbsp; Walkthough</h4></a><a class="section" data-scroll="" href="#signal-0"><h5><i>4.1 &nbsp; Signal</i></h5></a><a class="section" data-scroll="" href="#restart-0"><h5><i>4.2 &nbsp; Restart</i></h5></a><a class="section" data-scroll="" href="#exceptions"><h5><i>4.3 &nbsp; Exceptions</i></h5></a></li><li><a class="chapter" data-scroll="" href="#strategies"><h4>5 &nbsp; Strategies</h4></a><a class="section" data-scroll="" href="#normal"><h5><i>5.1 &nbsp; Normal</i></h5></a><a class="section" data-scroll="" href="#catch"><h5><i>5.2 &nbsp; Catch</i></h5></a><a class="section" data-scroll="" href="#continue"><h5><i>5.3 &nbsp; Continue</i></h5></a><a class="section" data-scroll="" href="#choose"><h5><i>5.4 &nbsp; Choose</i></h5></a><a class="section" data-scroll="" href="#choose-more"><h5><i>5.5 &nbsp; Choose - More Strategies</i></h5></a><a class="section" data-scroll="" href="#escalate"><h5><i>5.6 &nbsp; Escalate</i></h5></a><a class="section" data-scroll="" href="#fail"><h5><i>5.7 &nbsp; Fail</i></h5></a><a class="section" data-scroll="" href="#default"><h5><i>5.8 &nbsp; Default</i></h5></a><a class="section" data-scroll="" href="#on-form"><h5><i>5.9 &nbsp; Branch Using On</i></h5></a></li>
+                </ul>
+              </nav>
+          </div>
+          <div>
+    <span id="introduction"></span>
+    <h2><b>1 &nbsp;&nbsp; Introduction</b></h2>
+</div><div><p><a href='https://github.com/caudata/hara/blob/master/src/hara/event.clj'>hara.event</a> aims to provide more loosely coupled code through two mechanisms:</p><ul><li>a signalling framework for normal operations</li><li>a conditional restart framework for abnormal operations</li></ul><p>The two paradigms have been combined into a single library because they share a number of similarities in terms of both the communication of system information as well as the need for passive listener. However, abnormal operations are alot trickier to resolve and requires more attention to detail.</p>
+</div><div>
+    <span id="installation"></span>
+    <h3>1.1 &nbsp;&nbsp; Installation</h3>
+</div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;hara/base &quot;3.0.1&quot;&#93;</code></pre>
+</div><div><p>All functions are in the <code>hara.event</code> namespace.      </p><pre><code> &#40;use &#40;quote hara.event&#41;&#41;</code></pre>
+</div><div>
+    <span id="signal"></span>
+    <h2><b>2 &nbsp;&nbsp; Signal</b></h2>
+</div><div class="api">
+    <span id="entry__hara_event__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_event__clear_listeners">clear-listeners</a></li>
+            <li><a data-scroll="" href="#entry__hara_event__deflistener">deflistener</a></li>
+            <li><a data-scroll="" href="#entry__hara_event__install_listener">install-listener</a></li>
+            <li><a data-scroll="" href="#entry__hara_event__list_listeners">list-listeners</a></li>
+            <li><a data-scroll="" href="#entry__hara_event__signal">signal</a></li>
+            <li><a data-scroll="" href="#entry__hara_event__uninstall_listener">uninstall-listener</a></li>
+            <li><a data-scroll="" href="#entry__hara_event__with_temp_listener">with-temp-listener</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_event__clear_listeners"></span>
+                <div class="entry-description">
+                    <h4><b>clear-listeners&nbsp<a data-scroll="" href="#entry__hara_event__">^</a></b></h4>
+                    <p><i>empties all event listeners</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/event.clj#L15-L23" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_event__clear_listeners">
+                        <label class="source-toggle" for="entry__pre_hara_event__clear_listeners"></label>
+                        <pre class="source"><code class="clojure">(defn clear-listeners
+  []
+  (reset! *signal-manager* (handler/manager)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/event_test.clj#L6-L10" target="_blank">link</a></i></h6><code class="clojure">(clear-listeners)
+;; all defined listeners will be cleared</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_event__deflistener"></span>
+                <div class="entry-description">
+                    <h4><b>deflistener&nbsp<a data-scroll="" href="#entry__hara_event__">^</a></b></h4>
+                    <p><i>installs a global signal listener</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/event.clj#L72-L93" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_event__deflistener">
+                        <label class="source-toggle" for="entry__pre_hara_event__deflistener"></label>
+                        <pre class="source"><code class="clojure">(defmacro deflistener
+  [name checker bindings & more]
+  (let [sym    (str  (.getName *ns*) "/" name)
+        cform  (util/checker-form checker)
+        hform  (util/handler-form bindings more)]
+    `(do (install-listener (symbol ~sym) ~cform ~hform)
+         (def ~(symbol name) (symbol ~sym)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/event_test.clj#L41-L54" target="_blank">link</a></i></h6><code class="clojure">(def -counts- (atom {}))
+
+(deflistener -count-listener- :log
+  [msg]
+  (swap! -counts- update-in [:counts] (fnil #(conj % (count msg)) [])))
+
+(signal [:log {:msg "Hello World"}])
+
+(signal [:log {:msg "How are you?"}])
+
+@-counts-
+=> {:counts [11 12]}</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_event__install_listener"></span>
+                <div class="entry-description">
+                    <h4><b>install-listener&nbsp<a data-scroll="" href="#entry__hara_event__">^</a></b></h4>
+                    <p><i>adds an event listener, `deflistener` can also be used</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/event.clj#L41-L56" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_event__install_listener">
+                        <label class="source-toggle" for="entry__pre_hara_event__install_listener"></label>
+                        <pre class="source"><code class="clojure">(defn install-listener
+  [id checker handler]
+  (swap! *signal-manager*
+         handler/add-handler checker {:id id
+                                     :fn handler}))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/event_test.clj#L24-L33" target="_blank">link</a></i></h6><code class="clojure">(install-listener '-hello-
+                  :msg
+                  (fn [{:keys [msg]}]
+                    (str "recieved " msg)))
+
+(list-listeners)
+=> (contains-in [{:id '-hello-
+                  :checker :msg}])</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_event__list_listeners"></span>
+                <div class="entry-description">
+                    <h4><b>list-listeners&nbsp<a data-scroll="" href="#entry__hara_event__">^</a></b></h4>
+                    <p><i>shows all event listeners</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/event.clj#L25-L39" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_event__list_listeners">
+                        <label class="source-toggle" for="entry__pre_hara_event__list_listeners"></label>
+                        <pre class="source"><code class="clojure">(defn list-listeners
+  ([]
+   (handler/list-handlers @*signal-manager*))
+  ([checker]
+   (handler/list-handlers @*signal-manager* checker)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/event_test.clj#L13-L21" target="_blank">link</a></i></h6><code class="clojure">(deflistener -hello-listener- :msg
+  [msg]
+  (str "recieved " msg))
+
+(list-listeners)
+=> (contains-in [{:id 'hara.event-test/-hello-listener-,
+                  :checker :msg}])</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_event__signal"></span>
+                <div class="entry-description">
+                    <h4><b>signal&nbsp<a data-scroll="" href="#entry__hara_event__">^</a></b></h4>
+                    <p><i>signals an event that is sent to, it does not do anything by itself</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/event.clj#L95-L113" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_event__signal">
+                        <label class="source-toggle" for="entry__pre_hara_event__signal"></label>
+                        <pre class="source"><code class="clojure">(defn signal
+  ([data]
+   (signal data @*signal-manager*))
+  ([data manager]
+   (let [ndata   (handler/expand-data data)]
+     (doall (for [handler (handler/match-handlers manager ndata)]
+              {:id (:id handler)
+               :result ((:fn handler) ndata)})))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/event_test.clj#L57-L66" target="_blank">link</a></i></h6><code class="clojure">(signal :anything) => ()
+  
+(deflistener -hello- _
+  e
+  e)
+  
+(signal :anything)
+=> '({:id hara.event-test/-hello- :result {:anything true}})</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_event__uninstall_listener"></span>
+                <div class="entry-description">
+                    <h4><b>uninstall-listener&nbsp<a data-scroll="" href="#entry__hara_event__">^</a></b></h4>
+                    <p><i>uninstalls a global signal listener</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/event.clj#L58-L70" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_event__uninstall_listener">
+                        <label class="source-toggle" for="entry__pre_hara_event__uninstall_listener"></label>
+                        <pre class="source"><code class="clojure">(defn uninstall-listener
+  [id]
+  (do (swap! *signal-manager* handler/remove-handler id)
+      (if-let [nsp (and (symbol? id)
+                        (.getNamespace ^Symbol id)
+                        (Namespace/find (symbol (.getNamespace ^Symbol id))))]
+        (do (.unmap ^Namespace nsp (symbol (.getName ^Symbol id)))
+            nsp)
+        id)))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/event_test.clj#L36-L38" target="_blank">link</a></i></h6><code class="clojure">(uninstall-listener 'hara.event-test/-hello-)</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_event__with_temp_listener"></span>
+                <div class="entry-description">
+                    <h4><b>with-temp-listener&nbsp<a data-scroll="" href="#entry__hara_event__">^</a></b></h4>
+                    <p><i>used for isolating and testing signaling</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/event.clj#L247-L258" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_event__with_temp_listener">
+                        <label class="source-toggle" for="entry__pre_hara_event__with_temp_listener"></label>
+                        <pre class="source"><code class="clojure">(defmacro with-temp-listener
+  [[checker handler] & body]
+  `(binding [*signal-manager* (atom (handler/manager))]
+     (install-listener :temp ~checker ~handler)
+     ~@body))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/event_test.clj#L145-L150" target="_blank">link</a></i></h6><code class="clojure">(with-temp-listener [{:id string?}
+                     (fn [e] "world")]
+  (signal {:id "hello"}))
+=> '({:result "world", :id :temp})</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="restart"></span>
+    <h2><b>3 &nbsp;&nbsp; Restart</b></h2>
+</div><div class="api">
+    <span id="entry__hara_event__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_event__choose">choose</a></li>
+            <li><a data-scroll="" href="#entry__hara_event__continue">continue</a></li>
+            <li><a data-scroll="" href="#entry__hara_event__default">default</a></li>
+            <li><a data-scroll="" href="#entry__hara_event__escalate">escalate</a></li>
+            <li><a data-scroll="" href="#entry__hara_event__fail">fail</a></li>
+            <li><a data-scroll="" href="#entry__hara_event__manage">manage</a></li>
+            <li><a data-scroll="" href="#entry__hara_event__raise">raise</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_event__choose"></span>
+                <div class="entry-description">
+                    <h4><b>choose&nbsp<a data-scroll="" href="#entry__hara_event__">^</a></b></h4>
+                    <p><i>used within a manage form to definitively fail the system</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/event.clj#L147-L158" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_event__choose">
+                        <label class="source-toggle" for="entry__pre_hara_event__choose"></label>
+                        <pre class="source"><code class="clojure">(defn choose
+  [label & args]
+  {:type :choose :label label :args args})</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/event_test.clj#L95-L102" target="_blank">link</a></i></h6><code class="clojure">(manage (raise :error
+               (option :specify [a] a))
+        (on :error
+            _
+            (choose :specify 42)))
+=> 42</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_event__continue"></span>
+                <div class="entry-description">
+                    <h4><b>continue&nbsp<a data-scroll="" href="#entry__hara_event__">^</a></b></h4>
+                    <p><i>used within a manage form to continue on with a particular value</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/event.clj#L115-L125" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_event__continue">
+                        <label class="source-toggle" for="entry__pre_hara_event__continue"></label>
+                        <pre class="source"><code class="clojure">(defn continue
+  [body]
+  {:type :continue :value body})</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/event_test.clj#L69-L75" target="_blank">link</a></i></h6><code class="clojure">(manage [1 2 (raise :error)]
+        (on :error
+            _
+            (continue 3)))
+=> [1 2 3]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_event__default"></span>
+                <div class="entry-description">
+                    <h4><b>default&nbsp<a data-scroll="" href="#entry__hara_event__">^</a></b></h4>
+                    <p><i>used within either a raise or escalate form to specify the default option to take if no other options arise. </i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/event.clj#L127-L145" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_event__default">
+                        <label class="source-toggle" for="entry__pre_hara_event__default"></label>
+                        <pre class="source"><code class="clojure">(defn default
+  [& args]
+  {:type :default :args args})</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/event_test.clj#L78-L92" target="_blank">link</a></i></h6><code class="clojure">(raise :error
+       (option :specify [a] a)
+       (default :specify 3))
+=> 3
+
+(manage
+ (raise :error
+        (option :specify [a] a)
+        (default :specify 3))
+ (on :error []
+     (escalate :error
+               (default :specify 5))))
+=> 5</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_event__escalate"></span>
+                <div class="entry-description">
+                    <h4><b>escalate&nbsp<a data-scroll="" href="#entry__hara_event__">^</a></b></h4>
+                    <p><i>used within a manage form to add further data on an issue</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/event.clj#L173-L191" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_event__escalate">
+                        <label class="source-toggle" for="entry__pre_hara_event__escalate"></label>
+                        <pre class="source"><code class="clojure">(defmacro escalate
+  [data & forms]
+  (let [[data forms]
+        (if (util/is-special-form :raise data)
+          [nil (cons data forms)]
+          [data forms])]
+    `{:type :escalate
+      :data ~data
+      :options  ~(util/parse-option-forms forms)
+      :default  ~(util/parse-default-form forms)}))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/event_test.clj#L114-L121" target="_blank">link</a></i></h6><code class="clojure">(manage [1 2 (raise :error)]
+        (on :error
+            _
+            (escalate :escalated)))
+=> (throws-info {:error true
+                 :escalated true})</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_event__fail"></span>
+                <div class="entry-description">
+                    <h4><b>fail&nbsp<a data-scroll="" href="#entry__hara_event__">^</a></b></h4>
+                    <p><i>used within a manage form to definitively fail the system</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/event.clj#L160-L171" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_event__fail">
+                        <label class="source-toggle" for="entry__pre_hara_event__fail"></label>
+                        <pre class="source"><code class="clojure">(defn fail
+  ([] {:type :fail :data {}})
+  ([data]
+   {:type :fail :data data}))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/event_test.clj#L105-L111" target="_blank">link</a></i></h6><code class="clojure">(manage (raise :error)
+        (on :error
+            _
+            (fail :failed)))
+=> (throws-info {:error true})</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_event__manage"></span>
+                <div class="entry-description">
+                    <h4><b>manage&nbsp<a data-scroll="" href="#entry__hara_event__">^</a></b></h4>
+                    <p><i>manages a raised issue, like try but is continuable:</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/event.clj#L216-L245" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_event__manage">
+                        <label class="source-toggle" for="entry__pre_hara_event__manage"></label>
+                        <pre class="source"><code class="clojure">(defmacro manage
+  [& forms]
+  (let [sp-fn           (fn [form] (util/is-special-form :manage form #{'finally 'catch}))
+        body-forms      (vec (filter (complement sp-fn) forms))
+        sp-forms        (filter sp-fn forms)
+        id              (handler/new-id)
+        options         (util/parse-option-forms sp-forms)
+        on-handlers     (util/parse-on-handler-forms sp-forms)
+        on-any-handlers (util/parse-on-any-handler-forms sp-forms)
+        try-forms       (util/parse-try-forms sp-forms)
+        optmap          (zipmap (keys options) (repeat id))]
+    `(let [manager# (handler/manager ~id
+                                    ~(vec (concat on-handlers on-any-handlers))
+                                    ~options)]
+       (binding [*issue-managers* (cons manager# *issue-managers*)
+                 *issue-optmap*   (merge ~optmap *issue-optmap*)]
+         (try
+           (try
+             ~@body-forms
+             (catch clojure.lang.ExceptionInfo ~'ex
+               (manage/manage-condition manager# ~'ex)))
+           ~@try-forms)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/event_test.clj#L136-L142" target="_blank">link</a></i></h6><code class="clojure">(manage [1 2 (raise :error)]
+        (on :error
+            _
+            3))
+=> 3</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_event__raise"></span>
+                <div class="entry-description">
+                    <h4><b>raise&nbsp<a data-scroll="" href="#entry__hara_event__">^</a></b></h4>
+                    <p><i>raise an issue, like throw but can be conditionally managed as well as automatically resolved:</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/event.clj#L193-L214" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_event__raise">
+                        <label class="source-toggle" for="entry__pre_hara_event__raise"></label>
+                        <pre class="source"><code class="clojure">(defmacro raise
+  [content & [msg & forms]]
+  (let [[msg forms] (if (util/is-special-form :raise msg)
+                      ["" (cons msg forms)]
+                      [msg forms])
+        options (util/parse-option-forms forms)
+        default (util/parse-default-form forms)]
+    `(let [issue# (data/issue ~content ~msg ~options ~default)]
+       (signal (assoc (:data issue#) :issue (:msg issue#)))
+       (raise/raise-loop issue# *issue-managers*
+                         (merge (:optmap issue#) *issue-optmap*)))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/event_test.clj#L124-L133" target="_blank">link</a></i></h6><code class="clojure">(raise  [:error {:msg "A problem."}])
+=> (throws-info {:error true
+                 :msg "A problem."})
+
+(raise [:error {:msg "A resolvable problem"}]
+       (option :something [] 42)
+       (default :something))
+=> 42</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="walkthough"></span>
+    <h2><b>4 &nbsp;&nbsp; Walkthough</b></h2>
+</div><div>
+    <span id="signal-0"></span>
+    <h3>4.1 &nbsp;&nbsp; Signal</h3>
+</div><div><p><code>hara.event</code> contains a flexible signaling and listener framework. This allows for decoupling of side-effecting functions. In normal program flow, there may be instances where an event in a system requires additional processing that is adjunct to the core:</p><ul><li>logging</li><li>printing on screen</li><li>sending an email</li><li>creating audio/visual effects</li><li>writing to a queue, database or cache</li></ul><p>The signalling framework allows for the specification of signals type. This enables loose coupling between the core and libraries providing functionality for side effects, enabling the most flexible implementation for signaling. As all information surrounding a signal is represented using data, listeners that provide actual resolution can be attached and detached without too much effort. In this way the core becomes lighter and is stripped of dependencies.</p>
+</div><div class="figure">
+    <a id="img-img--hara-event--signal-pathway-png"></a>
+    <div class="img">
+        <img src="img/hara_event/signal_pathway.png" line="{:row 38, :col 1, :end-row 38, :end-col 91}">
+    </div>
+    <p></p>
+</div><div><p><code>signal</code> typically just informs its listeners with a given set of information. An example of this can be seen here:</p>
+</div><div class="code">
+    <pre><code class="clojure">(signal {:web true :log true :msg &quot;hello&quot;})
+=&gt; ()</code></pre>
+</div><div><p>It can also be written like this for shorthand:</p>
+</div><div class="code">
+    <pre><code class="clojure">(signal [:web :log {:msg &quot;hello&quot;}])
+=&gt; ()</code></pre>
+</div><div><p>A signal by itself does not do anything. It requires a listener to be defined in order to process the signal:</p>
+</div><div class="code">
+    <pre><code class="clojure">(deflistener log-print-listener :log
+  e
+  (println &quot;LOG:&quot; e))
+
+(signal [:web :log {:msg &quot;hello&quot;}])
+=&gt; ({:result nil,
+     :id documentation.hara.hara-event/log-print-listener})
+;; LOG: {:web true, :log true, :msg hello}</code></pre>
+</div><div><p>A second listener will result in <code>signal</code> triggering two calls</p>
+</div><div class="code">
+    <pre><code class="clojure">(deflistener web-print-listener :web
+  e
+  (println &quot;WEB:&quot; e))
+
+(signal [:web :log {:msg &quot;hello&quot;}])
+=&gt; ({:result nil, :id documentation.hara.hara-event/web-print-listener}
+    {:result nil, :id documentation.hara.hara-event/log-print-listener})
+;; LOG: {:web true, :log true, :msg hello}
+;; WEB: {:web true, :log true, :msg hello}</code></pre>
+</div><div><p>Whereas another signal without an attached data listener will not trigger:</p>
+</div><div class="code">
+    <pre><code class="clojure">(signal [:db {:msg &quot;hello&quot;}])
+=&gt; ()</code></pre>
+</div><div><p>This can be resolved by adding another listener:</p>
+</div><div class="code">
+    <pre><code class="clojure">(deflistener db-print-listener :db
+  e
+  (println &quot;DB:&quot; e))</code></pre>
+</div><div class="code">
+    <pre><code class="clojure">(signal [:db {:msg &quot;hello&quot;}])
+=&gt; ({:result nil, :id documentation.hara.hara-event/db-print-listener})
+;; DB: {:db true, :msg hello}</code></pre>
+</div><div><p><code>hara.event</code> also provides for a conditional framework. It also can be thought of as an issue resolution system or <code>try++/catch++</code>. There are many commonalities between the signalling framework as well as the conditional framework. Because the framework deals with abnormal program flow, there has to berichness in semantics in order to resolve the different types of issues that may occur. The diagram below shows how the two frameworks fit together.</p>
+</div><div class="figure">
+    <a id="img-img--hara-event--event-pathway-png"></a>
+    <div class="img">
+        <img width="100%" src="img/hara_event/event_pathway.png" line="{:row 100, :col 1, :end-row 100, :end-col 166}">
+    </div>
+    <p></p>
+</div><div>
+    <span id="restart-0"></span>
+    <h3>4.2 &nbsp;&nbsp; Restart</h3>
+</div><div><p>In this demonstration, we look at how code bloat problems using <code>throw/try/catch</code> could be reduced using <code>raise/manage/on</code>. Two functions are defined:</p><ul><li><code>value-check</code> which takes a number as input, throwing a <code>RuntimeException</code> when it sees an input that it doe not like.</li><li><code>value-to-string</code> which takes a number as input, and returns it's string</li></ul>
+</div><div class="code">
+    <pre><code class="clojure">(defn value-check [n]
+  (cond (= n 13)
+        (raise {:type :unlucky
+                :value n})
+
+        (= n 7)
+        (raise {:type :lucky
+                :value n})
+
+        (= n 666)
+        (raise {:type :the-devil
+                :value n})
+
+        :else n))
+
+(defn value-to-string [n]
+  (str (value-check n)))</code></pre>
+</div><div><p>uses of <code>value-to-string</code> are as follows:</p>
+</div><div class="code">
+    <pre><code class="clojure">(value-to-string 1)
+=&gt; &quot;1&quot;
+
+(value-to-string 666)
+=&gt; (throws-info {:value 666
+                 :type :the-devil})</code></pre>
+</div><div><p>The advantage of using conditionals instead of the standard java <code>throw/catch</code> framework is that problems can be isolated to a particular scope without affecting other code that had already been built on top. When we map <code>value-to-string</code> to a range of values, if the inputs are small enough then there is no problem:</p>
+</div><div class="code">
+    <pre><code class="clojure">(mapv value-to-string (range 3))
+=&gt; [&quot;0&quot; &quot;1&quot; &quot;2&quot;]</code></pre>
+</div><div><p>However, if the inputs are wide enough to contain something out of the ordinary, then there is an exception.</p>
+</div><div class="code">
+    <pre><code class="clojure">(mapv value-to-string (range 10))
+=&gt; (throws-info {:value 7
+                 :type :lucky})</code></pre>
+</div><div>
+    <span id="exceptions"></span>
+    <h3>4.3 &nbsp;&nbsp; Exceptions</h3>
+</div><div><p><code>manage</code> is the top level form for handling exceptions to normal program flow. The usage of this form is:</p>
+</div><div class="code">
+    <pre><code class="clojure">(manage
+ (mapv value-to-string (range 10))
+ (on {:type :lucky} e
+     &quot;LUCKY-NUMBER-FOUND&quot;))
+=&gt; &quot;LUCKY-NUMBER-FOUND&quot;</code></pre>
+</div><div><p>This is the same mechanism as <code>try/catch</code>, which <code>manage</code> replacing <code>try</code> and <code>on</code> replacing <code>catch</code>. The difference is that there is more richness in semantics. The key form being <code>continue</code>:</p>
+</div><div class="code">
+    <pre><code class="clojure">(manage
+ (mapv value-to-string (range 10))
+ (on {:type :lucky}
+     []
+     (continue &quot;LUCKY-NUMBER-FOUND&quot;)))
+=&gt; [&quot;0&quot; &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; &quot;5&quot; &quot;6&quot;
+    &quot;LUCKY-NUMBER-FOUND&quot; &quot;8&quot; &quot;9&quot;]</code></pre>
+</div><div><p><code>continue</code> is special because it operates at the scope where the exception was raised. This type of handling cannot be replicated using the standard <code>try/catch</code> mechanism. Generally, exceptions that occur at lower levels propagate to the upper levels. This usually results in a complete reset of the system. <code>continue</code> allows for lower-level exceptions to be handled with much more grace because the scope is pin-pointed to where <code>raise</code> was called.</p>
+</div><div><p>Furthermore, there may be exceptions that require more attention and so <code>continue</code> can only be used when it is needed.</p>
+</div><div class="code">
+    <pre><code class="clojure">(defn values-to-string [inputs]
+  (manage
+   (mapv value-to-string inputs)
+   (on :value
+       [type value]
+       (cond (= type :the-devil)
+             &quot;OH NO!&quot;
+
+             :else (continue type)))))</code></pre>
+</div><div class="code">
+    <pre><code class="clojure">(values-to-string (range 6 14))
+=&gt; [&quot;6&quot; &quot;:lucky&quot; &quot;8&quot; &quot;9&quot; &quot;10&quot; &quot;11&quot; &quot;12&quot; &quot;:unlucky&quot;]
+
+(values-to-string [1 2 666])
+=&gt; &quot;OH NO!&quot;</code></pre>
+</div><div>
+    <span id="strategies"></span>
+    <h2><b>5 &nbsp;&nbsp; Strategies</b></h2>
+</div><div><p>This is a comprehensive (though non-exhaustive) list of program control strategies that can be used. It can be noted that the <code>try/catch</code> paradigm can implement sections <a href='#normal'></a> and <a href='#catch'></a>. Other clojure restart libraries such as <code>errorkit</code>, <code>swell</code> and <code>conditions</code> additionally implement sections <a href='#continue'></a>, <a href='#choose'></a> and <a href='#choose-more'></a>.</p><p><code>hara.event</code> supports novel (and more natural) program control mechanics through the <code>escalate</code> (<a href='#escalate'></a>), <code>fail</code> (<a href='#fail'></a>) and  <code>default</code> (<a href='#default'></a>) special forms as well as branching support in the <code>on</code> special form (<a href='#on-form'></a>).</p>
+</div><div>
+    <span id="normal"></span>
+    <h3>5.1 &nbsp;&nbsp; Normal</h3>
+</div><div>
+    <span id="no-raise"></span>
+    <h3><i>5.1.1 &nbsp;&nbsp; No Raise</i></h3>
+</div><div><p>The most straightforward code is one where no issues raised:</p>
+</div><div class="code">
+    <a id="event-normal-eq"></a>
+    <pre><code class="clojure">(manage            ;; L2
+ [1 2 (manage 3)]) ;; L1 and L0
+
+=&gt; [1 2 3]</code></pre>
+</div><div class="figure">
+    <a id="no-issues-flow"></a>
+    <h4><i>fig.1  &nbsp;-&nbsp; No Issues Flow</i></h4>
+    <div class="img">
+        <img src="img/hara_event/norm_normal.png" title="No Issues Flow" height="300px" line="{:row 21, :col 1, :end-row 21, :end-col 111}">
+    </div>
+    <p></p>
+</div><div>
+    <span id="issue-raised"></span>
+    <h3><i>5.1.2 &nbsp;&nbsp; Issue Raised</i></h3>
+</div><div><p>If there is an issue raised with no handler, it will <code>throw</code> an exception.</p>
+</div><div class="code">
+    <pre><code class="clojure">(manage                  ;; L2
+ [1 2 (manage            ;; L1
+       (raise {:A true}))]) ;; L0
+
+=&gt; (throws-info {:A true})</code></pre>
+</div><div class="figure">
+    <a id="unmanaged-issue-flow"></a>
+    <h4><i>fig.2  &nbsp;-&nbsp; Unmanaged Issue Flow</i></h4>
+    <div class="img">
+        <img src="img/hara_event/norm_unmanaged.png" title="Unmanaged Issue Flow" height="300px" line="{:row 35, :col 1, :end-row 35, :end-col 134}">
+    </div>
+    <p></p>
+</div><div>
+    <span id="catch"></span>
+    <h3>5.2 &nbsp;&nbsp; Catch</h3>
+</div><div><p>Once an issue has been raised, it can be handled within a managed scope through the use of 'on'. 'manage/on' is the equivalent to 'try/catch' in the following two cases:</p>
+</div><div>
+    <span id="first-level-catch"></span>
+    <h3><i>5.2.1 &nbsp;&nbsp; First Level Catch</i></h3>
+</div><div class="code">
+    <pre><code class="clojure">(manage                          ;; L2
+ [1 2 (manage                    ;; L1
+       (raise :A)                ;; L0
+       (on :A [] :A))]           ;; H1A
+ (on :B [] :B))                  ;; H2B
+
+=&gt; [1 2 :A]</code></pre>
+</div><div class="figure">
+    <a id="catch-on-a-flow"></a>
+    <h4><i>fig.3  &nbsp;-&nbsp; Catch on :A Flow</i></h4>
+    <div class="img">
+        <img src="img/hara_event/catch_flow_a.png" title="Catch on :A Flow" height="300px" line="{:row 54, :col 1, :end-row 54, :end-col 147}">
+    </div>
+    <p></p>
+</div><div>
+    <span id="second-level-catch"></span>
+    <h3><i>5.2.2 &nbsp;&nbsp; Second Level Catch</i></h3>
+</div><div class="code">
+    <pre><code class="clojure">(manage                          ;; L2
+ [1 2 (manage                    ;; L1
+       (raise :B)                ;; L0
+       (on :A [] :A))]           ;; H1A
+ (on :B [] :B))                  ;; H2B
+
+=&gt; :B</code></pre>
+</div><div class="figure">
+    <a id="catch-on-b-flow"></a>
+    <h4><i>fig.4  &nbsp;-&nbsp; Catch on :B Flow</i></h4>
+    <div class="img">
+        <img src="img/hara_event/catch_flow_b.png" title="Catch on :B Flow" height="300px" line="{:row 67, :col 1, :end-row 67, :end-col 160}">
+    </div>
+    <p></p>
+</div><div>
+    <span id="continue"></span>
+    <h3>5.3 &nbsp;&nbsp; Continue</h3>
+</div><div><p>The 'continue' form signals that the program  should resume at the point that the issue  was raised.</p>
+</div><div>
+    <span id="first-level-continue"></span>
+    <h3><i>5.3.1 &nbsp;&nbsp; First Level Continue</i></h3>
+</div><div><p>In the first case, this gives the same result as <code>try/catch</code>.</p>
+</div><div class="code">
+    <pre><code class="clojure">(manage                          ;; L2
+ [1 2 (manage                    ;; L1
+       (raise :A)                ;; L0
+       (on :A []                 ;; H1A
+           (continue :3A)))]
+ (on :B []                       ;; H2B
+     (continue :3B)))
+=&gt; [1 2 :3A]</code></pre>
+</div><div class="figure">
+    <a id="continue-on-a-flow"></a>
+    <h4><i>fig.5  &nbsp;-&nbsp; Continue on :A Flow</i></h4>
+    <div class="img">
+        <img src="img/hara_event/continue_flow_a.png" title="Continue on :A Flow" height="300px" line="{:row 87, :col 1, :end-row 87, :end-col 186}">
+    </div>
+    <p></p>
+</div><div>
+    <span id="second-level-continue"></span>
+    <h3><i>5.3.2 &nbsp;&nbsp; Second Level Continue</i></h3>
+</div><div><p>However, it can be seen that when 'continue' is used    on the outer manage blocks, it provides the 'manage/on'    a way for top tier forms to affect the bottom tier forms    without manipulating logic in the middle tier</p>
+</div><div class="code">
+    <pre><code class="clojure">(manage                          ;; L2
+ [1 2 (manage                    ;; L1
+       (raise :B)                ;; L0
+       (on :A []                 ;; H1A
+           (continue :3A)))]
+ (on :B []                       ;; H2B
+     (continue :3B)))
+=&gt; [1 2 :3B]</code></pre>
+</div><div class="figure">
+    <a id="continue-on-b-flow"></a>
+    <h4><i>fig.6  &nbsp;-&nbsp; Continue on :B Flow</i></h4>
+    <div class="img">
+        <img src="img/hara_event/continue_flow_b.png" title="Continue on :B Flow" height="300px" line="{:row 107, :col 1, :end-row 107, :end-col 206}">
+    </div>
+    <p></p>
+</div><div>
+    <span id="choose"></span>
+    <h3>5.4 &nbsp;&nbsp; Choose</h3>
+</div><div><p><code>choose</code> and <code>option</code> work together within manage scopes. A raised issue can have options attached to it, just a worker might give their manager certain options to choose from when an unexpected issue arises. Options can be chosen that lie anywhere within the manage blocks.</p>
+</div><div>
+    <span id="choose-lower-level"></span>
+    <h3><i>5.4.1 &nbsp;&nbsp; Choose Lower-Level</i></h3>
+</div><div class="code">
+    <pre><code class="clojure">(manage                        ;; L2
+ [1 2 (manage                  ;; L1
+       (raise :A               ;; L0
+              (option :X [] :3X)) ;; X
+       (on :A []                  ;; H1A
+           (choose :X))
+       (option :Y [] :3Y))] ;; Y
+ (option :Z [] :3Z))        ;; Z
+
+=&gt; [1 2 :3X]</code></pre>
+</div><div class="figure">
+    <a id="choose-x-flow"></a>
+    <h4><i>fig.7  &nbsp;-&nbsp; Choose :X Flow</i></h4>
+    <div class="img">
+        <img src="img/hara_event/choose_flow_x.png" title="Choose :X Flow" height="300px" line="{:row 130, :col 1, :end-row 130, :end-col 222}">
+    </div>
+    <p></p>
+</div><div><p>However in some cases, upper level options can be accessed as in this case. This can be used to set global strategies to deal with very issues that have serious consequences if it was to go ahead.</p><p>   An example maybe a mine worker who finds a gas-leak. Because of previously conveyed instructions, he doesn't need to inform his manager and shuts down the plant immediately.</p>
+</div><div>
+    <span id="choose-upper-level"></span>
+    <h3><i>5.4.2 &nbsp;&nbsp; Choose Upper-Level</i></h3>
+</div><div class="code">
+    <pre><code class="clojure">(manage                           ;; L2
+ [1 2 (manage                     ;; L1
+       (raise :A                  ;; L0
+              (option :X [] :3X)) ;; X
+       (on :A []                  ;; H1A
+           (choose :Z))
+       (option :Y [] :3Y))]       ;; Y
+ (option :Z [] :3Z))              ;; Z
+=&gt; :3Z</code></pre>
+</div><div class="figure">
+    <a id="choose-z-flow"></a>
+    <h4><i>fig.8  &nbsp;-&nbsp; Choose :Z Flow</i></h4>
+    <div class="img">
+        <img src="img/hara_event/choose_flow_z.png" title="Choose :Z Flow" height="300px" line="{:row 151, :col 1, :end-row 151, :end-col 243}">
+    </div>
+    <p></p>
+</div><div>
+    <span id="choose-more"></span>
+    <h3>5.5 &nbsp;&nbsp; Choose - More Strategies</h3>
+</div><div>
+    <span id="overridding-an-option"></span>
+    <h3><i>5.5.1 &nbsp;&nbsp; Overridding An Option</i></h3>
+</div><div><p>If there are two options with the same label,   choose will take the option specified at the highest   management level. This means that managers at higher   levels can over-ride lower level strategies.</p>
+</div><div class="code">
+    <pre><code class="clojure">(manage                            ;; L2
+ [1 2 (manage                      ;; L1
+       (raise :A                   ;; L0
+              (option :X [] :3X0)) ;; X0 - This is ignored
+       (on :A []                   ;; H1A
+           (choose :X))
+       (option :X [] :3X1))]       ;; X1 - This is chosen
+ (option :Z [] :3Z))               ;; Z
+
+=&gt; [1 2 :3X1]</code></pre>
+</div><div class="figure">
+    <a id="choose-x1-flow"></a>
+    <h4><i>fig.9  &nbsp;-&nbsp; Choose :X1 Flow</i></h4>
+    <div class="img">
+        <img src="img/hara_event/choose_flow_x1.png" title="Choose :X1 Flow" height="300px" line="{:row 175, :col 1, :end-row 175, :end-col 269}">
+    </div>
+    <p></p>
+</div><div>
+    <span id="default-option"></span>
+    <h3><i>5.5.2 &nbsp;&nbsp; Default Option</i></h3>
+</div><div><p>Specifying a 'default' option allows the raiser to    have autonomous control of the situation if the issue    remains unhandled.</p>
+</div><div class="code">
+    <pre><code class="clojure">(manage                            ;; L2
+ [1 2 (manage                      ;; L1
+       (raise :A                   ;; L0
+              (default :X)         ;; D
+              (option :X [] :3X))  ;; X
+       (option :Y [] :3Y))]        ;; Y
+ (option :Z [] :3Z))               ;; Z
+
+=&gt; [1 2 :3X]</code></pre>
+</div><div class="figure">
+    <a id="choose-default-flow"></a>
+    <h4><i>fig.10  &nbsp;-&nbsp; Choose Default Flow</i></h4>
+    <div class="img">
+        <img src="img/hara_event/choose_default_x.png" title="Choose Default Flow" height="300px" line="{:row 193, :col 1, :end-row 193, :end-col 293}">
+    </div>
+    <p></p>
+</div><div>
+    <span id="overriding-defaults"></span>
+    <h3><i>5.5.3 &nbsp;&nbsp; Overriding Defaults</i></h3>
+</div><div><p>This is an example of higher-tier managers overriding options</p>
+</div><div class="code">
+    <pre><code class="clojure">(manage                            ;; L2
+ [1 2 (manage                      ;; L1
+       (raise :A                   ;; L0
+              (default :X)         ;; D
+              (option :X [] :3X0)) ;; X0
+       (option :X [] :3X1))]       ;; X1
+ (option :X [] :3X2))             ;; X2
+
+=&gt; :3X2</code></pre>
+</div><div class="figure">
+    <a id="choose-default-x2-flow"></a>
+    <h4><i>fig.11  &nbsp;-&nbsp; Choose Default :X2 Flow</i></h4>
+    <div class="img">
+        <img src="img/hara_event/choose_default_x2.png" title="Choose Default :X2 Flow" height="300px" line="{:row 211, :col 1, :end-row 211, :end-col 316}">
+    </div>
+    <p></p>
+</div><div>
+    <span id="escalate"></span>
+    <h3>5.6 &nbsp;&nbsp; Escalate</h3>
+</div><div>
+    <span id="simple-escalation"></span>
+    <h3><i>5.6.1 &nbsp;&nbsp; Simple Escalation</i></h3>
+</div><div><p>When issues are escalated, more information  can be added and this then is passed on to higher-tier managers</p>
+</div><div class="code">
+    <pre><code class="clojure">(manage                            ;; L2
+ [1 2 (manage                      ;; L1
+       (raise :A)                  ;; L0
+       (on :A []                   ;; H1A
+           (escalate :B)))]
+ (on :B []                         ;; H2B
+     (continue :3B)))
+=&gt; [1 2 :3B]</code></pre>
+</div><div class="figure">
+    <a id="escalate-b-flow"></a>
+    <h4><i>fig.12  &nbsp;-&nbsp; Escalate :B Flow</i></h4>
+    <div class="img">
+        <img src="img/hara_event/escalate_norm.png" title="Escalate :B Flow" height="300px" line="{:row 233, :col 1, :end-row 233, :end-col 327}">
+    </div>
+    <p></p>
+</div><div>
+    <span id="escalation-with-options"></span>
+    <h3><i>5.6.2 &nbsp;&nbsp; Escalation with Options</i></h3>
+</div><div><p>More options can be added to escalate. When these options are chosen, it will continue at the point in which the issue was raised.</p>
+</div><div class="code">
+    <pre><code class="clojure">(manage                            ;; L2
+ [1 2 (manage                      ;; L1
+       (raise :A)                  ;; L0
+       (on :A []                   ;; H1A
+           (escalate
+            :B
+            (option :X [] :3X))))] ;; X
+ (on :B []                        ;; H2B
+     (choose :X)))
+=&gt; [1 2 :3X]</code></pre>
+</div><div class="figure">
+    <a id="escalate-b-choose-x-flow"></a>
+    <h4><i>fig.13  &nbsp;-&nbsp; Escalate :B, Choose :X Flow</i></h4>
+    <div class="img">
+        <img src="img/hara_event/escalate_options.png" title="Escalate :B, Choose :X Flow" height="300px" line="{:row 250, :col 1, :end-row 250, :end-col 358}">
+    </div>
+    <p></p>
+</div><div>
+    <span id="fail"></span>
+    <h3>5.7 &nbsp;&nbsp; Fail</h3>
+</div><div><p>Fail forces a failure. It is used where there is already a default option and the manager really needs it to fail.</p>
+</div><div class="code">
+    <pre><code class="clojure">(manage                          ;; L2
+ [1 2 (manage                    ;; L1
+       (raise :A                 ;; L0
+              (option :X [] :X)
+              (default :X))
+       (on :A []                 ;; H1A
+           (fail :B)))])
+=&gt; (throws-info {:A true :B true})</code></pre>
+</div><div class="figure">
+    <a id="force-fail-flow"></a>
+    <h4><i>fig.14  &nbsp;-&nbsp; Force Fail Flow</i></h4>
+    <div class="img">
+        <img src="img/hara_event/fail.png" title="Force Fail Flow" height="300px" line="{:row 266, :col 1, :end-row 266, :end-col 350}">
+    </div>
+    <p></p>
+</div><div>
+    <span id="default"></span>
+    <h3>5.8 &nbsp;&nbsp; Default</h3>
+</div><div><p>Default short-circuits higher managers so that the issue is resolved internally.</p>
+</div><div class="code">
+    <pre><code class="clojure">(manage                          ;; L2
+ [1 2 (manage                    ;; L1
+       (raise :A                 ;; L0
+              (option :X [] :X)
+              (default :X))
+       (on :A []                  ;; H1A
+           (default)))]
+ (on :A [] (continue 3)))
+=&gt; [1 2 :X]</code></pre>
+</div><div>
+    <span id="escalation-with-defaults"></span>
+    <h3><i>5.8.1 &nbsp;&nbsp; Escalation with Defaults</i></h3>
+</div><div><p>This is <code>default</code> in combination with <code>escalate</code> to do some very complex jumping around.</p>
+</div><div class="code">
+    <pre><code class="clojure">(manage                            ;; L2
+ [1 2 (manage                      ;; L1
+       (raise :A                   ;; L0
+              (option :X [] :X))        ;; X
+       (on :A []                   ;; H1A
+           (escalate
+            :B
+            (default :X))))]       ;; D1
+ (on :B []                        ;; H2B
+     (default)))
+=&gt; [1 2 :X]</code></pre>
+</div><div class="figure">
+    <a id="escalate-b-choose-default-flow"></a>
+    <h4><i>fig.15  &nbsp;-&nbsp; Escalate :B, Choose Default Flow</i></h4>
+    <div class="img">
+        <img src="img/hara_event/escalate_default_x2.png" title="Escalate :B, Choose Default Flow" height="300px" line="{:row 304, :col 1, :end-row 304, :end-col 420}">
+    </div>
+    <p></p>
+</div><div>
+    <span id="on-form"></span>
+    <h3>5.9 &nbsp;&nbsp; Branch Using On</h3>
+</div><div><p>Customized strategies can also be combined within the <code>on</code> handler. In the following example, it can be seen that the <code>on :error</code> handler supports both <code>escalate</code> and <code>continue</code> strategies.</p>
+</div><div class="code">
+    <pre><code class="clojure">(manage (manage
+         (mapv (fn [n]
+                 (raise [:error {:data n}]))
+               [1 2 3 4 5 6 7 8])
+         (on :error [data]
+             (if (&gt; data 5)
+               (escalate :too-big)
+               (continue data))))
+        (on :too-big [data]
+            (continue (- data))))
+=&gt; [1 2 3 4 5 -6 -7 -8]</code></pre>
+</div><div><p>Using branching strategies with <code>on</code> much more complex interactions can be constructed beyond the scope of this document.</p>
+</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outline">
+      <div class="toc">
+        <nav data-gumshoe-header>
+          <ul data-gumshoe>
+            <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#signal"><h4>2 &nbsp; Signal</h4></a><a class="section" data-scroll="" href="#entry__hara_event__clear_listeners"><h5><i>clear-listeners</i></h5></a><a class="section" data-scroll="" href="#entry__hara_event__deflistener"><h5><i>deflistener</i></h5></a><a class="section" data-scroll="" href="#entry__hara_event__install_listener"><h5><i>install-listener</i></h5></a><a class="section" data-scroll="" href="#entry__hara_event__list_listeners"><h5><i>list-listeners</i></h5></a><a class="section" data-scroll="" href="#entry__hara_event__signal"><h5><i>signal</i></h5></a><a class="section" data-scroll="" href="#entry__hara_event__uninstall_listener"><h5><i>uninstall-listener</i></h5></a><a class="section" data-scroll="" href="#entry__hara_event__with_temp_listener"><h5><i>with-temp-listener</i></h5></a></li><li><a class="chapter" data-scroll="" href="#restart"><h4>3 &nbsp; Restart</h4></a><a class="section" data-scroll="" href="#entry__hara_event__choose"><h5><i>choose</i></h5></a><a class="section" data-scroll="" href="#entry__hara_event__continue"><h5><i>continue</i></h5></a><a class="section" data-scroll="" href="#entry__hara_event__default"><h5><i>default</i></h5></a><a class="section" data-scroll="" href="#entry__hara_event__escalate"><h5><i>escalate</i></h5></a><a class="section" data-scroll="" href="#entry__hara_event__fail"><h5><i>fail</i></h5></a><a class="section" data-scroll="" href="#entry__hara_event__manage"><h5><i>manage</i></h5></a><a class="section" data-scroll="" href="#entry__hara_event__raise"><h5><i>raise</i></h5></a></li><li><a class="chapter" data-scroll="" href="#walkthough"><h4>4 &nbsp; Walkthough</h4></a><a class="section" data-scroll="" href="#signal-0"><h5><i>4.1 &nbsp; Signal</i></h5></a><a class="section" data-scroll="" href="#restart-0"><h5><i>4.2 &nbsp; Restart</i></h5></a><a class="section" data-scroll="" href="#exceptions"><h5><i>4.3 &nbsp; Exceptions</i></h5></a></li><li><a class="chapter" data-scroll="" href="#strategies"><h4>5 &nbsp; Strategies</h4></a><a class="section" data-scroll="" href="#normal"><h5><i>5.1 &nbsp; Normal</i></h5></a><a class="section" data-scroll="" href="#catch"><h5><i>5.2 &nbsp; Catch</i></h5></a><a class="section" data-scroll="" href="#continue"><h5><i>5.3 &nbsp; Continue</i></h5></a><a class="section" data-scroll="" href="#choose"><h5><i>5.4 &nbsp; Choose</i></h5></a><a class="section" data-scroll="" href="#choose-more"><h5><i>5.5 &nbsp; Choose - More Strategies</i></h5></a><a class="section" data-scroll="" href="#escalate"><h5><i>5.6 &nbsp; Escalate</i></h5></a><a class="section" data-scroll="" href="#fail"><h5><i>5.7 &nbsp; Fail</i></h5></a><a class="section" data-scroll="" href="#default"><h5><i>5.8 &nbsp; Default</i></h5></a><a class="section" data-scroll="" href="#on-form"><h5><i>5.9 &nbsp; Branch Using On</i></h5></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    
+    <!--label for="sidebar-checkbox" class="sidebar-toggle"></label-->
+
+  </body>
+
+  <script>
+  if (true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-31320512-2', 'caudate.me');
+    ga('send', 'pageview');
+  }
+  </script>
+  
+  <script type="text/javascript">
+    smoothScroll.init();
+    gumshoe.init({});
+  
+    hljs.registerLanguage("clojure",function(e){var t={"builtin-name":"def defonce cond apply if-not if-let if not not= = < > <= >= == + / * - rem quot neg? pos? delay? symbol? keyword? true? false? integer? empty? coll? list? set? ifn? fn? associative? sequential? sorted? counted? reversible? number? decimal? class? distinct? isa? float? rational? reduced? ratio? odd? even? char? seq? vector? string? map? nil? contains? zero? instance? not-every? not-any? libspec? -> ->> .. . inc compare do dotimes mapcat take remove take-while drop letfn drop-last take-last drop-while while intern condp case reduced cycle split-at split-with repeat replicate iterate range merge zipmap declare line-seq sort comparator sort-by dorun doall nthnext nthrest partition eval doseq await await-for let agent atom send send-off release-pending-sends add-watch mapv filterv remove-watch agent-error restart-agent set-error-handler error-handler set-error-mode! error-mode shutdown-agents quote var fn loop recur throw try monitor-enter monitor-exit defmacro defn defn- macroexpand macroexpand-1 for dosync and or when when-not when-let comp juxt partial sequence memoize constantly complement identity assert peek pop doto proxy defstruct first rest cons defprotocol cast coll deftype defrecord last butlast sigs reify second ffirst fnext nfirst nnext defmulti defmethod meta with-meta ns in-ns create-ns import refer keys select-keys vals key val rseq name namespace promise into transient persistent! conj! assoc! dissoc! pop! disj! use class type num float double short byte boolean bigint biginteger bigdec print-method print-dup throw-if printf format load compile get-in update-in pr pr-on newline flush read slurp read-line subvec with-open memfn time re-find re-groups rand-int rand mod locking assert-valid-fdecl alias resolve ref deref refset swap! reset! set-validator! compare-and-set! alter-meta! reset-meta! commute get-validator alter ref-set ref-history-count ref-min-history ref-max-history ensure sync io! new next conj set! to-array future future-call into-array aset gen-class reduce map filter find empty hash-map hash-set sorted-map sorted-map-by sorted-set sorted-set-by vec vector seq flatten reverse assoc dissoc list disj get union difference intersection extend extend-type extend-protocol int nth delay count concat chunk chunk-buffer chunk-append chunk-first chunk-rest max min dec unchecked-inc-int unchecked-inc unchecked-dec-inc unchecked-dec unchecked-negate unchecked-add-int unchecked-add unchecked-subtract-int unchecked-subtract chunk-next chunk-cons chunked-seq? prn vary-meta lazy-seq spread list* str find-keyword keyword symbol gensym force rationalize"},r="a-zA-Z_\\-!.?+*=<>&#'",n="["+r+"]["+r+"0-9/;:]*",a="[-+]?\\d+(\\.\\d+)?",o={b:n,r:0},s={cN:"number",b:a,r:0},i=e.inherit(e.QSM,{i:null}),c=e.C(";","$",{r:0}),d={cN:"literal",b:/\b(true|false|nil)\b/},l={b:"[\\[\\{]",e:"[\\]\\}]"},m={cN:"comment",b:"\\^"+n},p=e.C("\\^\\{","\\}"),u={cN:"symbol",b:"[:]{1,2}"+n},f={b:"\\(",e:"\\)"},h={eW:!0,r:0},y={k:t,l:n,cN:"name",b:n,starts:h},b=[f,i,m,p,c,u,l,s,d,o];return f.c=[e.C("comment",""),y,h],h.c=b,l.c=b,{aliases:["clj"],i:/\S/,c:[f,i,m,p,c,u,l,s,d]}});
+    hljs.initHighlightingOnLoad();
+  </script>
+</html>

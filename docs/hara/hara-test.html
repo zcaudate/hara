@@ -1,0 +1,820 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <link rel="shortcut icon" href="favicon.ico">
+  <title>hara.test - forms and runner</title>
+  <script src="js/highlight.min.js"></script>
+  <script src="js/gumshoe.min.js"></script>
+  <script src="js/smooth-scroll.min.js"></script>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/poole.css">
+  <link rel="stylesheet" href="css/syntax.css">
+  <link rel="stylesheet" href="css/lanyon.css">
+  <link rel="stylesheet" href="css/bolton.css">
+  <link rel="stylesheet" href="css/bolton-api.css">
+  <link rel="stylesheet" href="css/bolton-highlight.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+  
+</head>
+
+  <body class="theme-base-0b">
+    <span id="page-top"></span>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <nav class="sidebar-nav">
+    <span>&nbsp;</span>
+    <a class="sidebar-nav-item header" href="index.html" style="padding-bottom:5px"><b>HOME</b></a>
+    <a class="sidebar-nav-item" href="hara-config.html">config</a><a class="sidebar-nav-item" href="hara-core.html">core</a><a class="sidebar-nav-item" href="hara-data.html">data</a><a class="sidebar-nav-item" href="hara-deploy.html">deploy</a><a class="sidebar-nav-item" href="hara-event.html">event</a><a class="sidebar-nav-item" href="hara-function.html">function</a><a class="sidebar-nav-item" href="hara-function-procedure.html">function.procedure</a><a class="sidebar-nav-item" href="hara-function-task.html">function.task</a><a class="sidebar-nav-item" href="hara-io-archive.html">io.archive</a><a class="sidebar-nav-item" href="hara-io-file.html">io.file</a><a class="sidebar-nav-item" href="hara-io-project.html">io.project</a><a class="sidebar-nav-item" href="hara-io-scheduler.html">io.scheduler</a><a class="sidebar-nav-item" href="hara-lib-aether.html">lib.aether</a><a class="sidebar-nav-item" href="hara-lib-jgit.html">lib.jgit</a><a class="sidebar-nav-item" href="hara-math.html">math</a><a class="sidebar-nav-item" href="hara-module.html">module</a><a class="sidebar-nav-item" href="hara-object.html">object</a><a class="sidebar-nav-item" href="hara-print.html">print</a><a class="sidebar-nav-item" href="hara-security.html">security</a><a class="sidebar-nav-item" href="hara-security-openpgp.html">security.openpgp</a><a class="sidebar-nav-item" href="hara-state.html">state</a><a class="sidebar-nav-item" href="hara-state-ova.html">state.ova</a><a class="sidebar-nav-item" href="hara-string.html">string</a><a class="sidebar-nav-item" href="hara-test.html">test</a><a class="sidebar-nav-item" href="hara-time.html">time</a><a class="sidebar-nav-item" href="hara-watch.html">watch</a>
+    <span class="sidebar-nav-item">&nbsp;</span>
+    <span class="sidebar-nav-item">&nbsp;</span>
+  </nav>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <span>test</span>
+            <small>forms and runner</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="page">
+          <div class="heading">
+            <div>
+              <h5>Author: Chris Zheng&nbsp;&nbsp;<a href="mailto:z@caudate.me">(z@caudate.me)</a></h5>
+              <h5>Date: 04 November 2018</h5>
+              <h5>Repository: <a href="https://github.com/zcaudate/hara">https://github.com/zcaudate/hara</a></h5>
+              <h5>Version: 3.0.1</h5></div></div>
+          <hr/>
+
+          <div class="toc">
+              <nav>
+                <ul>
+                  <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#general"><h4>2 &nbsp; General</h4></a><a class="section" data-scroll="" href="#entry__hara_test___main"><h5><i>-main</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__print_options"><h5><i>print-options</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__run"><h5><i>run</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__run_errored"><h5><i>run-errored</i></h5></a></li><li><a class="chapter" data-scroll="" href="#checker"><h4>3 &nbsp; Checker</h4></a><a class="section" data-scroll="" href="#entry__hara_test__all"><h5><i>all</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__any"><h5><i>any</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__anything"><h5><i>anything</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__approx"><h5><i>approx</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__contains"><h5><i>contains</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__contains_in"><h5><i>contains-in</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__exactly"><h5><i>exactly</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__is_not"><h5><i>is-not</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__just"><h5><i>just</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__just_in"><h5><i>just-in</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__satisfies"><h5><i>satisfies</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__throws"><h5><i>throws</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__throws_info"><h5><i>throws-info</i></h5></a></li><li><a class="chapter" data-scroll="" href="#walkthrough"><h4>4 &nbsp; Walkthrough</h4></a><a class="section" data-scroll="" href="#running"><h5><i>4.1 &nbsp; Running</i></h5></a><a class="section" data-scroll="" href="#basics"><h5><i>4.2 &nbsp; Basics</i></h5></a><a class="section" data-scroll="" href="#metadata"><h5><i>4.3 &nbsp; Metadata</i></h5></a><a class="section" data-scroll="" href="#options"><h5><i>4.4 &nbsp; Options</i></h5></a></li>
+                </ul>
+              </nav>
+          </div>
+          <div>
+    <span id="introduction"></span>
+    <h2><b>1 &nbsp;&nbsp; Introduction</b></h2>
+</div><div><p><a href='https://github.com/caudata/hara/blob/master/src/hara/test.clj'>hara.test</a> is a test framework based off of the <a href='https://github.com/marick/Midje'>midje</a> syntax, containing macros and helpers for easy testing and verification of functions</p>
+</div><div>
+    <span id="installation"></span>
+    <h3>1.1 &nbsp;&nbsp; Installation</h3>
+</div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;hara/test &quot;3.0.1&quot;&#93;</code></pre>
+</div><div><p>All functions are in the <code>hara.test</code> namespace.      </p><pre><code> &#40;use &#40;quote hara.test&#41;&#41;</code></pre>
+</div><div>
+    <span id="general"></span>
+    <h2><b>2 &nbsp;&nbsp; General</b></h2>
+</div><div class="api">
+    <span id="entry__hara_test__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_test___main">-main</a></li>
+            <li><a data-scroll="" href="#entry__hara_test__print_options">print-options</a></li>
+            <li><a data-scroll="" href="#entry__hara_test__run">run</a></li>
+            <li><a data-scroll="" href="#entry__hara_test__run_errored">run-errored</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_test___main"></span>
+                <div class="entry-description">
+                    <h4><b>-main&nbsp<a data-scroll="" href="#entry__hara_test__">^</a></b></h4>
+                    <p><i>main entry point for leiningen</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test.clj#L138-L147" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_test___main">
+                        <label class="source-toggle" for="entry__pre_hara_test___main"></label>
+                        <pre class="source"><code class="clojure">(defn -main
+  ([& args]
+   (let [args (process-args args)
+         {:keys [thrown failed] :as stats} (run :all)
+         res (+ thrown failed)]
+     (if (get args :exit)
+       (System/exit res)
+       res))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test_test.clj#L36-L38" target="_blank">link</a></i></h6><code class="clojure">(-main)</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_test__print_options"></span>
+                <div class="entry-description">
+                    <h4><b>print-options&nbsp<a data-scroll="" href="#entry__hara_test__">^</a></b></h4>
+                    <p><i>output options for test results</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test.clj#L95-L122" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__print_options">
+                        <label class="source-toggle" for="entry__pre_hara_test__print_options"></label>
+                        <pre class="source"><code class="clojure">(defn print-options
+  ([] (print-options :help))
+  ([opts]
+   (cond (set? opts)
+         (alter-var-root #'common/*print*
+                         (constantly opts))
+
+         (= :help opts)
+         #{:help :current :default :disable :all}
+
+         (= :current opts) common/*print*
+
+         (= :default opts)
+         (alter-var-root #'common/*print* (constantly #{:print-thrown :print-failure :print-bulk}))
+
+         (= :disable opts)
+         (alter-var-root #'common/*print* (constantly #{}))
+
+         (= :all opts)
+         #{:print-thrown :print-success :print-facts :print-facts-success :print-failure :print-bulk})))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test_test.clj#L14-L28" target="_blank">link</a></i></h6><code class="clojure">(print-options)
+=> #{:disable :default :all :current :help}
+
+(print-options :default)
+=> #{:print-bulk :print-failure :print-thrown}</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_test__run"></span>
+                <div class="entry-description">
+                    <h4><b>run&nbsp<a data-scroll="" href="#entry__hara_test__">^</a></b></h4>
+                    <p><i>runs all tests</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test.clj#L82-L93" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__run">
+                        <label class="source-toggle" for="entry__pre_hara_test__run"></label>
+                        <pre class="source"><code class="clojure">(definvoke run
+  [:task {:template :test
+          :main {:fn executive/run}
+          :params {:title "TESTING PROJECT"}}])</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test_test.clj#L5-L11" target="_blank">link</a></i></h6><code class="clojure">(run :list)
+
+(run 'hara.core.base.util)
+;; {:files 1, :thrown 0, :facts 8, :checks 18, :passed 18, :failed 0}
+=> map?</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_test__run_errored"></span>
+                <div class="entry-description">
+                    <h4><b>run-errored&nbsp<a data-scroll="" href="#entry__hara_test__">^</a></b></h4>
+                    <p><i>runs only the tests that have errored</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test.clj#L149-L155" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__run_errored">
+                        <label class="source-toggle" for="entry__pre_hara_test__run_errored"></label>
+                        <pre class="source"><code class="clojure">(defn run-errored
+  []
+  (let [latest @executive/+latest+]
+    (-> (set/union (set (:errored latest))
+                   (set (map (comp :ns :meta) (:failed latest)))
+                   (set (map (comp :ns :meta) (:thrown latest))))
+        (run))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test_test.clj#L31-L33" target="_blank">link</a></i></h6><code class="clojure">(run-errored)</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="checker"></span>
+    <h2><b>3 &nbsp;&nbsp; Checker</b></h2>
+</div><div class="api">
+    <span id="entry__hara_test__"></span>
+    <hr>
+    <div>
+        <ul>
+            <li><a data-scroll="" href="#entry__hara_test__all">all</a></li>
+            <li><a data-scroll="" href="#entry__hara_test__any">any</a></li>
+            <li><a data-scroll="" href="#entry__hara_test__anything">anything</a></li>
+            <li><a data-scroll="" href="#entry__hara_test__approx">approx</a></li>
+            <li><a data-scroll="" href="#entry__hara_test__contains">contains</a></li>
+            <li><a data-scroll="" href="#entry__hara_test__contains_in">contains-in</a></li>
+            <li><a data-scroll="" href="#entry__hara_test__exactly">exactly</a></li>
+            <li><a data-scroll="" href="#entry__hara_test__is_not">is-not</a></li>
+            <li><a data-scroll="" href="#entry__hara_test__just">just</a></li>
+            <li><a data-scroll="" href="#entry__hara_test__just_in">just-in</a></li>
+            <li><a data-scroll="" href="#entry__hara_test__satisfies">satisfies</a></li>
+            <li><a data-scroll="" href="#entry__hara_test__throws">throws</a></li>
+            <li><a data-scroll="" href="#entry__hara_test__throws_info">throws-info</a></li>
+        </ul>
+        <hr style="margin-bottom: 0">
+        <div>
+            <div class="entry">
+                <span id="entry__hara_test__all"></span>
+                <div class="entry-description">
+                    <h4><b>all&nbsp<a data-scroll="" href="#entry__hara_test__">^</a></b></h4>
+                    <p><i>checker that allows `and` composition of checkers</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/logic.clj#L42-L58" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__all">
+                        <label class="source-toggle" for="entry__pre_hara_test__all"></label>
+                        <pre class="source"><code class="clojure">(defn all
+  [& cks]
+  (let [cks (mapv base/->checker cks)]
+    (common/checker
+     {:tag :all
+      :doc "Checks if the result matches all of the checkers"
+      :fn (fn [res]
+            (->> cks
+                 (map #(base/verify % res))
+                 (every? base/succeeded?)))
+      :expect cks})))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test/checker/logic_test.clj#L21-L25" target="_blank">link</a></i></h6><code class="clojure">(mapv (all even? #(< 3 %))
+      [1 2 3 4 5])
+=> [false false false true false]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_test__any"></span>
+                <div class="entry-description">
+                    <h4><b>any&nbsp<a data-scroll="" href="#entry__hara_test__">^</a></b></h4>
+                    <p><i>checker that allows `or` composition of checkers</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/logic.clj#L23-L40" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__any">
+                        <label class="source-toggle" for="entry__pre_hara_test__any"></label>
+                        <pre class="source"><code class="clojure">(defn any
+  [& cks]
+  (let [cks (mapv base/->checker cks)]
+    (common/checker
+     {:tag :any
+      :doc "Checks if the result matches any of the checkers"
+      :fn (fn [res]
+            (or (->> cks
+                     (map #(base/verify % res))
+                     (some base/succeeded?))
+                false))
+      :expect cks})))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test/checker/logic_test.clj#L14-L18" target="_blank">link</a></i></h6><code class="clojure">(mapv (any even? 1)
+      [1 2 3 4 5])
+=> [true true false true false]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_test__anything"></span>
+                <div class="entry-description">
+                    <h4><b>anything&nbsp<a data-scroll="" href="#entry__hara_test__">^</a></b></h4>
+                    <p><i>a checker that returns true for any value</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/base.clj#L160-L168" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__anything">
+                        <label class="source-toggle" for="entry__pre_hara_test__anything"></label>
+                        <pre class="source"><code class="clojure">(defn anything
+  [x]
+  ((satisfies primitive/T) x))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test/checker/base_test.clj#L81-L85" target="_blank">link</a></i></h6><code class="clojure">(anything nil) => true
+
+(anything [:hello :world]) => true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_test__approx"></span>
+                <div class="entry-description">
+                    <h4><b>approx&nbsp<a data-scroll="" href="#entry__hara_test__">^</a></b></h4>
+                    <p><i>checker that allows approximate verifications</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/base.clj#L90-L106" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__approx">
+                        <label class="source-toggle" for="entry__pre_hara_test__approx"></label>
+                        <pre class="source"><code class="clojure">(defn approx
+  ([v]
+   (approx v 0.001))
+  ([v threshold]
+   (common/checker
+    {:tag :approx
+     :doc "Checks if the result is approximately the given value"
+     :fn (fn [res] (< (- v threshold) (common/->data res) (+ v threshold)))
+     :expect v})))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test/checker/base_test.clj#L55-L61" target="_blank">link</a></i></h6><code class="clojure">((approx 1) 1.000001) => true
+
+((approx 1) 1.1) => false
+
+((approx 1 0.0000001) 1.001) => false</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_test__contains"></span>
+                <div class="entry-description">
+                    <h4><b>contains&nbsp<a data-scroll="" href="#entry__hara_test__">^</a></b></h4>
+                    <p><i>checker for maps and vectors</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/collection.clj#L92-L120" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__contains">
+                        <label class="source-toggle" for="entry__pre_hara_test__contains"></label>
+                        <pre class="source"><code class="clojure">(defn contains
+  [x & modifiers]
+  (cond (map? x)
+        (contains-map x)
+
+        (set? x)
+        (contains-set x)
+
+        (sequential? x)
+        (contains-vector x (set modifiers))
+
+        :else
+        (throw (Exception. "Cannot create contains checker"))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test/checker/collection_test.clj#L43-L71" target="_blank">link</a></i></h6><code class="clojure">((contains {:a odd? :b even?}) {:a 1 :b 4})
+=> true
+
+((contains {:a 1 :b even?}) {:a 2 :b 4})
+=> false
+
+((contains [1 2 3]) [1 2 3 4])
+=> true
+
+((contains [1 3]) [1 2 3 4])
+=> false</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_test__contains_in"></span>
+                <div class="entry-description">
+                    <h4><b>contains-in&nbsp<a data-scroll="" href="#entry__hara_test__">^</a></b></h4>
+                    <p><i>shorthand for checking nested maps and vectors</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/collection.clj#L197-L216" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__contains_in">
+                        <label class="source-toggle" for="entry__pre_hara_test__contains_in"></label>
+                        <pre class="source"><code class="clojure">(defmacro contains-in
+  [x]
+  "A macro for nested checking of data in the `contains` form"
+  (cond (map? x)
+        `(contains ~(map/map-vals (fn [v] `(contains-in ~v)) x))
+        (set? x)
+        `(contains ~(mapv (fn [v] `(contains-in ~v)) x)
+                   :in-any-order)
+
+        (vector? x)
+        `(contains ~(mapv (fn [v] `(contains-in ~v)) x))
+        :else x))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test/checker/collection_test.clj#L104-L110" target="_blank">link</a></i></h6><code class="clojure">((contains-in {:a {:b {:c odd?}}}) {:a {:b {:c 1 :d 2}}})
+=> true
+
+((contains-in [odd? {:a {:b even?}}]) [3 {:a {:b 4 :c 5}}])
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_test__exactly"></span>
+                <div class="entry-description">
+                    <h4><b>exactly&nbsp<a data-scroll="" href="#entry__hara_test__">^</a></b></h4>
+                    <p><i>checker that allows exact verifications</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/base.clj#L72-L88" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__exactly">
+                        <label class="source-toggle" for="entry__pre_hara_test__exactly"></label>
+                        <pre class="source"><code class="clojure">(defn exactly
+  ([v]
+   (exactly v identity))
+  ([v function]
+   (common/checker
+    {:tag :exactly
+     :doc "Checks if the result exactly satisfies the condition"
+     :fn (fn [res] (= (function (common/->data res)) v))
+     :expect v})))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test/checker/base_test.clj#L46-L52" target="_blank">link</a></i></h6><code class="clojure">((exactly 1) 1) => true
+
+((exactly Long) 1) => false
+
+((exactly number?) 1) => false</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_test__is_not"></span>
+                <div class="entry-description">
+                    <h4><b>is-not&nbsp<a data-scroll="" href="#entry__hara_test__">^</a></b></h4>
+                    <p><i>checker that allows negative composition of checkers</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/logic.clj#L5-L21" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__is_not">
+                        <label class="source-toggle" for="entry__pre_hara_test__is_not"></label>
+                        <pre class="source"><code class="clojure">(defn is-not
+  ([ck]
+   (is-not ck identity))
+  ([ck function]
+   (let [ck (base/->checker ck)]
+     (common/checker
+      {:tag :is-not
+       :doc "Checks if the result is not an outcome"
+       :fn (fn [res]
+             (not (ck (function res))))
+       :expect ck}))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test/checker/logic_test.clj#L7-L11" target="_blank">link</a></i></h6><code class="clojure">(mapv (is-not even?)
+      [1 2 3 4 5])
+=> [true false true false true]</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_test__just"></span>
+                <div class="entry-description">
+                    <h4><b>just&nbsp<a data-scroll="" href="#entry__hara_test__">^</a></b></h4>
+                    <p><i>combination checker for both maps and vectors</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/collection.clj#L166-L195" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__just">
+                        <label class="source-toggle" for="entry__pre_hara_test__just"></label>
+                        <pre class="source"><code class="clojure">(defn just
+  [x & modifiers]
+  (cond (map? x)
+        (just-map x)
+
+        (set? x)
+        (just-set x)
+
+        (vector? x)
+        (just-vector x (set modifiers))
+
+        :else
+        (throw (Exception. "Cannot create just checker"))))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test/checker/collection_test.clj#L86-L101" target="_blank">link</a></i></h6><code class="clojure">((just {:a odd? :b even?}) {:a 1 :b 4})
+=> true
+
+((just {:a 1 :b even?}) {:a 1 :b 2 :c 3})
+=> false
+
+((just [1 2 3 4]) [1 2 3 4])
+=> true
+
+((just [1 2 3]) [1 2 3 4])
+=> false
+
+((just [3 2 4 1] :in-any-order) [1 2 3 4])
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_test__just_in"></span>
+                <div class="entry-description">
+                    <h4><b>just-in&nbsp<a data-scroll="" href="#entry__hara_test__">^</a></b></h4>
+                    <p><i>shorthand for exactly checking nested maps and vectors</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/collection.clj#L218-L241" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__just_in">
+                        <label class="source-toggle" for="entry__pre_hara_test__just_in"></label>
+                        <pre class="source"><code class="clojure">(defmacro just-in
+  [x]
+  "A macro for nested checking of data in the `just` form"
+  (cond (map? x)
+        `(just ~(map/map-vals (fn [v] `(just-in ~v)) x))
+
+        (set? x)
+        `(just ~(mapv (fn [v] `(just-in ~v)) x)
+               :in-any-order)
+
+        (vector? x)
+        `(just ~(mapv (fn [v] `(just-in ~v)) x))
+
+        :else x))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test/checker/collection_test.clj#L113-L121" target="_blank">link</a></i></h6><code class="clojure">((just-in {:a {:b {:c odd?}}}) {:a {:b {:c 1 :d 2}}})
+=> false
+
+((just-in [odd? {:a {:b even?}}]) [3 {:a {:b 4}}])
+
+((just-in [odd? {:a {:b even?}}]) [3 {:a {:b 4}}])
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_test__satisfies"></span>
+                <div class="entry-description">
+                    <h4><b>satisfies&nbsp<a data-scroll="" href="#entry__hara_test__">^</a></b></h4>
+                    <p><i>checker that allows loose verifications</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/base.clj#L108-L158" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__satisfies">
+                        <label class="source-toggle" for="entry__pre_hara_test__satisfies"></label>
+                        <pre class="source"><code class="clojure">(defn satisfies
+  ([v]
+   (satisfies v identity))
+  ([v function]
+   (common/checker
+    {:tag :satisfies
+     :doc "Checks if the result can satisfy the condition:"
+     :fn (fn [res]
+           (let [data (function (common/->data res))]
+             (cond (= data v) true
+                   
+                   (class? v) (instance? v data)
+
+                   (and (check/comparable? v data)
+                        (zero? (compare v data)))
+                   true
+                   
+                   (map? v) (= (into {} data) v)
+
+                   (vector? v) (= data v)
+
+                   (ifn? v) (boolean (v data))
+                   
+                   (check/regexp? v)
+                   (cond (check/regexp? data)
+                         (= (.pattern ^Pattern v)
+                            (.pattern ^Pattern data))
+
+                         (string? data)
+                         (boolean (re-find v data))
+
+                         :else false)
+                   
+                   :else false)))
+     :expect v})))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test/checker/base_test.clj#L64-L78" target="_blank">link</a></i></h6><code class="clojure">((satisfies 1) 1) => true
+
+((satisfies Long) 1) => true
+
+((satisfies number?) 1) => true
+
+((satisfies #{1 2 3}) 1) => true
+
+((satisfies [1 2 3]) 1) => false
+
+((satisfies number?) "e") => false
+
+((satisfies #"hello") #"hello") => true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_test__throws"></span>
+                <div class="entry-description">
+                    <h4><b>throws&nbsp<a data-scroll="" href="#entry__hara_test__">^</a></b></h4>
+                    <p><i>checker that determines if an exception has been thrown</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/base.clj#L49-L70" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__throws">
+                        <label class="source-toggle" for="entry__pre_hara_test__throws"></label>
+                        <pre class="source"><code class="clojure">(defn throws
+  ([]  (throws Throwable))
+  ([e] (throws e nil))
+  ([e msg]
+   (common/checker
+    {:tag :throws
+     :doc "Checks if an exception has been thrown"
+     :fn (fn [{:keys [^Throwable data type]}]
+           (and (= :exception type)
+                (instance? e data)
+                (if msg
+                  (= msg (.getMessage data))
+                  true)))
+     :expect {:exception e :message msg}})))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test/checker/base_test.clj#L37-L43" target="_blank">link</a></i></h6><code class="clojure">((throws Exception "Hello There")
+ (common/map->Result
+  {:type :exception
+   :data (Exception. "Hello There")}))
+=> true</code></pre>
+            </div>
+            <div class="entry">
+                <span id="entry__hara_test__throws_info"></span>
+                <div class="entry-description">
+                    <h4><b>throws-info&nbsp<a data-scroll="" href="#entry__hara_test__">^</a></b></h4>
+                    <p><i>checker that determines if an `ex-info` has been thrown</i></p>
+                </div>
+                <div class="entry-option">
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/collection.clj#L243-L259" target="_blank">v&nbsp;3.0</a></h6>
+                    <div>
+                        <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__throws_info">
+                        <label class="source-toggle" for="entry__pre_hara_test__throws_info"></label>
+                        <pre class="source"><code class="clojure">(defn throws-info
+  ([]  (throws-info {}))
+  ([m]
+   (common/checker
+    {:tag :raises
+     :doc "Checks if an issue has been raised"
+     :fn (fn [{:keys [^Throwable data type]}]
+           (and (= :exception type)
+                (instance? clojure.lang.ExceptionInfo data)
+                ((contains m) (ex-data data))))
+     :expect {:exception clojure.lang.ExceptionInfo :data m}})))</code></pre>
+                    </div>
+                </div>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test/checker/collection_test.clj#L124-L128" target="_blank">link</a></i></h6><code class="clojure">((throws-info {:a "hello" :b "there"})
+ (common/evaluate '(throw (ex-info "hello" {:a "hello" :b "there"}))))
+=> true</code></pre>
+            </div>
+        </div>
+    </div>
+</div><div>
+    <span id="walkthrough"></span>
+    <h2><b>4 &nbsp;&nbsp; Walkthrough</b></h2>
+</div><div>
+    <span id="running"></span>
+    <h3>4.1 &nbsp;&nbsp; Running</h3>
+</div><div><p>Tests can be run in the repl:</p>
+</div><div class="code">
+    <pre><code class="clojure">(use 'hara.test)
+
+(run)</code></pre>
+</div><div><p>or in the shell:</p>
+</div><div class="code">
+    <pre><code class="clojure">&gt; lein run -m hara.test :exit</code></pre>
+</div><div>
+    <span id="basics"></span>
+    <h3>4.2 &nbsp;&nbsp; Basics</h3>
+</div><div><p>For those that are familiar with <a href='https://github.com/marick/midje'>midje</a>, it's pretty much the same thing. We define tests in a <code>fact</code> expression:</p>
+</div><div class="code">
+    <pre><code class="clojure">(fact &quot;lets test to see which if numbers are odd&quot;
+
+  1 =&gt; odd?
+
+  2 =&gt; odd?)
+
+;; Failure  [hara_test.clj]
+;;    Info  &quot;lets test to see which if numbers are odd&quot;
+;;    Form  2
+;;   Check  odd?
+;;  Actual  2</code></pre>
+</div><div><p>Or for the more grammatically correct, a <code>facts</code> expression:</p>
+</div><div class="code">
+    <pre><code class="clojure">(facts &quot;lets test to see which if numbers are even?&quot;
+
+       1 =&gt; even?
+
+       2 =&gt; even?)
+
+;; Failure  [hara_test.clj]
+;;    Info  &quot;lets test to see which if numbers are even?&quot;
+;;    Form  1
+;;   Check  even?
+;;  Actual  1</code></pre>
+</div><div><p>The arrow <code>=&gt;</code> forms an input/output syntax and can only be in the top level fact form. This means that it cannot be nested arbitrarily in <code>let</code> forms as in <a href='https://github.com/marick/midje'>midje</a>. This has the effect simplifying the codebase as well as forcing each individual test to be more self-sufficient. The arrow is flexible and is designed so that the input/output syntax can be kept as succinct as possible. Other checks that can be performed are given as follows:</p>
+</div><div class="code">
+    <pre><code class="clojure">(facts &quot;Random checks that show-off the range of the `=&gt;` checker&quot;
+
+  ;; check for equality
+       1 =&gt; 1
+
+  ;; check for being in a set
+       1 =&gt; #{1 2 3}
+
+  ;; check for class
+       1 =&gt; Long
+
+  ;; check for function
+       1 =&gt; number?
+
+  ;; check for pattern
+       &quot;one&quot; =&gt; #&quot;ne&quot;)</code></pre>
+</div><div>
+    <span id="metadata"></span>
+    <h3>4.3 &nbsp;&nbsp; Metadata</h3>
+</div><div><p>Metadata can be placed on the <code>fact</code>/<code>facts</code> form in order to provide more information as to what exactly the fact expression is checking:</p>
+</div><div class="code">
+    <pre><code class="clojure">^{:refer hara.test/fact :added &quot;2.4&quot; :tags #{:api}}
+(fact &quot;adding metadata gives more information&quot;
+
+  (+ 1 2 3) =&gt; (+ 3 3))</code></pre>
+</div><div><p>Metadata allows the test framework to quickly filter through what test are necessary, as well as to enable generation of documentation and docstrings through external tools.</p>
+</div><div>
+    <span id="options"></span>
+    <h3>4.4 &nbsp;&nbsp; Options</h3>
+</div><div><p>Options for run and run-namespace include:</p><ul><li>specifing the <code>:test-paths</code> option (by default it is <em>"test"</em>)</li><li>specifing <code>:include</code> and <code>:exclude</code> entries for file selection</li><li>specifing <code>:check</code> options:<ul><li><code>:include</code> and <code>:exclude</code> entries:<ul><li><code>:tags</code> so that only the <code>:tags</code> that are there on the meta data will run.</li><li><code>:refers</code> can be a specific function or a namespace</li><li><code>:namespaces</code> refers to specific test namespaces</li></ul></li></ul></li><li>specifing <code>:print</code> options for checks</li></ul><p>Some examples can be seen below:</p>
+</div><div class="code">
+    <pre><code class="clojure">(run {:checks {:include [{:tags #{:web}}]} ;; only test for :web tags
+      :test-paths [&quot;test/hara&quot;]}) ;; check out &quot;test/hara&quot; as the main path
+=&gt; {:files 0, :thrown 0, :facts 0, :checks 0, :passed 0, :failed 0}</code></pre>
+</div><div><p>Only test the <code>hara.time-test</code> namespace</p>
+</div><div class="code">
+    <pre><code class="clojure">(run {:checks {:include [{:namespaces #{'hara.time-test}}]}})
+=&gt; {:files 1, :thrown 0, :facts 32, :checks 53, :passed 53, :failed 0}
+
+;; Summary (1)
+;;   Files  1
+;;   Facts  32
+;;  Checks  53
+;;  Passed  53
+;;  Thrown  0
+;;
+;; Success (53)</code></pre>
+</div><div><p>Only test facts that refer to methods with <code>hara.time</code> namespace:</p>
+</div><div class="code">
+    <pre><code class="clojure">(run {:test-paths [&quot;test/hara&quot;]
+      :checks {:include [{:refers '#{hara.time}}]}})
+=&gt; {:files 1, :thrown 0, :facts 32, :checks 53, :passed 53, :failed 0}
+;; Summary (1)
+;;   Files  1
+;;   Facts  32
+;;  Checks  53
+;;  Passed  53
+;;  Thrown  0
+;;
+;; Success (53)</code></pre>
+</div><div><p>Only pick one file to test, and suppress the final summary:</p>
+</div><div class="code">
+    <pre><code class="clojure">(run {:test-paths [&quot;test/hara&quot;]
+      :include    [&quot;^time&quot;]
+      :print      #{:print-facts}})
+=&gt; {:files 8, :thrown 0, :facts 54, :checks 127, :passed 127, :failed 0}
+;;   Fact  [time_test.clj:9] - hara.time/representation?
+;;   Info  &quot;checks if an object implements the representation protocol&quot;
+;; Passed  2 of 2
+
+;;   Fact  [time_test.clj:16] - hara.time/duration?
+;;   Info  &quot;checks if an object implements the duration protocol&quot;
+;; Passed  2 of 2
+
+;; ...</code></pre>
+</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="outline">
+      <div class="toc">
+        <nav data-gumshoe-header>
+          <ul data-gumshoe>
+            <li><a class="chapter" data-scroll="" href="#introduction"><h4>1 &nbsp; Introduction</h4></a><a class="section" data-scroll="" href="#installation"><h5><i>1.1 &nbsp; Installation</i></h5></a></li><li><a class="chapter" data-scroll="" href="#general"><h4>2 &nbsp; General</h4></a><a class="section" data-scroll="" href="#entry__hara_test___main"><h5><i>-main</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__print_options"><h5><i>print-options</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__run"><h5><i>run</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__run_errored"><h5><i>run-errored</i></h5></a></li><li><a class="chapter" data-scroll="" href="#checker"><h4>3 &nbsp; Checker</h4></a><a class="section" data-scroll="" href="#entry__hara_test__all"><h5><i>all</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__any"><h5><i>any</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__anything"><h5><i>anything</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__approx"><h5><i>approx</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__contains"><h5><i>contains</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__contains_in"><h5><i>contains-in</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__exactly"><h5><i>exactly</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__is_not"><h5><i>is-not</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__just"><h5><i>just</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__just_in"><h5><i>just-in</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__satisfies"><h5><i>satisfies</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__throws"><h5><i>throws</i></h5></a><a class="section" data-scroll="" href="#entry__hara_test__throws_info"><h5><i>throws-info</i></h5></a></li><li><a class="chapter" data-scroll="" href="#walkthrough"><h4>4 &nbsp; Walkthrough</h4></a><a class="section" data-scroll="" href="#running"><h5><i>4.1 &nbsp; Running</i></h5></a><a class="section" data-scroll="" href="#basics"><h5><i>4.2 &nbsp; Basics</i></h5></a><a class="section" data-scroll="" href="#metadata"><h5><i>4.3 &nbsp; Metadata</i></h5></a><a class="section" data-scroll="" href="#options"><h5><i>4.4 &nbsp; Options</i></h5></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    
+    <!--label for="sidebar-checkbox" class="sidebar-toggle"></label-->
+
+  </body>
+
+  <script>
+  if (true) {
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-31320512-2', 'caudate.me');
+    ga('send', 'pageview');
+  }
+  </script>
+  
+  <script type="text/javascript">
+    smoothScroll.init();
+    gumshoe.init({});
+  
+    hljs.registerLanguage("clojure",function(e){var t={"builtin-name":"def defonce cond apply if-not if-let if not not= = < > <= >= == + / * - rem quot neg? pos? delay? symbol? keyword? true? false? integer? empty? coll? list? set? ifn? fn? associative? sequential? sorted? counted? reversible? number? decimal? class? distinct? isa? float? rational? reduced? ratio? odd? even? char? seq? vector? string? map? nil? contains? zero? instance? not-every? not-any? libspec? -> ->> .. . inc compare do dotimes mapcat take remove take-while drop letfn drop-last take-last drop-while while intern condp case reduced cycle split-at split-with repeat replicate iterate range merge zipmap declare line-seq sort comparator sort-by dorun doall nthnext nthrest partition eval doseq await await-for let agent atom send send-off release-pending-sends add-watch mapv filterv remove-watch agent-error restart-agent set-error-handler error-handler set-error-mode! error-mode shutdown-agents quote var fn loop recur throw try monitor-enter monitor-exit defmacro defn defn- macroexpand macroexpand-1 for dosync and or when when-not when-let comp juxt partial sequence memoize constantly complement identity assert peek pop doto proxy defstruct first rest cons defprotocol cast coll deftype defrecord last butlast sigs reify second ffirst fnext nfirst nnext defmulti defmethod meta with-meta ns in-ns create-ns import refer keys select-keys vals key val rseq name namespace promise into transient persistent! conj! assoc! dissoc! pop! disj! use class type num float double short byte boolean bigint biginteger bigdec print-method print-dup throw-if printf format load compile get-in update-in pr pr-on newline flush read slurp read-line subvec with-open memfn time re-find re-groups rand-int rand mod locking assert-valid-fdecl alias resolve ref deref refset swap! reset! set-validator! compare-and-set! alter-meta! reset-meta! commute get-validator alter ref-set ref-history-count ref-min-history ref-max-history ensure sync io! new next conj set! to-array future future-call into-array aset gen-class reduce map filter find empty hash-map hash-set sorted-map sorted-map-by sorted-set sorted-set-by vec vector seq flatten reverse assoc dissoc list disj get union difference intersection extend extend-type extend-protocol int nth delay count concat chunk chunk-buffer chunk-append chunk-first chunk-rest max min dec unchecked-inc-int unchecked-inc unchecked-dec-inc unchecked-dec unchecked-negate unchecked-add-int unchecked-add unchecked-subtract-int unchecked-subtract chunk-next chunk-cons chunked-seq? prn vary-meta lazy-seq spread list* str find-keyword keyword symbol gensym force rationalize"},r="a-zA-Z_\\-!.?+*=<>&#'",n="["+r+"]["+r+"0-9/;:]*",a="[-+]?\\d+(\\.\\d+)?",o={b:n,r:0},s={cN:"number",b:a,r:0},i=e.inherit(e.QSM,{i:null}),c=e.C(";","$",{r:0}),d={cN:"literal",b:/\b(true|false|nil)\b/},l={b:"[\\[\\{]",e:"[\\]\\}]"},m={cN:"comment",b:"\\^"+n},p=e.C("\\^\\{","\\}"),u={cN:"symbol",b:"[:]{1,2}"+n},f={b:"\\(",e:"\\)"},h={eW:!0,r:0},y={k:t,l:n,cN:"name",b:n,starts:h},b=[f,i,m,p,c,u,l,s,d,o];return f.c=[e.C("comment",""),y,h],h.c=b,l.c=b,{aliases:["clj"],i:/\S/,c:[f,i,m,p,c,u,l,s,d]}});
+    hljs.initHighlightingOnLoad();
+  </script>
+</html>
