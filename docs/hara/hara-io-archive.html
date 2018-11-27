@@ -60,9 +60,9 @@
           <div class="heading">
             <div>
               <h5>Author: Chris Zheng&nbsp;&nbsp;<a href="mailto:z@caudate.me">(z@caudate.me)</a></h5>
-              <h5>Date: 04 November 2018</h5>
+              <h5>Date: 27 November 2018</h5>
               <h5>Repository: <a href="https://github.com/zcaudate/hara">https://github.com/zcaudate/hara</a></h5>
-              <h5>Version: 3.0.1</h5></div></div>
+              <h5>Version: 3.0.2</h5></div></div>
           <hr/>
 
           <div class="toc">
@@ -79,7 +79,7 @@
 </div><div>
     <span id="installation"></span>
     <h3>1.1 &nbsp;&nbsp; Installation</h3>
-</div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;hara/io.archive &quot;3.0.1&quot;&#93;</code></pre>
+</div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;hara/io.archive &quot;3.0.2&quot;&#93;</code></pre>
 </div><div><p>All functions are in the <code>hara.io.archive</code> namespace.      </p><pre><code> &#40;use &#40;quote hara.io.archive&#41;&#41;</code></pre>
 </div><div>
     <span id="api"></span>
@@ -112,7 +112,7 @@
                     <p><i>puts files into an archive</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/archive.clj#L152-L165" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/archive.clj#L156-L170" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_io_archive__archive">
                         <label class="source-toggle" for="entry__pre_hara_io_archive__archive"></label>
@@ -138,7 +138,7 @@
                     <p><i>creats a zip file</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/archive.clj#L73-L87" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/archive.clj#L78-L93" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_io_archive__create">
                         <label class="source-toggle" for="entry__pre_hara_io_archive__create"></label>
@@ -165,7 +165,7 @@
                     <p><i>extracts all file from an archive</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/archive.clj#L167-L183" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/archive.clj#L172-L183" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_io_archive__extract">
                         <label class="source-toggle" for="entry__pre_hara_io_archive__extract"></label>
@@ -188,7 +188,7 @@
                     <p><i>checks if the archive has a particular entry</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/archive.clj#L143-L150" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/archive.clj#L147-L154" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_io_archive__has_QMARK_">
                         <label class="source-toggle" for="entry__pre_hara_io_archive__has_QMARK_"></label>
@@ -207,7 +207,7 @@
                     <p><i>inserts a file to an entry within the archive</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/archive.clj#L185-L191" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/archive.clj#L185-L192" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_io_archive__insert">
                         <label class="source-toggle" for="entry__pre_hara_io_archive__insert"></label>
@@ -226,7 +226,7 @@
                     <p><i>lists all the entries in the archive</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/archive.clj#L133-L141" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/archive.clj#L138-L145" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_io_archive__list">
                         <label class="source-toggle" for="entry__pre_hara_io_archive__list"></label>
@@ -245,7 +245,7 @@
                     <p><i>either opens an existing archive or creates one if it doesn't exist</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/archive.clj#L89-L111" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/archive.clj#L95-L116" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_io_archive__open">
                         <label class="source-toggle" for="entry__pre_hara_io_archive__open"></label>
@@ -278,7 +278,7 @@
                     <p><i>returns the url of the archive</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/archive.clj#L122-L131" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/archive.clj#L127-L136" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_io_archive__path">
                         <label class="source-toggle" for="entry__pre_hara_io_archive__path"></label>
@@ -299,7 +299,7 @@
                     <p><i>removes an entry from the archive</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/archive.clj#L193-L199" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/archive.clj#L194-L201" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_io_archive__remove">
                         <label class="source-toggle" for="entry__pre_hara_io_archive__remove"></label>
@@ -318,7 +318,7 @@
                     <p><i>creates a stream for an entry wthin the archive</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/archive.clj#L207-L213" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/archive.clj#L218-L226" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_io_archive__stream">
                         <label class="source-toggle" for="entry__pre_hara_io_archive__stream"></label>
@@ -338,7 +338,7 @@
                     <p><i>returns the url of the archive</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/archive.clj#L113-L120" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/archive.clj#L118-L125" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_io_archive__url">
                         <label class="source-toggle" for="entry__pre_hara_io_archive__url"></label>
@@ -357,7 +357,7 @@
                     <p><i>writes files to an archive</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/archive.clj#L201-L205" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/archive.clj#L203-L216" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_io_archive__write">
                         <label class="source-toggle" for="entry__pre_hara_io_archive__write"></label>
@@ -382,7 +382,7 @@
                     <p><i>checks if object is a `ZipSystem`</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/archive.clj#L69-L71" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/io/archive.clj#L69-L76" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_io_archive__zip_system_QMARK_">
                         <label class="source-toggle" for="entry__pre_hara_io_archive__zip_system_QMARK_"></label>

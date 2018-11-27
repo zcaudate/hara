@@ -60,9 +60,9 @@
           <div class="heading">
             <div>
               <h5>Author: Chris Zheng&nbsp;&nbsp;<a href="mailto:z@caudate.me">(z@caudate.me)</a></h5>
-              <h5>Date: 04 November 2018</h5>
+              <h5>Date: 27 November 2018</h5>
               <h5>Repository: <a href="https://github.com/zcaudate/hara">https://github.com/zcaudate/hara</a></h5>
-              <h5>Version: 3.0.1</h5></div></div>
+              <h5>Version: 3.0.2</h5></div></div>
           <hr/>
 
           <div class="toc">
@@ -79,7 +79,7 @@
 </div><div>
     <span id="installation"></span>
     <h3>1.1 &nbsp;&nbsp; Installation</h3>
-</div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;hara/math &quot;3.0.1&quot;&#93;</code></pre>
+</div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;hara/math &quot;3.0.2&quot;&#93;</code></pre>
 </div><div><p>All functions are in the <code>hara.math</code> namespace.      </p><pre><code> &#40;use &#40;quote hara.math&#41;&#41;</code></pre>
 </div><div>
     <span id="general"></span>
@@ -463,7 +463,7 @@
                     <p><i>returns the cumulative density for the distribution</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/math/stats/distribution.clj#L140-L157" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/math/stats/distribution.clj#L141-L158" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_math_stats__cumulative">
                         <label class="source-toggle" for="entry__pre_hara_math_stats__cumulative"></label>
@@ -479,7 +479,7 @@
         (throw (ex-info "Unknown type." {:input x}))))</code></pre>
                     </div>
                 </div>
-                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/math/stats/distribution_test.clj#L42-L48" target="_blank">link</a></i></h6><code class="clojure">(cumulative (laplace 1 2) 4)
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/math/stats/distribution_test.clj#L43-L49" target="_blank">link</a></i></h6><code class="clojure">(cumulative (laplace 1 2) 4)
 => 0.888434919925785
 
 (cumulative (binomial 10 0.3) [1 2 3])
@@ -492,7 +492,7 @@
                     <p><i>returns the probability density for the distribution</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/math/stats/distribution.clj#L120-L138" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/math/stats/distribution.clj#L121-L139" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_math_stats__probability">
                         <label class="source-toggle" for="entry__pre_hara_math_stats__probability"></label>
@@ -508,7 +508,7 @@
         (throw (ex-info "Unknown type." {:input x}))))</code></pre>
                     </div>
                 </div>
-                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/math/stats/distribution_test.clj#L31-L38" target="_blank">link</a></i></h6><code class="clojure">(probability (laplace 1 2) 4)
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/math/stats/distribution_test.clj#L32-L39" target="_blank">link</a></i></h6><code class="clojure">(probability (laplace 1 2) 4)
 => 0.05578254003710745
 
 
@@ -522,7 +522,7 @@
                     <p><i>gives a random sample from distribution</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/math/stats/distribution.clj#L110-L118" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/math/stats/distribution.clj#L111-L119" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_math_stats__random_sample">
                         <label class="source-toggle" for="entry__pre_hara_math_stats__random_sample"></label>
@@ -531,7 +531,7 @@
   (.random dist))</code></pre>
                     </div>
                 </div>
-                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/math/stats/distribution_test.clj#L24-L28" target="_blank">link</a></i></h6><code class="clojure">(random-sample (laplace 1 2))
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/math/stats/distribution_test.clj#L25-L29" target="_blank">link</a></i></h6><code class="clojure">(random-sample (laplace 1 2))
 ;; 1.9528692108205805
 => number?</code></pre>
             </div>

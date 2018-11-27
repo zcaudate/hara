@@ -60,9 +60,9 @@
           <div class="heading">
             <div>
               <h5>Author: Chris Zheng&nbsp;&nbsp;<a href="mailto:z@caudate.me">(z@caudate.me)</a></h5>
-              <h5>Date: 04 November 2018</h5>
+              <h5>Date: 27 November 2018</h5>
               <h5>Repository: <a href="https://github.com/zcaudate/hara">https://github.com/zcaudate/hara</a></h5>
-              <h5>Version: 3.0.1</h5></div></div>
+              <h5>Version: 3.0.2</h5></div></div>
           <hr/>
 
           <div class="toc">
@@ -79,7 +79,7 @@
 </div><div>
     <span id="installation"></span>
     <h3>1.1 &nbsp;&nbsp; Installation</h3>
-</div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;hara/test &quot;3.0.1&quot;&#93;</code></pre>
+</div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;hara/test &quot;3.0.2&quot;&#93;</code></pre>
 </div><div><p>All functions are in the <code>hara.test</code> namespace.      </p><pre><code> &#40;use &#40;quote hara.test&#41;&#41;</code></pre>
 </div><div>
     <span id="general"></span>
@@ -103,7 +103,7 @@
                     <p><i>main entry point for leiningen</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test.clj#L138-L147" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test.clj#L144-L153" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_test___main">
                         <label class="source-toggle" for="entry__pre_hara_test___main"></label>
@@ -117,7 +117,7 @@
        res))))</code></pre>
                     </div>
                 </div>
-                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test_test.clj#L36-L38" target="_blank">link</a></i></h6><code class="clojure">(-main)</code></pre>
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test_test.clj#L42-L44" target="_blank">link</a></i></h6><code class="clojure">(-main)</code></pre>
             </div>
             <div class="entry">
                 <span id="entry__hara_test__print_options"></span>
@@ -126,7 +126,7 @@
                     <p><i>output options for test results</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test.clj#L95-L122" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test.clj#L101-L128" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__print_options">
                         <label class="source-toggle" for="entry__pre_hara_test__print_options"></label>
@@ -165,7 +165,7 @@
                     <p><i>runs all tests</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test.clj#L82-L93" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test.clj#L88-L99" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__run">
                         <label class="source-toggle" for="entry__pre_hara_test__run"></label>
@@ -188,7 +188,7 @@
                     <p><i>runs only the tests that have errored</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test.clj#L149-L155" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test.clj#L155-L161" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__run_errored">
                         <label class="source-toggle" for="entry__pre_hara_test__run_errored"></label>
@@ -293,16 +293,16 @@
                     <p><i>a checker that returns true for any value</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/base.clj#L160-L168" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/base.clj#L161-L169" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__anything">
                         <label class="source-toggle" for="entry__pre_hara_test__anything"></label>
                         <pre class="source"><code class="clojure">(defn anything
   [x]
-  ((satisfies primitive/T) x))</code></pre>
+  ((satisfies util/T) x))</code></pre>
                     </div>
                 </div>
-                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test/checker/base_test.clj#L81-L85" target="_blank">link</a></i></h6><code class="clojure">(anything nil) => true
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test/checker/base_test.clj#L82-L86" target="_blank">link</a></i></h6><code class="clojure">(anything nil) => true
 
 (anything [:hello :world]) => true</code></pre>
             </div>
@@ -313,7 +313,7 @@
                     <p><i>checker that allows approximate verifications</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/base.clj#L90-L106" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/base.clj#L91-L107" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__approx">
                         <label class="source-toggle" for="entry__pre_hara_test__approx"></label>
@@ -324,11 +324,11 @@
    (common/checker
     {:tag :approx
      :doc "Checks if the result is approximately the given value"
-     :fn (fn [res] (< (- v threshold) (common/->data res) (+ v threshold)))
+     :fn (fn [res] (< (- v threshold) (result/->data res) (+ v threshold)))
      :expect v})))</code></pre>
                     </div>
                 </div>
-                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test/checker/base_test.clj#L55-L61" target="_blank">link</a></i></h6><code class="clojure">((approx 1) 1.000001) => true
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test/checker/base_test.clj#L56-L62" target="_blank">link</a></i></h6><code class="clojure">((approx 1) 1.000001) => true
 
 ((approx 1) 1.1) => false
 
@@ -341,7 +341,7 @@
                     <p><i>checker for maps and vectors</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/collection.clj#L92-L120" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/collection.clj#L93-L121" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__contains">
                         <label class="source-toggle" for="entry__pre_hara_test__contains"></label>
@@ -357,7 +357,7 @@
         (contains-vector x (set modifiers))
 
         :else
-        (throw (Exception. "Cannot create contains checker"))))</code></pre>
+        (throw (ex-info "Cannot create contains checker" {:input [x modifiers]}))))</code></pre>
                     </div>
                 </div>
                 <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test/checker/collection_test.clj#L43-L71" target="_blank">link</a></i></h6><code class="clojure">((contains {:a odd? :b even?}) {:a 1 :b 4})
@@ -379,7 +379,7 @@
                     <p><i>shorthand for checking nested maps and vectors</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/collection.clj#L197-L216" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/collection.clj#L198-L217" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__contains_in">
                         <label class="source-toggle" for="entry__pre_hara_test__contains_in"></label>
@@ -410,7 +410,7 @@
                     <p><i>checker that allows exact verifications</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/base.clj#L72-L88" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/base.clj#L73-L89" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__exactly">
                         <label class="source-toggle" for="entry__pre_hara_test__exactly"></label>
@@ -421,11 +421,11 @@
    (common/checker
     {:tag :exactly
      :doc "Checks if the result exactly satisfies the condition"
-     :fn (fn [res] (= (function (common/->data res)) v))
+     :fn (fn [res] (= (function (result/->data res)) v))
      :expect v})))</code></pre>
                     </div>
                 </div>
-                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test/checker/base_test.clj#L46-L52" target="_blank">link</a></i></h6><code class="clojure">((exactly 1) 1) => true
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test/checker/base_test.clj#L47-L53" target="_blank">link</a></i></h6><code class="clojure">((exactly 1) 1) => true
 
 ((exactly Long) 1) => false
 
@@ -466,7 +466,7 @@
                     <p><i>combination checker for both maps and vectors</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/collection.clj#L166-L195" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/collection.clj#L167-L196" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__just">
                         <label class="source-toggle" for="entry__pre_hara_test__just"></label>
@@ -482,7 +482,7 @@
         (just-vector x (set modifiers))
 
         :else
-        (throw (Exception. "Cannot create just checker"))))</code></pre>
+        (throw (ex-info "Cannot create just checker" {:input [x modifiers]}))))</code></pre>
                     </div>
                 </div>
                 <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test/checker/collection_test.clj#L86-L101" target="_blank">link</a></i></h6><code class="clojure">((just {:a odd? :b even?}) {:a 1 :b 4})
@@ -507,7 +507,7 @@
                     <p><i>shorthand for exactly checking nested maps and vectors</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/collection.clj#L218-L241" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/collection.clj#L219-L242" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__just_in">
                         <label class="source-toggle" for="entry__pre_hara_test__just_in"></label>
@@ -542,7 +542,7 @@
                     <p><i>checker that allows loose verifications</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/base.clj#L108-L158" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/base.clj#L109-L159" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__satisfies">
                         <label class="source-toggle" for="entry__pre_hara_test__satisfies"></label>
@@ -554,7 +554,7 @@
     {:tag :satisfies
      :doc "Checks if the result can satisfy the condition:"
      :fn (fn [res]
-           (let [data (function (common/->data res))]
+           (let [data (function (result/->data res))]
              (cond (= data v) true
                    
                    (class? v) (instance? v data)
@@ -583,7 +583,7 @@
      :expect v})))</code></pre>
                     </div>
                 </div>
-                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test/checker/base_test.clj#L64-L78" target="_blank">link</a></i></h6><code class="clojure">((satisfies 1) 1) => true
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test/checker/base_test.clj#L65-L79" target="_blank">link</a></i></h6><code class="clojure">((satisfies 1) 1) => true
 
 ((satisfies Long) 1) => true
 
@@ -604,7 +604,7 @@
                     <p><i>checker that determines if an exception has been thrown</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/base.clj#L49-L70" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/base.clj#L50-L71" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__throws">
                         <label class="source-toggle" for="entry__pre_hara_test__throws"></label>
@@ -615,8 +615,8 @@
    (common/checker
     {:tag :throws
      :doc "Checks if an exception has been thrown"
-     :fn (fn [{:keys [^Throwable data type]}]
-           (and (= :exception type)
+     :fn (fn [{:keys [data status]}]
+           (and (= :exception status)
                 (instance? e data)
                 (if msg
                   (= msg (.getMessage data))
@@ -624,9 +624,9 @@
      :expect {:exception e :message msg}})))</code></pre>
                     </div>
                 </div>
-                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test/checker/base_test.clj#L37-L43" target="_blank">link</a></i></h6><code class="clojure">((throws Exception "Hello There")
- (common/map->Result
-  {:type :exception
+                <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test/checker/base_test.clj#L38-L44" target="_blank">link</a></i></h6><code class="clojure">((throws Exception "Hello There")
+ (result/map->Result
+  {:status :exception
    :data (Exception. "Hello There")}))
 => true</code></pre>
             </div>
@@ -637,7 +637,7 @@
                     <p><i>checker that determines if an `ex-info` has been thrown</i></p>
                 </div>
                 <div class="entry-option">
-                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/collection.clj#L243-L259" target="_blank">v&nbsp;3.0</a></h6>
+                    <h6><a href="https://github.com/zcaudate/hara/blob/master/src/hara/test/checker/collection.clj#L244-L260" target="_blank">v&nbsp;3.0</a></h6>
                     <div>
                         <input class="source-toggle" type="checkbox" id="entry__pre_hara_test__throws_info">
                         <label class="source-toggle" for="entry__pre_hara_test__throws_info"></label>
@@ -647,15 +647,15 @@
    (common/checker
     {:tag :raises
      :doc "Checks if an issue has been raised"
-     :fn (fn [{:keys [^Throwable data type]}]
-           (and (= :exception type)
+     :fn (fn [{:keys [^Throwable data status]}]
+           (and (= :exception status)
                 (instance? clojure.lang.ExceptionInfo data)
                 ((contains m) (ex-data data))))
      :expect {:exception clojure.lang.ExceptionInfo :data m}})))</code></pre>
                     </div>
                 </div>
                 <pre><h6><i><a href="https://github.com/zcaudate/hara/blob/master/test/hara/test/checker/collection_test.clj#L124-L128" target="_blank">link</a></i></h6><code class="clojure">((throws-info {:a "hello" :b "there"})
- (common/evaluate '(throw (ex-info "hello" {:a "hello" :b "there"}))))
+ (common/evaluate {:form '(throw (ex-info "hello" {:a "hello" :b "there"}))}))
 => true</code></pre>
             </div>
         </div>

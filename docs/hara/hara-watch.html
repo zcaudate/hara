@@ -60,9 +60,9 @@
           <div class="heading">
             <div>
               <h5>Author: Chris Zheng&nbsp;&nbsp;<a href="mailto:z@caudate.me">(z@caudate.me)</a></h5>
-              <h5>Date: 04 November 2018</h5>
+              <h5>Date: 27 November 2018</h5>
               <h5>Repository: <a href="https://github.com/zcaudate/hara">https://github.com/zcaudate/hara</a></h5>
-              <h5>Version: 3.0.1</h5></div></div>
+              <h5>Version: 3.0.2</h5></div></div>
           <hr/>
 
           <div class="toc">
@@ -78,12 +78,12 @@
 </div><div>
     <span id="installation"></span>
     <h3>1.1 &nbsp;&nbsp; Installation</h3>
-</div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;hara/base &quot;3.0.1&quot;&#93;</code></pre>
+</div><div><p>Add to <code>project.clj</code> dependencies:</p><pre><code>&#91;hara/base &quot;3.0.2&quot;&#93;</code></pre>
 </div><div><p>All functions are in the <code>hara.watch</code> namespace.      </p><pre><code> &#40;use &#40;quote hara.watch&#41;&#41;</code></pre>
 </div><div>
     <span id="filesystem"></span>
     <h3>1.2 &nbsp;&nbsp; Filesystem</h3>
-</div><div><p>If watching on the filesystem is required, add to <code>project.clj</code> dependencies:</p><pre><code>&#91;hara/io.file &quot;3.0.1&quot;&#93;</code></pre>
+</div><div><p>If watching on the filesystem is required, add to <code>project.clj</code> dependencies:</p><pre><code>&#91;hara/io.file &quot;3.0.2&quot;&#93;</code></pre>
 </div><div><p>The extension can then be loaded:</p>
 </div><div class="code">
     <pre><code class="clojure">(require 'hara.io.file.watch)</code></pre>
@@ -352,7 +352,7 @@
     <h3>3.4 &nbsp;&nbsp; Components</h3>
 </div><div><p>It was actually very easy to build <code>hara.io.file.watch</code> using the idea of something that is startable and stoppable. <code>watcher</code>, <code>start-watcher</code> and <code>stop-watcher</code> all follow the conventions and so it becomes easy to wrap the component model around the three methods:</p>
 </div><div class="code">
-    <pre><code class="clojure">(require '[hara.core.component :as component]
+    <pre><code class="clojure">(require '[hara.component :as component]
          '[hara.io.file.watch :refer :all])
 
 (extend-protocol component/IComponent
